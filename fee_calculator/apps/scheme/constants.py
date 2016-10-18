@@ -23,3 +23,15 @@ FEE_UNIT = Choices(
     ('CASE', 4, 'Case'),
     ('FIXED', 5, 'Fixed'),
 )
+
+
+APRT_APPROVAL_TYPE = Choices(
+    ('MANUAL',  1, 'Manual'),
+    ('VALIDATE',   2, 'Validate'),
+)
+
+
+HEARING_TYPE = Choices(
+    ('ANCILLARY',  1, 'Ancillary'),
+    ('MAIN',   2, 'Main'),
+)
