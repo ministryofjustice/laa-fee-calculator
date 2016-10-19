@@ -39,4 +39,4 @@ class BaseSchemeViewSet(viewsets.ReadOnlyModelViewSet):
         except Scheme.DoesNotExist:
             raise Http404
 
-        return Response(scheme)
+        return Response(SchemeSerializer(scheme).data)
