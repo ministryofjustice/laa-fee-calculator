@@ -8,6 +8,7 @@ class SchemeSerializer(serializers.ModelSerializer):
     class Meta():
         model = Scheme
         fields = (
+            'id',
             'effective_date',
             'start_date',
             'end_date',
