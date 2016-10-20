@@ -45,6 +45,9 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework_swagger',
+
+    'api',
+    'calculator',
 ]
 
 MIDDLEWARE = [
@@ -110,6 +113,15 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100
+}
+
+
+API_VERSION = 'v1'
 
 
 # Internationalization
