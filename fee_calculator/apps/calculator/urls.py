@@ -8,8 +8,8 @@ from scheme.views import BaseSchemeViewSet, SchemeViewSet
 
 
 router = routers.DefaultRouter()
-router.register(r'scheme', BaseSchemeViewSet, base_name='scheme')
-router.register(r'scheme', SchemeViewSet, base_name='scheme-by-date')
+router.register(r'schemes', BaseSchemeViewSet, base_name='schemes')
+router.register(r'schemes', SchemeViewSet, base_name='schemes-by-date')
 
 schema_view = get_swagger_view(title='Calculator API')
 

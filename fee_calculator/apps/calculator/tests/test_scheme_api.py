@@ -6,7 +6,7 @@ from rest_framework.test import APITestCase
 
 
 class SchemeApiTestCase(APITestCase):
-    endpoint = '/api/%s/scheme/' % settings.API_VERSION
+    endpoint = '/api/%s/schemes/' % settings.API_VERSION
     fixtures = ['fee_calculator/apps/scheme/fixtures/initial_data.yaml']
 
     def _test_get_not_allowed(self, url):
@@ -32,7 +32,7 @@ class SchemeApiTestCase(APITestCase):
     def test_get_list_available(self):
         response = self.client.get(self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 10)
+        self.assertEqual(len(response.data['results']), 10)
 
     def test_get_detail_available(self):
         response = self.client.get('%s1/' % self.endpoint)
