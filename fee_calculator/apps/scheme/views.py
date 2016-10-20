@@ -13,13 +13,21 @@ from .models import Scheme
 from .serializers import SchemeSerializer
 
 
-class BaseSchemeViewSet(viewsets.ReadOnlyModelViewSet):
+class SchemeViewSetMixin():
     model = Scheme
     serializer_class = SchemeSerializer
-    lookup_field = 'suty'
 
     def get_queryset(self):
         return self.model.objects.all()
+
+
+class BaseSchemeViewSet(SchemeViewSetMixin, viewsets.ReadOnlyModelViewSet):
+    lookup_value_regex = '\d+'
+
+
+class SchemeViewSet(SchemeViewSetMixin, viewsets.GenericViewSet):
+    lookup_field = 'suty'
+    lookup_value_regex = '|'.join([t.lower() for t in SUTY_BASE_TYPE.constants])
 
     @detail_route(url_path='(?P<case_date>[0-9-]+)')
     def get_by_date(self, request, suty=None, case_date=None):
