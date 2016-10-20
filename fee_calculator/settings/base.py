@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
 
     'api',
-    'scheme',
+    'calculator',
 ]
 
 MIDDLEWARE = [

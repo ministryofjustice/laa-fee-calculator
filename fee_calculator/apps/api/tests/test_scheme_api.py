@@ -7,7 +7,7 @@ from rest_framework.test import APITestCase
 
 class SchemeApiTestCase(APITestCase):
     endpoint = '/api/%s/schemes/' % settings.API_VERSION
-    fixtures = ['fee_calculator/apps/scheme/fixtures/initial_data.yaml']
+    fixtures = ['fee_calculator/apps/calculator/fixtures/initial_data.yaml']
 
     def _test_get_not_allowed(self, url):
         response = self.client.get(url)

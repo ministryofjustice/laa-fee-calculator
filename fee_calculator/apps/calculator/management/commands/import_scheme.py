@@ -3,8 +3,8 @@ from django.core.management.base import BaseCommand
 
 from openpyxl import load_workbook
 
-from scheme.constants import SUTY_BASE_TYPE
-from scheme.models import Scheme
+from calculator.constants import SUTY_BASE_TYPE
+from calculator.models import Scheme
 
 
 def to_list_of_dicts(wb):
@@ -26,33 +26,33 @@ def to_list_of_dicts(wb):
 
 
 class Command(BaseCommand):
-    help = 'Load Scheme from scheme.xlsx and headers.xlsx'
+    help = 'Load Scheme from calculator.xlsx and headers.xlsx'
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '-s', '--scheme', type=str,
-            help='xlsx file with schemes in it')
+            '-s', '--calculator', type=str,
+            help='xlsx file with calculators in it')
         parser.add_argument(
             '-f', '--header', type=str,
-            help='xlsx file with scheme dates in it')
+            help='xlsx file with calculator dates in it')
 
     def handle(self, *args, **options):
-        scheme_wb = load_workbook(options['scheme'])
+        calculator_wb = load_workbook(options['calculator'])
         header_wb = load_workbook(options['header'])
 
-        schemes = to_list_of_dicts(scheme_wb)
+        calculators = to_list_of_dicts(calculator_wb)
         headers = to_list_of_dicts(header_wb)
 
-        for fesh_first_id, scheme in schemes.items():
+        for fesh_first_id, calculator in calculators.items():
             header = headers[fesh_first_id]
             s, c = Scheme.objects.get_or_create(
                 effective_date=header['effective_date'],
                 start_date=header['start_date'],
                 end_date=header['end_date'],
                 suty_base_type=SUTY_BASE_TYPE.for_constant(
-                    scheme['suty_base_type']
+                    calculator['suty_base_type']
                 ).value,
-                description=scheme['description'],
+                description=calculator['description'],
             )
 
             if c:
