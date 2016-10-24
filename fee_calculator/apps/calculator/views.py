@@ -26,7 +26,7 @@ class BaseSchemeViewSet(SchemeViewSetMixin, viewsets.ReadOnlyModelViewSet):
     API endpoint that allows schemas to be viewed.
 
     retrieve:
-    Return a user instance.
+    Return a scheme instance.
 
     list:
     Return all schemes, ordered by id
