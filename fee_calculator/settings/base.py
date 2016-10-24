@@ -124,6 +124,11 @@ REST_FRAMEWORK = {
 API_VERSION = 'v1'
 
 
+SWAGGER_SETTINGS = {
+    'APIS_SORTER': 'alpha'
+}
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
