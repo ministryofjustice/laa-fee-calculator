@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 
-from .constants import (SUTY_BASE_TYPE, PSTY_PERSON_TYPE, FEE_UNIT,
-                        APRT_APPROVAL_TYPE, HEARING_TYPE)
+from .constants import SUTY_BASE_TYPE
 
 
 class Scheme(models.Model):
@@ -13,49 +12,30 @@ class Scheme(models.Model):
     description = models.CharField(max_length=150)
 
 
-class BillType(models.Model):
+class Scenario(models.Model):
+    name = models.CharField(max_length=64)
+    fee_types = models.ManyToManyField('FeeType', related_name='scenarios')
+
+
+class FeeType(models.Model):
+    name = models.CharField(max_length=128)
     code = models.CharField(max_length=20)
-    description = models.CharField(max_length=150)
-    enabled = models.BooleanField()
-    appeal_allowed = models.BooleanField()
-    auto_authorise_threshold = models.PositiveSmallIntegerField(null=True)
-    auto_authorise_threshold_num = models.PositiveSmallIntegerField(null=True)
-    final_bill = models.BooleanField()
-    ordering_value = models.PositiveSmallIntegerField()
-    recoup_allowed = models.BooleanField()
-    vat = models.BooleanField()
+    is_basic = models.BooleanField()
 
 
-class BillSubType(models.Model):
-    cccd_fee_type = models.CharField(max_length=10, null=True)
-    bill_type = models.ForeignKey('BillType', related_name='sub_types')
-    code = models.CharField(max_length=20)
-    description = models.CharField(max_length=150)
-    calculation_method = models.PositiveSmallIntegerField()  # TODO need to sort choices for this
-    case_uplift_allowed = models.NullBooleanField()
-    aprt_approval_type = models.PositiveSmallIntegerField(
-        choices=APRT_APPROVAL_TYPE)
-    cis_transaction_category = models.PositiveSmallIntegerField()  # TODO need to sort choices or foreign key for this
-    defendant_uplift_allowed = models.BooleanField()
-    enabled = models.BooleanField()
-    evid_threshold_amount = models.PositiveSmallIntegerField(null=True)
-    hearing_type = models.PositiveSmallIntegerField(
-        null=True, choices=HEARING_TYPE)
-    max_claim_value = models.PositiveIntegerField()
-    notes = models.TextField(null=True)
-    on_indictment = models.NullBooleanField()
-    prior_auth_reqd = models.NullBooleanField()
-    rate_applicable = models.BooleanField()
-    refference_prefix = models.CharField(max_length=10, null=True)
+class AdvocateType(models.Model):
+    name = models.CharField(max_length=64)
 
 
-class Fee(models.Model):
-    scheme = models.ForeignKey('Scheme', related_name='fees')
-    psty_person_type = models.PositiveSmallIntegerField(
-        choices=PSTY_PERSON_TYPE)
-    limit_from = models.PositiveSmallIntegerField()
-    limit_to = models.PositiveSmallIntegerField(null=True)
-    fee_per_unit = models.PositiveSmallIntegerField()
-    unit = models.PositiveSmallIntegerField(choices=FEE_UNIT)
-    additional_uplift_perc = models.PositiveSmallIntegerField()
-    bist_bill_sub_type = models.ForeignKey('BillSubType', related_name='fees')
+class OffenceClass(models.Model):
+    name = models.CharField(max_length=64)
+
+
+class Price(models.Model):
+    advocate_type = models.ForeignKey(
+        'AdvocateType', related_name='prices', null=True)
+    offence_class = models.ForeignKey(
+        'OffenceClass', related_name='prices', null=True)
+    fee_type = models.ForeignKey(
+        'FeeType', related_name='prices')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
