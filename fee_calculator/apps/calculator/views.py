@@ -3,10 +3,12 @@ from datetime import datetime
 
 from django.db.models import Q
 from django.http import Http404
-
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
+from rest_framework.exceptions import NotFound
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
+from rest_framework.compat import coreapi
 
 from .constants import SUTY_BASE_TYPE
 from .models import (
@@ -14,6 +16,7 @@ from .models import (
 from .serializers import (
     SchemeSerializer, FeeTypeSerializer, ScenarioSerializer,
     OffenceClassSerializer, AdvocateTypeSerializer, PriceSerializer)
+from .filters import swagger_filter_backend_class
 
 
 class SchemeViewSetMixin():
@@ -104,33 +107,102 @@ class AdvocateTypeViewSet(viewsets.ReadOnlyModelViewSet):
 class PriceViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Prices.
-    ---
+
+    retrieve:
+    get a price instance.
+
     list:
-        parameters:
-            - name: scenario_id
-              description: scenario id
-            - name: advocate_type_id
-              description: advocate type id
-            - name: fee_type_id
-              description: fee type id
+    get a list of prices.
     """
+
+    api_doc = [
+        {
+            'name': 'scheme_id',
+            'required': True,
+            'location': 'query',
+            'type': 'integer',
+            'description': 'The id of fee scheme.'
+         },
+        {
+            'name': 'scenario_id',
+            'required': False,
+            'location': 'query',
+            'type': 'integer',
+            'description': 'The id of scenario.'
+         },
+        {
+            'name': 'fee_type_id',
+            'required': False,
+            'location': 'query',
+            'type': 'integer',
+            'description': 'The id of fee type.'
+         },
+        {
+            'name': 'advocate_type_id',
+            'required': False,
+            'location': 'query',
+            'type': 'integer',
+            'description': (
+                'The id of advocate type. Note the query will return prices'
+                ' with `advocate_type_id` either matching the value or null.')
+         },
+        {
+            'name': 'offence_class_id',
+            'required': False,
+            'location': 'query',
+            'type': 'integer',
+            'description': (
+                'The id of offence class. Note the query will return prices'
+                ' with `offence_class_id` either matching the value or null.')
+         },
+    ]
     serializer_class = PriceSerializer
+    filter_backends = (swagger_filter_backend_class(api_doc),)
+    filter_fields = ('scheme_id', 'fee_type_id')
+
+    def sanitise_parameter(self, name, sanitise):
+        """
+        sanitise query parameter
+        :param name: name of the parameter
+        :param sanitise: a function for validating the value. it should return
+        the sanitised value or raise an exception if not valid.
+        :return: value of the sanitised parameter or None if name not found.
+        :raise: NotFound
+        """
+        try:
+            value = self.request.query_params[name]
+        except KeyError:
+            return
+        try:
+            return sanitise(value)
+        except Exception:
+            detail = "Invalid parameter {}='{}'.".format(name, value)
+            raise NotFound(detail)
 
     def get_queryset(self):
+        scenario_id = self.sanitise_parameter('scenario_id', int)
+        advocate_type_id = self.sanitise_parameter('advocate_type_id', int)
+        offence_class_id = self.sanitise_parameter('offence_class_id', int)
         queryset = Price.objects.all()
-        scenario_id = self.request.query_params.get('scenario_id', None)
-        advocate_type_id = self.request.query_params.get(
-            'advocate_type_id', None)
-        fee_type_id = self.request.query_params.get('fee_type_id', None)
         if scenario_id:
             try:
                 scenario = Scenario.objects.get(id=scenario_id)
             except Scenario.DoesNotExist:
-                raise Http404
+                detail = "Cannot find a scenario with id='{}'.".format(
+                    scenario_id)
+                raise NotFound(detail)
             fee_types = FeeType.objects.filter(scenarios__in=[scenario])
             queryset = queryset.filter(fee_type__in=fee_types)
         if advocate_type_id:
-            queryset = queryset.filter(advocate_type_id=advocate_type_id)
-        if fee_type_id:
-            queryset = queryset.filter(fee_type_id=fee_type_id)
+            # for convenience of real usecase, either match or null
+            # instead of just match
+            queryset = queryset.filter(
+                Q(advocate_type_id=advocate_type_id) |
+                Q(advocate_type_id__isnull=True))
+        if offence_class_id:
+            # for convenience of real usecase, either match or None
+            # instead of just match
+            queryset = queryset.filter(
+                Q(offence_class_id=offence_class_id) |
+                Q(offence_class_id__isnull=True))
         return queryset

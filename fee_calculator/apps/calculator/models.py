@@ -32,6 +32,8 @@ class OffenceClass(models.Model):
 
 
 class Price(models.Model):
+    scheme = models.ForeignKey(
+        'Scheme', related_name='prices')
     advocate_type = models.ForeignKey(
         'AdvocateType', related_name='prices', null=True)
     offence_class = models.ForeignKey(
