@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework_swagger',
+    'moj_irat',
 
     'api',
     'calculator',
@@ -147,3 +148,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+PING_JSON_KEYS = {
+    'build_date_key': 'APP_BUILD_DATE',
+    'commit_id_key': 'APP_GIT_COMMIT',
+    'version_number_key': 'APPVERSION',
+    'build_tag_key': 'APP_BUILD_TAG',
+}
+
+HEALTHCHECKS = [
+    'moj_irat.healthchecks.database_healthcheck',
+]
+
+AUTODISCOVER_HEALTHCHECKS = True

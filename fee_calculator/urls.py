@@ -13,11 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
+
+from moj_irat.views import PingJsonView, HealthcheckView
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include('api.urls')),
+    url(r'^ping.json$', PingJsonView.as_view(**settings.PING_JSON_KEYS),
+        name='ping_json'),
+    url(r'^healthcheck.json$', HealthcheckView.as_view(),
+        name='healthcheck_json'),
 ]
