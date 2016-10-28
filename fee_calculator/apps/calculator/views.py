@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
+from collections import OrderedDict
 from datetime import datetime
 
 from django.db.models import Q
 from django.http import Http404
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
-from rest_framework.exceptions import NotFound
+from rest_framework.exceptions import NotFound, ValidationError
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
-from rest_framework.compat import coreapi
 
 from .constants import SUTY_BASE_TYPE
 from .models import (
@@ -115,75 +114,86 @@ class PriceViewSet(viewsets.ReadOnlyModelViewSet):
     get a list of prices.
     """
 
-    api_doc = [
-        {
+    schema = OrderedDict([
+        ('scheme_id', {
             'name': 'scheme_id',
             'required': True,
             'location': 'query',
             'type': 'integer',
-            'description': 'The id of fee scheme.'
-         },
-        {
+            'description': 'The id of fee scheme.',
+            'validator': int
+         }),
+        ('scenario_id', {
             'name': 'scenario_id',
             'required': False,
             'location': 'query',
             'type': 'integer',
-            'description': 'The id of scenario.'
-         },
-        {
+            'description': 'The id of scenario.',
+            'validator': int
+         }),
+        ('fee_type_id', {
             'name': 'fee_type_id',
             'required': False,
             'location': 'query',
             'type': 'integer',
-            'description': 'The id of fee type.'
-         },
-        {
+            'description': 'The id of fee type.',
+            'validator': int
+         }),
+        ('advocate_type_id', {
             'name': 'advocate_type_id',
             'required': False,
             'location': 'query',
             'type': 'integer',
             'description': (
                 'The id of advocate type. Note the query will return prices'
-                ' with `advocate_type_id` either matching the value or null.')
-         },
-        {
+                ' with `advocate_type_id` either matching the value or null.'),
+            'validator': int
+         }),
+        ('offence_class_id', {
             'name': 'offence_class_id',
             'required': False,
             'location': 'query',
             'type': 'integer',
             'description': (
                 'The id of offence class. Note the query will return prices'
-                ' with `offence_class_id` either matching the value or null.')
-         },
-    ]
+                ' with `offence_class_id` either matching the value or null.'),
+            'validator': int
+         }),
+    ])
     serializer_class = PriceSerializer
-    filter_backends = (swagger_filter_backend_class(api_doc),)
-    filter_fields = ('scheme_id', 'fee_type_id')
+    filter_backends = (swagger_filter_backend_class(schema.values()),)
 
-    def sanitise_parameter(self, name, sanitise):
+    def sanitise_parameter(self, name):
         """
         sanitise query parameter
         :param name: name of the parameter
-        :param sanitise: a function for validating the value. it should return
-        the sanitised value or raise an exception if not valid.
         :return: value of the sanitised parameter or None if name not found.
-        :raise: NotFound
+        :raise: ValidationError
         """
+        field_schema = self.schema[name]
         try:
             value = self.request.query_params[name]
         except KeyError:
-            return
+            if not field_schema['required']:
+                return
+            raise ValidationError('Missing required field {}'.format(name))
         try:
-            return sanitise(value)
+            return field_schema['validator'](value)
         except Exception:
             detail = "Invalid parameter {}='{}'.".format(name, value)
-            raise NotFound(detail)
+            raise ValidationError(detail)
 
     def get_queryset(self):
-        scenario_id = self.sanitise_parameter('scenario_id', int)
-        advocate_type_id = self.sanitise_parameter('advocate_type_id', int)
-        offence_class_id = self.sanitise_parameter('offence_class_id', int)
+        scheme_id = self.sanitise_parameter('scheme_id')
+        fee_type_id = self.sanitise_parameter('fee_type_id')
+        scenario_id = self.sanitise_parameter('scenario_id')
+        advocate_type_id = self.sanitise_parameter('advocate_type_id')
+        offence_class_id = self.sanitise_parameter('offence_class_id')
         queryset = Price.objects.all()
+        if scheme_id:
+            queryset = queryset.filter(scheme_id=scheme_id)
+        if fee_type_id:
+            queryset = queryset.filter(fee_type_id=fee_type_id)
         if scenario_id:
             try:
                 scenario = Scenario.objects.get(id=scenario_id)
@@ -200,7 +210,7 @@ class PriceViewSet(viewsets.ReadOnlyModelViewSet):
                 Q(advocate_type_id=advocate_type_id) |
                 Q(advocate_type_id__isnull=True))
         if offence_class_id:
-            # for convenience of real usecase, either match or None
+            # for convenience of real usecase, either match or null
             # instead of just match
             queryset = queryset.filter(
                 Q(offence_class_id=offence_class_id) |
