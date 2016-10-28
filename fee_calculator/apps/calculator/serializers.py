@@ -52,4 +52,5 @@ class PriceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Price
-        fields = ('id', 'advocate_type', 'fee_type', 'offence_class', 'scheme')
+        fields = ('id', 'advocate_type', 'fee_type', 'offence_class', 'scheme',
+                  'amount', 'max_count')
