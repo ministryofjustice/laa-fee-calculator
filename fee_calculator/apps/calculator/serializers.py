@@ -45,10 +45,11 @@ class OffenceClassSerializer(serializers.ModelSerializer):
 
 
 class PriceSerializer(serializers.ModelSerializer):
+    scheme = SchemeSerializer(read_only=True)
     advocate_type = AdvocateTypeSerializer(read_only=True)
     fee_type = FeeTypeSerializer(read_only=True)
     offence_class = OffenceClassSerializer(read_only=True)
 
     class Meta:
         model = Price
-        fields = ('id', 'advocate_type', 'fee_type', 'offence_class')
+        fields = ('id', 'advocate_type', 'fee_type', 'offence_class', 'scheme')
