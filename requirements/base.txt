@@ -1,4 +1,5 @@
 Django==1.10.2
+django-cors-headers==1.2.2
 django-extended-choices==1.0.7
 django-filter==0.15.2
 django-rest-swagger==2.0.7
