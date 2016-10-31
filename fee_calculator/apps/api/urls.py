@@ -9,7 +9,7 @@ from calculator.views import (
     OffenceClassViewSet, AdvocateTypeViewSet, PriceViewSet)
 
 
-router = routers.DefaultRouter()
+router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'fee-schemes', BaseSchemeViewSet, base_name='fee-schemes')
 router.register(r'fee-schemes', SchemeViewSet, base_name='fee-schemes')
 router.register(r'fee-types', FeeTypeViewSet, base_name='fee-types')
@@ -25,5 +25,5 @@ schema_view = get_swagger_view(title='Calculator API')
 
 urlpatterns = (
     url(r'^', include(router.urls)),
-    url(r'^docs/$', schema_view)
+    url(r'^docs$', schema_view)
 )

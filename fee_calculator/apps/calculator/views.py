@@ -117,7 +117,7 @@ class PriceViewSet(viewsets.ReadOnlyModelViewSet):
     schema = OrderedDict([
         ('scheme_id', {
             'name': 'scheme_id',
-            'required': True,
+            'required': False,
             'location': 'query',
             'type': 'integer',
             'description': 'The id of fee scheme.',

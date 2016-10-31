@@ -41,3 +41,4 @@ class Price(models.Model):
     fee_type = models.ForeignKey(
         'FeeType', related_name='prices')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+    max_count = models.SmallIntegerField(null=True)
