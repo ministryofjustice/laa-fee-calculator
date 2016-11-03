@@ -1,0 +1,19 @@
+.quantity-input {
+  width: 50px;
+  margin: 0px 10px 0px 10px;
+}
+
+.quantity-td {
+  white-space: nowrap;
+}
+
+i.fa-minus-circle:hover,
+i.fa-plus-circle:hover {
+  cursor: pointer;
+}
+
+.total-fee {
+  float: right;
+  margin-right: 50px;
+  text-decoration: underline;
+}
