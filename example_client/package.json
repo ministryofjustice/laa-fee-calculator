@@ -2,6 +2,7 @@
   "name": "fee-calulator",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/example-client",
   "devDependencies": {
     "react-redux": "^4.4.5",
     "react-scripts": "0.6.1",
