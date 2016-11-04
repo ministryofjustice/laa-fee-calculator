@@ -90,3 +90,6 @@ ENV/
 
 # local settings
 fee_calculator/settings/local.py
+fee_calculator/static
+
+!example_client/build
