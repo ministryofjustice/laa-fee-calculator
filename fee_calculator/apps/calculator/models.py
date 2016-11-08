@@ -29,6 +29,7 @@ class AdvocateType(models.Model):
 
 class OffenceClass(models.Model):
     name = models.CharField(max_length=64)
+    description = models.CharField(max_length=150)
 
 
 class Price(models.Model):
@@ -40,5 +41,5 @@ class Price(models.Model):
         'OffenceClass', related_name='prices', null=True)
     fee_type = models.ForeignKey(
         'FeeType', related_name='prices')
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    amount = models.DecimalField(max_digits=10, decimal_places=3)
     max_count = models.SmallIntegerField(null=True)
