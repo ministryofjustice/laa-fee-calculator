@@ -1,0 +1,18 @@
+- model: calculator.advocatetype
+  pk: 1
+  fields: {name: QC alone}
+- model: calculator.advocatetype
+  pk: 2
+  fields: {name: Leading QC}
+- model: calculator.advocatetype
+  pk: 3
+  fields: {name: Leading junior}
+- model: calculator.advocatetype
+  pk: 4
+  fields: {name: Junior led by QC}
+- model: calculator.advocatetype
+  pk: 5
+  fields: {name: Junior led by junior}
+- model: calculator.advocatetype
+  pk: 6
+  fields: {name: Junior alone}
