@@ -23,7 +23,7 @@ function advocateTypes(state = [], action) {
 function offenceClasses(state = [], action) {
   switch(action.type) {
     case 'FETCH_OFFENCE_CLASSES_SUCCEEDED':
-      return action.offenceClasses;
+      return action.offenceClasses.map(item => ({id: item.id, name: `${item.name} - ${item.description}`}));
     default:
       return state;
   }

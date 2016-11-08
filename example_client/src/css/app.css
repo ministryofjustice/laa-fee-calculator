@@ -1,6 +1,7 @@
 .quantity-input {
+  padding-left: 10px;
   width: 50px;
-  margin: 0px 10px 0px 10px;
+  margin: 0px 15px 0px 10px;
 }
 
 .quantity-td {

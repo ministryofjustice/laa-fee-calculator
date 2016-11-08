@@ -19,7 +19,11 @@ function getFeeIdToPrice(prices) {
     if (priceList.length > 1) {
       console.log('multiple prices found for feeTypeId:', feeTypeId, 'prices:', prices, '!');
     }
-    feeIdToPrice.set(feeTypeId, parseFloat(priceList[0]['amount']));
+    const fee = {
+      amount: parseFloat(priceList[0]['amount']),
+      maxCount: priceList[0]['max_count']
+    };
+    feeIdToPrice.set(feeTypeId, fee);
   };
   return feeIdToPrice;
 }
@@ -28,10 +32,12 @@ function getFeeIdToPrice(prices) {
 function getFees(feeTypes, feeIdToPrice, feeIdToQty) {
   return feeTypes.map(feeType => {
     const feeId = feeType.id;
-    const price = feeIdToPrice.get(feeId);
+    const priceObj = feeIdToPrice.get(feeId);
+    const price = priceObj ? priceObj['amount'] : undefined;
     const qty = feeIdToQty.get(feeId) || 0;
     const amount = price ? price * qty : 0;
-    return Object.assign({ price, qty, amount}, feeType);
+    const maxCount = priceObj ? priceObj['maxCount'] : null;
+    return Object.assign({ price, qty, amount, maxCount }, feeType);
   });
 }
 
