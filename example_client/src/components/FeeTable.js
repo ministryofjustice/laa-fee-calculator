@@ -1,5 +1,24 @@
 import React, { PropTypes } from 'react';
 
+const Fee = ({ id, name, code, price, qty, amount, maxCount, handlePlus, handleMinus, handleChange }) => {
+  const exceedMax = maxCount !== null ? qty > maxCount : false;
+  const qtyClassName = exceedMax ? "quantity-input error" : "quantity-input";
+  return (
+    <tr key={ id }>
+      <td>{ name }</td>
+      <td>{ code }</td>
+      <td>{ price !== undefined ? `\u00a3${ parseFloat(price).toFixed(2) }` : '' }</td>
+      <td className="quantity-td">
+        <i className="fa fa-plus-circle" aria-hidden="true" onClick={ e => handlePlus(id) }></i>
+        <input type="number" className={ qtyClassName } value={ qty } onChange={ e => handleChange(id, e.target.value) }/>
+        <i className="fa fa-minus-circle" aria-hidden="true" onClick={ e => handleMinus(id) }></i>
+        { exceedMax ? (<p className="error-message">{`max ${maxCount}`}</p>) : null }
+      </td>
+      <td>{ amount !== 0 ? `\u00a3${ amount.toFixed(2) }` : '' }</td>
+    </tr>
+  );
+}
+
 const FeeTable = ({ fees, handleChange, handlePlus, handleMinus }) => {
   if (fees.length === 0) {
     return null;
@@ -17,18 +36,11 @@ const FeeTable = ({ fees, handleChange, handlePlus, handleMinus }) => {
       </thead>
       <tbody>
       { fees.map(fee => (
-          <tr key={ fee.id }>
-            <td>{ fee.name }</td>
-            <td>{ fee.code }</td>
-            <td>{ fee.price !== undefined ? `\u00a3${ parseFloat(fee.price).toFixed(2) }` : '' }</td>
-            <td className="quantity-td">
-              <i className="fa fa-plus-circle" aria-hidden="true" onClick={ e => handlePlus(fee.id) }></i>
-              <input type="number" className="quantity-input" value={ fee.qty } onChange={ e => handleChange(fee.id, e.target.value) }/>
-              <i className="fa fa-minus-circle" aria-hidden="true" onClick={ e => handleMinus(fee.id) }></i>
-            </td>
-            <td>{ fee.amount !== 0 ? `\u00a3${ fee.amount.toFixed(2) }` : '' }</td>
-          </tr>
-        ))
+        <Fee key={ fee.id } { ...fee }
+          handleChange={ handleChange }
+          handlePlus={ handlePlus }
+          handleMinus={ handleMinus }
+        />))
       }
       </tbody>
     </table>

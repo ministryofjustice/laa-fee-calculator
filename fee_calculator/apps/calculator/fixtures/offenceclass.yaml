@@ -1,0 +1,35 @@
+- model: calculator.offenceclass
+  pk: 1
+  fields: {name: A, description: Homicide and related grave offences}
+- model: calculator.offenceclass
+  pk: 2
+  fields: {name: B, description: Offences involving serious violence or damage and
+      serious drug offences}
+- model: calculator.offenceclass
+  pk: 3
+  fields: {name: C, description: 'Lesser offences involving violence or damage, and
+      less serious drug offences'}
+- model: calculator.offenceclass
+  pk: 4
+  fields: {name: D, description: Serious sexual offences and offences against children}
+- model: calculator.offenceclass
+  pk: 5
+  fields: {name: E, description: 'Burglary, etc'}
+- model: calculator.offenceclass
+  pk: 6
+  fields: {name: F, description: Other offences of dishonesty}
+- model: calculator.offenceclass
+  pk: 7
+  fields: {name: G, description: Other offences of dishonesty}
+- model: calculator.offenceclass
+  pk: 8
+  fields: {name: H, description: Miscellaneous other offences}
+- model: calculator.offenceclass
+  pk: 9
+  fields: {name: I, description: Offences against public justice and similar offences}
+- model: calculator.offenceclass
+  pk: 10
+  fields: {name: J, description: Serious Sexual Offences}
+- model: calculator.offenceclass
+  pk: 11
+  fields: {name: K, description: Other offences of dishonesty (high value)}

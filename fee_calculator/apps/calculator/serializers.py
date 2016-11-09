@@ -41,7 +41,7 @@ class AdvocateTypeSerializer(serializers.ModelSerializer):
 class OffenceClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = OffenceClass
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'description')
 
 
 class PriceSerializer(serializers.ModelSerializer):

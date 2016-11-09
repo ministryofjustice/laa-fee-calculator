@@ -1,0 +1,172 @@
+- model: calculator.feetype
+  pk: 1
+  fields: {name: Abuse of process hearing (full day), code: APW, is_basic: false}
+- model: calculator.feetype
+  pk: 2
+  fields: {name: Abuse of process hearing (full day) uplift, code: AWU, is_basic: false}
+- model: calculator.feetype
+  pk: 3
+  fields: {name: Abuse of process hearing (half day), code: APH, is_basic: false}
+- model: calculator.feetype
+  pk: 4
+  fields: {name: Abuse of process hearing (half day) uplift, code: AHU, is_basic: false}
+- model: calculator.feetype
+  pk: 5
+  fields: {name: Additional case, code: NOC, is_basic: false}
+- model: calculator.feetype
+  pk: 6
+  fields: {name: Additional defendant, code: NDR, is_basic: false}
+- model: calculator.feetype
+  pk: 7
+  fields: {name: Appeals to the Crown Court against conviction, code: ACV, is_basic: false}
+- model: calculator.feetype
+  pk: 8
+  fields: {name: Appeals to the Crown Court against conviction uplift, code: ACU,
+    is_basic: false}
+- model: calculator.feetype
+  pk: 9
+  fields: {name: 'Appeals to the Crown Court against sentence ', code: ASE, is_basic: false}
+- model: calculator.feetype
+  pk: 10
+  fields: {name: Appeals to the Crown Court against sentence  uplift, code: ASU, is_basic: false}
+- model: calculator.feetype
+  pk: 11
+  fields: {name: Basic fee, code: BAF, is_basic: true}
+- model: calculator.feetype
+  pk: 12
+  fields: {name: Case discontinued before papers served, code: CCD, is_basic: false}
+- model: calculator.feetype
+  pk: 13
+  fields: {name: Case discontinued before papers served uplift, code: CDU, is_basic: false}
+- model: calculator.feetype
+  pk: 14
+  fields: {name: Case fee, code: BAF, is_basic: true}
+- model: calculator.feetype
+  pk: 15
+  fields: {name: Committal for sentence, code: CSE, is_basic: false}
+- model: calculator.feetype
+  pk: 16
+  fields: {name: Committal for sentence uplift, code: CSU, is_basic: false}
+- model: calculator.feetype
+  pk: 17
+  fields: {name: Conferences and views (total of all hours), code: CAV, is_basic: false}
+- model: calculator.feetype
+  pk: 18
+  fields: {name: Confiscation hearings (full day), code: DTW, is_basic: false}
+- model: calculator.feetype
+  pk: 19
+  fields: {name: Confiscation hearings (full day) uplift, code: DWU, is_basic: false}
+- model: calculator.feetype
+  pk: 20
+  fields: {name: Confiscation hearings (half day), code: DTH, is_basic: false}
+- model: calculator.feetype
+  pk: 21
+  fields: {name: Confiscation hearings (half day) uplift, code: DHU, is_basic: false}
+- model: calculator.feetype
+  pk: 22
+  fields: {name: Contempt -apportioned fee, code: COA, is_basic: false}
+- model: calculator.feetype
+  pk: 23
+  fields: {name: Contempt -unapportioned fee, code: CON, is_basic: false}
+- model: calculator.feetype
+  pk: 24
+  fields: {name: Daily attendance fee (days 3 to 40), code: DAF, is_basic: true}
+- model: calculator.feetype
+  pk: 25
+  fields: {name: Daily attendance fee (days 41-50), code: DAH, is_basic: true}
+- model: calculator.feetype
+  pk: 26
+  fields: {name: Daily attendance fee (days over 50), code: DAJ, is_basic: true}
+- model: calculator.feetype
+  pk: 27
+  fields: {name: Deferred sentence hearing, code: DSE, is_basic: false}
+- model: calculator.feetype
+  pk: 28
+  fields: {name: Deferred sentence hearing uplift, code: DSU, is_basic: false}
+- model: calculator.feetype
+  pk: 29
+  fields: {name: Elected cases that crack or plead guilty, code: ECC, is_basic: false}
+- model: calculator.feetype
+  pk: 30
+  fields: {name: Evidence uplift per page (pages 1 to 1000), code: EUP, is_basic: true}
+- model: calculator.feetype
+  pk: 31
+  fields: {name: Evidence uplift per page (pages in excess of 1000), code: EUQ, is_basic: true}
+- model: calculator.feetype
+  pk: 32
+  fields: {name: Hearings relating to disclosure (half day), code: HDH, is_basic: false}
+- model: calculator.feetype
+  pk: 33
+  fields: {name: Hearings relating to disclosure (half day) uplift, code: HHU, is_basic: false}
+- model: calculator.feetype
+  pk: 34
+  fields: {name: Hearings relating to disclosure full day), code: HDW, is_basic: false}
+- model: calculator.feetype
+  pk: 35
+  fields: {name: Hearings relating to disclosure full day) uplift, code: HWU, is_basic: false}
+- model: calculator.feetype
+  pk: 36
+  fields: {name: Hearings relating to the admissibility of evidence (full day), code: AEW,
+    is_basic: false}
+- model: calculator.feetype
+  pk: 37
+  fields: {name: Hearings relating to the admissibility of evidence (full day) uplift,
+    code: EWU, is_basic: false}
+- model: calculator.feetype
+  pk: 38
+  fields: {name: Hearings relating to the admissibility of evidence (half day), code: AEH,
+    is_basic: false}
+- model: calculator.feetype
+  pk: 39
+  fields: {name: Hearings relating to the admissibility of evidence (half day) uplift,
+    code: EHU, is_basic: false}
+- model: calculator.feetype
+  pk: 40
+  fields: {name: Ineffective trial payment, code: TNP, is_basic: false}
+- model: calculator.feetype
+  pk: 41
+  fields: {name: Ineffective trial payment uplift, code: TPU, is_basic: false}
+- model: calculator.feetype
+  pk: 42
+  fields: {name: Noting brief, code: NBR, is_basic: false}
+- model: calculator.feetype
+  pk: 43
+  fields: {name: Number of Prosecution Witnesses, code: NPW, is_basic: true}
+- model: calculator.feetype
+  pk: 44
+  fields: {name: Pages of Prosecution Evidence, code: PPE, is_basic: true}
+- model: calculator.feetype
+  pk: 45
+  fields: {name: Paper plea and case management hearing, code: PPC, is_basic: false}
+- model: calculator.feetype
+  pk: 46
+  fields: {name: Paper plea and case management hearing uplift, code: PCU, is_basic: false}
+- model: calculator.feetype
+  pk: 47
+  fields: {name: Proceedings relating to breach of an order of the Crown Court, code: CBR,
+    is_basic: false}
+- model: calculator.feetype
+  pk: 48
+  fields: {name: Proceedings relating to breach of an order of the Crown Court uplift,
+    code: CBU, is_basic: false}
+- model: calculator.feetype
+  pk: 49
+  fields: {name: Sentence hearing, code: SHR, is_basic: false}
+- model: calculator.feetype
+  pk: 50
+  fields: {name: Special preparation, code: SPF, is_basic: false}
+- model: calculator.feetype
+  pk: 51
+  fields: {name: Standard appearance, code: SAF, is_basic: false}
+- model: calculator.feetype
+  pk: 52
+  fields: {name: Standard appearance uplift, code: SAU, is_basic: false}
+- model: calculator.feetype
+  pk: 53
+  fields: {name: Travel time, code: TCT, is_basic: false}
+- model: calculator.feetype
+  pk: 54
+  fields: {name: Wasted preparation, code: WPF, is_basic: false}
+- model: calculator.feetype
+  pk: 55
+  fields: {name: Written/oral advice, code: WOA, is_basic: false}
