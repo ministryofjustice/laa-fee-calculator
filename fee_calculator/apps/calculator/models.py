@@ -53,5 +53,6 @@ class Price(models.Model):
         'FeeType', related_name='prices')
     unit = models.ForeignKey('Unit', related_name='prices')
     fee_per_unit = models.DecimalField(max_digits=10, decimal_places=3)
+    uplift_percent = models.DecimalField(max_digits=6, decimal_places=2)
     limit_from = models.SmallIntegerField(default=1)
     limit_to = models.SmallIntegerField(null=True)
