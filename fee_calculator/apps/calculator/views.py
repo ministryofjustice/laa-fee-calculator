@@ -5,7 +5,7 @@ from datetime import datetime
 from django.db.models import Q
 from django.http import Http404
 from rest_framework import viewsets
-from rest_framework.exceptions import NotFound, ValidationError
+from rest_framework.exceptions import ValidationError
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
 
@@ -147,7 +147,7 @@ class PriceViewSet(viewsets.ReadOnlyModelViewSet):
             'description': (
                 'The id of advocate type. Note the query will return prices'
                 ' with `advocate_type_id` either matching the value or null.'),
-            'validator': int
+            'validator': str
          }),
         ('offence_class_id', {
             'name': 'offence_class_id',
@@ -157,7 +157,7 @@ class PriceViewSet(viewsets.ReadOnlyModelViewSet):
             'description': (
                 'The id of offence class. Note the query will return prices'
                 ' with `offence_class_id` either matching the value or null.'),
-            'validator': int
+            'validator': str
          }),
     ])
     serializer_class = PriceSerializer
@@ -195,14 +195,7 @@ class PriceViewSet(viewsets.ReadOnlyModelViewSet):
         if fee_type_id:
             queryset = queryset.filter(fee_type_id=fee_type_id)
         if scenario_id:
-            try:
-                scenario = Scenario.objects.get(id=scenario_id)
-            except Scenario.DoesNotExist:
-                detail = "Cannot find a scenario with id='{}'.".format(
-                    scenario_id)
-                raise NotFound(detail)
-            fee_types = FeeType.objects.filter(scenarios__in=[scenario])
-            queryset = queryset.filter(fee_type__in=fee_types)
+            queryset = queryset.filter(scenario_id=scenario_id)
         if advocate_type_id:
             # for convenience of real usecase, either match or null
             # instead of just match

@@ -41,16 +41,19 @@ class AdvocateTypeSerializer(serializers.ModelSerializer):
 class OffenceClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = OffenceClass
-        fields = ('id', 'name', 'description')
+        fields = ('name', 'description')
 
 
 class PriceSerializer(serializers.ModelSerializer):
+    scenario = ScenarioSerializer(read_only=True)
     scheme = SchemeSerializer(read_only=True)
     advocate_type = AdvocateTypeSerializer(read_only=True)
     fee_type = FeeTypeSerializer(read_only=True)
     offence_class = OffenceClassSerializer(read_only=True)
+    unit = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Price
-        fields = ('id', 'advocate_type', 'fee_type', 'offence_class', 'scheme',
-                  'amount', 'max_count')
+        fields = ('id', 'scenario', 'advocate_type', 'fee_type',
+                  'offence_class', 'scheme', 'unit', 'fee_per_unit',
+                  'limit_from', 'limit_to')
