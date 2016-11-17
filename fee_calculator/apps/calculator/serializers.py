@@ -50,6 +50,7 @@ class PriceSerializer(serializers.ModelSerializer):
     advocate_type = AdvocateTypeSerializer(read_only=True)
     fee_type = FeeTypeSerializer(read_only=True)
     offence_class = OffenceClassSerializer(read_only=True)
+    unit = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Price

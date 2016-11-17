@@ -32,6 +32,14 @@ class OffenceClass(models.Model):
     description = models.CharField(max_length=150)
 
 
+class Unit(models.Model):
+    id = models.CharField(max_length=12, primary_key=True)
+    name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.name
+
+
 class Price(models.Model):
     scenario = models.ForeignKey(
         'Scenario', related_name='prices')
@@ -43,7 +51,7 @@ class Price(models.Model):
         'OffenceClass', related_name='prices', null=True)
     fee_type = models.ForeignKey(
         'FeeType', related_name='prices')
-    unit = models.CharField(max_length=24)
+    unit = models.ForeignKey('Unit', related_name='prices')
     fee_per_unit = models.DecimalField(max_digits=10, decimal_places=3)
     limit_from = models.SmallIntegerField(default=1)
     limit_to = models.SmallIntegerField(null=True)
