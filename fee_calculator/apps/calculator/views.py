@@ -4,7 +4,7 @@ from datetime import datetime
 
 from django.db.models import Q
 from django.http import Http404
-from rest_framework import viewsets
+from rest_framework import viewsets, views
 from rest_framework.exceptions import ValidationError
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
@@ -209,3 +209,7 @@ class PriceViewSet(viewsets.ReadOnlyModelViewSet):
                 Q(offence_class_id=offence_class_id) |
                 Q(offence_class_id__isnull=True))
         return queryset
+
+
+class CalculatorView(views.APIView):
+    pass
