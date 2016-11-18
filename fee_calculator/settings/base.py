@@ -170,3 +170,8 @@ HEALTHCHECKS = [
 AUTODISCOVER_HEALTHCHECKS = True
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+try:
+    from .local import *
+except ImportError:
+    pass
