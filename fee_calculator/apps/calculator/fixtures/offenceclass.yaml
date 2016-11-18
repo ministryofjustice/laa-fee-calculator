@@ -1,35 +1,35 @@
 - model: calculator.offenceclass
   pk: A
-  fields: {description: Homicide and related grave offences}
+  fields: {name: A, description: Homicide and related grave offences}
 - model: calculator.offenceclass
   pk: B
-  fields: {description: Offences involving serious violence or damage and serious
-      drug offences}
+  fields: {name: B, description: Offences involving serious violence or damage and
+      serious drug offences}
 - model: calculator.offenceclass
   pk: C
-  fields: {description: 'Lesser offences involving violence or damage, and less serious
-      drug offences'}
+  fields: {name: C, description: 'Lesser offences involving violence or damage, and
+      less serious drug offences'}
 - model: calculator.offenceclass
   pk: D
-  fields: {description: Serious sexual offences and offences against children}
+  fields: {name: D, description: Serious sexual offences and offences against children}
 - model: calculator.offenceclass
   pk: E
-  fields: {description: 'Burglary, etc'}
+  fields: {name: E, description: 'Burglary, etc'}
 - model: calculator.offenceclass
   pk: F
-  fields: {description: Other offences of dishonesty}
+  fields: {name: F, description: Other offences of dishonesty}
 - model: calculator.offenceclass
   pk: G
-  fields: {description: Other offences of dishonesty}
+  fields: {name: G, description: Other offences of dishonesty}
 - model: calculator.offenceclass
   pk: H
-  fields: {description: Miscellaneous other offences}
+  fields: {name: H, description: Miscellaneous other offences}
 - model: calculator.offenceclass
   pk: I
-  fields: {description: Offences against public justice and similar offences}
+  fields: {name: I, description: Offences against public justice and similar offences}
 - model: calculator.offenceclass
   pk: J
-  fields: {description: Serious Sexual Offences}
+  fields: {name: J, description: Serious Sexual Offences}
 - model: calculator.offenceclass
   pk: K
-  fields: {description: Other offences of dishonesty (high value)}
+  fields: {name: K, description: Other offences of dishonesty (high value)}
