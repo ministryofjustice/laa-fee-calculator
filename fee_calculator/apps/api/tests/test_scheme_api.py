@@ -6,8 +6,11 @@ from rest_framework.test import APITestCase
 
 
 class SchemeApiTestCase(APITestCase):
-    endpoint = '/api/%s/schemes/' % settings.API_VERSION
-    fixtures = ['fee_calculator/apps/calculator/fixtures/initial_data.yaml']
+    endpoint = '/api/%s/fee-schemes' % settings.API_VERSION
+    fixtures = [
+        'advocatetype', 'feetype', 'offenceclass', 'price', 'scenario',
+        'scheme', 'unit',
+    ]
 
     def _test_get_not_allowed(self, url):
         response = self.client.get(url)
