@@ -212,4 +212,11 @@ class PriceViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class CalculatorView(views.APIView):
-    pass
+    allowed_methods = ['GET']
+
+    def get(self, *args, **kwargs):
+        code = self.request.query_params.get('code')
+
+        return Response({
+            'amount': 100
+        })
