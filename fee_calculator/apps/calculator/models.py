@@ -19,7 +19,7 @@ class Scenario(models.Model):
 
 class FeeType(models.Model):
     name = models.CharField(max_length=128)
-    code = models.CharField(max_length=20)
+    code = models.CharField(max_length=20, db_index=True)
     is_basic = models.BooleanField()
 
 
