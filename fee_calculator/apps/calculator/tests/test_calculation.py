@@ -9,6 +9,8 @@ from rest_framework import status
 
 import xlrd
 
+from .lib.utils import bill_to_code
+
 
 SPREADSHEET_PATH = os.path.join(
     os.path.dirname(__file__),
@@ -26,8 +28,7 @@ class CalculatorTestCase(TestCase):
         """
         Assert row values equal calculated values
         """
-        # TODO - use code lookup util to find CCCD code
-        code = ''
+        code = bill_to_code(row['bill_type'], row['bill_sub_type'])
         resp = self.client.get(self.endpoint, data={
             'code': code
         })
