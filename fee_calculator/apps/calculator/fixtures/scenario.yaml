@@ -1,36 +1,36 @@
 - model: calculator.scenario
   pk: 1
-  fields: {name: Discontinuance}
+  fields: {name: Discontinuance, force_third: false}
 - model: calculator.scenario
   pk: 2
-  fields: {name: Guilty Plea}
+  fields: {name: Guilty Plea, force_third: false}
 - model: calculator.scenario
   pk: 3
-  fields: {name: Cracked Trial}
+  fields: {name: Cracked Trial, force_third: true}
 - model: calculator.scenario
   pk: 4
-  fields: {name: Trial}
+  fields: {name: Trial, force_third: false}
 - model: calculator.scenario
   pk: 5
-  fields: {name: Appeal against Conviction}
+  fields: {name: Appeal against Conviction, force_third: false}
 - model: calculator.scenario
   pk: 6
-  fields: {name: Appeal against Sentence}
+  fields: {name: Appeal against Sentence, force_third: false}
 - model: calculator.scenario
   pk: 7
-  fields: {name: Committal for Sentence}
+  fields: {name: Committal for Sentence, force_third: false}
 - model: calculator.scenario
   pk: 8
-  fields: {name: Contempt}
+  fields: {name: Contempt, force_third: false}
 - model: calculator.scenario
   pk: 9
-  fields: {name: Breach of Crown Court Order}
+  fields: {name: Breach of Crown Court Order, force_third: false}
 - model: calculator.scenario
   pk: 10
-  fields: {name: Cracked before retrial}
+  fields: {name: Cracked before retrial, force_third: true}
 - model: calculator.scenario
   pk: 11
-  fields: {name: Retrial}
+  fields: {name: Retrial, force_third: false}
 - model: calculator.scenario
   pk: 12
-  fields: {name: Elected cases not proceeded}
+  fields: {name: Elected cases not proceeded, force_third: false}
