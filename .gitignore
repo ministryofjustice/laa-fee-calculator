@@ -96,3 +96,5 @@ fee_calculator/static
 .idea
 .DS_Store
 ~*
+
+example_client/node_modules
