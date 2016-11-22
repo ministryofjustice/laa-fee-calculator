@@ -115,6 +115,8 @@ FEES_MAP = {
     'WARR': None,
 }
 
+REVERSE_FEES_MAP = {v: k for k, v in FEES_MAP if v}
+
 
 def bill_to_code(bill_type, sub_type):
     """
@@ -124,6 +126,4 @@ def bill_to_code(bill_type, sub_type):
     :param sub_type: str
     :return: str
     """
-    return next(
-        (code for code, (t, s) in FEES_MAP if t == bill_type and s == sub_type),
-        None)
+    return REVERSE_FEES_MAP[[bill_type, sub_type]]
