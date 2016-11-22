@@ -28,7 +28,8 @@ class AdvocateType(models.Model):
 
 
 class OffenceClass(models.Model):
-    name = models.CharField(max_length=64, primary_key=True)
+    id = models.CharField(max_length=64, primary_key=True)
+    name = models.CharField(max_length=64)
     description = models.CharField(max_length=150)
 
 

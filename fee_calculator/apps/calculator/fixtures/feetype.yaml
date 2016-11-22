@@ -1,306 +1,315 @@
 - model: calculator.feetype
   pk: 1
-  fields: {name: Redeterminations, code: AGFS_REDET, is_basic: false}
+  fields: {name: Basic fee, code: '', is_basic: true}
 - model: calculator.feetype
   pk: 2
-  fields: {name: Plea and Case management Hearing, code: AGFS_PLEA, is_basic: false}
+  fields: {name: Witness uplift, code: '', is_basic: true}
 - model: calculator.feetype
   pk: 3
-  fields: {name: Abuse of Process Hearing (Half Day), code: AGFS_ABS_PRC_HF, is_basic: false}
+  fields: {name: Evidence pages uplift, code: '', is_basic: true}
 - model: calculator.feetype
   pk: 4
-  fields: {name: Abuse of Process Hearing (Full Day), code: AGFS_ABS_PRC_WL, is_basic: false}
+  fields: {name: Redeterminations, code: AGFS_REDET, is_basic: false}
 - model: calculator.feetype
   pk: 5
-  fields: {name: Adjourned Appeals, code: AGFS_ADJOURNED, is_basic: false}
+  fields: {name: Plea and Case management Hearing, code: AGFS_PLEA, is_basic: false}
 - model: calculator.feetype
   pk: 6
+  fields: {name: Abuse of Process Hearing (Half Day), code: AGFS_ABS_PRC_HF, is_basic: false}
+- model: calculator.feetype
+  pk: 7
+  fields: {name: Abuse of Process Hearing (Full Day), code: AGFS_ABS_PRC_WL, is_basic: false}
+- model: calculator.feetype
+  pk: 8
+  fields: {name: Adjourned Appeals, code: AGFS_ADJOURNED, is_basic: false}
+- model: calculator.feetype
+  pk: 9
   fields: {name: Appeals to Crown Court Against Conviction, code: AGFS_APPEAL_CON,
     is_basic: false}
 - model: calculator.feetype
-  pk: 7
+  pk: 10
   fields: {name: Appeals to the Crown Court against sentence, code: AGFS_APPEAL_SEN,
     is_basic: false}
 - model: calculator.feetype
-  pk: 8
+  pk: 11
   fields: {name: Application to dismiss a charge day 2 onwards (Half Day), code: AGFS_DMS_DY2_HF,
     is_basic: false}
 - model: calculator.feetype
-  pk: 9
+  pk: 12
   fields: {name: Application to dismiss a charge day 2 onwards (Full Day), code: AGFS_DMS_DY2_WL,
     is_basic: false}
 - model: calculator.feetype
-  pk: 10
+  pk: 13
   fields: {name: Committal for Sentence Hearing, code: AGFS_COMMITTAL, is_basic: false}
 - model: calculator.feetype
-  pk: 11
+  pk: 14
   fields: {name: Conferences and Views (hours), code: AGFS_CONFERENCE, is_basic: false}
 - model: calculator.feetype
-  pk: 12
+  pk: 15
   fields: {name: Contempt Hearings, code: AGFS_CONTEMPT, is_basic: false}
 - model: calculator.feetype
-  pk: 13
+  pk: 16
   fields: {name: Contempt Hearings (Apportioned), code: AGFS_CNTMPT_APP, is_basic: false}
 - model: calculator.feetype
-  pk: 14
+  pk: 17
   fields: {name: Deferred Sentence Hearings, code: AGFS_DEF_SEN_HR, is_basic: false}
 - model: calculator.feetype
-  pk: 15
+  pk: 18
   fields: {name: Hearings relating to admissibility of evidence (Full Day), code: AGFS_ADM_EVD_WL,
     is_basic: false}
 - model: calculator.feetype
-  pk: 16
+  pk: 19
   fields: {name: Hearings relating to Disclosure (Half Day), code: AGFS_DISC_HALF,
     is_basic: false}
 - model: calculator.feetype
-  pk: 17
+  pk: 20
   fields: {name: Hearings relating to Disclosure (Full Day), code: AGFS_DISC_FULL,
     is_basic: false}
 - model: calculator.feetype
-  pk: 18
+  pk: 21
   fields: {name: Noting Brief, code: AGFS_NOTING_BRF, is_basic: false}
 - model: calculator.feetype
-  pk: 19
+  pk: 22
   fields: {name: Paper Plea and Case Management, code: AGFS_PAPER_PLEA, is_basic: false}
 - model: calculator.feetype
-  pk: 20
+  pk: 23
   fields: {name: Proceeds relating to breach of an order of the Crown Court, code: AGFS_ORDER_BRCH,
     is_basic: false}
 - model: calculator.feetype
-  pk: 21
+  pk: 24
   fields: {name: Public Interest Immunity hearing (Half Day), code: AGFS_PI_IMMN_HF,
     is_basic: false}
 - model: calculator.feetype
-  pk: 22
+  pk: 25
   fields: {name: Public Interest Immunity hearing (Full Day), code: AGFS_PI_IMMN_WL,
     is_basic: false}
 - model: calculator.feetype
-  pk: 23
+  pk: 26
   fields: {name: Research of very unusual or Novel factual issue, code: AGFS_NOVELISSUE,
     is_basic: false}
 - model: calculator.feetype
-  pk: 24
+  pk: 27
   fields: {name: Research of very unusual of Novel Point of Law, code: AGFS_NOVEL_LAW,
     is_basic: false}
 - model: calculator.feetype
-  pk: 25
+  pk: 28
   fields: {name: Standard Appearance Fee, code: AGFS_STD_APPRNC, is_basic: false}
 - model: calculator.feetype
-  pk: 26
+  pk: 29
   fields: {name: Sentence Hearing, code: AGFS_SENTENCE, is_basic: false}
 - model: calculator.feetype
-  pk: 27
+  pk: 30
   fields: {name: Special Preperation (Hourly), code: AGFS_SPCL_PREP, is_basic: false}
 - model: calculator.feetype
-  pk: 28
+  pk: 31
   fields: {name: Trial Not Proceed, code: AGFS_NOT_PRCD, is_basic: false}
 - model: calculator.feetype
-  pk: 29
+  pk: 32
   fields: {name: Unsuccesful application to vacate a guilty plea (Half Day), code: AGFS_UN_VAC_HF,
     is_basic: false}
 - model: calculator.feetype
-  pk: 30
+  pk: 33
   fields: {name: Unsuccesful application to vacate a guilty plea (Full Day), code: AGFS_UN_VAC_WL,
     is_basic: false}
 - model: calculator.feetype
-  pk: 31
+  pk: 34
   fields: {name: Written / Oral Advice, code: AGFS_WRTN_ORAL, is_basic: false}
 - model: calculator.feetype
-  pk: 32
+  pk: 35
   fields: {name: Advocate Fee, code: AGFS_FEE, is_basic: false}
 - model: calculator.feetype
-  pk: 33
+  pk: 36
   fields: {name: Hardship Payment, code: AGFS_HARDSHIP, is_basic: false}
 - model: calculator.feetype
-  pk: 34
+  pk: 37
   fields: {name: Staged Payments, code: AGFS_STAGED, is_basic: false}
 - model: calculator.feetype
-  pk: 35
+  pk: 38
   fields: {name: Other Corrections, code: AGFS_CORRCTNS, is_basic: false}
 - model: calculator.feetype
-  pk: 36
+  pk: 39
   fields: {name: Conferences & Views - Train, code: AGFS_TCT_TRV_TR, is_basic: false}
 - model: calculator.feetype
-  pk: 37
+  pk: 40
   fields: {name: Conferences & Views - Hotel Stay, code: AGFS_TCT_HOT_ST, is_basic: false}
 - model: calculator.feetype
-  pk: 38
+  pk: 41
   fields: {name: Conferences & Views - Travel Time, code: AGFS_TCT_CNF_VW, is_basic: false}
 - model: calculator.feetype
-  pk: 39
+  pk: 42
   fields: {name: Evidence Provision Fee, code: AGFS_EVIDPRVFEE, is_basic: false}
 - model: calculator.feetype
-  pk: 40
+  pk: 43
   fields: {name: Travel & Hotel - Car, code: AGFS_THE_TRV_CR, is_basic: false}
 - model: calculator.feetype
-  pk: 41
+  pk: 44
   fields: {name: Travel & Hotel - Train, code: AGFS_THE_TRV_TR, is_basic: false}
 - model: calculator.feetype
-  pk: 42
+  pk: 45
   fields: {name: Travel & Hotel - Hotel Stay, code: AGFS_THE_HOT_ST, is_basic: false}
 - model: calculator.feetype
-  pk: 43
+  pk: 46
   fields: {name: Travel & Hotel - Conference and View, code: AGFS_THE_CNF_VW, is_basic: false}
 - model: calculator.feetype
-  pk: 44
+  pk: 47
   fields: {name: Conferences & Views - Car, code: AGFS_TCT_TRV_CR, is_basic: false}
 - model: calculator.feetype
-  pk: 45
+  pk: 48
   fields: {name: Evidence Provision Fee, code: EVID_PROV_FEE, is_basic: false}
 - model: calculator.feetype
-  pk: 46
+  pk: 49
   fields: {name: Medical Expert, code: MED EXPERT, is_basic: false}
 - model: calculator.feetype
-  pk: 47
+  pk: 50
   fields: {name: Translator, code: TRANSLATOR, is_basic: false}
 - model: calculator.feetype
-  pk: 48
+  pk: 51
   fields: {name: Financial Expert, code: FIN EXPERT, is_basic: false}
 - model: calculator.feetype
-  pk: 49
+  pk: 52
   fields: {name: Other, code: OTHER, is_basic: false}
 - model: calculator.feetype
-  pk: 50
+  pk: 53
   fields: {name: Travel Costs, code: TRAVEL COSTS, is_basic: false}
 - model: calculator.feetype
-  pk: 51
+  pk: 54
   fields: {name: Cost Judge Application Fee, code: AGFS_CJD_FEE, is_basic: false}
 - model: calculator.feetype
-  pk: 52
+  pk: 55
   fields: {name: Litigator Fee, code: LIT_FEE, is_basic: false}
 - model: calculator.feetype
-  pk: 53
+  pk: 56
   fields: {name: Accident Reconstruction Report, code: ACCIDENT, is_basic: false}
 - model: calculator.feetype
-  pk: 54
+  pk: 57
   fields: {name: Warrant - Pages of Prosecuting Evidence, code: WARRANT_PPE, is_basic: false}
 - model: calculator.feetype
-  pk: 55
+  pk: 58
   fields: {name: Accountants, code: ACCOUNTANTS, is_basic: false}
 - model: calculator.feetype
-  pk: 56
+  pk: 59
   fields: {name: Surveyor / Architects, code: SURVEYOR, is_basic: false}
 - model: calculator.feetype
-  pk: 57
+  pk: 60
   fields: {name: Computer Experts, code: COMPUTER_EXPERT, is_basic: false}
 - model: calculator.feetype
-  pk: 58
+  pk: 61
   fields: {name: Consultant Medical Reports, code: CONSULTANT_REP, is_basic: false}
 - model: calculator.feetype
-  pk: 59
+  pk: 62
   fields: {name: DNA Testing, code: DNA_TESTING, is_basic: false}
 - model: calculator.feetype
-  pk: 60
+  pk: 63
   fields: {name: Engineer, code: ENGINEER, is_basic: false}
 - model: calculator.feetype
-  pk: 61
+  pk: 64
   fields: {name: Enquiry Agents, code: ENQUIRY_AGENTS, is_basic: false}
 - model: calculator.feetype
-  pk: 62
+  pk: 65
   fields: {name: Facial Mapping Experts, code: FACIAL_MAPPING, is_basic: false}
 - model: calculator.feetype
-  pk: 63
+  pk: 66
   fields: {name: Fingerprint Experts, code: FINGERPRINT, is_basic: false}
 - model: calculator.feetype
-  pk: 64
+  pk: 67
   fields: {name: Fire Assessor / Explosives Expert, code: FIRE_EXPLOSIVES, is_basic: false}
 - model: calculator.feetype
-  pk: 65
+  pk: 68
   fields: {name: Forensic Scientists, code: FORENSICS, is_basic: false}
 - model: calculator.feetype
-  pk: 66
+  pk: 69
   fields: {name: Handwriting Experts, code: HANDWRITING, is_basic: false}
 - model: calculator.feetype
-  pk: 67
+  pk: 70
   fields: {name: Interpreters, code: INTERPRETERS, is_basic: false}
 - model: calculator.feetype
-  pk: 68
+  pk: 71
   fields: {name: Lip Readers, code: LIP_READERS, is_basic: false}
 - model: calculator.feetype
-  pk: 69
+  pk: 72
   fields: {name: Meteorologist, code: METEOROLOGIST, is_basic: false}
 - model: calculator.feetype
-  pk: 70
+  pk: 73
   fields: {name: Overnight Expenses, code: OVERNIGHT_EXP, is_basic: false}
 - model: calculator.feetype
-  pk: 71
+  pk: 74
   fields: {name: Pathologists, code: PATHOLOGISTS, is_basic: false}
 - model: calculator.feetype
-  pk: 72
+  pk: 75
   fields: {name: Photocopying, code: PHOTOCOPYING, is_basic: false}
 - model: calculator.feetype
-  pk: 73
+  pk: 76
   fields: {name: Psychiatric Reports, code: PSYCHIATRIC_REP, is_basic: false}
 - model: calculator.feetype
-  pk: 74
+  pk: 77
   fields: {name: Psychological Reports, code: PSYCHO_REPORTS, is_basic: false}
 - model: calculator.feetype
-  pk: 75
+  pk: 78
   fields: {name: Transcripts, code: TRANSCRIPTS, is_basic: false}
 - model: calculator.feetype
-  pk: 76
+  pk: 79
   fields: {name: Vet Report, code: VET_REPORT, is_basic: false}
 - model: calculator.feetype
-  pk: 77
+  pk: 80
   fields: {name: Voice Recognition, code: VOICE_RECOG, is_basic: false}
 - model: calculator.feetype
-  pk: 78
+  pk: 81
   fields: {name: Special Prep, code: SPECIAL_PREP, is_basic: false}
 - model: calculator.feetype
-  pk: 79
+  pk: 82
   fields: {name: Warrant, code: WARRANT, is_basic: false}
 - model: calculator.feetype
-  pk: 80
+  pk: 83
   fields: {name: Hardship Payment, code: HARDSHIP, is_basic: false}
 - model: calculator.feetype
-  pk: 81
+  pk: 84
   fields: {name: Confiscation (Half Day), code: AGFS_CONFISC_HF, is_basic: false}
 - model: calculator.feetype
-  pk: 82
+  pk: 85
   fields: {name: Warrant - Number of Defendants, code: WARRANT_DEFS, is_basic: false}
 - model: calculator.feetype
-  pk: 83
+  pk: 86
   fields: {name: Confiscation (Full Day), code: AGFS_CONFISC_WL, is_basic: false}
 - model: calculator.feetype
-  pk: 84
+  pk: 87
   fields: {name: Confiscation, code: AGFS_CONFISC, is_basic: false}
 - model: calculator.feetype
-  pk: 85
+  pk: 88
   fields: {name: COST Judge Award, code: COST_JUDGE, is_basic: false}
 - model: calculator.feetype
-  pk: 86
+  pk: 89
   fields: {name: Other Corrections, code: CORRECTIONS, is_basic: false}
 - model: calculator.feetype
-  pk: 87
+  pk: 90
   fields: {name: Advocate Fee (Legacy), code: ADV_FEE, is_basic: false}
 - model: calculator.feetype
-  pk: 88
+  pk: 91
   fields: {name: Hearings relating to admissibility of evidence (Half Day), code: AGFS_ADM_EVD_HF,
     is_basic: false}
 - model: calculator.feetype
-  pk: 89
+  pk: 92
   fields: {name: Wasted Preparation Fee, code: AGFS_WSTD_PREP, is_basic: false}
 - model: calculator.feetype
-  pk: 90
+  pk: 93
   fields: {name: COST Judge Award, code: AGFS_COST_JUDGE, is_basic: false}
 - model: calculator.feetype
-  pk: 91
+  pk: 94
   fields: {name: Warrant - Trial Length, code: WARRANT_TRLLEN, is_basic: false}
 - model: calculator.feetype
-  pk: 92
+  pk: 95
   fields: {name: Hardship - Pages of Prosecuting Evidence, code: HARDSHIP_PPE, is_basic: false}
 - model: calculator.feetype
-  pk: 93
+  pk: 96
   fields: {name: Hardship - Number of Defendants, code: HARDSHIP_DEFS, is_basic: false}
 - model: calculator.feetype
-  pk: 94
+  pk: 97
   fields: {name: Hardship - Trial Length, code: HARDSHIP_TRLLEN, is_basic: false}
 - model: calculator.feetype
-  pk: 95
+  pk: 98
   fields: {name: Committal for Trial fee, code: MAGSCOMMITTAL, is_basic: false}
 - model: calculator.feetype
-  pk: 96
+  pk: 99
   fields: {name: Adjustment, code: ADJUSTMENT, is_basic: false}
 - model: calculator.feetype
-  pk: 97
+  pk: 100
   fields: {name: Cost Judge Preparation Award, code: AGFS_CJD_EXP, is_basic: false}
