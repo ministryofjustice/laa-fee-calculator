@@ -215,8 +215,37 @@ class CalculatorView(views.APIView):
     allowed_methods = ['GET']
 
     def get(self, *args, **kwargs):
-        code = self.request.query_params.get('code')
+        suty = self.request.query_params.get('suty')
+        rep_order_date = self.request.query_params.get('rep_order_date')
+        fee_type_code = self.request.query_params.get('fee_type_code')
+        scenario_id = self.request.query_params.get('scenario_id')
+        advocate_type_id = self.request.query_params.get('advocate_type_id')
+        offence_class_id = self.request.query_params.get('offence_class_id')
+
+        try:
+            case_date = datetime.strptime(rep_order_date, '%Y-%m-%d')
+        except ValueError:
+            raise Http404
+
+        try:
+            scheme = Scheme.objects.get(
+                Q(end_date__isnull=True) | Q(end_date__gte=case_date),
+                suty_base_type=SUTY_BASE_TYPE.for_constant(suty.upper()).value,
+                start_date__lte=case_date,
+            )
+        except Scheme.DoesNotExist:
+            print('scheme doesnt exist for %s: %s' % (SUTY_BASE_TYPE.for_constant(suty.upper()).value, case_date))
+            raise Http404
+
+        queryset = Price.objects.filter(
+            Q(fee_type__code=fee_type_code) | Q(fee_type__code__isnull=True),
+            Q(advocate_type_id=advocate_type_id) | Q(advocate_type_id__isnull=True),
+            Q(offence_class_id=offence_class_id) | Q(offence_class_id__isnull=True),
+            scheme_id=scheme.pk,
+            scenario_id=scenario_id,
+        )
 
         return Response({
-            'amount': 100
+            'amount': 100,
+            'price_count': queryset.count(),
         })
