@@ -129,3 +129,23 @@ def bill_to_code(bill_type, sub_type):
     if bill_type == 'AGFS_FEE' and sub_type in BASIC_FEES_MAP.values():
         return 'BABAF'
     return REVERSE_FEES_MAP[(bill_type, sub_type)]
+
+
+SCENARIO_MAP = {
+    2694: 1,
+    2695: 2,
+    2696: 3,
+    2697: 4,
+    2698: 5,
+    2699: 6,
+    2700: 7,
+    2701: 8,
+    2702: 9,
+    2703: 10,
+    2704: 11,
+    2705: 12
+}
+
+
+def scenario_ccr_to_id(ccr_id):
+    return SCENARIO_MAP[int(ccr_id)]
