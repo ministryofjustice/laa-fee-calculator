@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-import os
 from decimal import Decimal
+import os
 
 from django.conf import settings
 from django.test import TestCase
 from django.utils.text import slugify
+
 from rest_framework import status
-
 import xlrd
+from xlrd.xldate import xldate_as_datetime
 
-from .lib.utils import bill_to_code
+from .lib.utils import scenario_ccr_to_id
 
 
 SPREADSHEET_PATH = os.path.join(
@@ -28,12 +29,20 @@ class CalculatorTestCase(TestCase):
         """
         Assert row values equal calculated values
         """
-        code = bill_to_code(row['bill_type'], row['bill_sub_type'])
-        resp = self.client.get(self.endpoint, data={
-            'code': code
-        })
+        rep_order_date = xldate_as_datetime(
+            float(row['rep_order_date']), 0).date()
+        data = {
+            'fee_type_code': row['bill_sub_type'],
+            'scenario_id': scenario_ccr_to_id(row['bill_scenario_id']),
+            'suty': 'ADVOCATE',
+            'rep_order_date': rep_order_date,
+            'advocate_type_id': row['person_type'],
+            'offence_class_id': row['offence-cat'],
+        }
+        resp = self.client.get(self.endpoint, data=data)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertEqual(resp.data['amount'], 100)
+        self.assertNotEqual(resp.data['price_count'], 0, str(data))
 
 
 def value(cell):
