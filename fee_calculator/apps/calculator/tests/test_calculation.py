@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import date
 from decimal import Decimal
 import os
 
@@ -29,8 +30,13 @@ class CalculatorTestCase(TestCase):
         """
         Assert row values equal calculated values
         """
-        rep_order_date = xldate_as_datetime(
-            float(row['rep_order_date']), 0).date()
+        # TODO - don't set date to today if no date supplied
+        if row['rep_order_date']:
+            rep_order_date = xldate_as_datetime(
+                float(row['rep_order_date']), 0).date()
+        else:
+            rep_order_date = date.today()
+
         data = {
             'fee_type_code': row['bill_sub_type'],
             'scenario_id': scenario_ccr_to_id(row['bill_scenario_id']),
