@@ -39,6 +39,7 @@ class CalculatorTestCase(TestCase):
 
         data = {
             'fee_type_code': row['bill_sub_type'],
+            'bill_type': row['bill_type'],
             'scenario_id': scenario_ccr_to_id(row['bill_scenario_id']),
             'suty': 'ADVOCATE',
             'rep_order_date': rep_order_date,

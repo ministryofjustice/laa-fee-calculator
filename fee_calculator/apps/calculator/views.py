@@ -218,9 +218,12 @@ class CalculatorView(views.APIView):
         suty = self.request.query_params.get('suty')
         rep_order_date = self.request.query_params.get('rep_order_date')
         fee_type_code = self.request.query_params.get('fee_type_code')
+        bill_type = self.request.query_params.get('bill_type')
         scenario_id = self.request.query_params.get('scenario_id')
         advocate_type_id = self.request.query_params.get('advocate_type_id')
         offence_class_id = self.request.query_params.get('offence_class_id')
+
+        suty_code = SUTY_BASE_TYPE.for_constant(suty.upper()).value
 
         try:
             case_date = datetime.strptime(rep_order_date, '%Y-%m-%d')
@@ -230,11 +233,11 @@ class CalculatorView(views.APIView):
         try:
             scheme = Scheme.objects.get(
                 Q(end_date__isnull=True) | Q(end_date__gte=case_date),
-                suty_base_type=SUTY_BASE_TYPE.for_constant(suty.upper()).value,
+                suty_base_type=suty_code,
                 start_date__lte=case_date,
             )
         except Scheme.DoesNotExist:
-            print('scheme doesnt exist for %s: %s' % (SUTY_BASE_TYPE.for_constant(suty.upper()).value, case_date))
+            print('scheme doesnt exist for %s: %s' % (suty_code, case_date))
             raise Http404
 
         queryset = Price.objects.filter(
