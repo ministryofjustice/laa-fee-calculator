@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+
 function scenarios(state = [], action) {
   switch(action.type) {
     case 'FETCH_SCENARIOS_SUCCEEDED':
@@ -23,7 +24,7 @@ function advocateTypes(state = [], action) {
 function offenceClasses(state = [], action) {
   switch(action.type) {
     case 'FETCH_OFFENCE_CLASSES_SUCCEEDED':
-      return action.offenceClasses.map(item => ({id: item.id, name: `${item.name} - ${item.description}`}));
+      return action.offenceClasses.map(item => ({id: item.name, name: `${item.name} - ${item.description}`}));
     default:
       return state;
   }
@@ -91,6 +92,24 @@ const feeIdToQty = (state = new Map(), action) => {
   }
 }
 
+const isUplifted = (state = false, action) => {
+  switch (action.type) {
+    case 'SET_UPLIFT':
+      return action.isUplifted;
+    default:
+      return state;
+  }
+}
+
+const selectedThird = (state = 1, action) => {
+  switch (action.type) {
+    case 'SET_THIRD':
+      return action.selectedThird;
+    default:
+      return state;
+  }
+}
+
 const reducer = combineReducers({
   scenarios,
   advocateTypes,
@@ -99,7 +118,9 @@ const reducer = combineReducers({
   feeIdToQty,
   selectedScenarioId,
   selectedAdvocateTypeId,
-  selectedOffenceClassId
+  selectedOffenceClassId,
+  isUplifted,
+  selectedThird
 });
 
 

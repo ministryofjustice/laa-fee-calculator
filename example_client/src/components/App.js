@@ -7,7 +7,7 @@ import '../css/govuk-elements.css';
 import '../css/app.css';
 
 const App = ({ apiBaseURL }) => (
-  <div className="content">
+  <div className="content js-enabled">
     <main id="content">
       <SelectorsContainer />
       <FeeTablesContainer />

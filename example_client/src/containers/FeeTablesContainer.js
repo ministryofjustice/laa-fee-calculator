@@ -2,50 +2,96 @@ import { connect } from 'react-redux';
 import FeeTables from '../components/FeeTables';
 import { setQuantity, incQuantity, decQuantity } from '../actions';
 
-function getFeeTypes(scenarios, selectedScenarioId) {
-  const scenario = scenarios.filter(item => item['id'] === selectedScenarioId)[0];
-  return scenario ? scenario['fee_types'] : [];
-}
-
-function getFeeIdToPrice(prices) {
-  const feeIdToPrice = new Map();
+function getFeeTypes(prices) {
+  const feeTypes = {};
   for (const price of prices) {
-    const feeTypeId = price['fee_type']['id'];
-    const priceList = feeIdToPrice.get(feeTypeId) || [];
-    priceList.push(price);
-    feeIdToPrice.set(feeTypeId, priceList);
-  }
-  for (const [feeTypeId, priceList] of feeIdToPrice.entries()) {
-    if (priceList.length > 1) {
-      console.log('multiple prices found for feeTypeId:', feeTypeId, 'prices:', prices, '!');
-    }
-    const fee = {
-      amount: parseFloat(priceList[0]['amount']),
-      maxCount: priceList[0]['max_count']
+    const feeType = price['fee_type'];
+    if (!(feeType.id in feeTypes)) {
+      feeTypes[feeType.id] = feeType;
     };
-    feeIdToPrice.set(feeTypeId, fee);
   };
-  return feeIdToPrice;
+  return Object.values(feeTypes);
+}
+
+function getFeeTypeIdToPrices(feeTypes, prices, selectedAdvocateTypeId, selectedOffenceClassId, selectedThird) {
+  const feeIdToPrices = new Map();
+  for (const price of prices) {
+
+    const advocateType = price['advocate_type'];
+    const offenceClass = price['offence_class'];
+    const third = price['third'];
+    const feeTypeId = price['fee_type']['id'];
+
+    const priceList = feeIdToPrices.get(feeTypeId) || [];
+    if ((advocateType === null || advocateType.id === selectedAdvocateTypeId)
+        && (offenceClass === null || offenceClass.id === selectedOffenceClassId)
+        && (third === null || selectedThird === third)) {
+      const item = {
+        id: price['id'],
+        feePerUnit: parseFloat(price['fee_per_unit']),
+        limitFrom: price['limit_from'],
+        limitTo: price['limit_to'],
+        unit: price['unit'],
+        upliftPercent: price['uplift_percent']
+      }
+      priceList.push(item);
+    }
+    feeIdToPrices.set(feeTypeId, priceList.sort((a, b) => a.limitFrom - b.limitFrom));
+  };
+  return feeIdToPrices;
 }
 
 
-function getFees(feeTypes, feeIdToPrice, feeIdToQty) {
+function getFees(feeTypes, feeIdToPrices, feeIdToQty, isUplifted) {
   return feeTypes.map(feeType => {
     const feeId = feeType.id;
-    const priceObj = feeIdToPrice.get(feeId);
-    const price = priceObj ? priceObj['amount'] : undefined;
+    const prices = feeIdToPrices.get(feeId) || [];
     const qty = feeIdToQty.get(feeId) || 0;
-    const amount = price ? price * qty : 0;
-    const maxCount = priceObj ? priceObj['maxCount'] : null;
-    return Object.assign({ price, qty, amount, maxCount }, feeType);
+
+    const attribute = {};
+    let remaining = qty;
+    let sum = 0;
+
+    for (const price of prices) {
+      const { id, limitFrom, limitTo, unit, upliftPercent } = price;
+      let feePerUnit = price.feePerUnit;
+      if (isUplifted) {
+        feePerUnit += feePerUnit * upliftPercent / 100;
+      }
+      let val;
+      if (limitTo === null || remaining <= (limitTo - limitFrom + 1)) {
+        val = remaining;
+      } else {
+        val = limitTo - limitFrom + 1;
+      };
+      attribute[id] = val;
+      remaining -= val;
+      if (unit !== 'Fixed Amount') {
+        sum += feePerUnit * val;
+      } else {
+        sum += val > 0 ? feePerUnit : 0;
+      };
+    }
+    if (remaining > 0) {
+      console.log(`qty ${qty} not attributed for feeId ${feeId}`);
+    }
+
+    const amount = { sum, attribute };
+
+    return Object.assign({ prices, qty, amount }, feeType);
   });
 }
 
 
 const mapStateToProps = (state) => {
-  const feeTypes = getFeeTypes(state.scenarios, state.selectedScenarioId);
-  const feeIdToPrice = getFeeIdToPrice(state.prices);
-  const fees = getFees(feeTypes, feeIdToPrice, state.feeIdToQty);
+  const feeTypes = getFeeTypes(state.prices);
+  const feeIdToPrices = getFeeTypeIdToPrices(
+    feeTypes,
+    state.prices,
+    state.selectedAdvocateTypeId,
+    state.selectedOffenceClassId,
+    state.selectedThird);
+  const fees = getFees(feeTypes, feeIdToPrices, state.feeIdToQty, state.isUplifted);
   const basicFees = fees.filter( fee => fee['is_basic'] );
   const miscFees = fees.filter( fee => !fee['is_basic'] );
   return Object.assign({ basicFees, miscFees }, state);

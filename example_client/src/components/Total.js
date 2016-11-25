@@ -5,7 +5,7 @@ const Total = ({ fees }) => {
     return null;
   }
   const total = fees
-    .map(f => f['amount']).reduce(( pre, cur ) => pre + cur, 0);
+    .map(f => f['amount']).reduce(( pre, cur ) => pre + cur.sum, 0);
   return (
     <div>
       <h3 className="heading-medium">Total</h3>

@@ -1,9 +1,15 @@
 import { call, put, fork, take, select } from 'redux-saga/effects'
 
-export function fetchEndPoint(url) {
-  return fetch(url)
-      .then(rsp => rsp.json())
-      .then(data => data['results']);
+export function* fetchEndPoint(url, items = []) {
+  const rsp = yield fetch(url);
+  const data = yield rsp.json();
+  const results = data['results'];
+  items = [...items, ...results];
+  const next = data['next'];
+  if (next === null) {
+    return items;
+  }
+  return yield fetchEndPoint(next, items);
 }
 
 export function* fetchScenarios(baseURL) {
@@ -45,10 +51,24 @@ export function* fetchPrices(baseURL) {
   }
 }
 
+export function* fetchPricesForScenario(baseURL) {
+  let prevScenarioId;
+  while(true) {
+    yield take('SET_SCENARIO');
+    const scenarioId = yield select(state => state.selectedScenarioId);
+    let prices = [];
+    if (scenarioId && scenarioId !== prevScenarioId) {
+      const url = `${baseURL}/prices?scenario_id=${scenarioId}&scheme_id=10`;
+      prices = yield call(fetchEndPoint, url);
+    }
+    yield put({type: 'FETCH_PRICES_SUCCEEDED', prices});
+    prevScenarioId = scenarioId;
+  }
+}
 
 export default function* root(baseURL) {
   yield fork(fetchScenarios, baseURL);
   yield fork(fetchAdvocateTypes, baseURL);
   yield fork(fetchOffenceClasses, baseURL);
-  yield fork(fetchPrices, baseURL);
+  yield fork(fetchPricesForScenario, baseURL);
 }

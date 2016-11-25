@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "/example-client",
   "devDependencies": {
+    "babel-polyfill": "^6.16.0",
     "react-redux": "^4.4.5",
     "react-scripts": "0.6.1",
     "redux": "^3.6.0",

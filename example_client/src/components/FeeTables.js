@@ -5,6 +5,7 @@ import Total from './Total';
 const FeeTables = ({
   basicFees,
   miscFees,
+  isUplifted,
   handleChange,
   handlePlus,
   handleMinus
@@ -15,6 +16,7 @@ const FeeTables = ({
     }
     <FeeTable
       fees={ basicFees }
+      isUplifted={ isUplifted }
       handleChange={ handleChange }
       handlePlus={ handlePlus }
       handleMinus={ handleMinus }
@@ -24,6 +26,7 @@ const FeeTables = ({
     }
     <FeeTable
       fees={ miscFees }
+      isUplifted={ isUplifted }
       handleChange={ handleChange }
       handlePlus={ handlePlus }
       handleMinus={ handleMinus }
