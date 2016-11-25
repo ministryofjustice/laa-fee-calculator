@@ -29,7 +29,7 @@ class ScenarioSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Scenario
-        fields = ('id', 'name', 'fee_types')
+        fields = ('id', 'name', 'force_third', 'fee_types')
 
 
 class AdvocateTypeSerializer(serializers.ModelSerializer):
@@ -56,4 +56,4 @@ class PriceSerializer(serializers.ModelSerializer):
         model = Price
         fields = ('id', 'scenario', 'advocate_type', 'fee_type',
                   'offence_class', 'scheme', 'unit', 'fee_per_unit',
-                  'uplift_percent', 'limit_from', 'limit_to')
+                  'uplift_percent', 'limit_from', 'limit_to', 'third')
