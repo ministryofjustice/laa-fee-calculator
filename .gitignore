@@ -15,7 +15,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -93,3 +92,9 @@ fee_calculator/settings/local.py
 fee_calculator/static
 
 !example_client/build
+
+.idea
+.DS_Store
+~*
+
+example_client/node_modules

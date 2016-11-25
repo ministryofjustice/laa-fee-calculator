@@ -6,7 +6,7 @@ from rest_framework_swagger.views import get_swagger_view
 
 from calculator.views import (
     BaseSchemeViewSet, SchemeViewSet, FeeTypeViewSet, ScenarioViewSet,
-    OffenceClassViewSet, AdvocateTypeViewSet, PriceViewSet)
+    OffenceClassViewSet, AdvocateTypeViewSet, PriceViewSet, CalculatorView)
 
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -25,5 +25,6 @@ schema_view = get_swagger_view(title='Calculator API')
 
 urlpatterns = (
     url(r'^', include(router.urls)),
-    url(r'^docs$', schema_view)
+    url(r'^docs$', schema_view),
+    url(r'calculate', CalculatorView.as_view(), name='calculator'),
 )
