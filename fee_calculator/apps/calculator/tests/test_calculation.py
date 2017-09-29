@@ -20,7 +20,7 @@ SPREADSHEET_PATH = os.path.join(
 
 
 class CalculatorTestCase(TestCase):
-    endpoint = '/api/%s/calculate' % settings.API_VERSION
+    endpoint = '/api/%s/calculate/' % settings.API_VERSION
     fixtures = [
         'advocatetype', 'feetype', 'offenceclass', 'price', 'scenario',
         'scheme', 'unit',

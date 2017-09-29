@@ -6,7 +6,7 @@ from rest_framework.test import APITestCase
 
 
 class SchemeApiTestCase(APITestCase):
-    endpoint = '/api/%s/fee-schemes' % settings.API_VERSION
+    endpoint = '/api/%s/fee-schemes/' % settings.API_VERSION
     fixtures = [
         'advocatetype', 'feetype', 'offenceclass', 'price', 'scenario',
         'scheme', 'unit',
