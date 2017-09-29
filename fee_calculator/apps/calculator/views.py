@@ -18,6 +18,14 @@ from .serializers import (
 from .filters import swagger_filter_backend_class
 
 
+class OrderedReadOnlyModelViewSet(viewsets.ReadOnlyModelViewSet):
+    default_ordering = None
+
+    def filter_queryset(self, queryset):
+        queryset = queryset.order_by(self.default_ordering or '-pk')
+        return super().filter_queryset(queryset)
+
+
 class SchemeViewSetMixin():
     model = Scheme
     serializer_class = SchemeSerializer
@@ -26,7 +34,7 @@ class SchemeViewSetMixin():
         return self.model.objects.all()
 
 
-class BaseSchemeViewSet(SchemeViewSetMixin, viewsets.ReadOnlyModelViewSet):
+class BaseSchemeViewSet(SchemeViewSetMixin, OrderedReadOnlyModelViewSet):
     """
     API endpoint that allows schemas to be viewed.
 
@@ -71,7 +79,7 @@ class SchemeViewSet(SchemeViewSetMixin, viewsets.GenericViewSet):
         return Response(SchemeSerializer(scheme).data)
 
 
-class FeeTypeViewSet(viewsets.ReadOnlyModelViewSet):
+class FeeTypeViewSet(OrderedReadOnlyModelViewSet):
     """
     Viewing fee type(s).
     """
@@ -79,7 +87,7 @@ class FeeTypeViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = FeeTypeSerializer
 
 
-class ScenarioViewSet(viewsets.ReadOnlyModelViewSet):
+class ScenarioViewSet(OrderedReadOnlyModelViewSet):
     """
     Viewing scenario(s).
     """
@@ -87,7 +95,7 @@ class ScenarioViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ScenarioSerializer
 
 
-class OffenceClassViewSet(viewsets.ReadOnlyModelViewSet):
+class OffenceClassViewSet(OrderedReadOnlyModelViewSet):
     """
     Viewing offence class(es).
     """
@@ -95,7 +103,7 @@ class OffenceClassViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = OffenceClassSerializer
 
 
-class AdvocateTypeViewSet(viewsets.ReadOnlyModelViewSet):
+class AdvocateTypeViewSet(OrderedReadOnlyModelViewSet):
     """
     Advocate types.
     """
@@ -103,7 +111,7 @@ class AdvocateTypeViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = AdvocateTypeSerializer
 
 
-class PriceViewSet(viewsets.ReadOnlyModelViewSet):
+class PriceViewSet(OrderedReadOnlyModelViewSet):
     """
     Prices.
 
