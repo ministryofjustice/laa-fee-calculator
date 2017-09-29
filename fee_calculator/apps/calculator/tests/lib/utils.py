@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-BASIC_FEES_MAP =  {
+BASIC_FEES_MAP = {
     'FXACV': 'AGFS_APPEAL_CON',
     'FXASE': 'AGFS_APPEAL_SEN',
     'FXCBR': 'AGFS_ORDER_BRCH',

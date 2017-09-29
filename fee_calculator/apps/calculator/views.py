@@ -122,7 +122,7 @@ class PriceViewSet(viewsets.ReadOnlyModelViewSet):
             'type': 'integer',
             'description': 'The id of fee scheme.',
             'validator': int
-         }),
+        }),
         ('scenario_id', {
             'name': 'scenario_id',
             'required': False,
@@ -130,7 +130,7 @@ class PriceViewSet(viewsets.ReadOnlyModelViewSet):
             'type': 'integer',
             'description': 'The id of scenario.',
             'validator': int
-         }),
+        }),
         ('fee_type_id', {
             'name': 'fee_type_id',
             'required': False,
@@ -138,7 +138,7 @@ class PriceViewSet(viewsets.ReadOnlyModelViewSet):
             'type': 'integer',
             'description': 'The id of fee type.',
             'validator': int
-         }),
+        }),
         ('advocate_type_id', {
             'name': 'advocate_type_id',
             'required': False,
@@ -148,7 +148,7 @@ class PriceViewSet(viewsets.ReadOnlyModelViewSet):
                 'The id of advocate type. Note the query will return prices'
                 ' with `advocate_type_id` either matching the value or null.'),
             'validator': str
-         }),
+        }),
         ('offence_class_id', {
             'name': 'offence_class_id',
             'required': False,
@@ -158,7 +158,7 @@ class PriceViewSet(viewsets.ReadOnlyModelViewSet):
                 'The id of offence class. Note the query will return prices'
                 ' with `offence_class_id` either matching the value or null.'),
             'validator': str
-         }),
+        }),
     ])
     serializer_class = PriceSerializer
     filter_backends = (swagger_filter_backend_class(schema.values()),)
