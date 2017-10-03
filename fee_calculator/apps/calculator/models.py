@@ -11,10 +11,16 @@ class Scheme(models.Model):
     suty_base_type = models.PositiveSmallIntegerField(choices=SUTY_BASE_TYPE)
     description = models.CharField(max_length=150)
 
+    def __str__(self):
+        return self.description
+
 
 class Scenario(models.Model):
     name = models.CharField(max_length=64)
     force_third = models.BooleanField()
+
+    def __str__(self):
+        return self.name
 
 
 class FeeType(models.Model):
@@ -22,16 +28,25 @@ class FeeType(models.Model):
     code = models.CharField(max_length=20, db_index=True)
     is_basic = models.BooleanField()
 
+    def __str__(self):
+        return self.name
+
 
 class AdvocateType(models.Model):
     id = models.CharField(max_length=12, primary_key=True)
     name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.name
 
 
 class OffenceClass(models.Model):
     id = models.CharField(max_length=64, primary_key=True)
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.name
 
 
 class Unit(models.Model):
