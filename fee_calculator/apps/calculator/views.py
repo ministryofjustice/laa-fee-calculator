@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from collections import OrderedDict
 from datetime import datetime
+import logging
 
 from django.db.models import Q
 from django.http import Http404
@@ -16,6 +17,8 @@ from .serializers import (
     SchemeSerializer, FeeTypeSerializer, ScenarioSerializer,
     OffenceClassSerializer, AdvocateTypeSerializer, PriceSerializer)
 from .filters import swagger_filter_backend_class
+
+logger = logging.getLogger('laa-calc')
 
 
 class OrderedReadOnlyModelViewSet(viewsets.ReadOnlyModelViewSet):
@@ -226,7 +229,6 @@ class CalculatorView(views.APIView):
         suty = self.request.query_params.get('suty')
         rep_order_date = self.request.query_params.get('rep_order_date')
         fee_type_code = self.request.query_params.get('fee_type_code')
-        bill_type = self.request.query_params.get('bill_type')
         scenario_id = self.request.query_params.get('scenario_id')
         advocate_type_id = self.request.query_params.get('advocate_type_id')
         offence_class_id = self.request.query_params.get('offence_class_id')
@@ -245,7 +247,7 @@ class CalculatorView(views.APIView):
                 start_date__lte=case_date,
             )
         except Scheme.DoesNotExist:
-            print('scheme doesnt exist for %s: %s' % (suty_code, case_date))
+            logger.error('Scheme doesnt exist for %s: %s' % (suty_code, case_date))
             raise Http404
 
         queryset = Price.objects.filter(

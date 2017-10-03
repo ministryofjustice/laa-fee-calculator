@@ -1,5 +1,14 @@
-django-gov==0.1.0
+Django==1.11.5
 dj-database-url==0.4.1
+django-moj-irat==0.3
+django-rest-swagger==2.1.2
+djangorestframework==3.6.4
+django-extended-choices==1.1.2
+django-cors-headers==2.1.0
+django-filter==1.0.4
+flake8==3.4.1
+openpyxl==2.4.8
 psycopg2==2.6.2
+PyYAML==3.12
 uWSGI==2.0.14
 xlrd==1.0.0
