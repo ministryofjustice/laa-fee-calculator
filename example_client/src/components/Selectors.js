@@ -14,37 +14,7 @@ const Selectors = ({
   handleOffenceClassChange,
   isUplifted,
   setUplift,
-  showThird,
-  selectedThird,
-  setThird
 }) => {
-  const ThirdRadios = (
-    <div className="form-group">
-      <label className="form-label">Which third?</label>
-      <fieldset className="inline">
-        <RadioWithLabel
-          id="1st"
-          value="1st"
-          label="1st"
-          selected={ selectedThird === 1 }
-          handleChange={ () => setThird(1) }
-        />
-        <RadioWithLabel
-          id="2nd"
-          value="2nd"
-          label="2nd"
-          selected={ selectedThird === 2 }
-          handleChange={ () => setThird(2) }
-        />
-        <RadioWithLabel
-          id="3nd"
-          value="3nd"
-          label="3rd"
-          selected={ selectedThird === 3 }
-          handleChange={ () => setThird(3) }
-        />
-      </fieldset>
-    </div>);
   const Uplift = (
     <div className="form-group">
       <label className="form-label">Uplift?</label>
@@ -89,7 +59,6 @@ const Selectors = ({
         selected={ selectedOffenceClassId }
         handleChange={ e => handleOffenceClassChange(e.target.value) }
       />
-      { showThird ? ThirdRadios: null}
       { Uplift }
     </div>
   )

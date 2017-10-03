@@ -101,15 +101,6 @@ const isUplifted = (state = false, action) => {
   }
 }
 
-const selectedThird = (state = 1, action) => {
-  switch (action.type) {
-    case 'SET_THIRD':
-      return action.selectedThird;
-    default:
-      return state;
-  }
-}
-
 const reducer = combineReducers({
   scenarios,
   advocateTypes,
@@ -119,8 +110,7 @@ const reducer = combineReducers({
   selectedScenarioId,
   selectedAdvocateTypeId,
   selectedOffenceClassId,
-  isUplifted,
-  selectedThird
+  isUplifted
 });
 
 

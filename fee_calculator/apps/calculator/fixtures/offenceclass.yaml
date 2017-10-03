@@ -29,7 +29,7 @@
   fields: {name: I, description: Offences against public justice and similar offences}
 - model: calculator.offenceclass
   pk: J
-  fields: {name: J, description: Serious Sexual Offences}
+  fields: {name: J, description: Serious sexual offences}
 - model: calculator.offenceclass
   pk: K
   fields: {name: K, description: Other offences of dishonesty (high value)}

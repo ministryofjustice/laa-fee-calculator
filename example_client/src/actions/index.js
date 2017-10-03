@@ -33,8 +33,3 @@ export const setUplift = (isUplifted) => ({
   type: 'SET_UPLIFT',
   isUplifted
 })
-
-export const setThird = (selectedThird) => ({
-  type: 'SET_THIRD',
-  selectedThird
-})

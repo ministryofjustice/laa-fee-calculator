@@ -17,7 +17,6 @@ class Scheme(models.Model):
 
 class Scenario(models.Model):
     name = models.CharField(max_length=64)
-    force_third = models.BooleanField()
 
     def __str__(self):
         return self.name
@@ -73,4 +72,3 @@ class Price(models.Model):
     uplift_percent = models.DecimalField(max_digits=6, decimal_places=2)
     limit_from = models.SmallIntegerField(default=1)
     limit_to = models.SmallIntegerField(null=True)
-    third = models.SmallIntegerField(null=True)

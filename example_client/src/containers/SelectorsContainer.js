@@ -1,20 +1,14 @@
 import { connect } from 'react-redux';
 import Selectors from '../components/Selectors';
-import { setScenario, setAdvocateType, setOffenceClass, setUplift, setThird } from '../actions';
+import { setScenario, setAdvocateType, setOffenceClass, setUplift } from '../actions';
 
-const showThird = (state) => {
-  const selectedScenario = state.scenarios.filter(s => s.id === state.selectedScenarioId)[0];
-  return selectedScenario === undefined ? false : selectedScenario['force_third'];
-}
-
-const mapStateToProps = (state) => Object.assign({ showThird: showThird(state) }, state);
+const mapStateToProps = (state) => state;
 
 const mapDispatchToProps = ({
   handleScenarioChange: setScenario,
   handleAdvocateTypeChange: setAdvocateType,
   handleOffenceClassChange: setOffenceClass,
-  setUplift,
-  setThird
+  setUplift
 });
 
 const SelectorsContainer = connect(

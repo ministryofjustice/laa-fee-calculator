@@ -96,6 +96,7 @@ class ScenarioViewSet(OrderedReadOnlyModelViewSet):
     """
     queryset = Scenario.objects.all()
     serializer_class = ScenarioSerializer
+    default_ordering = 'name'
 
 
 class OffenceClassViewSet(OrderedReadOnlyModelViewSet):

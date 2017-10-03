@@ -13,19 +13,17 @@ function getFeeTypes(prices) {
   return Object.values(feeTypes);
 }
 
-function getFeeTypeIdToPrices(feeTypes, prices, selectedAdvocateTypeId, selectedOffenceClassId, selectedThird) {
+function getFeeTypeIdToPrices(feeTypes, prices, selectedAdvocateTypeId, selectedOffenceClassId) {
   const feeIdToPrices = new Map();
   for (const price of prices) {
 
     const advocateType = price['advocate_type'];
     const offenceClass = price['offence_class'];
-    const third = price['third'];
     const feeTypeId = price['fee_type']['id'];
 
     const priceList = feeIdToPrices.get(feeTypeId) || [];
     if ((advocateType === null || advocateType.id === selectedAdvocateTypeId)
-        && (offenceClass === null || offenceClass.id === selectedOffenceClassId)
-        && (third === null || selectedThird === third)) {
+        && (offenceClass === null || offenceClass.id === selectedOffenceClassId)) {
       const item = {
         id: price['id'],
         feePerUnit: parseFloat(price['fee_per_unit']),
@@ -89,8 +87,7 @@ const mapStateToProps = (state) => {
     feeTypes,
     state.prices,
     state.selectedAdvocateTypeId,
-    state.selectedOffenceClassId,
-    state.selectedThird);
+    state.selectedOffenceClassId);
   const fees = getFees(feeTypes, feeIdToPrices, state.feeIdToQty, state.isUplifted);
   const basicFees = fees.filter( fee => fee['is_basic'] );
   const miscFees = fees.filter( fee => !fee['is_basic'] );

@@ -15,7 +15,7 @@ class SchemeAdmin(admin.ModelAdmin):
 
 @admin.register(Scenario)
 class ScenarioAdmin(admin.ModelAdmin):
-    list_display = ('name', 'force_third',)
+    list_display = ('name',)
 
 
 @admin.register(FeeType)

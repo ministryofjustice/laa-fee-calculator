@@ -8,23 +8,6 @@ SUTY_BASE_TYPE = Choices(
 )
 
 
-PSTY_PERSON_TYPE = Choices(
-    ('JRALONE', 1, 'JRALONE'),
-    ('LEDJR', 2, 'LEDJR'),
-    ('LEADJR', 3, 'LEADJR'),
-    ('QC', 4, 'QC'),
-)
-
-
-FEE_UNIT = Choices(
-    ('HOUR', 1, 'Hour'),
-    ('HALF_DAY', 2, 'Half day'),
-    ('DAY', 3, 'Day'),
-    ('CASE', 4, 'Case'),
-    ('FIXED', 5, 'Fixed'),
-)
-
-
 APRT_APPROVAL_TYPE = Choices(
     ('MANUAL', 1, 'Manual'),
     ('VALIDATE', 2, 'Validate'),
