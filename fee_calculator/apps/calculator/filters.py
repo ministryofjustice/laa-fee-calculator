@@ -6,6 +6,7 @@ from django.db.models import Q
 import django_filters
 from django_filters.constants import EMPTY_VALUES
 from django_filters.fields import Lookup
+from django_filters.rest_framework import filters
 import six
 
 from . import models
@@ -30,11 +31,40 @@ class ModelOrNoneChoiceFilter(django_filters.ModelChoiceFilter):
         return qs
 
 
-class FeeTypeFilter(django_filters.FilterSet):
+price_scheme_filter = django_filters.ModelChoiceFilter(
+    name='prices__scheme',
+    queryset=models.Scheme.objects.all(),
+    distinct=True
+)
+
+
+class ScenarioFilter(django_filters.FilterSet):
+    scheme = price_scheme_filter
+
     class Meta:
-        model = models.FeeType
+        model = models.Scenario
         fields = (
-            'is_basic',
+            'scheme',
+        )
+
+
+class OffenceClassFilter(django_filters.FilterSet):
+    scheme = price_scheme_filter
+
+    class Meta:
+        model = models.OffenceClass
+        fields = (
+            'scheme',
+        )
+
+
+class AdvocateTypeFilter(django_filters.FilterSet):
+    scheme = price_scheme_filter
+
+    class Meta:
+        model = models.AdvocateType
+        fields = (
+            'scheme',
         )
 
 

@@ -2,7 +2,8 @@
 from rest_framework import serializers
 
 from .models import (
-    Scheme, Scenario, FeeType, AdvocateType, OffenceClass, Price)
+    Scheme, Scenario, FeeType, AdvocateType, OffenceClass, Price, Unit
+)
 
 
 class SchemeSerializer(serializers.ModelSerializer):
@@ -25,11 +26,9 @@ class FeeTypeSerializer(serializers.ModelSerializer):
 
 
 class ScenarioSerializer(serializers.ModelSerializer):
-    fee_types = FeeTypeSerializer(many=True, read_only=True)
-
     class Meta:
         model = Scenario
-        fields = ('id', 'name', 'fee_types')
+        fields = ('id', 'name')
 
 
 class AdvocateTypeSerializer(serializers.ModelSerializer):
@@ -44,13 +43,19 @@ class OffenceClassSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description')
 
 
+class UnitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Unit
+        fields = ('id', 'name')
+
+
 class PriceSerializer(serializers.ModelSerializer):
     scenario = ScenarioSerializer(read_only=True)
     scheme = SchemeSerializer(read_only=True)
     advocate_type = AdvocateTypeSerializer(read_only=True)
     fee_type = FeeTypeSerializer(read_only=True)
     offence_class = OffenceClassSerializer(read_only=True)
-    unit = serializers.StringRelatedField(read_only=True)
+    unit = UnitSerializer(read_only=True)
 
     class Meta:
         model = Price

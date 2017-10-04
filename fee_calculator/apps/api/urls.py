@@ -6,7 +6,8 @@ from rest_framework_swagger.views import get_swagger_view
 
 from calculator.views import (
     BaseSchemeViewSet, SchemeViewSet, FeeTypeViewSet, ScenarioViewSet,
-    OffenceClassViewSet, AdvocateTypeViewSet, PriceViewSet, CalculatorView)
+    OffenceClassViewSet, AdvocateTypeViewSet, PriceViewSet, CalculatorView
+)
 
 
 router = routers.DefaultRouter()
@@ -18,8 +19,7 @@ router.register(r'advocate-types', AdvocateTypeViewSet,
                 base_name='advocate-types')
 router.register(r'offence-classes', OffenceClassViewSet,
                 base_name='offence-classes')
-router.register(r'prices', PriceViewSet,
-                base_name='prices')
+router.register(r'prices', PriceViewSet, base_name='prices')
 
 schema_view = get_swagger_view(title='Calculator API')
 

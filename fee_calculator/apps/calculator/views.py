@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from collections import OrderedDict
 from datetime import datetime
 import logging
 
@@ -10,12 +9,16 @@ from rest_framework.decorators import detail_route
 from rest_framework.response import Response
 
 from .constants import SUTY_BASE_TYPE
-from .filters import PriceFilter, FeeTypeFilter
+from .filters import (
+    PriceFilter, OffenceClassFilter, AdvocateTypeFilter, ScenarioFilter
+)
 from .models import (
-    Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price)
+    Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price
+)
 from .serializers import (
     SchemeSerializer, FeeTypeSerializer, ScenarioSerializer,
-    OffenceClassSerializer, AdvocateTypeSerializer, PriceSerializer)
+    OffenceClassSerializer, AdvocateTypeSerializer, PriceSerializer
+)
 
 logger = logging.getLogger('laa-calc')
 
@@ -24,7 +27,7 @@ class OrderedReadOnlyModelViewSet(viewsets.ReadOnlyModelViewSet):
     default_ordering = None
 
     def filter_queryset(self, queryset):
-        queryset = queryset.order_by(self.default_ordering or '-pk')
+        queryset = queryset.order_by(self.default_ordering or 'pk')
         return super().filter_queryset(queryset)
 
 
@@ -87,8 +90,6 @@ class FeeTypeViewSet(OrderedReadOnlyModelViewSet):
     """
     queryset = FeeType.objects.all()
     serializer_class = FeeTypeSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filter_class = FeeTypeFilter
 
 
 class ScenarioViewSet(OrderedReadOnlyModelViewSet):
@@ -97,7 +98,8 @@ class ScenarioViewSet(OrderedReadOnlyModelViewSet):
     """
     queryset = Scenario.objects.all()
     serializer_class = ScenarioSerializer
-    default_ordering = 'name'
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = ScenarioFilter
 
 
 class OffenceClassViewSet(OrderedReadOnlyModelViewSet):
@@ -106,6 +108,8 @@ class OffenceClassViewSet(OrderedReadOnlyModelViewSet):
     """
     queryset = OffenceClass.objects.all()
     serializer_class = OffenceClassSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = OffenceClassFilter
 
 
 class AdvocateTypeViewSet(OrderedReadOnlyModelViewSet):
@@ -114,6 +118,8 @@ class AdvocateTypeViewSet(OrderedReadOnlyModelViewSet):
     """
     queryset = AdvocateType.objects.all()
     serializer_class = AdvocateTypeSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = AdvocateTypeFilter
 
 
 class PriceViewSet(OrderedReadOnlyModelViewSet):
