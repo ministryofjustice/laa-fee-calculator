@@ -22,7 +22,7 @@ class SchemeSerializer(serializers.ModelSerializer):
 class FeeTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = FeeType
-        fields = ('id', 'name', 'code', 'is_basic')
+        fields = ('id', 'name', 'code', 'is_basic', 'units')
 
 
 class ScenarioSerializer(serializers.ModelSerializer):

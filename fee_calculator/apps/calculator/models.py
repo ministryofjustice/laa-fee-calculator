@@ -27,6 +27,9 @@ class FeeType(models.Model):
     code = models.CharField(max_length=20, db_index=True)
     is_basic = models.BooleanField()
 
+    def units(self):
+        return self.prices.values_list('unit').distinct()
+
     def __str__(self):
         return self.name
 
@@ -68,6 +71,7 @@ class Price(models.Model):
     fee_type = models.ForeignKey(
         'FeeType', related_name='prices')
     unit = models.ForeignKey('Unit', related_name='prices')
+    fixed_fee = models.DecimalField(max_digits=10, decimal_places=3)
     fee_per_unit = models.DecimalField(max_digits=10, decimal_places=3)
     uplift_percent = models.DecimalField(max_digits=6, decimal_places=2)
     limit_from = models.SmallIntegerField(default=1)

@@ -19,3 +19,6 @@
 - model: calculator.unit
   pk: PPE
   fields: {name: Pages of Prosecuting Evidence}
+- model: calculator.unit
+  pk: PW
+  fields: {name: Prosecution Witnesses}

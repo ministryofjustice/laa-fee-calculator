@@ -1,9 +1,9 @@
 - model: calculator.feetype
   pk: 1
-  fields: {name: Witness uplift, code: '', is_basic: true}
+  fields: {name: Witness uplift, code: AGFS_FEE, is_basic: true}
 - model: calculator.feetype
   pk: 2
-  fields: {name: Evidence pages uplift, code: '', is_basic: true}
+  fields: {name: Evidence pages uplift, code: AGFS_FEE, is_basic: true}
 - model: calculator.feetype
   pk: 3
   fields: {name: Redeterminations, code: AGFS_REDET, is_basic: false}

@@ -29,7 +29,7 @@ function getFeeTypeIdToPrices(feeTypes, prices, selectedAdvocateTypeId, selected
         feePerUnit: parseFloat(price['fee_per_unit']),
         limitFrom: price['limit_from'],
         limitTo: price['limit_to'],
-        unit: price['unit'],
+        unit: price['unit']['name'],
         upliftPercent: price['uplift_percent']
       }
       priceList.push(item);
