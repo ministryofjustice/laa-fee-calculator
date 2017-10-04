@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'moj_irat',
     'corsheaders',
+    'django_filters',
 
     'api',
     'calculator',

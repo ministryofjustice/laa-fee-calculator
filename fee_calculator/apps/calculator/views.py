@@ -5,18 +5,17 @@ import logging
 
 from django.db.models import Q
 from django.http import Http404
-from rest_framework import viewsets, views
-from rest_framework.exceptions import ValidationError
+from rest_framework import filters, viewsets, views
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
 
 from .constants import SUTY_BASE_TYPE
+from .filters import PriceFilter, FeeTypeFilter
 from .models import (
     Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price)
 from .serializers import (
     SchemeSerializer, FeeTypeSerializer, ScenarioSerializer,
     OffenceClassSerializer, AdvocateTypeSerializer, PriceSerializer)
-from .filters import swagger_filter_backend_class
 
 logger = logging.getLogger('laa-calc')
 
@@ -88,6 +87,8 @@ class FeeTypeViewSet(OrderedReadOnlyModelViewSet):
     """
     queryset = FeeType.objects.all()
     serializer_class = FeeTypeSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = FeeTypeFilter
 
 
 class ScenarioViewSet(OrderedReadOnlyModelViewSet):
@@ -125,102 +126,10 @@ class PriceViewSet(OrderedReadOnlyModelViewSet):
     list:
     get a list of prices.
     """
-
-    schema = OrderedDict([
-        ('scheme_id', {
-            'name': 'scheme_id',
-            'required': False,
-            'location': 'query',
-            'type': 'integer',
-            'description': 'The id of fee scheme.',
-            'validator': int
-        }),
-        ('scenario_id', {
-            'name': 'scenario_id',
-            'required': False,
-            'location': 'query',
-            'type': 'integer',
-            'description': 'The id of scenario.',
-            'validator': int
-        }),
-        ('fee_type_id', {
-            'name': 'fee_type_id',
-            'required': False,
-            'location': 'query',
-            'type': 'integer',
-            'description': 'The id of fee type.',
-            'validator': int
-        }),
-        ('advocate_type_id', {
-            'name': 'advocate_type_id',
-            'required': False,
-            'location': 'query',
-            'type': 'integer',
-            'description': (
-                'The id of advocate type. Note the query will return prices'
-                ' with `advocate_type_id` either matching the value or null.'),
-            'validator': str
-        }),
-        ('offence_class_id', {
-            'name': 'offence_class_id',
-            'required': False,
-            'location': 'query',
-            'type': 'integer',
-            'description': (
-                'The id of offence class. Note the query will return prices'
-                ' with `offence_class_id` either matching the value or null.'),
-            'validator': str
-        }),
-    ])
+    queryset = Price.objects.all()
     serializer_class = PriceSerializer
-    filter_backends = (swagger_filter_backend_class(schema.values()),)
-
-    def sanitise_parameter(self, name):
-        """
-        sanitise query parameter
-        :param name: name of the parameter
-        :return: value of the sanitised parameter or None if name not found.
-        :raise: ValidationError
-        """
-        field_schema = self.schema[name]
-        try:
-            value = self.request.query_params[name]
-        except KeyError:
-            if not field_schema['required']:
-                return
-            raise ValidationError('Missing required field {}'.format(name))
-        try:
-            return field_schema['validator'](value)
-        except Exception:
-            detail = "Invalid parameter {}='{}'.".format(name, value)
-            raise ValidationError(detail)
-
-    def get_queryset(self):
-        scheme_id = self.sanitise_parameter('scheme_id')
-        fee_type_id = self.sanitise_parameter('fee_type_id')
-        scenario_id = self.sanitise_parameter('scenario_id')
-        advocate_type_id = self.sanitise_parameter('advocate_type_id')
-        offence_class_id = self.sanitise_parameter('offence_class_id')
-        queryset = Price.objects.all()
-        if scheme_id:
-            queryset = queryset.filter(scheme_id=scheme_id)
-        if fee_type_id:
-            queryset = queryset.filter(fee_type_id=fee_type_id)
-        if scenario_id:
-            queryset = queryset.filter(scenario_id=scenario_id)
-        if advocate_type_id:
-            # for convenience of real usecase, either match or null
-            # instead of just match
-            queryset = queryset.filter(
-                Q(advocate_type_id=advocate_type_id) |
-                Q(advocate_type_id__isnull=True))
-        if offence_class_id:
-            # for convenience of real usecase, either match or null
-            # instead of just match
-            queryset = queryset.filter(
-                Q(offence_class_id=offence_class_id) |
-                Q(offence_class_id__isnull=True))
-        return queryset
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = PriceFilter
 
 
 class CalculatorView(views.APIView):

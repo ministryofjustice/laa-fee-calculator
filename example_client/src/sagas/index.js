@@ -41,7 +41,7 @@ export function* fetchPrices(baseURL) {
       || advocateTypeId !== prevAdvocateTypeId
       || offenceClassId !== prevOffenceClassId;
     if (allSet && anyUpdated) {
-      const url = `${baseURL}/prices?scenario_id=${scenarioId}&advocate_type_id=${advocateTypeId}&offence_class_id=${offenceClassId}`;
+      const url = `${baseURL}/prices?scenario=${scenarioId}&advocate_type=${advocateTypeId}&offence_class=${offenceClassId}`;
       const prices = yield call(fetchEndPoint, url);
       yield put({type: 'FETCH_PRICES_SUCCEEDED', prices});
     }
@@ -58,7 +58,7 @@ export function* fetchPricesForScenario(baseURL) {
     const scenarioId = yield select(state => state.selectedScenarioId);
     let prices = [];
     if (scenarioId && scenarioId !== prevScenarioId) {
-      const url = `${baseURL}/prices?scenario_id=${scenarioId}&scheme_id=10`;
+      const url = `${baseURL}/prices?scenario=${scenarioId}&scheme=10`;
       prices = yield call(fetchEndPoint, url);
     }
     yield put({type: 'FETCH_PRICES_SUCCEEDED', prices});
