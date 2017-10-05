@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from decimal import Decimal
+
 from django.db import models
 
 from .constants import SUTY_BASE_TYPE
@@ -30,6 +32,9 @@ class FeeType(models.Model):
     def units(self):
         return self.prices.values_list('unit').distinct()
 
+    def uplift_units(self):
+        return self.prices.values_list('uplifts__unit').distinct()
+
     def __str__(self):
         return self.name
 
@@ -59,6 +64,23 @@ class Unit(models.Model):
         return self.name
 
 
+class Uplift(models.Model):
+    unit = models.ForeignKey(Unit)
+    limit_from = models.IntegerField()
+    limit_to = models.IntegerField(null=True)
+    uplift_percent = models.DecimalField(max_digits=6, decimal_places=2)
+
+    def is_applicable(self, unit, count):
+        return (
+            unit == self.unit and
+            count >= self.limit_from and
+            count < self.limit_to
+        )
+
+    def apply(self, total):
+        return total*(self.uplift_percent/Decimal('100.00'))
+
+
 class Price(models.Model):
     scenario = models.ForeignKey(
         'Scenario', related_name='prices')
@@ -73,6 +95,41 @@ class Price(models.Model):
     unit = models.ForeignKey('Unit', related_name='prices')
     fixed_fee = models.DecimalField(max_digits=10, decimal_places=3)
     fee_per_unit = models.DecimalField(max_digits=10, decimal_places=3)
-    uplift_percent = models.DecimalField(max_digits=6, decimal_places=2)
     limit_from = models.SmallIntegerField(default=1)
     limit_to = models.SmallIntegerField(null=True)
+    uplifts = models.ManyToManyField(Uplift)
+
+    def calculate_total(self, unit_count, uplift_unit_counts):
+        '''
+        Calculate the total from any fixed_fee, fee_per_unit and uplifts
+        '''
+        total = self.fixed_fee + (
+            self.get_applicable_unit_count(unit_count)*self.fee_per_unit
+        )
+        uplift_fees = []
+        for unit, count in uplift_unit_counts:
+            uplift_fees += self.get_uplift_fees(total, unit, count)
+        return total + sum(uplift_fees)
+
+    def get_uplift_fees(self, calculated_price, unit, count):
+        '''
+        Get a list of extra fees from associated uplifts for the given
+        unit and count
+        '''
+        uplift_fees = []
+        for uplift in self.uplifts:
+            if uplift.is_applicable(unit, count):
+                uplift_fees.append(uplift.apply(calculated_price))
+        return uplift_fees
+
+    def get_applicable_unit_count(self, unit_count):
+        '''
+        Get the number of units that fall within the range specified
+        by limit_from and limit_to
+        '''
+        applicable_unit_count = unit_count
+        if self.limit_from:
+            applicable_unit_count -= (self.limit_from - 1)
+        if self.limit_to and unit_count >= self.limit_to:
+            applicable_unit_count -= (unit_count - (self.limit_to - 1))
+        return max(applicable_unit_count, 0)

@@ -1,0 +1,9 @@
+- model: calculator.uplift
+  pk: 1
+  fields: {unit: CASE, limit_from: 2, limit_to: null, uplift_percent: '20.00'}
+- model: calculator.uplift
+  pk: 2
+  fields: {unit: DEFENDANT, limit_from: 2, limit_to: 5, uplift_percent: '20.00'}
+- model: calculator.uplift
+  pk: 3
+  fields: {unit: DEFENDANT, limit_from: 5, limit_to: null, uplift_percent: '30.00'}
