@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
+from decimal import Decimal
 import logging
 
 from django.db.models import Q
@@ -10,7 +11,8 @@ from rest_framework.response import Response
 
 from .constants import SUTY_BASE_TYPE
 from .filters import (
-    PriceFilter, OffenceClassFilter, AdvocateTypeFilter, ScenarioFilter
+    PriceFilter, OffenceClassFilter, AdvocateTypeFilter, ScenarioFilter,
+    FeeTypeFilter
 )
 from .models import (
     Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price
@@ -90,6 +92,36 @@ class FeeTypeViewSet(OrderedReadOnlyModelViewSet):
     """
     queryset = FeeType.objects.all()
     serializer_class = FeeTypeSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = FeeTypeFilter
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        scheme_id = self.request.query_params.get('scheme')
+        scenario_id = self.request.query_params.get('scenario')
+        advocate_type_id = self.request.query_params.get('advocate_type')
+        offence_class_id = self.request.query_params.get('offence_class')
+
+        filters = []
+        if scheme_id:
+            filters.append(Q(prices__scheme_id=scheme_id))
+        if scenario_id:
+            filters.append(Q(prices__scenario_id=scenario_id))
+        if advocate_type_id:
+            filters.append(
+                Q(prices__advocate_type_id=advocate_type_id) |
+                Q(prices__advocate_type_id__isnull=True)
+            )
+        if offence_class_id:
+            filters.append(
+                Q(prices__offence_class_id=offence_class_id) |
+                Q(prices__offence_class_id__isnull=True)
+            )
+
+        if filters:
+            queryset = queryset.filter(*filters).distinct()
+        return queryset
 
 
 class ScenarioViewSet(OrderedReadOnlyModelViewSet):
@@ -145,9 +177,10 @@ class CalculatorView(views.APIView):
         suty = self.request.query_params.get('suty')
         rep_order_date = self.request.query_params.get('rep_order_date')
         fee_type_code = self.request.query_params.get('fee_type_code')
-        scenario_id = self.request.query_params.get('scenario_id')
-        advocate_type_id = self.request.query_params.get('advocate_type_id')
-        offence_class_id = self.request.query_params.get('offence_class_id')
+        scenario_id = self.request.query_params.get('scenario')
+        advocate_type_id = self.request.query_params.get('advocate_type')
+        offence_class_id = self.request.query_params.get('offence_class')
+        unit_count = self.request.query_params.get('unit_count')
 
         suty_code = SUTY_BASE_TYPE.for_constant(suty.upper()).value
 
@@ -166,15 +199,16 @@ class CalculatorView(views.APIView):
             logger.error('Scheme doesnt exist for %s: %s' % (suty_code, case_date))
             raise Http404
 
-        queryset = Price.objects.filter(
+        prices = Price.objects.filter(
             Q(fee_type__code=fee_type_code) | Q(fee_type__code__isnull=True),
             Q(advocate_type_id=advocate_type_id) | Q(advocate_type_id__isnull=True),
             Q(offence_class_id=offence_class_id) | Q(offence_class_id__isnull=True),
+            Q(limit_to__lte=unit_count) | Q(limit_to__isnull=True),
+            limit_from__gte=unit_count,
             scheme_id=scheme.pk,
             scenario_id=scenario_id,
         )
 
         return Response({
-            'amount': 100,
-            'price_count': queryset.count(),
+            'amount': (prices.first().fee_per_unit*Decimal(unit_count)) if prices.first() else 0,
         })

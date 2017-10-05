@@ -68,6 +68,16 @@ class AdvocateTypeFilter(django_filters.FilterSet):
         )
 
 
+class FeeTypeFilter(django_filters.FilterSet):
+    is_basic = filters.BooleanFilter
+
+    class Meta:
+        model = models.FeeType
+        fields = (
+            'is_basic',
+        )
+
+
 class PriceFilter(django_filters.FilterSet):
     offence_class = ModelOrNoneChoiceFilter(
         name='offence_class',
