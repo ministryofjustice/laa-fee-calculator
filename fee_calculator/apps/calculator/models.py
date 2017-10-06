@@ -74,7 +74,7 @@ class Uplift(models.Model):
         return (
             unit == self.unit and
             count >= self.limit_from and
-            count < self.limit_to
+            (self.limit_to is None or count <= self.limit_to)
         )
 
     def apply(self, total):
@@ -107,18 +107,20 @@ class Price(models.Model):
             self.get_applicable_unit_count(unit_count)*self.fee_per_unit
         )
         uplift_fees = []
-        for unit, count in uplift_unit_counts:
-            uplift_fees += self.get_uplift_fees(total, unit, count)
+        for uplift_unit, count in uplift_unit_counts:
+            uplift_fees += self.get_uplift_fees(total, uplift_unit, count)
         return total + sum(uplift_fees)
 
-    def get_uplift_fees(self, calculated_price, unit, count):
+    def get_uplift_fees(self, calculated_price, uplift_unit, count):
         '''
         Get a list of extra fees from associated uplifts for the given
-        unit and count
+        uplift_unit and count
         '''
         uplift_fees = []
-        for uplift in self.uplifts:
-            if uplift.is_applicable(unit, count):
+        # applicability is checked in python on the assumption that the
+        # query for prices will use `.prefetch_related('uplifts')`
+        for uplift in self.uplifts.all():
+            if uplift.is_applicable(uplift_unit, count):
                 uplift_fees.append(uplift.apply(calculated_price))
         return uplift_fees
 
@@ -131,5 +133,5 @@ class Price(models.Model):
         if self.limit_from:
             applicable_unit_count -= (self.limit_from - 1)
         if self.limit_to and unit_count >= self.limit_to:
-            applicable_unit_count -= (unit_count - (self.limit_to - 1))
+            applicable_unit_count -= (unit_count - self.limit_to)
         return max(applicable_unit_count, 0)
