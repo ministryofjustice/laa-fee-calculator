@@ -1,0 +1,17 @@
+# general
+*.DS_Store
+*.py?
+*.pot
+*~
+
+# editors
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# project
+Dockerfile
+docker-compose.yml
+fee_calculator/settings/local.py
+fee_calculator/static/
+venv/
