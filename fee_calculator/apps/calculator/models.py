@@ -70,9 +70,9 @@ class Uplift(models.Model):
     limit_to = models.IntegerField(null=True)
     uplift_percent = models.DecimalField(max_digits=6, decimal_places=2)
 
-    def is_applicable(self, unit, count):
+    def is_applicable(self, unit_id, count):
         return (
-            unit == self.unit and
+            unit_id == self.unit and
             count >= self.limit_from and
             (self.limit_to is None or count <= self.limit_to)
         )

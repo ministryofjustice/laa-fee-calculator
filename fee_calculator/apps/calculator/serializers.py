@@ -22,37 +22,62 @@ class SchemeSerializer(serializers.ModelSerializer):
 class FeeTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = FeeType
-        fields = ('id', 'name', 'code', 'is_basic', 'units')
+        fields = (
+            'id',
+            'name',
+            'code',
+            'is_basic',
+            'units',
+            'uplift_units',
+        )
 
 
 class ScenarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Scenario
-        fields = ('id', 'name')
+        fields = (
+            'id',
+            'name',
+        )
 
 
 class AdvocateTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = AdvocateType
-        fields = ('id', 'name')
+        fields = (
+            'id',
+            'name',
+        )
 
 
 class OffenceClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = OffenceClass
-        fields = ('id', 'name', 'description')
+        fields = (
+            'id',
+            'name',
+            'description',
+        )
 
 
 class UnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unit
-        fields = ('id', 'name')
+        fields = (
+            'id',
+            'name',
+        )
 
 
 class UpliftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Uplift
-        fields = '__all__'
+        fields = (
+            'id',
+            'limit_from',
+            'limit_to',
+            'uplift_percent',
+        )
 
 
 class PriceSerializer(serializers.ModelSerializer):
@@ -66,6 +91,16 @@ class PriceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Price
-        fields = ('id', 'scenario', 'advocate_type', 'fee_type',
-                  'offence_class', 'scheme', 'unit', 'fee_per_unit',
-                  'limit_from', 'limit_to', 'uplifts',)
+        fields = (
+            'id',
+            'scenario',
+            'advocate_type',
+            'fee_type',
+            'offence_class',
+            'scheme',
+            'unit',
+            'fee_per_unit',
+            'limit_from',
+            'limit_to',
+            'uplifts',
+        )

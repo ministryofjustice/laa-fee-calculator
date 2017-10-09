@@ -6,7 +6,6 @@ import os
 from django.conf import settings
 from django.test import TestCase
 from django.utils.text import slugify
-
 from rest_framework import status
 import xlrd
 from xlrd.xldate import xldate_as_datetime
@@ -23,7 +22,7 @@ class CalculatorTestCase(TestCase):
     endpoint = '/api/%s/calculate/' % settings.API_VERSION
     fixtures = [
         'advocatetype', 'feetype', 'offenceclass', 'price', 'scenario',
-        'scheme', 'unit',
+        'scheme', 'unit', 'uplift'
     ]
 
     def assertRowValuesCorrect(self, row):
@@ -37,19 +36,53 @@ class CalculatorTestCase(TestCase):
         else:
             rep_order_date = date.today()
 
+        scheme_resp = self.client.get(
+            '/api/{version}/fee-schemes/{suty}/{date}/'.format(
+                version=settings.API_VERSION, suty='advocate',
+                date=rep_order_date
+            )
+        )
+        self.assertEqual(
+            scheme_resp.status_code, status.HTTP_200_OK, scheme_resp.content
+        )
+        scheme_id = scheme_resp.json()['id']
+
         data = {
+            'scheme': scheme_id,
             'fee_type_code': row['bill_sub_type'],
-            'bill_type': row['bill_type'],
-            'scenario_id': scenario_ccr_to_id(row['bill_scenario_id']),
-            'suty': 'ADVOCATE',
+            'scenario': scenario_ccr_to_id(
+                row['bill_scenario_id'], row['third_cracked']),
             'rep_order_date': rep_order_date,
-            'advocate_type_id': row['person_type'],
-            'offence_class_id': row['offence-cat'],
+            'advocate_type': row['person_type'],
+            'offence_class': row['offence-cat'],
+            'unit': 'DAY',
+            'unit_count': int(row['trial_length']) or 1,
         }
+
+        if row['defendants']:
+            data['uplift_unit_1'] = 'DEFENDANT'
+            data['uplift_unit_count_1'] = int(row['defendants'])
+
+        fees = []
+
         resp = self.client.get(self.endpoint, data=data)
-        self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        self.assertEqual(resp.data['amount'], 100)
-        self.assertNotEqual(resp.data['price_count'], 0, str(data))
+        self.assertEqual(resp.status_code, status.HTTP_200_OK, resp.content)
+        fees.append(resp.data['amount'])
+
+        if row['ppe']:
+            data['unit'] = 'PPE'
+            data['unit_count'] = int(row['ppe'])
+
+            resp = self.client.get(self.endpoint, data=data)
+            self.assertEqual(
+                resp.status_code, status.HTTP_200_OK, resp.content
+            )
+            fees.append(resp.data['amount'])
+
+        self.assertEqual(
+            sum(fees),
+            row['calc_amt_exc_vat']
+        )
 
 
 def value(cell):

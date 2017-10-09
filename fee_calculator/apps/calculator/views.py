@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from decimal import Decimal
 import logging
 
 from django.db.models import Q
 from django.http import Http404
-from rest_framework import filters, viewsets, views
+from rest_framework import filters, viewsets, views, status
 from rest_framework.decorators import detail_route
+from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
 from .constants import SUTY_BASE_TYPE
@@ -15,7 +15,7 @@ from .filters import (
     FeeTypeFilter
 )
 from .models import (
-    Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price
+    Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price, Unit
 )
 from .serializers import (
     SchemeSerializer, FeeTypeSerializer, ScenarioSerializer,
@@ -59,7 +59,7 @@ class SchemeViewSet(SchemeViewSetMixin, viewsets.GenericViewSet):
     API endpoint that returns single scheme for suty type for a given case
     start date in format YYYY-MM-DD
 
-    /api/v1/scheme/advocate/2016-12-07/
+    /api/v1/fee-schemes/advocate/2016-12-07/
     """
     lookup_field = 'suty'
     lookup_value_regex = '|'.join(
@@ -173,42 +173,92 @@ class PriceViewSet(OrderedReadOnlyModelViewSet):
 class CalculatorView(views.APIView):
     allowed_methods = ['GET']
 
-    def get(self, *args, **kwargs):
-        suty = self.request.query_params.get('suty')
-        rep_order_date = self.request.query_params.get('rep_order_date')
-        fee_type_code = self.request.query_params.get('fee_type_code')
-        scenario_id = self.request.query_params.get('scenario')
-        advocate_type_id = self.request.query_params.get('advocate_type')
-        offence_class_id = self.request.query_params.get('offence_class')
-        unit_count = self.request.query_params.get('unit_count')
+    def get_param(self, param_name, required=False):
+        number = self.request.query_params.get(param_name, None)
+        if number is None:
+            if required:
+                raise ValidationError('`%s` is a required field' % param_name)
+        return number
 
-        suty_code = SUTY_BASE_TYPE.for_constant(suty.upper()).value
-
+    def get_model_param(
+        self, param_name, model_class, required=False, lookup='pk', many=False
+    ):
+        instance = self.get_param(param_name, required)
         try:
-            case_date = datetime.strptime(rep_order_date, '%Y-%m-%d')
-        except ValueError:
-            raise Http404
-
-        try:
-            scheme = Scheme.objects.get(
-                Q(end_date__isnull=True) | Q(end_date__gte=case_date),
-                suty_base_type=suty_code,
-                start_date__lte=case_date,
+            if instance is not None:
+                if many:
+                    instance = model_class.objects.filter(**{lookup: instance})
+                else:
+                    instance = model_class.objects.get(**{lookup: instance})
+        except model_class.DoesNotExist:
+            raise ValidationError(
+                '`%s` is not a valid %s' % (param_name, model_class.__name__)
             )
-        except Scheme.DoesNotExist:
-            logger.error('Scheme doesnt exist for %s: %s' % (suty_code, case_date))
-            raise Http404
+        return instance
+
+    def get_integer_param(self, param_name, required=False):
+        number = self.get_param(param_name, required)
+        try:
+            if number is not None:
+                number = int(number)
+        except ValueError:
+            raise ValidationError('`%s` must be an integer' % param_name)
+        return number
+
+    def get(self, *args, **kwargs):
+        scheme = self.get_model_param('scheme', Scheme, required=True)
+        fee_types = self.get_model_param(
+            'fee_type_code', FeeType, required=True, lookup='code', many=True
+        )
+        scenario = self.get_model_param('scenario', Scenario, required=True)
+        advocate_type = self.get_model_param('advocate_type', AdvocateType)
+        offence_class = self.get_model_param('offence_class', OffenceClass)
+        unit = self.get_model_param('unit', Unit)
+        unit_count = self.get_integer_param('unit_count')
+
+        i = 1
+        uplift_unit_counts = []
+        while True:
+            uplift_unit = self.get_model_param('uplift_unit_%s' % i, Unit)
+            unit_present = uplift_unit is not None
+
+            uplift_unit_count = self.get_integer_param('uplift_unit_count_%s' % i)
+            count_present = uplift_unit_count is not None
+
+            if unit_present and count_present:
+                uplift_unit_counts.append((uplift_unit, uplift_unit_count,))
+                i += 1
+            elif unit_present and not count_present:
+                return Response(
+                    '`uplift_unit_%s` provided but '
+                    '`uplift_unit_count_%s` is missing' % (i, i),
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            elif not unit_present and count_present:
+                return Response(
+                    '`uplift_unit_count_%s` provided but '
+                    '`uplift_unit_%s` is missing' % (i, i),
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            else:
+                break
 
         prices = Price.objects.filter(
-            Q(fee_type__code=fee_type_code) | Q(fee_type__code__isnull=True),
-            Q(advocate_type_id=advocate_type_id) | Q(advocate_type_id__isnull=True),
-            Q(offence_class_id=offence_class_id) | Q(offence_class_id__isnull=True),
-            Q(limit_to__lte=unit_count) | Q(limit_to__isnull=True),
-            limit_from__gte=unit_count,
-            scheme_id=scheme.pk,
-            scenario_id=scenario_id,
+            Q(advocate_type=advocate_type) | Q(advocate_type__isnull=True),
+            Q(offence_class=offence_class) | Q(offence_class__isnull=True),
+            scheme=scheme, fee_type__in=fee_types, unit=unit,
+            scenario=scenario
         )
 
+        if len(prices) == 0:
+            return Response(
+                'No prices exist for query', status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # sum total from all prices whose range is covered by the unit_count
         return Response({
-            'amount': (prices.first().fee_per_unit*Decimal(unit_count)) if prices.first() else 0,
+            'amount': sum((
+                price.calculate_total(unit_count, uplift_unit_counts)
+                for price in prices
+            ))
         })
