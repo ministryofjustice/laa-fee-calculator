@@ -23,7 +23,6 @@ class FeeTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = FeeType
         fields = (
-            'id',
             'name',
             'code',
             'is_basic',
@@ -73,10 +72,21 @@ class UpliftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Uplift
         fields = (
-            'id',
+            'unit',
             'limit_from',
             'limit_to',
             'uplift_percent',
+        )
+
+
+class PriceFeeTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FeeType
+        fields = (
+            'id',
+            'name',
+            'code',
+            'is_basic',
         )
 
 
@@ -84,7 +94,7 @@ class PriceSerializer(serializers.ModelSerializer):
     scenario = ScenarioSerializer(read_only=True)
     scheme = SchemeSerializer(read_only=True)
     advocate_type = AdvocateTypeSerializer(read_only=True)
-    fee_type = FeeTypeSerializer(read_only=True)
+    fee_type = PriceFeeTypeSerializer(read_only=True)
     offence_class = OffenceClassSerializer(read_only=True)
     unit = UnitSerializer(read_only=True)
     uplifts = UpliftSerializer(many=True, read_only=True)
@@ -100,6 +110,7 @@ class PriceSerializer(serializers.ModelSerializer):
             'scheme',
             'unit',
             'fee_per_unit',
+            'fixed_fee',
             'limit_from',
             'limit_to',
             'uplifts',

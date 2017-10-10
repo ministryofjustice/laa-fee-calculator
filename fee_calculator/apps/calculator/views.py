@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from collections import OrderedDict
 from datetime import datetime
 import logging
 
@@ -12,7 +13,7 @@ from rest_framework.response import Response
 from .constants import SUTY_BASE_TYPE
 from .filters import (
     PriceFilter, OffenceClassFilter, AdvocateTypeFilter, ScenarioFilter,
-    FeeTypeFilter
+    FeeTypeFilter, ViewSchemaFilterBackend
 )
 from .models import (
     Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price, Unit
@@ -90,9 +91,47 @@ class FeeTypeViewSet(OrderedReadOnlyModelViewSet):
     """
     Viewing fee type(s).
     """
+    schema = OrderedDict([
+        ('scheme', {
+            'name': 'scheme',
+            'required': False,
+            'location': 'query',
+            'type': 'integer',
+            'description': '',
+            'validator': int
+        }),
+        ('scenario', {
+            'name': 'scenario',
+            'required': False,
+            'location': 'query',
+            'type': 'integer',
+            'description': '',
+            'validator': int
+        }),
+        ('advocate_type', {
+            'name': 'advocate_type',
+            'required': False,
+            'location': 'query',
+            'type': 'string',
+            'description': (
+                'Note the query will return prices with `advocate_type_id` '
+                'either matching the value or null.'),
+            'validator': str
+        }),
+        ('offence_class_id', {
+            'name': 'offence_class',
+            'required': False,
+            'location': 'query',
+            'type': 'string',
+            'description': (
+                'Note the query will return prices with `offence_class_id` '
+                'either matching the value or null.'),
+            'validator': str
+        }),
+    ])
     queryset = FeeType.objects.all()
     serializer_class = FeeTypeSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (ViewSchemaFilterBackend,)
     filter_class = FeeTypeFilter
 
     def get_queryset(self):
@@ -172,18 +211,111 @@ class PriceViewSet(OrderedReadOnlyModelViewSet):
 
 class CalculatorView(views.APIView):
     allowed_methods = ['GET']
+    schema = OrderedDict([
+        ('scheme', {
+            'name': 'scheme',
+            'required': True,
+            'location': 'query',
+            'type': 'integer',
+            'description': '',
+            'validator': int
+        }),
+        ('fee_type_code', {
+            'name': 'fee_type_code',
+            'required': True,
+            'location': 'query',
+            'type': 'string',
+            'description': '',
+            'validator': str
+        }),
+        ('scenario', {
+            'name': 'scenario',
+            'required': True,
+            'location': 'query',
+            'type': 'integer',
+            'description': '',
+            'validator': int
+        }),
+        ('advocate_type', {
+            'name': 'advocate_type',
+            'required': False,
+            'location': 'query',
+            'type': 'string',
+            'description': (
+                'Note the query will return prices with `advocate_type_id` '
+                'either matching the value or null.'),
+            'validator': str
+        }),
+        ('offence_class_id', {
+            'name': 'offence_class',
+            'required': False,
+            'location': 'query',
+            'type': 'string',
+            'description': (
+                'Note the query will return prices with `offence_class_id` '
+                'either matching the value or null.'),
+            'validator': str
+        }),
+        ('unit', {
+            'name': 'unit',
+            'required': False,
+            'location': 'query',
+            'type': 'string',
+            'description': (
+                'The code of the unit to calculate the price for. Default is `DAY`.'
+            ),
+            'validator': str
+        }),
+        ('unit_count', {
+            'name': 'unit_count',
+            'required': False,
+            'location': 'query',
+            'type': 'integer',
+            'description': (
+                'The number of units to calculate the price for. Default is 1.'
+            ),
+            'validator': int
+        }),
+        ('uplift_unit_%n', {
+            'name': 'uplift_unit_%n',
+            'required': False,
+            'location': 'query',
+            'type': 'string',
+            'description': (
+                'A unit of an applicable uplift. Paramater name is of the format '
+                '`uplift_unit_%n` where `%n` should be an integer. There should be '
+                'a corresponding `uplift_unit_count_%n` for the same `%n`.'
+            ),
+            'validator': str
+        }),
+        ('uplift_unit_count_%n', {
+            'name': 'uplift_unit_count_%n',
+            'required': False,
+            'location': 'query',
+            'type': 'integer',
+            'description': (
+                'The number of units of an applicable uplift. Paramater name is '
+                'of the format `uplift_unit_count_%n` where `%n` should be an '
+                'integer. There should be a corresponding `uplift_unit_%n` for '
+                'the same `%n`.'
+            ),
+            'validator': int
+        }),
+    ])
+    filter_backends = (ViewSchemaFilterBackend,)
 
-    def get_param(self, param_name, required=False):
-        number = self.request.query_params.get(param_name, None)
+    def get_param(self, param_name, required=False, default=None):
+        number = self.request.query_params.get(param_name, default)
         if number is None:
             if required:
                 raise ValidationError('`%s` is a required field' % param_name)
         return number
 
     def get_model_param(
-        self, param_name, model_class, required=False, lookup='pk', many=False
+        self, param_name, model_class, required=False, lookup='pk', many=False,
+        default=None
     ):
-        instance = self.get_param(param_name, required)
+        instance = self.get_param(param_name, required, default)
         try:
             if instance is not None:
                 if many:
@@ -196,8 +328,8 @@ class CalculatorView(views.APIView):
             )
         return instance
 
-    def get_integer_param(self, param_name, required=False):
-        number = self.get_param(param_name, required)
+    def get_integer_param(self, param_name, required=False, default=None):
+        number = self.get_param(param_name, required, default)
         try:
             if number is not None:
                 number = int(number)
@@ -213,8 +345,8 @@ class CalculatorView(views.APIView):
         scenario = self.get_model_param('scenario', Scenario, required=True)
         advocate_type = self.get_model_param('advocate_type', AdvocateType)
         offence_class = self.get_model_param('offence_class', OffenceClass)
-        unit = self.get_model_param('unit', Unit)
-        unit_count = self.get_integer_param('unit_count')
+        unit = self.get_model_param('unit', Unit, default='DAY')
+        unit_count = self.get_integer_param('unit_count', default=1)
 
         i = 1
         uplift_unit_counts = []
@@ -248,7 +380,7 @@ class CalculatorView(views.APIView):
             Q(offence_class=offence_class) | Q(offence_class__isnull=True),
             scheme=scheme, fee_type__in=fee_types, unit=unit,
             scenario=scenario
-        )
+        ).prefetch_related('uplifts')
 
         if len(prices) == 0:
             return Response(

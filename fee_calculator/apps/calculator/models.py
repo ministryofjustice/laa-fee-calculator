@@ -33,7 +33,8 @@ class FeeType(models.Model):
         return self.prices.values_list('unit').distinct()
 
     def uplift_units(self):
-        return self.prices.values_list('uplifts__unit').distinct()
+        return self.prices.values_list(
+            'uplifts__unit').distinct().exclude(uplifts__unit__isnull=True)
 
     def __str__(self):
         return self.name

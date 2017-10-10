@@ -4,12 +4,25 @@ filters
 """
 from django.db.models import Q
 import django_filters
+from django_filters.compat import coreapi
 from django_filters.constants import EMPTY_VALUES
 from django_filters.fields import Lookup
-from django_filters.rest_framework import filters
+from django_filters.rest_framework import filters, backends
 import six
 
 from . import models
+
+
+class ViewSchemaFilterBackend(backends.DjangoFilterBackend):
+
+    def get_schema_fields(self, view):
+        filter_schema = super().get_schema_fields(view)
+        keys = ('name', 'required', 'location', 'type', 'description')
+        return filter_schema + [
+            coreapi.Field(**{
+                name: value for name, value in field.items() if name in keys
+            }) for field in view.schema.values()
+        ]
 
 
 class ModelOrNoneChoiceFilter(django_filters.ModelChoiceFilter):
@@ -69,7 +82,7 @@ class AdvocateTypeFilter(django_filters.FilterSet):
 
 
 class FeeTypeFilter(django_filters.FilterSet):
-    is_basic = filters.BooleanFilter
+    is_basic = filters.BooleanFilter()
 
     class Meta:
         model = models.FeeType
@@ -79,6 +92,10 @@ class FeeTypeFilter(django_filters.FilterSet):
 
 
 class PriceFilter(django_filters.FilterSet):
+    fee_type_code = django_filters.ModelChoiceFilter(
+        name='fee_type__code',
+        queryset=models.FeeType.objects.all()
+    )
     offence_class = ModelOrNoneChoiceFilter(
         name='offence_class',
         queryset=models.OffenceClass.objects.all(),
@@ -98,4 +115,12 @@ class PriceFilter(django_filters.FilterSet):
 
     class Meta:
         model = models.Price
-        fields = '__all__'
+        fields = {
+            'scheme': ['exact'],
+            'scenario': ['exact'],
+            'unit': ['exact'],
+            'limit_from': ['exact', 'gte'],
+            'limit_to': ['exact', 'lte'],
+            'fixed_fee': ['lte', 'gte'],
+            'fee_per_unit': ['lte', 'gte'],
+        }

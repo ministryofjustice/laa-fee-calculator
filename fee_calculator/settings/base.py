@@ -30,7 +30,7 @@ sys.path.insert(0, location('apps'))
 SECRET_KEY = os.environ.get('SECRET_KEY', 'MY-SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = []
 
