@@ -2,7 +2,8 @@
 from rest_framework import serializers
 
 from .models import (
-    Scheme, Scenario, FeeType, AdvocateType, OffenceClass, Price, Unit, Modifier
+    Scheme, Scenario, FeeType, AdvocateType, OffenceClass, Price, Unit,
+    Modifier, ModifierValue
 )
 
 
@@ -23,11 +24,10 @@ class FeeTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = FeeType
         fields = (
+            'id',
             'name',
             'code',
             'is_basic',
-            'units',
-            'modifier_units',
         )
 
 
@@ -68,25 +68,26 @@ class UnitSerializer(serializers.ModelSerializer):
         )
 
 
-class ModifierSerializer(serializers.ModelSerializer):
+class ModifierValueSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Modifier
+        model = ModifierValue
         fields = (
-            'unit',
             'limit_from',
             'limit_to',
             'modifier_percent',
         )
 
 
-class PriceFeeTypeSerializer(serializers.ModelSerializer):
+class ModifierSerializer(serializers.ModelSerializer):
+    values = ModifierValueSerializer(many=True, read_only=True)
+
     class Meta:
-        model = FeeType
+        model = Modifier
         fields = (
-            'id',
             'name',
-            'code',
-            'is_basic',
+            'description',
+            'unit',
+            'values',
         )
 
 
@@ -94,7 +95,7 @@ class PriceSerializer(serializers.ModelSerializer):
     scenario = ScenarioSerializer(read_only=True)
     scheme = SchemeSerializer(read_only=True)
     advocate_type = AdvocateTypeSerializer(read_only=True)
-    fee_type = PriceFeeTypeSerializer(read_only=True)
+    fee_type = FeeTypeSerializer(read_only=True)
     offence_class = OffenceClassSerializer(read_only=True)
     unit = UnitSerializer(read_only=True)
     modifiers = ModifierSerializer(many=True, read_only=True)

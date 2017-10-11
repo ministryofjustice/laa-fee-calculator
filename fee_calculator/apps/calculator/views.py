@@ -17,11 +17,12 @@ from .filters import (
     FeeTypeFilter
 )
 from .models import (
-    Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price, Unit
+    Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price, Unit, Modifier
 )
 from .serializers import (
     SchemeSerializer, FeeTypeSerializer, ScenarioSerializer,
-    OffenceClassSerializer, AdvocateTypeSerializer, PriceSerializer
+    OffenceClassSerializer, AdvocateTypeSerializer, PriceSerializer,
+    UnitSerializer, ModifierSerializer
 )
 
 logger = logging.getLogger('laa-calc')
@@ -87,10 +88,7 @@ class SchemeViewSet(OrderedReadOnlyModelViewSet):
         return queryset
 
 
-class FeeTypeViewSet(OrderedReadOnlyModelViewSet):
-    """
-    Viewing fee type(s).
-    """
+class BasePriceFilteredViewSet(OrderedReadOnlyModelViewSet):
     schema = AutoSchema(manual_fields=[
         coreapi.Field('scheme', **{
             'required': False,
@@ -112,7 +110,7 @@ class FeeTypeViewSet(OrderedReadOnlyModelViewSet):
                 'Note the query will return prices with `advocate_type_id` '
                 'either matching the value or null.'),
         }),
-        coreapi.Field('offence_class_id', **{
+        coreapi.Field('offence_class', **{
             'required': False,
             'location': 'query',
             'type': 'string',
@@ -120,11 +118,14 @@ class FeeTypeViewSet(OrderedReadOnlyModelViewSet):
                 'Note the query will return prices with `offence_class_id` '
                 'either matching the value or null.'),
         }),
+        coreapi.Field('fee_type_code', **{
+            'required': False,
+            'location': 'query',
+            'type': 'string',
+            'description': '',
+        }),
     ])
-    queryset = FeeType.objects.all()
-    serializer_class = FeeTypeSerializer
     filter_backends = (backends.DjangoFilterBackend,)
-    filter_class = FeeTypeFilter
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -133,6 +134,7 @@ class FeeTypeViewSet(OrderedReadOnlyModelViewSet):
         scenario_id = self.request.query_params.get('scenario')
         advocate_type_id = self.request.query_params.get('advocate_type')
         offence_class_id = self.request.query_params.get('offence_class')
+        fee_type_code = self.request.query_params.get('fee_type_code')
 
         filters = []
         if scheme_id:
@@ -149,10 +151,23 @@ class FeeTypeViewSet(OrderedReadOnlyModelViewSet):
                 Q(prices__offence_class_id=offence_class_id) |
                 Q(prices__offence_class_id__isnull=True)
             )
+        if fee_type_code:
+            filters.append(
+                Q(prices__fee_type__code=fee_type_code)
+            )
 
         if filters:
             queryset = queryset.filter(*filters).distinct()
         return queryset
+
+
+class FeeTypeViewSet(BasePriceFilteredViewSet):
+    """
+    Viewing fee type(s).
+    """
+    queryset = FeeType.objects.all()
+    serializer_class = FeeTypeSerializer
+    filter_class = FeeTypeFilter
 
 
 class ScenarioViewSet(OrderedReadOnlyModelViewSet):
@@ -183,6 +198,22 @@ class AdvocateTypeViewSet(OrderedReadOnlyModelViewSet):
     serializer_class = AdvocateTypeSerializer
     filter_backends = (backends.DjangoFilterBackend,)
     filter_class = AdvocateTypeFilter
+
+
+class UnitViewSet(BasePriceFilteredViewSet):
+    """
+    Viewing fee type(s).
+    """
+    queryset = Unit.objects.all()
+    serializer_class = UnitSerializer
+
+
+class ModifierViewSet(BasePriceFilteredViewSet):
+    """
+    Viewing fee type(s).
+    """
+    queryset = Modifier.objects.all()
+    serializer_class = ModifierSerializer
 
 
 class PriceViewSet(OrderedReadOnlyModelViewSet):

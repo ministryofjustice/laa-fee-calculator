@@ -59,8 +59,8 @@ class CalculatorTestCase(TestCase):
         }
 
         if row['defendants']:
-            data['uplift_unit_1'] = 'DEFENDANT'
-            data['uplift_unit_count_1'] = int(row['defendants'])
+            data['modifier_unit_1'] = 'DEFENDANT'
+            data['modifier_unit_count_1'] = int(row['defendants'])
 
         fees = []
 
@@ -71,6 +71,16 @@ class CalculatorTestCase(TestCase):
         if row['ppe']:
             data['unit'] = 'PPE'
             data['unit_count'] = int(row['ppe'])
+
+            resp = self.client.get(self.endpoint, data=data)
+            self.assertEqual(
+                resp.status_code, status.HTTP_200_OK, resp.content
+            )
+            fees.append(resp.data['amount'])
+
+        if row['pw']:
+            data['unit'] = 'PW'
+            data['unit_count'] = int(row['pw'])
 
             resp = self.client.get(self.endpoint, data=data)
             self.assertEqual(

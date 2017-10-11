@@ -32,13 +32,6 @@ class FeeType(models.Model):
     code = models.CharField(max_length=20, db_index=True)
     is_basic = models.BooleanField()
 
-    def units(self):
-        return self.prices.values_list('unit').distinct()
-
-    def modifier_units(self):
-        return self.prices.values_list(
-            'modifiers__unit').distinct().exclude(modifiers__unit__isnull=True)
-
     def __str__(self):
         return self.name
 
@@ -111,7 +104,7 @@ class Price(models.Model):
     fee_per_unit = models.DecimalField(max_digits=10, decimal_places=3)
     limit_from = models.SmallIntegerField(default=1)
     limit_to = models.SmallIntegerField(null=True)
-    modifiers = models.ManyToManyField(Modifier)
+    modifiers = models.ManyToManyField(Modifier, related_name='prices')
 
     def calculate_total(self, unit_count, modifier_unit_counts):
         '''
