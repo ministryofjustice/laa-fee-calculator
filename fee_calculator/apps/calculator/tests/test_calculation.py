@@ -78,15 +78,15 @@ class CalculatorTestCase(TestCase):
             )
             fees.append(resp.data['amount'])
 
-        if row['pw']:
-            data['unit'] = 'PW'
-            data['unit_count'] = int(row['pw'])
+        # if row['pw']:
+        #     data['unit'] = 'PW'
+        #     data['unit_count'] = int(row['pw'])
 
-            resp = self.client.get(self.endpoint, data=data)
-            self.assertEqual(
-                resp.status_code, status.HTTP_200_OK, resp.content
-            )
-            fees.append(resp.data['amount'])
+        #     resp = self.client.get(self.endpoint, data=data)
+        #     self.assertEqual(
+        #         resp.status_code, status.HTTP_200_OK, resp.content
+        #     )
+        #     fees.append(resp.data['amount'])
 
         self.assertEqual(
             sum(fees),

@@ -90,7 +90,7 @@ class PriceTestCase(TestCase):
         test_price = create_test_price(modifiers=[modifier])
 
         self.assertEqual(
-            test_price.get_modifier_fees(Decimal('10.00'), case_unit, 2),
+            test_price.get_modifier_fees(Decimal('10.00'), modifier, 2),
             [Decimal('1.50')]
         )
 
@@ -113,11 +113,11 @@ class PriceTestCase(TestCase):
         )
 
         self.assertEqual(
-            test_price.get_modifier_fees(Decimal('10.00'), case_unit, 2),
+            test_price.get_modifier_fees(Decimal('10.00'), case_modifier, 2),
             [Decimal('1.50')]
         )
         self.assertEqual(
-            test_price.get_modifier_fees(Decimal('10.00'), defendant_unit, 2),
+            test_price.get_modifier_fees(Decimal('10.00'), defendant_modifier, 2),
             [Decimal('2.50')]
         )
 
@@ -135,7 +135,7 @@ class PriceTestCase(TestCase):
         )
 
         self.assertEqual(
-            test_price.get_modifier_fees(Decimal('10.00'), case_unit, 1),
+            test_price.get_modifier_fees(Decimal('10.00'), case_modifier, 1),
             [Decimal('2.50')]
         )
 
@@ -158,7 +158,7 @@ class PriceTestCase(TestCase):
         )
 
         self.assertEqual(
-            test_price.calculate_total(12, [(case_unit, 2)]),
+            test_price.calculate_total(12, [(case_modifier, 2)]),
             Decimal('20.70')
         )
 
@@ -188,7 +188,7 @@ class PriceTestCase(TestCase):
 
         self.assertEqual(
             test_price.calculate_total(
-                12, [(case_unit, 2), (defendant_unit, 3)]
+                12, [(case_modifier, 2), (defendant_modifier, 3)]
             ),
             Decimal('25.20')
         )
@@ -196,6 +196,11 @@ class PriceTestCase(TestCase):
     def test_calculate_total_3(self):
         day_unit = Unit.objects.get(id='DAY')
         case_unit = Unit.objects.get(id='CASE')
+        case_modifier = create_test_modifier(
+            unit=case_unit, values=[
+                dict(limit_from=2, limit_to=None, modifier_percent=Decimal('15.00'))
+            ]
+        )
 
         test_price = create_test_price(
             unit=day_unit,
@@ -207,6 +212,6 @@ class PriceTestCase(TestCase):
         )
 
         self.assertEqual(
-            test_price.calculate_total(12, [(case_unit, 2)]),
+            test_price.calculate_total(12, [(case_modifier, 2)]),
             Decimal('12.00')
         )

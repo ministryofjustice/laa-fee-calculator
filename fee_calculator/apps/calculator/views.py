@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 import logging
+import re
 
 from django.db.models import Q
 from django.http import Http404
@@ -285,29 +286,19 @@ class CalculatorView(views.APIView):
                 'The number of units to calculate the price for. Default is 1.'
             ),
         }),
-        coreapi.Field('modifier_unit_%n', **{
-            'required': False,
-            'location': 'query',
-            'type': 'string',
-            'description': (
-                'A unit of an applicable modifier. Paramater name is of the format '
-                '`modifier_unit_%n` where `%n` should be an integer. There should be '
-                'a corresponding `modifier_unit_count_%n` for the same `%n`.'
-            ),
-        }),
-        coreapi.Field('modifier_unit_count_%n', **{
+        coreapi.Field('modifier_%n', **{
             'required': False,
             'location': 'query',
             'type': 'integer',
             'description': (
                 'The number of units of an applicable modifier. Paramater name is '
-                'of the format `modifier_unit_count_%n` where `%n` should be an '
-                'integer. There should be a corresponding `modifier_unit_%n` for '
-                'the same `%n`.'
+                'of the format `modifier_%n` where `%n` should be the integer '
+                '`id` of the relevant modifier.'
             ),
         }),
     ])
     filter_backends = (backends.DjangoFilterBackend,)
+    modifier_pattern = re.compile(r'modifier_(\d+)')
 
     def get_param(self, param_name, required=False, default=None):
         number = self.request.query_params.get(param_name, default)
@@ -353,32 +344,19 @@ class CalculatorView(views.APIView):
         unit = self.get_model_param('unit', Unit, default='DAY')
         unit_count = self.get_integer_param('unit_count', default=1)
 
-        i = 1
-        modifier_unit_counts = []
-        while True:
-            modifier_unit = self.get_model_param('modifier_unit_%s' % i, Unit)
-            unit_present = modifier_unit is not None
-
-            modifier_unit_count = self.get_integer_param('modifier_unit_count_%s' % i)
-            count_present = modifier_unit_count is not None
-
-            if unit_present and count_present:
-                modifier_unit_counts.append((modifier_unit, modifier_unit_count,))
-                i += 1
-            elif unit_present and not count_present:
-                return Response(
-                    '`modifier_unit_%s` provided but '
-                    '`modifier_unit_count_%s` is missing' % (i, i),
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-            elif not unit_present and count_present:
-                return Response(
-                    '`modifier_unit_count_%s` provided but '
-                    '`modifier_unit_%s` is missing' % (i, i),
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-            else:
-                break
+        modifier_counts = []
+        for param in self.request.query_params:
+            result = self.modifier_pattern.match(param)
+            if result:
+                try:
+                    pk = result.group(1)
+                    modifier = Modifier.objects.get(pk=pk)
+                except Modifier.DoesNotExist:
+                    raise ValidationError(
+                        '`%s` is not a valid Modifier' % (pk)
+                    )
+                count = self.request.query_params[param]
+                modifier_counts.append((modifier, count,))
 
         prices = Price.objects.filter(
             Q(advocate_type=advocate_type) | Q(advocate_type__isnull=True),
@@ -395,7 +373,7 @@ class CalculatorView(views.APIView):
         # sum total from all prices whose range is covered by the unit_count
         return Response({
             'amount': sum((
-                price.calculate_total(unit_count, modifier_unit_counts)
+                price.calculate_total(unit_count, modifier_counts)
                 for price in prices
             ))
         })

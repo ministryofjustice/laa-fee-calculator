@@ -22,3 +22,6 @@
 - model: calculator.unit
   pk: PW
   fields: {name: Prosecution Witnesses}
+- model: calculator.unit
+  pk: MONTH
+  fields: {name: Months}

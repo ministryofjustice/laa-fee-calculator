@@ -66,10 +66,8 @@ class Modifier(models.Model):
     description = models.CharField(max_length=150)
     unit = models.ForeignKey(Unit)
 
-    def get_applicable_values(self, unit_id, count):
-        if unit_id == self.unit:
-            return [v for v in self.values.all() if v.is_applicable(count)]
-        return []
+    def get_applicable_values(self, count):
+        return [v for v in self.values.all() if v.is_applicable(count)]
 
 
 class ModifierValue(models.Model):
@@ -106,7 +104,7 @@ class Price(models.Model):
     limit_to = models.SmallIntegerField(null=True)
     modifiers = models.ManyToManyField(Modifier, related_name='prices')
 
-    def calculate_total(self, unit_count, modifier_unit_counts):
+    def calculate_total(self, unit_count, modifier_counts):
         '''
         Calculate the total from any fixed_fee, fee_per_unit and modifiers
         '''
@@ -114,11 +112,11 @@ class Price(models.Model):
             self.get_applicable_unit_count(unit_count)*self.fee_per_unit
         )
         modifier_fees = []
-        for modifier_unit, count in modifier_unit_counts:
-            modifier_fees += self.get_modifier_fees(total, modifier_unit, count)
+        for modifier, count in modifier_counts:
+            modifier_fees += self.get_modifier_fees(total, modifier, count)
         return total + sum(modifier_fees)
 
-    def get_modifier_fees(self, calculated_price, modifier_unit, count):
+    def get_modifier_fees(self, calculated_price, modifier, count):
         '''
         Get a list of extra fees from associated modifiers for the given
         modifier_unit and count
@@ -127,8 +125,8 @@ class Price(models.Model):
         # applicability is checked in python on the assumption that the
         # query for prices will use:
         # `.prefetch_related('modifiers', 'modifiers__values')`
-        for modifier in self.modifiers.all():
-            values = modifier.get_applicable_values(modifier_unit, count)
+        if modifier in self.modifiers.all():
+            values = modifier.get_applicable_values(count)
             for value in values:
                 modifier_fees.append(value.apply(calculated_price))
         return modifier_fees

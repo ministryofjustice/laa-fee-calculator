@@ -84,6 +84,7 @@ class ModifierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Modifier
         fields = (
+            'id',
             'name',
             'description',
             'unit',
