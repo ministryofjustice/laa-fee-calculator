@@ -1,13 +1,18 @@
 from django.contrib import admin
 
 from calculator.models import (
-    Scheme, Scenario, FeeType, AdvocateType, OffenceClass, Unit, Price
+    Scheme, Scenario, FeeType, AdvocateType, OffenceClass, Unit, Price,
+    Modifier, ModifierValue
 )
 
 
 @admin.register(Scheme)
 class SchemeAdmin(admin.ModelAdmin):
     list_display = (
+        'description', 'suty_base_type', 'effective_date',
+        'start_date', 'end_date',
+    )
+    list_filter = (
         'description', 'suty_base_type', 'effective_date',
         'start_date', 'end_date',
     )
@@ -38,9 +43,23 @@ class UnitAdmin(admin.ModelAdmin):
     list_display = ('name', 'id',)
 
 
+@admin.register(Modifier)
+class ModifierAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description', 'unit',)
+
+
+@admin.register(ModifierValue)
+class ModifierValueAdmin(admin.ModelAdmin):
+    list_display = ('modifier', 'limit_from', 'limit_to', 'modifier_percent',)
+
+
 @admin.register(Price)
 class PriceAdmin(admin.ModelAdmin):
     list_display = (
         'scheme', 'scenario', 'fee_type', 'advocate_type', 'offence_class',
-        'fee_per_unit', 'unit',
+        'fixed_fee', 'fee_per_unit', 'unit',
+    )
+    list_filter = (
+        'scheme', 'scenario', 'fee_type', 'advocate_type', 'offence_class',
+        'unit', 'modifiers',
     )

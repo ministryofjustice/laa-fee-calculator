@@ -2,7 +2,7 @@ Django==1.11.5
 dj-database-url==0.4.1
 django-moj-irat==0.3
 django-rest-swagger==2.1.2
-djangorestframework==3.6.4
+djangorestframework>=3.7.0,<3.8.0
 django-extended-choices==1.1.2
 django-cors-headers==2.1.0
 django-filter==1.0.4

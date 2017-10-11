@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
-from collections import OrderedDict
 from datetime import datetime
 import logging
 
 from django.db.models import Q
 from django.http import Http404
-from rest_framework import filters, viewsets, views, status
+from django_filters.rest_framework import backends
+from rest_framework import viewsets, views, status
+from rest_framework.compat import coreapi
 from rest_framework.decorators import detail_route
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
+from rest_framework.schemas import AutoSchema, ManualSchema
 
 from .constants import SUTY_BASE_TYPE
 from .filters import (
     PriceFilter, OffenceClassFilter, AdvocateTypeFilter, ScenarioFilter,
-    FeeTypeFilter, ViewSchemaFilterBackend
+    FeeTypeFilter
 )
 from .models import (
     Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price, Unit
@@ -91,47 +93,39 @@ class FeeTypeViewSet(OrderedReadOnlyModelViewSet):
     """
     Viewing fee type(s).
     """
-    schema = OrderedDict([
-        ('scheme', {
-            'name': 'scheme',
+    schema = AutoSchema(manual_fields=[
+        coreapi.Field('scheme', **{
             'required': False,
             'location': 'query',
             'type': 'integer',
             'description': '',
-            'validator': int
         }),
-        ('scenario', {
-            'name': 'scenario',
+        coreapi.Field('scenario', **{
             'required': False,
             'location': 'query',
             'type': 'integer',
             'description': '',
-            'validator': int
         }),
-        ('advocate_type', {
-            'name': 'advocate_type',
+        coreapi.Field('advocate_type', **{
             'required': False,
             'location': 'query',
             'type': 'string',
             'description': (
                 'Note the query will return prices with `advocate_type_id` '
                 'either matching the value or null.'),
-            'validator': str
         }),
-        ('offence_class_id', {
-            'name': 'offence_class',
+        coreapi.Field('offence_class_id', **{
             'required': False,
             'location': 'query',
             'type': 'string',
             'description': (
                 'Note the query will return prices with `offence_class_id` '
                 'either matching the value or null.'),
-            'validator': str
         }),
     ])
     queryset = FeeType.objects.all()
     serializer_class = FeeTypeSerializer
-    filter_backends = (ViewSchemaFilterBackend,)
+    filter_backends = (backends.DjangoFilterBackend,)
     filter_class = FeeTypeFilter
 
     def get_queryset(self):
@@ -169,7 +163,7 @@ class ScenarioViewSet(OrderedReadOnlyModelViewSet):
     """
     queryset = Scenario.objects.all()
     serializer_class = ScenarioSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (backends.DjangoFilterBackend,)
     filter_class = ScenarioFilter
 
 
@@ -179,7 +173,7 @@ class OffenceClassViewSet(OrderedReadOnlyModelViewSet):
     """
     queryset = OffenceClass.objects.all()
     serializer_class = OffenceClassSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (backends.DjangoFilterBackend,)
     filter_class = OffenceClassFilter
 
 
@@ -189,7 +183,7 @@ class AdvocateTypeViewSet(OrderedReadOnlyModelViewSet):
     """
     queryset = AdvocateType.objects.all()
     serializer_class = AdvocateTypeSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (backends.DjangoFilterBackend,)
     filter_class = AdvocateTypeFilter
 
 
@@ -205,79 +199,64 @@ class PriceViewSet(OrderedReadOnlyModelViewSet):
     """
     queryset = Price.objects.all()
     serializer_class = PriceSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (backends.DjangoFilterBackend,)
     filter_class = PriceFilter
 
 
 class CalculatorView(views.APIView):
     allowed_methods = ['GET']
-    schema = OrderedDict([
-        ('scheme', {
-            'name': 'scheme',
+    schema = ManualSchema(fields=[
+        coreapi.Field('scheme', **{
             'required': True,
             'location': 'query',
             'type': 'integer',
             'description': '',
-            'validator': int
         }),
-        ('fee_type_code', {
-            'name': 'fee_type_code',
+        coreapi.Field('fee_type_code', **{
             'required': True,
             'location': 'query',
             'type': 'string',
             'description': '',
-            'validator': str
         }),
-        ('scenario', {
-            'name': 'scenario',
+        coreapi.Field('scenario', **{
             'required': True,
             'location': 'query',
             'type': 'integer',
             'description': '',
-            'validator': int
         }),
-        ('advocate_type', {
-            'name': 'advocate_type',
+        coreapi.Field('advocate_type', **{
             'required': False,
             'location': 'query',
             'type': 'string',
             'description': (
                 'Note the query will return prices with `advocate_type_id` '
                 'either matching the value or null.'),
-            'validator': str
         }),
-        ('offence_class_id', {
-            'name': 'offence_class',
+        coreapi.Field('offence_class_id', **{
             'required': False,
             'location': 'query',
             'type': 'string',
             'description': (
                 'Note the query will return prices with `offence_class_id` '
                 'either matching the value or null.'),
-            'validator': str
         }),
-        ('unit', {
-            'name': 'unit',
+        coreapi.Field('unit', **{
             'required': False,
             'location': 'query',
             'type': 'string',
             'description': (
                 'The code of the unit to calculate the price for. Default is `DAY`.'
             ),
-            'validator': str
         }),
-        ('unit_count', {
-            'name': 'unit_count',
+        coreapi.Field('unit_count', **{
             'required': False,
             'location': 'query',
             'type': 'integer',
             'description': (
                 'The number of units to calculate the price for. Default is 1.'
             ),
-            'validator': int
         }),
-        ('modifier_unit_%n', {
-            'name': 'modifier_unit_%n',
+        coreapi.Field('modifier_unit_%n', **{
             'required': False,
             'location': 'query',
             'type': 'string',
@@ -286,10 +265,8 @@ class CalculatorView(views.APIView):
                 '`modifier_unit_%n` where `%n` should be an integer. There should be '
                 'a corresponding `modifier_unit_count_%n` for the same `%n`.'
             ),
-            'validator': str
         }),
-        ('modifier_unit_count_%n', {
-            'name': 'modifier_unit_count_%n',
+        coreapi.Field('modifier_unit_count_%n', **{
             'required': False,
             'location': 'query',
             'type': 'integer',
@@ -299,10 +276,9 @@ class CalculatorView(views.APIView):
                 'integer. There should be a corresponding `modifier_unit_%n` for '
                 'the same `%n`.'
             ),
-            'validator': int
         }),
     ])
-    filter_backends = (ViewSchemaFilterBackend,)
+    filter_backends = (backends.DjangoFilterBackend,)
 
     def get_param(self, param_name, required=False, default=None):
         number = self.request.query_params.get(param_name, default)
