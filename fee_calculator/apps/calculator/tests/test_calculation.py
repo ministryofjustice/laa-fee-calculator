@@ -22,7 +22,7 @@ class CalculatorTestCase(TestCase):
     endpoint = '/api/%s/calculate/' % settings.API_VERSION
     fixtures = [
         'advocatetype', 'feetype', 'offenceclass', 'price', 'scenario',
-        'scheme', 'unit', 'uplift'
+        'scheme', 'unit', 'modifier', 'modifiervalue',
     ]
 
     def assertRowValuesCorrect(self, row):
@@ -83,6 +83,8 @@ class CalculatorTestCase(TestCase):
             sum(fees),
             row['calc_amt_exc_vat']
         )
+
+        print(sum(fees))
 
 
 def value(cell):

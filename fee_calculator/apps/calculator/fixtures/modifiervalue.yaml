@@ -1,0 +1,9 @@
+- model: calculator.modifiervalue
+  pk: 1
+  fields: {modifier: 1, limit_from: 2, limit_to: null, modifier_percent: '20.00'}
+- model: calculator.modifiervalue
+  pk: 2
+  fields: {modifier: 2, limit_from: 2, limit_to: 5, modifier_percent: '20.00'}
+- model: calculator.modifiervalue
+  pk: 3
+  fields: {modifier: 2, limit_from: 5, limit_to: null, modifier_percent: '30.00'}

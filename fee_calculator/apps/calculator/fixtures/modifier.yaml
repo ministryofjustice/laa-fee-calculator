@@ -1,0 +1,7 @@
+- model: calculator.modifier
+  pk: 1
+  fields: {name: 'NOC', description: 'Additional case', unit: CASE}
+- model: calculator.modifier
+  pk: 2
+  fields: {name: 'NDR', description: 'Number of defendants', unit: DEFENDANT}
+  

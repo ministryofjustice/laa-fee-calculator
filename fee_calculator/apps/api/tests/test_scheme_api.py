@@ -9,7 +9,7 @@ class SchemeApiTestCase(APITestCase):
     endpoint = '/api/%s/fee-schemes/' % settings.API_VERSION
     fixtures = [
         'advocatetype', 'feetype', 'offenceclass', 'price', 'scenario',
-        'scheme', 'unit', 'uplift'
+        'scheme', 'unit', 'modifier', 'modifiervalue'
     ]
 
     def _test_get_not_allowed(self, url):

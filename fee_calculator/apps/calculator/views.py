@@ -276,27 +276,27 @@ class CalculatorView(views.APIView):
             ),
             'validator': int
         }),
-        ('uplift_unit_%n', {
-            'name': 'uplift_unit_%n',
+        ('modifier_unit_%n', {
+            'name': 'modifier_unit_%n',
             'required': False,
             'location': 'query',
             'type': 'string',
             'description': (
-                'A unit of an applicable uplift. Paramater name is of the format '
-                '`uplift_unit_%n` where `%n` should be an integer. There should be '
-                'a corresponding `uplift_unit_count_%n` for the same `%n`.'
+                'A unit of an applicable modifier. Paramater name is of the format '
+                '`modifier_unit_%n` where `%n` should be an integer. There should be '
+                'a corresponding `modifier_unit_count_%n` for the same `%n`.'
             ),
             'validator': str
         }),
-        ('uplift_unit_count_%n', {
-            'name': 'uplift_unit_count_%n',
+        ('modifier_unit_count_%n', {
+            'name': 'modifier_unit_count_%n',
             'required': False,
             'location': 'query',
             'type': 'integer',
             'description': (
-                'The number of units of an applicable uplift. Paramater name is '
-                'of the format `uplift_unit_count_%n` where `%n` should be an '
-                'integer. There should be a corresponding `uplift_unit_%n` for '
+                'The number of units of an applicable modifier. Paramater name is '
+                'of the format `modifier_unit_count_%n` where `%n` should be an '
+                'integer. There should be a corresponding `modifier_unit_%n` for '
                 'the same `%n`.'
             ),
             'validator': int
@@ -349,27 +349,27 @@ class CalculatorView(views.APIView):
         unit_count = self.get_integer_param('unit_count', default=1)
 
         i = 1
-        uplift_unit_counts = []
+        modifier_unit_counts = []
         while True:
-            uplift_unit = self.get_model_param('uplift_unit_%s' % i, Unit)
-            unit_present = uplift_unit is not None
+            modifier_unit = self.get_model_param('modifier_unit_%s' % i, Unit)
+            unit_present = modifier_unit is not None
 
-            uplift_unit_count = self.get_integer_param('uplift_unit_count_%s' % i)
-            count_present = uplift_unit_count is not None
+            modifier_unit_count = self.get_integer_param('modifier_unit_count_%s' % i)
+            count_present = modifier_unit_count is not None
 
             if unit_present and count_present:
-                uplift_unit_counts.append((uplift_unit, uplift_unit_count,))
+                modifier_unit_counts.append((modifier_unit, modifier_unit_count,))
                 i += 1
             elif unit_present and not count_present:
                 return Response(
-                    '`uplift_unit_%s` provided but '
-                    '`uplift_unit_count_%s` is missing' % (i, i),
+                    '`modifier_unit_%s` provided but '
+                    '`modifier_unit_count_%s` is missing' % (i, i),
                     status=status.HTTP_400_BAD_REQUEST
                 )
             elif not unit_present and count_present:
                 return Response(
-                    '`uplift_unit_count_%s` provided but '
-                    '`uplift_unit_%s` is missing' % (i, i),
+                    '`modifier_unit_count_%s` provided but '
+                    '`modifier_unit_%s` is missing' % (i, i),
                     status=status.HTTP_400_BAD_REQUEST
                 )
             else:
@@ -380,7 +380,7 @@ class CalculatorView(views.APIView):
             Q(offence_class=offence_class) | Q(offence_class__isnull=True),
             scheme=scheme, fee_type__in=fee_types, unit=unit,
             scenario=scenario
-        ).prefetch_related('uplifts')
+        ).prefetch_related('modifiers', 'modifiers__values')
 
         if len(prices) == 0:
             return Response(
@@ -390,7 +390,7 @@ class CalculatorView(views.APIView):
         # sum total from all prices whose range is covered by the unit_count
         return Response({
             'amount': sum((
-                price.calculate_total(unit_count, uplift_unit_counts)
+                price.calculate_total(unit_count, modifier_unit_counts)
                 for price in prices
             ))
         })

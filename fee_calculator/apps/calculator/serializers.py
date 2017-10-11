@@ -2,7 +2,7 @@
 from rest_framework import serializers
 
 from .models import (
-    Scheme, Scenario, FeeType, AdvocateType, OffenceClass, Price, Unit, Uplift
+    Scheme, Scenario, FeeType, AdvocateType, OffenceClass, Price, Unit, Modifier
 )
 
 
@@ -27,7 +27,7 @@ class FeeTypeSerializer(serializers.ModelSerializer):
             'code',
             'is_basic',
             'units',
-            'uplift_units',
+            'modifier_units',
         )
 
 
@@ -68,14 +68,14 @@ class UnitSerializer(serializers.ModelSerializer):
         )
 
 
-class UpliftSerializer(serializers.ModelSerializer):
+class ModifierSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Uplift
+        model = Modifier
         fields = (
             'unit',
             'limit_from',
             'limit_to',
-            'uplift_percent',
+            'modifier_percent',
         )
 
 
@@ -97,7 +97,7 @@ class PriceSerializer(serializers.ModelSerializer):
     fee_type = PriceFeeTypeSerializer(read_only=True)
     offence_class = OffenceClassSerializer(read_only=True)
     unit = UnitSerializer(read_only=True)
-    uplifts = UpliftSerializer(many=True, read_only=True)
+    modifiers = ModifierSerializer(many=True, read_only=True)
 
     class Meta:
         model = Price
@@ -113,5 +113,5 @@ class PriceSerializer(serializers.ModelSerializer):
             'fixed_fee',
             'limit_from',
             'limit_to',
-            'uplifts',
+            'modifiers',
         )
