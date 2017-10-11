@@ -14,7 +14,7 @@ class SchemeSerializer(serializers.ModelSerializer):
             'effective_date',
             'start_date',
             'end_date',
-            'suty_base_type',
+            'suty',
             'description',
         )
 

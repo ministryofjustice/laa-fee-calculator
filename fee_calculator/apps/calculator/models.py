@@ -13,6 +13,9 @@ class Scheme(models.Model):
     suty_base_type = models.PositiveSmallIntegerField(choices=SUTY_BASE_TYPE)
     description = models.CharField(max_length=150)
 
+    def suty(self):
+        return SUTY_BASE_TYPE.for_value(self.suty_base_type).constant
+
     def __str__(self):
         return self.description
 

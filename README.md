@@ -14,7 +14,7 @@ Calculator
 
 Swagger docs are accessible at `/api/v1/docs/`
 
-First request `/api/v1/fee-schemes/<suty>/<order_date>/` to get the appropriate scheme.
+First request `/api/v1/fee-schemes/?suty=<suty>&case_date=<case_date>` to get the appropriate scheme.
 
 Then request:
 

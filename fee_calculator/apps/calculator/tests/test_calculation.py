@@ -37,15 +37,14 @@ class CalculatorTestCase(TestCase):
             rep_order_date = date.today()
 
         scheme_resp = self.client.get(
-            '/api/{version}/fee-schemes/{suty}/{date}/'.format(
-                version=settings.API_VERSION, suty='advocate',
-                date=rep_order_date
-            )
+            '/api/{version}/fee-schemes/'.format(version=settings.API_VERSION),
+            data=dict(suty='advocate', case_date=rep_order_date)
         )
         self.assertEqual(
             scheme_resp.status_code, status.HTTP_200_OK, scheme_resp.content
         )
-        scheme_id = scheme_resp.json()['id']
+        self.assertEqual(scheme_resp.json()['count'], 1)
+        scheme_id = scheme_resp.json()['results'][0]['id']
 
         data = {
             'scheme': scheme_id,
@@ -83,8 +82,6 @@ class CalculatorTestCase(TestCase):
             sum(fees),
             row['calc_amt_exc_vat']
         )
-
-        print(sum(fees))
 
 
 def value(cell):

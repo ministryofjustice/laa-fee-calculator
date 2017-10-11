@@ -7,7 +7,6 @@ from django.http import Http404
 from django_filters.rest_framework import backends
 from rest_framework import viewsets, views, status
 from rest_framework.compat import coreapi
-from rest_framework.decorators import detail_route
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.schemas import AutoSchema, ManualSchema
@@ -36,57 +35,56 @@ class OrderedReadOnlyModelViewSet(viewsets.ReadOnlyModelViewSet):
         return super().filter_queryset(queryset)
 
 
-class SchemeViewSetMixin():
-    model = Scheme
+class SchemeViewSet(OrderedReadOnlyModelViewSet):
+    """
+    Viewing fee type(s).
+    """
+    schema = AutoSchema(manual_fields=[
+        coreapi.Field('suty', **{
+            'required': False,
+            'location': 'query',
+            'type': 'string',
+            'description': '',
+        }),
+        coreapi.Field('case_date', **{
+            'required': False,
+            'location': 'query',
+            'type': 'string',
+            'description': '',
+        }),
+    ])
+    queryset = Scheme.objects.all()
     serializer_class = SchemeSerializer
 
     def get_queryset(self):
-        return self.model.objects.all()
+        queryset = super().get_queryset()
 
+        suty = self.request.query_params.get('suty')
+        case_date = self.request.query_params.get('case_date')
 
-class BaseSchemeViewSet(SchemeViewSetMixin, OrderedReadOnlyModelViewSet):
-    """
-    API endpoint that allows schemas to be viewed.
+        if case_date:
+            try:
+                case_date = datetime.strptime(case_date, '%Y-%m-%d')
+            except ValueError:
+                raise ValidationError(
+                    '`case_date` should be in the format YYYY-MM-DD'
+                )
+            queryset = queryset.filter(
+                Q(end_date__isnull=True) | Q(end_date__gte=case_date),
+                start_date__lte=case_date
+            )
 
-    retrieve:
-    Return a scheme instance.
+        if suty:
+            try:
+                suty = SUTY_BASE_TYPE.for_constant(suty.upper()).value
+            except KeyError:
+                raise ValidationError(
+                    '`suty` should be one of: [%s]'
+                    % ', '.join(SUTY_BASE_TYPE.constants)
+                )
+            queryset = queryset.filter(suty_base_type=suty)
 
-    list:
-    Return all schemes, ordered by id
-    """
-    lookup_value_regex = '\d+'
-
-
-class SchemeViewSet(SchemeViewSetMixin, viewsets.GenericViewSet):
-    """
-    API endpoint that returns single scheme for suty type for a given case
-    start date in format YYYY-MM-DD
-
-    /api/v1/fee-schemes/advocate/2016-12-07/
-    """
-    lookup_field = 'suty'
-    lookup_value_regex = '|'.join(
-        [t.lower() for t in SUTY_BASE_TYPE.constants])
-
-    @detail_route(url_path='(?P<case_date>[0-9-]+)')
-    def get_by_date(self, request, suty=None, case_date=None):
-        try:
-            case_date = datetime.strptime(case_date, '%Y-%m-%d')
-        except ValueError:
-            raise Http404
-
-        queryset = self.filter_queryset(self.get_queryset()).filter(
-            Q(end_date__isnull=True) | Q(end_date__gte=case_date),
-            suty_base_type=SUTY_BASE_TYPE.for_constant(suty.upper()).value,
-            start_date__lte=case_date,
-        )
-
-        try:
-            scheme = queryset.get()
-        except Scheme.DoesNotExist:
-            raise Http404
-
-        return Response(SchemeSerializer(scheme).data)
+        return queryset
 
 
 class FeeTypeViewSet(OrderedReadOnlyModelViewSet):
