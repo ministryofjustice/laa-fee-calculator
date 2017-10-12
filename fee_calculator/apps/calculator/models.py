@@ -7,7 +7,6 @@ from .constants import SUTY_BASE_TYPE
 
 
 class Scheme(models.Model):
-    effective_date = models.DateField()
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
     suty_base_type = models.PositiveSmallIntegerField(choices=SUTY_BASE_TYPE)

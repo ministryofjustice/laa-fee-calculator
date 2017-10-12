@@ -46,7 +46,6 @@ class Command(BaseCommand):
         for fesh_first_id, calculator in calculators.items():
             header = headers[fesh_first_id]
             s, c = Scheme.objects.get_or_create(
-                effective_date=header['effective_date'],
                 start_date=header['start_date'],
                 end_date=header['end_date'],
                 suty_base_type=SUTY_BASE_TYPE.for_constant(

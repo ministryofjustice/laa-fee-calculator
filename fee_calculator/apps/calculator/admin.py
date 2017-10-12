@@ -9,12 +9,10 @@ from calculator.models import (
 @admin.register(Scheme)
 class SchemeAdmin(admin.ModelAdmin):
     list_display = (
-        'description', 'suty_base_type', 'effective_date',
-        'start_date', 'end_date',
+        'description', 'suty_base_type', 'start_date', 'end_date',
     )
     list_filter = (
-        'description', 'suty_base_type', 'effective_date',
-        'start_date', 'end_date',
+        'suty_base_type',
     )
 
 
