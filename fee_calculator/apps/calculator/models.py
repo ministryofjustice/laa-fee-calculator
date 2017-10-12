@@ -69,6 +69,9 @@ class Modifier(models.Model):
     def get_applicable_values(self, count):
         return [v for v in self.values.all() if v.is_applicable(count)]
 
+    def __str__(self):
+        return self.name
+
 
 class ModifierValue(models.Model):
     limit_from = models.IntegerField()
@@ -84,6 +87,14 @@ class ModifierValue(models.Model):
 
     def apply(self, total):
         return total*(self.modifier_percent/Decimal('100.00'))
+
+    def __str__(self):
+        return '{modifier}, {limit_from}-{limit_to}, {percent}%'.format(
+            modifier=self.modifier.name,
+            limit_from=self.limit_from,
+            limit_to=self.limit_to,
+            percent=self.modifier_percent
+        )
 
 
 class Price(models.Model):

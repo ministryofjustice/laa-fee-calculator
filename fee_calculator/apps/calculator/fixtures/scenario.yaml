@@ -6,7 +6,7 @@
   fields: {name: Guilty plea}
 - model: calculator.scenario
   pk: 3
-  fields: {name: Cracked trial (First third)}
+  fields: {name: Cracked trial (first third)}
 - model: calculator.scenario
   pk: 4
   fields: {name: Trial}
@@ -27,7 +27,7 @@
   fields: {name: Breach of crown court order}
 - model: calculator.scenario
   pk: 10
-  fields: {name: Cracked before retrial (First third)}
+  fields: {name: Cracked before retrial (first third)}
 - model: calculator.scenario
   pk: 11
   fields: {name: Retrial}
@@ -36,7 +36,7 @@
   fields: {name: Elected cases not proceeded}
 - model: calculator.scenario
   pk: 13
-  fields: {name: Cracked trial (After first third)}
+  fields: {name: Cracked trial (after first third)}
 - model: calculator.scenario
   pk: 14
-  fields: {name: Cracked before retrial (After first third)}
+  fields: {name: Cracked before retrial (after first third)}
