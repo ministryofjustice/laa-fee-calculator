@@ -150,5 +150,5 @@ SCENARIO_MAP = {
 def scenario_ccr_to_id(ccr_id, third):
     scenario = SCENARIO_MAP[int(ccr_id)]
     if isinstance(scenario, dict):
-        return scenario[third]
+        return scenario[int(third)]
     return scenario

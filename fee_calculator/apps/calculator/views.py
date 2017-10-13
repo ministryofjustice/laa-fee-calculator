@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
+from decimal import Decimal, InvalidOperation
 import logging
 import re
 
 from django.db.models import Q
-from django.http import Http404
 from django_filters.rest_framework import backends
 from rest_framework import viewsets, views, status
 from rest_framework.compat import coreapi
@@ -262,7 +262,7 @@ class CalculatorView(views.APIView):
                 'Note the query will return prices with `advocate_type_id` '
                 'either matching the value or null.'),
         }),
-        coreapi.Field('offence_class_id', **{
+        coreapi.Field('offence_class', **{
             'required': False,
             'location': 'query',
             'type': 'string',
@@ -324,13 +324,13 @@ class CalculatorView(views.APIView):
             )
         return instance
 
-    def get_integer_param(self, param_name, required=False, default=None):
+    def get_decimal_param(self, param_name, required=False, default=None):
         number = self.get_param(param_name, required, default)
         try:
             if number is not None:
-                number = int(number)
-        except ValueError:
-            raise ValidationError('`%s` must be an integer' % param_name)
+                number = Decimal(number)
+        except InvalidOperation:
+            raise ValidationError('`%s` must be a number' % param_name)
         return number
 
     def get(self, *args, **kwargs):
@@ -342,7 +342,7 @@ class CalculatorView(views.APIView):
         advocate_type = self.get_model_param('advocate_type', AdvocateType)
         offence_class = self.get_model_param('offence_class', OffenceClass)
         unit = self.get_model_param('unit', Unit, default='DAY')
-        unit_count = self.get_integer_param('unit_count', default=1)
+        unit_count = self.get_decimal_param('unit_count', default=Decimal('1'))
 
         modifier_counts = []
         for param in self.request.query_params:
@@ -355,7 +355,7 @@ class CalculatorView(views.APIView):
                     raise ValidationError(
                         '`%s` is not a valid Modifier' % (pk)
                     )
-                count = self.request.query_params[param]
+                count = self.get_decimal_param(param)
                 modifier_counts.append((modifier, count,))
 
         prices = Price.objects.filter(
@@ -366,14 +366,14 @@ class CalculatorView(views.APIView):
         ).prefetch_related('modifiers', 'modifiers__values')
 
         if len(prices) == 0:
-            return Response(
-                'No prices exist for query', status=status.HTTP_400_BAD_REQUEST
-            )
-
-        # sum total from all prices whose range is covered by the unit_count
-        return Response({
-            'amount': sum((
+            amount = 0
+        else:
+            # sum total from all prices whose range is covered by the unit_count
+            amount = sum((
                 price.calculate_total(unit_count, modifier_counts)
                 for price in prices
             ))
+
+        return Response({
+            'amount': amount
         })

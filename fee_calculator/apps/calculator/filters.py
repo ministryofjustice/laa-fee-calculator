@@ -79,9 +79,8 @@ class FeeTypeFilter(django_filters.FilterSet):
 
 
 class PriceFilter(django_filters.FilterSet):
-    fee_type_code = django_filters.ModelChoiceFilter(
+    fee_type_code = django_filters.CharFilter(
         name='fee_type__code',
-        queryset=models.FeeType.objects.all()
     )
     offence_class = ModelOrNoneChoiceFilter(
         name='offence_class',

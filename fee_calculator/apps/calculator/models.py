@@ -151,4 +151,4 @@ class Price(models.Model):
             applicable_unit_count -= (self.limit_from - 1)
         if self.limit_to and unit_count >= self.limit_to:
             applicable_unit_count -= (unit_count - self.limit_to)
-        return max(applicable_unit_count, 0)
+        return max(applicable_unit_count, Decimal('0'))

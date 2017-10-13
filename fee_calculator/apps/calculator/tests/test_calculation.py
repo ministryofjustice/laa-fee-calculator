@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-
-from datetime import date
+import csv
+from datetime import datetime
 from decimal import Decimal
 import os
 
 from django.conf import settings
 from django.test import TestCase
-from django.utils.text import slugify
 from rest_framework import status
-import xlrd
-from xlrd.xldate import xldate_as_datetime
 
+from calculator.models import Price, FeeType
 from .lib.utils import scenario_ccr_to_id
 
 
-SPREADSHEET_PATH = os.path.join(
+CSV_PATH = os.path.join(
     os.path.dirname(__file__),
-    'data/test_data.xlsx')
+    'data/test_data.csv')
 
 
 class CalculatorTestCase(TestCase):
@@ -29,16 +28,16 @@ class CalculatorTestCase(TestCase):
         """
         Assert row values equal calculated values
         """
-        # TODO - don't set date to today if no date supplied
-        if row['rep_order_date']:
-            rep_order_date = xldate_as_datetime(
-                float(row['rep_order_date']), 0).date()
-        else:
-            rep_order_date = date.today()
+        calculation_date = datetime.strptime(
+            row['CALCULATION_DATE'], '%d/%m/%Y'
+        ).date() if row['CALCULATION_DATE'] else datetime.now().date()
 
+        is_basic = row['BILL_SUB_TYPE'] == 'AGFS_FEE'
+
+        # get scheme for date
         scheme_resp = self.client.get(
             '/api/{version}/fee-schemes/'.format(version=settings.API_VERSION),
-            data=dict(suty='advocate', case_date=rep_order_date)
+            data=dict(suty='advocate', case_date=calculation_date)
         )
         self.assertEqual(
             scheme_resp.status_code, status.HTTP_200_OK, scheme_resp.content
@@ -48,95 +47,92 @@ class CalculatorTestCase(TestCase):
 
         data = {
             'scheme': scheme_id,
-            'fee_type_code': row['bill_sub_type'],
+            'fee_type_code': row['BILL_SUB_TYPE'],
             'scenario': scenario_ccr_to_id(
-                row['bill_scenario_id'], row['third_cracked']),
-            'rep_order_date': rep_order_date,
-            'advocate_type': row['person_type'],
-            'offence_class': row['offence-cat'],
-            'unit': 'DAY',
-            'unit_count': int(row['trial_length']) or 1,
+                row['BILL_SCENARIO_ID'], row['THIRD_CRACKED']),
+            'advocate_type': row['PERSON_TYPE'],
+            'offence_class': row['OFFENCE_CATEGORY'],
         }
 
-        if row['defendants']:
-            data['modifier_unit_1'] = 'DEFENDANT'
-            data['modifier_unit_count_1'] = int(row['defendants'])
+        unit = 'DAY'
+        if not is_basic:
+            # get unit for fee type
+            unit_resp = self.client.get(
+                '/api/{version}/units/'.format(version=settings.API_VERSION),
+                data=data
+            )
+            self.assertEqual(
+                unit_resp.status_code, status.HTTP_200_OK, unit_resp.content
+            )
+            unit = unit_resp.json()['results'][0]['id']
 
-        fees = []
+        data['unit'] = unit
+        data['unit_count'] = (
+            Decimal(row['TRIAL_LENGTH'])
+            if row['BILL_SUB_TYPE'] == 'AGFS_FEE'
+            else Decimal(row['QUANTITY'])
+        ) or 1,
+
+        if row['NUM_OF_CASES']:
+            data['modifier_1'] = int(row['NUM_OF_CASES'])
+
+        if row['NO_DEFENDANTS']:
+            data['modifier_2'] = int(row['NO_DEFENDANTS'])
+
+        fees = {}
 
         resp = self.client.get(self.endpoint, data=data)
         self.assertEqual(resp.status_code, status.HTTP_200_OK, resp.content)
-        fees.append(resp.data['amount'])
+        fees['basic'] = resp.data['amount']
 
-        if row['ppe']:
-            data['unit'] = 'PPE'
-            data['unit_count'] = int(row['ppe'])
+        if is_basic:
+            if row['PPE']:
+                data['unit'] = 'PPE'
+                data['unit_count'] = int(row['PPE'])
 
-            resp = self.client.get(self.endpoint, data=data)
-            self.assertEqual(
-                resp.status_code, status.HTTP_200_OK, resp.content
-            )
-            fees.append(resp.data['amount'])
+                resp = self.client.get(self.endpoint, data=data)
+                self.assertEqual(
+                    resp.status_code, status.HTTP_200_OK, resp.content
+                )
+                fees['ppe'] = resp.data['amount']
 
-        # if row['pw']:
-        #     data['unit'] = 'PW'
-        #     data['unit_count'] = int(row['pw'])
+            if row['NUM_OF_WITNESSES']:
+                data['unit'] = 'PW'
+                data['unit_count'] = int(row['NUM_OF_WITNESSES'])
 
-        #     resp = self.client.get(self.endpoint, data=data)
-        #     self.assertEqual(
-        #         resp.status_code, status.HTTP_200_OK, resp.content
-        #     )
-        #     fees.append(resp.data['amount'])
+                resp = self.client.get(self.endpoint, data=data)
+                self.assertEqual(
+                    resp.status_code, status.HTTP_200_OK, resp.content
+                )
+                fees['pw'] = resp.data['amount']
 
         self.assertEqual(
-            sum(fees),
-            row['calc_amt_exc_vat']
+            sum(fees.values()),
+            Decimal(row['CALC_FEE_EXC_VAT']),
+            '%s %s' % (fees, data,)
         )
 
 
-def value(cell):
-    """
-    Decode the cell value to a Decimal if numeric
-    """
-    if isinstance(cell.value, float):
-        return Decimal(str(cell.value))
-    return cell.value
-
-
-def spreadsheet():
-    """
-    Generator for the rows of the spreadsheet
-    """
-    book = xlrd.open_workbook(SPREADSHEET_PATH)
-    sheet = book.sheet_by_index(0)
-    cols = [slugify(sheet.cell(0, i).value) for i in range(sheet.ncols)]
-    cols.append('line_number')
-    for row in range(1, sheet.nrows):
-        cells = [value(sheet.cell(row, i)) for i in range(sheet.ncols)]
-        cells.append(row + 1)
-        yield dict(zip(cols, cells))
-
-
-def test_name(row):
+def test_name(row, line_number):
     """
     Generate the method name for the test
     """
     return 'test_{0}_{1}'.format(
-        row.get('line_number'),
-        slugify(row.get('case_id')))
+        line_number,
+        row.get('CASE_ID')
+    )
 
 
 test_name.__test__ = False
 
 
-def make_test(row):
+def make_test(row, line_number):
     """
     Generate a test method
     """
     def row_test(self):
         self.assertRowValuesCorrect(row)
-    row_test.__doc__ = str(row.get('line_number')) + ': ' + \
-        str(row.get('case_id'))
+    row_test.__doc__ = str(line_number) + ': ' + str(row.get('CASE_ID'))
     return row_test
 
 
@@ -147,8 +143,14 @@ def create_tests():
     """
     Insert test methods into the TestCase for each case in the spreadsheet
     """
-    for row in spreadsheet():
-        setattr(CalculatorTestCase, test_name(row), make_test(row))
+    with open(CSV_PATH) as csvfile:
+        reader = csv.DictReader(csvfile)
+        priced_fees = FeeType.objects.filter(
+            id__in=Price.objects.all().values_list('fee_type_id', flat=True).distinct()
+        ).values_list('code', flat=True).distinct()
+        for i, row in enumerate(reader):
+            if row['BILL_SUB_TYPE'] in priced_fees:
+                setattr(CalculatorTestCase, test_name(row, i), make_test(row, i))
 
 
 create_tests.__test__ = False
