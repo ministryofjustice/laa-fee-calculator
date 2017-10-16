@@ -68,7 +68,7 @@ class CalculatorTestCase(TestCase):
 
         data['unit'] = unit
         data['unit_count'] = (
-            Decimal(row['TRIAL_LENGTH'])
+            Decimal(row['NUM_ATTENDANCE_DAYS'])
             if row['BILL_SUB_TYPE'] == 'AGFS_FEE'
             else Decimal(row['QUANTITY'])
         ) or 1,
