@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from calculator.models import (
     Scheme, Scenario, FeeType, AdvocateType, OffenceClass, Unit, Price,
-    Modifier, ModifierValue
+    ModifierType, Modifier
 )
 
 
@@ -41,14 +41,14 @@ class UnitAdmin(admin.ModelAdmin):
     list_display = ('name', 'id',)
 
 
-@admin.register(Modifier)
-class ModifierAdmin(admin.ModelAdmin):
+@admin.register(ModifierType)
+class ModifierTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'unit',)
 
 
-@admin.register(ModifierValue)
-class ModifierValueAdmin(admin.ModelAdmin):
-    list_display = ('modifier', 'limit_from', 'limit_to', 'modifier_percent',)
+@admin.register(Modifier)
+class ModifierAdmin(admin.ModelAdmin):
+    list_display = ('modifier_type', 'limit_from', 'limit_to', 'modifier_percent',)
 
 
 @admin.register(Price)

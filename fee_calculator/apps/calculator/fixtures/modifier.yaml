@@ -1,6 +1,9 @@
 - model: calculator.modifier
   pk: 1
-  fields: {name: 'CASE UPLIFT', description: 'Number of cases', unit: CASE}
+  fields: {modifier_type: 1, limit_from: 2, limit_to: null, modifier_percent: '20.00'}
 - model: calculator.modifier
   pk: 2
-  fields: {name: 'DEFENDANT UPLIFT', description: 'Number of defendants', unit: DEFENDANT}
+  fields: {modifier_type: 2, limit_from: 2, limit_to: 5, modifier_percent: '20.00'}
+- model: calculator.modifier
+  pk: 3
+  fields: {modifier_type: 2, limit_from: 5, limit_to: null, modifier_percent: '30.00'}

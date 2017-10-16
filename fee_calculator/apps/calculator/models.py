@@ -60,26 +60,24 @@ class Unit(models.Model):
         return self.name
 
 
-class Modifier(models.Model):
+class ModifierType(models.Model):
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=150)
     unit = models.ForeignKey(Unit)
-
-    def get_applicable_values(self, count):
-        return [v for v in self.values.all() if v.is_applicable(count)]
 
     def __str__(self):
         return self.name
 
 
-class ModifierValue(models.Model):
+class Modifier(models.Model):
     limit_from = models.IntegerField()
     limit_to = models.IntegerField(null=True)
     modifier_percent = models.DecimalField(max_digits=6, decimal_places=2)
-    modifier = models.ForeignKey(Modifier, related_name='values')
+    modifier_type = models.ForeignKey(ModifierType, related_name='values')
 
-    def is_applicable(self, count):
+    def is_applicable(self, modifier_type, count):
         return (
+            self.modifier_type == modifier_type and
             count >= self.limit_from and
             (self.limit_to is None or count <= self.limit_to)
         )
@@ -88,8 +86,8 @@ class ModifierValue(models.Model):
         return total*(self.modifier_percent/Decimal('100.00'))
 
     def __str__(self):
-        return '{modifier}, {limit_from}-{limit_to}, {percent}%'.format(
-            modifier=self.modifier.name,
+        return '{modifier_type}, {limit_from}-{limit_to}, {percent}%'.format(
+            modifier_type=self.modifier_type.name,
             limit_from=self.limit_from,
             limit_to=self.limit_to,
             percent=self.modifier_percent
@@ -122,23 +120,22 @@ class Price(models.Model):
             self.get_applicable_unit_count(unit_count)*self.fee_per_unit
         )
         modifier_fees = []
-        for modifier, count in modifier_counts:
-            modifier_fees += self.get_modifier_fees(total, modifier, count)
+        for modifier_type, count in modifier_counts:
+            modifier_fees += self.get_modifier_fees(total, modifier_type, count)
         return total + sum(modifier_fees)
 
-    def get_modifier_fees(self, calculated_price, modifier, count):
+    def get_modifier_fees(self, calculated_price, modifier_type, count):
         '''
         Get a list of extra fees from associated modifiers for the given
-        modifier_unit and count
+        modifier and count
         '''
         modifier_fees = []
         # applicability is checked in python on the assumption that the
         # query for prices will use:
-        # `.prefetch_related('modifiers', 'modifiers__values')`
-        if modifier in self.modifiers.all():
-            values = modifier.get_applicable_values(count)
-            for value in values:
-                modifier_fees.append(value.apply(calculated_price))
+        # `.prefetch_related('modifiers')`
+        for modifier in self.modifiers.all():
+            if modifier.is_applicable(modifier_type, count):
+                modifier_fees.append(modifier.apply(calculated_price))
         return modifier_fees
 
     def get_applicable_unit_count(self, unit_count):

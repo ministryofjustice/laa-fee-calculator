@@ -1,0 +1,9 @@
+- model: calculator.modifiertype
+  pk: 1
+  fields: {name: 'CASE UPLIFT', description: 'Number of cases', unit: CASE}
+- model: calculator.modifiertype
+  pk: 2
+  fields: {name: 'DEFENDANT UPLIFT', description: 'Number of defendants', unit: DEFENDANT}
+- model: calculator.modifiertype
+  pk: 3
+  fields: {name: 'TRIAL LENGTH', description: 'Trial length', unit: DAY}

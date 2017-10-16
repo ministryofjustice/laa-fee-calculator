@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 from .models import (
     Scheme, Scenario, FeeType, AdvocateType, OffenceClass, Price, Unit,
-    Modifier, ModifierValue
+    ModifierType, Modifier
 )
 
 
@@ -67,27 +67,27 @@ class UnitSerializer(serializers.ModelSerializer):
         )
 
 
-class ModifierValueSerializer(serializers.ModelSerializer):
+class ModifierTypeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ModifierValue
-        fields = (
-            'limit_from',
-            'limit_to',
-            'modifier_percent',
-        )
-
-
-class ModifierSerializer(serializers.ModelSerializer):
-    values = ModifierValueSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Modifier
+        model = ModifierType
         fields = (
             'id',
             'name',
             'description',
             'unit',
-            'values',
+        )
+
+
+class ModifierSerializer(serializers.ModelSerializer):
+    modifier_type = ModifierTypeSerializer(read_only=True)
+
+    class Meta:
+        model = Modifier
+        fields = (
+            'limit_from',
+            'limit_to',
+            'modifier_percent',
+            'modifier_type',
         )
 
 

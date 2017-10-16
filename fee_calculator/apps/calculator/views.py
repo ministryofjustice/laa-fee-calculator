@@ -6,7 +6,7 @@ import re
 
 from django.db.models import Q
 from django_filters.rest_framework import backends
-from rest_framework import viewsets, views, status
+from rest_framework import viewsets, views
 from rest_framework.compat import coreapi
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
@@ -18,12 +18,13 @@ from .filters import (
     FeeTypeFilter
 )
 from .models import (
-    Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price, Unit, Modifier
+    Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price, Unit,
+    ModifierType
 )
 from .serializers import (
     SchemeSerializer, FeeTypeSerializer, ScenarioSerializer,
     OffenceClassSerializer, AdvocateTypeSerializer, PriceSerializer,
-    UnitSerializer, ModifierSerializer
+    UnitSerializer, ModifierTypeSerializer
 )
 
 logger = logging.getLogger('laa-calc')
@@ -127,6 +128,7 @@ class BasePriceFilteredViewSet(OrderedReadOnlyModelViewSet):
         }),
     ])
     filter_backends = (backends.DjangoFilterBackend,)
+    relation_name = 'prices'
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -139,22 +141,22 @@ class BasePriceFilteredViewSet(OrderedReadOnlyModelViewSet):
 
         filters = []
         if scheme_id:
-            filters.append(Q(prices__scheme_id=scheme_id))
+            filters.append(Q(**{'{lookup}__scheme_id'.format(lookup=self.relation_name): scheme_id}))
         if scenario_id:
-            filters.append(Q(prices__scenario_id=scenario_id))
+            filters.append(Q(**{'{lookup}__scenario_id'.format(lookup=self.relation_name): scenario_id}))
         if advocate_type_id:
             filters.append(
-                Q(prices__advocate_type_id=advocate_type_id) |
-                Q(prices__advocate_type_id__isnull=True)
+                Q(**{'{lookup}__advocate_type_id'.format(lookup=self.relation_name): advocate_type_id}) |
+                Q(**{'{lookup}__advocate_type_id__isnull'.format(lookup=self.relation_name): True})
             )
         if offence_class_id:
             filters.append(
-                Q(prices__offence_class_id=offence_class_id) |
-                Q(prices__offence_class_id__isnull=True)
+                Q(**{'{lookup}__offence_class_id'.format(lookup=self.relation_name): offence_class_id}) |
+                Q(**{'{lookup}__offence_class_id__isnull'.format(lookup=self.relation_name): True})
             )
         if fee_type_code:
             filters.append(
-                Q(prices__fee_type__code=fee_type_code)
+                Q(**{'{lookup}__fee_type__code'.format(lookup=self.relation_name): fee_type_code})
             )
 
         if filters:
@@ -203,18 +205,19 @@ class AdvocateTypeViewSet(OrderedReadOnlyModelViewSet):
 
 class UnitViewSet(BasePriceFilteredViewSet):
     """
-    Viewing fee type(s).
+    Viewing units.
     """
     queryset = Unit.objects.all()
     serializer_class = UnitSerializer
 
 
-class ModifierViewSet(BasePriceFilteredViewSet):
+class ModifierTypeViewSet(BasePriceFilteredViewSet):
     """
-    Viewing fee type(s).
+    Viewing modifier types.
     """
-    queryset = Modifier.objects.all()
-    serializer_class = ModifierSerializer
+    queryset = ModifierType.objects.all()
+    serializer_class = ModifierTypeSerializer
+    relation_name = 'values__prices'
 
 
 class PriceViewSet(OrderedReadOnlyModelViewSet):
@@ -350,20 +353,20 @@ class CalculatorView(views.APIView):
             if result:
                 try:
                     pk = result.group(1)
-                    modifier = Modifier.objects.get(pk=pk)
-                except Modifier.DoesNotExist:
+                    modifier_type = ModifierType.objects.get(pk=pk)
+                except ModifierType.DoesNotExist:
                     raise ValidationError(
                         '`%s` is not a valid Modifier' % (pk)
                     )
                 count = self.get_decimal_param(param)
-                modifier_counts.append((modifier, count,))
+                modifier_counts.append((modifier_type, count,))
 
         prices = Price.objects.filter(
             Q(advocate_type=advocate_type) | Q(advocate_type__isnull=True),
             Q(offence_class=offence_class) | Q(offence_class__isnull=True),
             scheme=scheme, fee_type__in=fee_types, unit=unit,
             scenario=scenario
-        ).prefetch_related('modifiers', 'modifiers__values')
+        ).prefetch_related('modifiers')
 
         if len(prices) == 0:
             amount = 0

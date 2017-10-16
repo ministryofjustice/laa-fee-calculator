@@ -21,7 +21,7 @@ class CalculatorTestCase(TestCase):
     endpoint = '/api/%s/calculate/' % settings.API_VERSION
     fixtures = [
         'advocatetype', 'feetype', 'offenceclass', 'price', 'scenario',
-        'scheme', 'unit', 'modifier', 'modifiervalue',
+        'scheme', 'unit', 'modifiertype', 'modifier',
     ]
 
     def assertRowValuesCorrect(self, row):
