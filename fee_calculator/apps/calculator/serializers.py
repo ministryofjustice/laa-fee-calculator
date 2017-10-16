@@ -88,6 +88,7 @@ class ModifierSerializer(serializers.ModelSerializer):
             'limit_to',
             'modifier_percent',
             'modifier_type',
+            'required',
         )
 
 

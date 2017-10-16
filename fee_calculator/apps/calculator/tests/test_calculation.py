@@ -79,6 +79,9 @@ class CalculatorTestCase(TestCase):
         if row['NO_DEFENDANTS']:
             data['modifier_2'] = int(row['NO_DEFENDANTS'])
 
+        if row['TRIAL_LENGTH']:
+            data['modifier_3'] = int(row['TRIAL_LENGTH'])
+
         fees = {}
 
         resp = self.client.get(self.endpoint, data=data)
@@ -150,7 +153,7 @@ def create_tests():
         ).values_list('code', flat=True).distinct()
         for i, row in enumerate(reader):
             if row['BILL_SUB_TYPE'] in priced_fees:
-                setattr(CalculatorTestCase, test_name(row, i), make_test(row, i))
+                setattr(CalculatorTestCase, test_name(row, i+2), make_test(row, i+2))
 
 
 create_tests.__test__ = False

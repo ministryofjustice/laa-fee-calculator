@@ -4,6 +4,7 @@ from decimal import Decimal
 from django.db import models
 
 from .constants import SUTY_BASE_TYPE
+from .exceptions import RequiredModifierMissingException
 
 
 class Scheme(models.Model):
@@ -74,6 +75,7 @@ class Modifier(models.Model):
     limit_to = models.IntegerField(null=True)
     modifier_percent = models.DecimalField(max_digits=6, decimal_places=2)
     modifier_type = models.ForeignKey(ModifierType, related_name='values')
+    required = models.BooleanField(default=False)
 
     def is_applicable(self, modifier_type, count):
         return (
@@ -120,11 +122,13 @@ class Price(models.Model):
             self.get_applicable_unit_count(unit_count)*self.fee_per_unit
         )
         modifier_fees = []
-        for modifier_type, count in modifier_counts:
-            modifier_fees += self.get_modifier_fees(total, modifier_type, count)
-        return total + sum(modifier_fees)
+        try:
+            modifier_fees += self.get_modifier_fees(total, modifier_counts)
+            return total + sum(modifier_fees)
+        except RequiredModifierMissingException:
+            return Decimal('0.00')
 
-    def get_modifier_fees(self, calculated_price, modifier_type, count):
+    def get_modifier_fees(self, calculated_price, modifier_counts):
         '''
         Get a list of extra fees from associated modifiers for the given
         modifier and count
@@ -134,8 +138,13 @@ class Price(models.Model):
         # query for prices will use:
         # `.prefetch_related('modifiers')`
         for modifier in self.modifiers.all():
-            if modifier.is_applicable(modifier_type, count):
-                modifier_fees.append(modifier.apply(calculated_price))
+            modifier_applied = False
+            for modifier_type, count in modifier_counts:
+                if modifier.is_applicable(modifier_type, count):
+                    modifier_fees.append(modifier.apply(calculated_price))
+                    modifier_applied = True
+            if modifier.required and not modifier_applied:
+                raise RequiredModifierMissingException
         return modifier_fees
 
     def get_applicable_unit_count(self, unit_count):

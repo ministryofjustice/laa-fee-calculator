@@ -41,9 +41,7 @@ def create_test_modifiers(
     created_modifiers = []
     for modifier in modifiers:
         created_modifiers.append(Modifier.objects.create(
-            limit_from=modifier['limit_from'], limit_to=modifier['limit_to'],
-            modifier_percent=modifier['modifier_percent'],
-            modifier_type=modifier_type
+            modifier_type=modifier_type, **modifier
         ))
     return (modifier_type, created_modifiers)
 
@@ -92,7 +90,7 @@ class PriceTestCase(TestCase):
         test_price = create_test_price(modifiers=modifiers)
 
         self.assertEqual(
-            test_price.get_modifier_fees(Decimal('10.00'), modifier_type, 2),
+            test_price.get_modifier_fees(Decimal('10.00'), [(modifier_type, 2,)]),
             [Decimal('1.50')]
         )
 
@@ -115,11 +113,11 @@ class PriceTestCase(TestCase):
         )
 
         self.assertEqual(
-            test_price.get_modifier_fees(Decimal('10.00'), case_modifier_type, 2),
+            test_price.get_modifier_fees(Decimal('10.00'), [(case_modifier_type, 2,)]),
             [Decimal('1.50')]
         )
         self.assertEqual(
-            test_price.get_modifier_fees(Decimal('10.00'), defendant_modifier_type, 2),
+            test_price.get_modifier_fees(Decimal('10.00'), [(defendant_modifier_type, 2,)]),
             [Decimal('2.50')]
         )
 
@@ -137,7 +135,7 @@ class PriceTestCase(TestCase):
         )
 
         self.assertEqual(
-            test_price.get_modifier_fees(Decimal('10.00'), case_modifier_type, 1),
+            test_price.get_modifier_fees(Decimal('10.00'), [(case_modifier_type, 1,)]),
             [Decimal('2.50')]
         )
 
@@ -215,5 +213,80 @@ class PriceTestCase(TestCase):
 
         self.assertEqual(
             test_price.calculate_total(12, [(case_modifier_type, 2)]),
+            Decimal('12.00')
+        )
+
+    def test_calculate_total_with_required_modifier_missing(self):
+        day_unit = Unit.objects.get(id='DAY')
+        trial_length_modifier_type, trial_length_modifiers = create_test_modifiers(
+            unit=day_unit, modifiers=[
+                dict(
+                    limit_from=2, limit_to=None, required=True,
+                    modifier_percent=Decimal('0.00')
+                )
+            ]
+        )
+
+        test_price = create_test_price(
+            unit=day_unit,
+            fixed_fee=Decimal('0.00'),
+            fee_per_unit=Decimal('1.00'),
+            modifiers=trial_length_modifiers,
+            limit_from=1,
+            limit_to=None
+        )
+
+        self.assertEqual(
+            test_price.calculate_total(12, []),
+            Decimal('0.00')
+        )
+
+    def test_calculate_total_with_required_modifier_not_met(self):
+        day_unit = Unit.objects.get(id='DAY')
+        trial_length_modifier_type, trial_length_modifiers = create_test_modifiers(
+            unit=day_unit, modifiers=[
+                dict(
+                    limit_from=2, limit_to=None, required=True,
+                    modifier_percent=Decimal('0.00')
+                )
+            ]
+        )
+
+        test_price = create_test_price(
+            unit=day_unit,
+            fixed_fee=Decimal('0.00'),
+            fee_per_unit=Decimal('1.00'),
+            modifiers=trial_length_modifiers,
+            limit_from=1,
+            limit_to=None
+        )
+
+        self.assertEqual(
+            test_price.calculate_total(12, [(trial_length_modifier_type, 1,)]),
+            Decimal('0.00')
+        )
+
+    def test_calculate_total_with_required_modifier_met(self):
+        day_unit = Unit.objects.get(id='DAY')
+        trial_length_modifier_type, trial_length_modifiers = create_test_modifiers(
+            unit=day_unit, modifiers=[
+                dict(
+                    limit_from=2, limit_to=None, required=True,
+                    modifier_percent=Decimal('0.00')
+                )
+            ]
+        )
+
+        test_price = create_test_price(
+            unit=day_unit,
+            fixed_fee=Decimal('0.00'),
+            fee_per_unit=Decimal('1.00'),
+            modifiers=trial_length_modifiers,
+            limit_from=1,
+            limit_to=None
+        )
+
+        self.assertEqual(
+            test_price.calculate_total(12, [(trial_length_modifier_type, 2,)]),
             Decimal('12.00')
         )

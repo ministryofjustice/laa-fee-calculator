@@ -25909,9 +25909,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2202
   fields:
@@ -25923,9 +25923,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2203
   fields:
@@ -25937,9 +25937,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2204
   fields:
@@ -25951,9 +25951,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2205
   fields:
@@ -25965,9 +25965,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2206
   fields:
@@ -25979,9 +25979,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2207
   fields:
@@ -25993,9 +25993,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2208
   fields:
@@ -26007,9 +26007,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2209
   fields:
@@ -26021,9 +26021,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2210
   fields:
@@ -26035,9 +26035,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2211
   fields:
@@ -26049,9 +26049,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2212
   fields:
@@ -26063,9 +26063,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2213
   fields:
@@ -26077,9 +26077,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2214
   fields:
@@ -26091,9 +26091,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2215
   fields:
@@ -26105,9 +26105,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2216
   fields:
@@ -26119,9 +26119,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2217
   fields:
@@ -26133,9 +26133,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2218
   fields:
@@ -26147,9 +26147,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2219
   fields:
@@ -26161,9 +26161,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2220
   fields:
@@ -26175,9 +26175,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2221
   fields:
@@ -26189,9 +26189,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2222
   fields:
@@ -26203,9 +26203,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2223
   fields:
@@ -26217,9 +26217,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2224
   fields:
@@ -26231,9 +26231,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2225
   fields:
@@ -26245,9 +26245,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2226
   fields:
@@ -26259,9 +26259,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2227
   fields:
@@ -26273,9 +26273,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2228
   fields:
@@ -26287,9 +26287,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2229
   fields:
@@ -26301,9 +26301,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2230
   fields:
@@ -26315,9 +26315,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2231
   fields:
@@ -26329,9 +26329,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2232
   fields:
@@ -26343,9 +26343,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2233
   fields:
@@ -26357,9 +26357,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2234
   fields:
@@ -26371,9 +26371,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2235
   fields:
@@ -26385,9 +26385,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2236
   fields:
@@ -26399,9 +26399,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2237
   fields:
@@ -26413,9 +26413,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2238
   fields:
@@ -26427,9 +26427,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2239
   fields:
@@ -26441,9 +26441,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2240
   fields:
@@ -26455,9 +26455,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2241
   fields:
@@ -26469,9 +26469,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2242
   fields:
@@ -26483,9 +26483,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2243
   fields:
@@ -26497,9 +26497,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2244
   fields:
@@ -26511,9 +26511,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 2245
   fields:
@@ -44403,8 +44403,8 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '0.000'
-    limit_from: 1
-    limit_to: 2
+    limit_from: 4
+    limit_to: 4
     modifiers: []
 - model: calculator.price
   pk: 3523
@@ -44417,8 +44417,8 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '0.000'
-    limit_from: 1
-    limit_to: 2
+    limit_from: 4
+    limit_to: 4
     modifiers: []
 - model: calculator.price
   pk: 3524
@@ -44431,8 +44431,8 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '0.000'
-    limit_from: 1
-    limit_to: 2
+    limit_from: 4
+    limit_to: 4
     modifiers: []
 - model: calculator.price
   pk: 3525
@@ -44445,8 +44445,8 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '0.000'
-    limit_from: 1
-    limit_to: 2
+    limit_from: 4
+    limit_to: 4
     modifiers: []
 - model: calculator.price
   pk: 3526
@@ -45733,9 +45733,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 3618
   fields:
@@ -45747,9 +45747,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 3619
   fields:
@@ -45761,9 +45761,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 3620
   fields:
@@ -45775,9 +45775,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 3621
   fields:
@@ -47861,9 +47861,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 3770
   fields:
@@ -47875,9 +47875,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 3771
   fields:
@@ -47889,9 +47889,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 3772
   fields:
@@ -47903,9 +47903,9 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 2
-    modifiers: []
+    limit_from: 4
+    limit_to: 4
+    modifiers: [4]
 - model: calculator.price
   pk: 3773
   fields:
@@ -49474,3 +49474,1459 @@
     limit_from: 1
     limit_to: 30
     modifiers: []
+- model: calculator.price
+  pk: 3885
+  fields:
+    scenario: 10
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3886
+  fields:
+    scenario: 9
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3887
+  fields:
+    scenario: 2
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3888
+  fields:
+    scenario: 3
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3889
+  fields:
+    scenario: 6
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3890
+  fields:
+    scenario: 5
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3891
+  fields:
+    scenario: 4
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3892
+  fields:
+    scenario: 7
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3893
+  fields:
+    scenario: 11
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3894
+  fields:
+    scenario: 1
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3895
+  fields:
+    scenario: 8
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3896
+  fields:
+    scenario: 7
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3897
+  fields:
+    scenario: 3
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3898
+  fields:
+    scenario: 6
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3899
+  fields:
+    scenario: 8
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3900
+  fields:
+    scenario: 5
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3901
+  fields:
+    scenario: 11
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3902
+  fields:
+    scenario: 2
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3903
+  fields:
+    scenario: 1
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3904
+  fields:
+    scenario: 9
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3905
+  fields:
+    scenario: 10
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3906
+  fields:
+    scenario: 4
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3907
+  fields:
+    scenario: 10
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3908
+  fields:
+    scenario: 7
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3909
+  fields:
+    scenario: 11
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3910
+  fields:
+    scenario: 3
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3911
+  fields:
+    scenario: 4
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3912
+  fields:
+    scenario: 9
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3913
+  fields:
+    scenario: 5
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3914
+  fields:
+    scenario: 6
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3915
+  fields:
+    scenario: 2
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3916
+  fields:
+    scenario: 1
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3917
+  fields:
+    scenario: 8
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3918
+  fields:
+    scenario: 10
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3919
+  fields:
+    scenario: 7
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3920
+  fields:
+    scenario: 5
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3921
+  fields:
+    scenario: 1
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3922
+  fields:
+    scenario: 2
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3923
+  fields:
+    scenario: 8
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3924
+  fields:
+    scenario: 4
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3925
+  fields:
+    scenario: 6
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3926
+  fields:
+    scenario: 11
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3927
+  fields:
+    scenario: 3
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3928
+  fields:
+    scenario: 9
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3933
+  fields:
+    scenario: 13
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3934
+  fields:
+    scenario: 13
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3935
+  fields:
+    scenario: 13
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3936
+  fields:
+    scenario: 13
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3937
+  fields:
+    scenario: 14
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3938
+  fields:
+    scenario: 14
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3939
+  fields:
+    scenario: 14
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3940
+  fields:
+    scenario: 14
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 5
+    modifiers: [5]
+- model: calculator.price
+  pk: 3941
+  fields:
+    scenario: 10
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3942
+  fields:
+    scenario: 9
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3943
+  fields:
+    scenario: 2
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3944
+  fields:
+    scenario: 3
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3945
+  fields:
+    scenario: 6
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3946
+  fields:
+    scenario: 5
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3947
+  fields:
+    scenario: 4
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3948
+  fields:
+    scenario: 7
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3949
+  fields:
+    scenario: 11
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3950
+  fields:
+    scenario: 1
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3951
+  fields:
+    scenario: 8
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3952
+  fields:
+    scenario: 7
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3953
+  fields:
+    scenario: 3
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3954
+  fields:
+    scenario: 6
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3955
+  fields:
+    scenario: 8
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3956
+  fields:
+    scenario: 5
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3957
+  fields:
+    scenario: 11
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3958
+  fields:
+    scenario: 2
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3959
+  fields:
+    scenario: 1
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3960
+  fields:
+    scenario: 9
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3961
+  fields:
+    scenario: 10
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3962
+  fields:
+    scenario: 4
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3963
+  fields:
+    scenario: 10
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3964
+  fields:
+    scenario: 7
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3965
+  fields:
+    scenario: 11
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3966
+  fields:
+    scenario: 3
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3967
+  fields:
+    scenario: 4
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3968
+  fields:
+    scenario: 9
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3969
+  fields:
+    scenario: 5
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3970
+  fields:
+    scenario: 6
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3971
+  fields:
+    scenario: 2
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3972
+  fields:
+    scenario: 1
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3973
+  fields:
+    scenario: 8
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3974
+  fields:
+    scenario: 10
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3975
+  fields:
+    scenario: 7
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3976
+  fields:
+    scenario: 5
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3977
+  fields:
+    scenario: 1
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3978
+  fields:
+    scenario: 2
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3979
+  fields:
+    scenario: 8
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3980
+  fields:
+    scenario: 4
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3981
+  fields:
+    scenario: 6
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3982
+  fields:
+    scenario: 11
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3983
+  fields:
+    scenario: 3
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3984
+  fields:
+    scenario: 9
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3989
+  fields:
+    scenario: 13
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3990
+  fields:
+    scenario: 13
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3991
+  fields:
+    scenario: 13
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3992
+  fields:
+    scenario: 13
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3993
+  fields:
+    scenario: 14
+    scheme: 10
+    advocate_type: QC
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '74.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3994
+  fields:
+    scenario: 14
+    scheme: 10
+    advocate_type: LEDJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3995
+  fields:
+    scenario: 14
+    scheme: 10
+    advocate_type: LEADJR
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '56.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
+- model: calculator.price
+  pk: 3996
+  fields:
+    scenario: 14
+    scheme: 10
+    advocate_type: JRALONE
+    offence_class: null
+    fee_type: 13
+    unit: HOUR
+    fixed_fee: '0.000'
+    fee_per_unit: '39.000'
+    limit_from: 4
+    limit_to: 6
+    modifiers: [6]
