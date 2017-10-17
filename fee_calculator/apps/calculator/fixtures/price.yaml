@@ -49485,7 +49485,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49499,7 +49499,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49513,7 +49513,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49527,7 +49527,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49541,7 +49541,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49555,7 +49555,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49569,7 +49569,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49583,7 +49583,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49597,7 +49597,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49611,7 +49611,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49625,7 +49625,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49639,7 +49639,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49653,7 +49653,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49667,7 +49667,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49681,7 +49681,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49695,7 +49695,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49709,7 +49709,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49723,7 +49723,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49737,7 +49737,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49751,7 +49751,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49765,7 +49765,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49779,7 +49779,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49793,7 +49793,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49807,7 +49807,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49821,7 +49821,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49835,7 +49835,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49849,7 +49849,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49863,7 +49863,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49877,7 +49877,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49891,7 +49891,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49905,7 +49905,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49919,7 +49919,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49933,7 +49933,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49947,7 +49947,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49961,7 +49961,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49975,7 +49975,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -49989,7 +49989,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50003,7 +50003,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50017,7 +50017,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50031,7 +50031,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50045,7 +50045,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50059,7 +50059,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50073,7 +50073,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50087,7 +50087,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50101,7 +50101,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50115,7 +50115,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50129,7 +50129,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50143,7 +50143,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50157,7 +50157,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50171,7 +50171,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50185,7 +50185,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50199,7 +50199,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 5
     limit_to: 5
     modifiers: [5]
 - model: calculator.price
@@ -50213,7 +50213,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50227,7 +50227,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50241,7 +50241,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50255,7 +50255,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50269,7 +50269,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50283,7 +50283,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50297,7 +50297,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50311,7 +50311,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50325,7 +50325,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50339,7 +50339,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50353,7 +50353,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50367,7 +50367,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50381,7 +50381,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50395,7 +50395,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50409,7 +50409,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50423,7 +50423,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50437,7 +50437,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50451,7 +50451,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50465,7 +50465,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50479,7 +50479,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50493,7 +50493,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50507,7 +50507,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50521,7 +50521,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50535,7 +50535,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50549,7 +50549,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50563,7 +50563,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50577,7 +50577,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50591,7 +50591,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50605,7 +50605,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50619,7 +50619,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50633,7 +50633,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50647,7 +50647,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50661,7 +50661,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50675,7 +50675,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50689,7 +50689,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50703,7 +50703,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50717,7 +50717,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50731,7 +50731,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50745,7 +50745,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50759,7 +50759,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50773,7 +50773,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50787,7 +50787,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50801,7 +50801,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50815,7 +50815,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50829,7 +50829,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50843,7 +50843,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50857,7 +50857,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50871,7 +50871,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50885,7 +50885,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '74.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50899,7 +50899,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50913,7 +50913,7 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '56.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]
 - model: calculator.price
@@ -50927,6 +50927,6 @@
     unit: HOUR
     fixed_fee: '0.000'
     fee_per_unit: '39.000'
-    limit_from: 4
+    limit_from: 6
     limit_to: 6
     modifiers: [6]

@@ -86,7 +86,7 @@ class ModifierSerializer(serializers.ModelSerializer):
         fields = (
             'limit_from',
             'limit_to',
-            'modifier_percent',
+            'percent_per_unit',
             'modifier_type',
             'required',
         )

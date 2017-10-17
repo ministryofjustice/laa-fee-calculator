@@ -73,26 +73,39 @@ class ModifierType(models.Model):
 class Modifier(models.Model):
     limit_from = models.IntegerField()
     limit_to = models.IntegerField(null=True)
-    modifier_percent = models.DecimalField(max_digits=6, decimal_places=2)
+    percent_per_unit = models.DecimalField(max_digits=6, decimal_places=2)
     modifier_type = models.ForeignKey(ModifierType, related_name='values')
     required = models.BooleanField(default=False)
+
+    def get_applicable_unit_count(self, unit_count):
+        '''
+        Get the number of units that fall within the range specified
+        by limit_from and limit_to
+        '''
+        applicable_unit_count = unit_count
+        if self.limit_from:
+            applicable_unit_count -= (self.limit_from - 1)
+        if self.limit_to and unit_count >= self.limit_to:
+            applicable_unit_count -= (unit_count - self.limit_to)
+        return max(applicable_unit_count, Decimal('0'))
 
     def is_applicable(self, modifier_type, count):
         return (
             self.modifier_type == modifier_type and
-            count >= self.limit_from and
-            (self.limit_to is None or count <= self.limit_to)
+            count >= self.limit_from
         )
 
-    def apply(self, total):
-        return total*(self.modifier_percent/Decimal('100.00'))
+    def apply(self, count, total):
+        return (total*(
+            self.percent_per_unit/Decimal('100.00')
+        ))*self.get_applicable_unit_count(count)
 
     def __str__(self):
         return '{modifier_type}, {limit_from}-{limit_to}, {percent}%'.format(
             modifier_type=self.modifier_type.name,
             limit_from=self.limit_from,
             limit_to=self.limit_to,
-            percent=self.modifier_percent
+            percent=self.percent_per_unit
         )
 
 
@@ -138,12 +151,14 @@ class Price(models.Model):
         # query for prices will use:
         # `.prefetch_related('modifiers')`
         for modifier in self.modifiers.all():
-            modifier_applied = False
+            modifier_applicable = False
             for modifier_type, count in modifier_counts:
-                if modifier.is_applicable(modifier_type, count):
-                    modifier_fees.append(modifier.apply(calculated_price))
-                    modifier_applied = True
-            if modifier.required and not modifier_applied:
+                modifier_applicable = modifier.is_applicable(modifier_type, count)
+                if modifier_applicable:
+                    modifier_fees.append(
+                        modifier.apply(count, calculated_price)
+                    )
+            if modifier.required and not modifier_applicable:
                 raise RequiredModifierMissingException
         return modifier_fees
 

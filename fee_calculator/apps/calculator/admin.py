@@ -48,7 +48,7 @@ class ModifierTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Modifier)
 class ModifierAdmin(admin.ModelAdmin):
-    list_display = ('modifier_type', 'limit_from', 'limit_to', 'modifier_percent',)
+    list_display = ('modifier_type', 'limit_from', 'limit_to', 'percent_per_unit',)
 
 
 @admin.register(Price)

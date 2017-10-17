@@ -1,24 +1,24 @@
 - model: calculator.modifier
   pk: 1
-  fields: {modifier_type: 1, limit_from: 2, limit_to: null, modifier_percent: '20.00',
+  fields: {modifier_type: 1, limit_from: 2, limit_to: null, percent_per_unit: '20.00',
     required: False}
 - model: calculator.modifier
   pk: 2
-  fields: {modifier_type: 2, limit_from: 2, limit_to: 5, modifier_percent: '20.00',
+  fields: {modifier_type: 2, limit_from: 2, limit_to: 5, percent_per_unit: '20.00',
     required: False}
 - model: calculator.modifier
   pk: 3
-  fields: {modifier_type: 2, limit_from: 5, limit_to: null, modifier_percent: '30.00',
+  fields: {modifier_type: 2, limit_from: 5, limit_to: null, percent_per_unit: '30.00',
     required: False}
 - model: calculator.modifier
   pk: 4
-  fields: {modifier_type: 3, limit_from: 21, limit_to: 25, modifier_percent: '0.00',
+  fields: {modifier_type: 3, limit_from: 21, limit_to: 25, percent_per_unit: '0.00',
     required: True}
 - model: calculator.modifier
   pk: 5
-  fields: {modifier_type: 3, limit_from: 26, limit_to: 35, modifier_percent: '0.00',
+  fields: {modifier_type: 3, limit_from: 26, limit_to: 35, percent_per_unit: '0.00',
     required: True}
 - model: calculator.modifier
   pk: 6
-  fields: {modifier_type: 3, limit_from: 36, limit_to: null, modifier_percent: '0.00',
+  fields: {modifier_type: 3, limit_from: 36, limit_to: null, percent_per_unit: '0.00',
     required: True}
