@@ -51,7 +51,7 @@ For each applicable unit, make a request to the calculate endpoint as shown:
 For modifiers, for every request to the calculate endpoint, add additional URL parameters of the form:
 
 ```
-modifier_count_%n=<number_of_units>
+modifier_%n=<number_of_units>
 ```
 
 where %n is an integer which is the id of the relevant modifier eg if there are 3 defendants and 2 cases one would add:
