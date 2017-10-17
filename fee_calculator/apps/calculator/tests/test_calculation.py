@@ -73,14 +73,10 @@ class CalculatorTestCase(TestCase):
             else Decimal(row['QUANTITY'])
         ) or 1,
 
-        if row['NUM_OF_CASES']:
-            data['modifier_1'] = int(row['NUM_OF_CASES'])
-
-        if row['NO_DEFENDANTS']:
-            data['modifier_2'] = int(row['NO_DEFENDANTS'])
-
-        if row['TRIAL_LENGTH']:
-            data['modifier_3'] = int(row['TRIAL_LENGTH'])
+        data['modifier_1'] = int(row['NUM_OF_CASES'])
+        data['modifier_2'] = int(row['NO_DEFENDANTS'])
+        data['modifier_3'] = int(row['TRIAL_LENGTH'])
+        data['modifier_4'] = int(row['PPE'])
 
         fees = {}
 

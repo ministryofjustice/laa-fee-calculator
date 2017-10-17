@@ -7,3 +7,6 @@
 - model: calculator.modifiertype
   pk: 3
   fields: {name: 'TRIAL LENGTH', description: 'Trial length', unit: DAY}
+- model: calculator.modifiertype
+  pk: 4
+  fields: {name: 'PPE', description: 'Pages of prosecuting evidence', unit: PPE}

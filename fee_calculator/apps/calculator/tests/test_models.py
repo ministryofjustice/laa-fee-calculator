@@ -82,32 +82,35 @@ class PriceTestCase(TestCase):
         self.assertEqual(test_price.get_applicable_unit_count(12), 8)
         self.assertEqual(test_price.get_applicable_unit_count(15), 8)
 
-    def test_get_modifier_fees_with_single_qualifying(self):
+    def test_get_modifiers_with_single_qualifying(self):
         case_unit = Unit.objects.get(id='CASE')
         modifier_type, modifiers = create_test_modifiers(
             unit=case_unit, modifiers=[
-                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('15.00'))
+                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('15.00'),
+                     fixed_percent=Decimal('0.00'))
             ]
         )
 
         test_price = create_test_price(modifiers=modifiers)
 
         self.assertEqual(
-            test_price.get_modifier_fees(Decimal('10.00'), [(modifier_type, 2,)]),
-            [Decimal('1.50')]
+            test_price.get_applicable_modifiers(Decimal('10.00'), [(modifier_type, 2,)]),
+            [(modifiers[0], 2)]
         )
 
-    def test_get_modifier_fees_with_multiple_qualifying(self):
+    def test_get_modifiers_with_multiple_qualifying(self):
         case_unit = Unit.objects.get(id='CASE')
         case_modifier_type, case_modifiers = create_test_modifiers(
             unit=case_unit, modifiers=[
-                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('15.00'))
+                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('15.00'),
+                     fixed_percent=Decimal('0.00'))
             ]
         )
         defendant_unit = Unit.objects.get(id='DEFENDANT')
         defendant_modifier_type, defendant_modifiers = create_test_modifiers(
             unit=defendant_unit, modifiers=[
-                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('25.00'))
+                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('25.00'),
+                     fixed_percent=Decimal('0.00'))
             ]
         )
 
@@ -116,20 +119,22 @@ class PriceTestCase(TestCase):
         )
 
         self.assertSortedListEqual(
-            test_price.get_modifier_fees(Decimal('10.00'), [(case_modifier_type, 2,)]),
-            [Decimal('1.50')]
+            test_price.get_applicable_modifiers(Decimal('10.00'), [(case_modifier_type, 2,)]),
+            [(case_modifiers[0], 2)]
         )
         self.assertSortedListEqual(
-            test_price.get_modifier_fees(Decimal('10.00'), [(defendant_modifier_type, 2,)]),
-            [Decimal('2.50')]
+            test_price.get_applicable_modifiers(Decimal('10.00'), [(defendant_modifier_type, 2,)]),
+            [(defendant_modifiers[0], 2)]
         )
 
-    def test_get_modifier_fees_with_some_not_qualifying(self):
+    def test_get_modifiers_with_some_not_qualifying(self):
         case_unit = Unit.objects.get(id='CASE')
         case_modifier_type, case_modifiers = create_test_modifiers(
             unit=case_unit, modifiers=[
-                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('15.00')),
-                dict(limit_from=1, limit_to=1, percent_per_unit=Decimal('25.00'))
+                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('15.00'),
+                     fixed_percent=Decimal('0.00')),
+                dict(limit_from=1, limit_to=1, percent_per_unit=Decimal('25.00'),
+                     fixed_percent=Decimal('0.00'))
             ]
         )
 
@@ -138,8 +143,8 @@ class PriceTestCase(TestCase):
         )
 
         self.assertSortedListEqual(
-            test_price.get_modifier_fees(Decimal('10.00'), [(case_modifier_type, 1,)]),
-            [Decimal('2.50')]
+            test_price.get_applicable_modifiers(Decimal('10.00'), [(case_modifier_type, 1,)]),
+            [(case_modifiers[1], 1)]
         )
 
     def test_calculate_total_1(self):
@@ -147,7 +152,8 @@ class PriceTestCase(TestCase):
         case_unit = Unit.objects.get(id='CASE')
         case_modifier_type, case_modifiers = create_test_modifiers(
             unit=case_unit, modifiers=[
-                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('15.00'))
+                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('15.00'),
+                     fixed_percent=Decimal('0.00'))
             ]
         )
 
@@ -170,13 +176,15 @@ class PriceTestCase(TestCase):
         case_unit = Unit.objects.get(id='CASE')
         case_modifier_type, case_modifiers = create_test_modifiers(
             unit=case_unit, modifiers=[
-                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('15.00'))
+                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('15.00'),
+                     fixed_percent=Decimal('0.00'))
             ]
         )
         defendant_unit = Unit.objects.get(id='DEFENDANT')
         defendant_modifier_type, defendant_modifiers = create_test_modifiers(
             unit=defendant_unit, modifiers=[
-                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('25.00'))
+                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('25.00'),
+                     fixed_percent=Decimal('0.00'))
             ]
         )
 
@@ -201,7 +209,8 @@ class PriceTestCase(TestCase):
         case_unit = Unit.objects.get(id='CASE')
         case_modifier_type, case_modifiers = create_test_modifiers(
             unit=case_unit, modifiers=[
-                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('15.00'))
+                dict(limit_from=2, limit_to=None, percent_per_unit=Decimal('15.00'),
+                     fixed_percent=Decimal('0.00'))
             ]
         )
 
@@ -225,7 +234,7 @@ class PriceTestCase(TestCase):
             unit=day_unit, modifiers=[
                 dict(
                     limit_from=2, limit_to=None, required=True,
-                    percent_per_unit=Decimal('0.00')
+                    percent_per_unit=Decimal('0.00'), fixed_percent=Decimal('0.00')
                 )
             ]
         )
@@ -250,7 +259,7 @@ class PriceTestCase(TestCase):
             unit=day_unit, modifiers=[
                 dict(
                     limit_from=2, limit_to=None, required=True,
-                    percent_per_unit=Decimal('0.00')
+                    percent_per_unit=Decimal('0.00'), fixed_percent=Decimal('0.00')
                 )
             ]
         )
@@ -275,7 +284,7 @@ class PriceTestCase(TestCase):
             unit=day_unit, modifiers=[
                 dict(
                     limit_from=2, limit_to=None, required=True,
-                    percent_per_unit=Decimal('0.00')
+                    percent_per_unit=Decimal('0.00'), fixed_percent=Decimal('0.00')
                 )
             ]
         )
@@ -292,4 +301,90 @@ class PriceTestCase(TestCase):
         self.assertEqual(
             test_price.calculate_total(12, [(trial_length_modifier_type, 2,)]),
             Decimal('12.00')
+        )
+
+    def test_calculate_total_with_fixed_modifier(self):
+        day_unit = Unit.objects.get(id='DAY')
+        trial_length_modifier_type, trial_length_modifiers = create_test_modifiers(
+            unit=day_unit, modifiers=[
+                dict(
+                    limit_from=1, limit_to=None, percent_per_unit=Decimal('0.00'),
+                    fixed_percent=Decimal('20.00')
+                )
+            ]
+        )
+
+        test_price = create_test_price(
+            unit=day_unit,
+            fixed_fee=Decimal('0.00'),
+            fee_per_unit=Decimal('1.00'),
+            modifiers=trial_length_modifiers,
+            limit_from=1,
+            limit_to=None
+        )
+
+        self.assertEqual(
+            test_price.calculate_total(12, [(trial_length_modifier_type, 5,)]),
+            Decimal('14.40')
+        )
+
+    def test_calculate_total_with_fixed_modifier_not_applied_outside_range(self):
+        day_unit = Unit.objects.get(id='DAY')
+        trial_length_modifier_type, trial_length_modifiers = create_test_modifiers(
+            unit=day_unit, modifiers=[
+                dict(
+                    limit_from=1, limit_to=3, percent_per_unit=Decimal('0.00'),
+                    fixed_percent=Decimal('20.00')
+                )
+            ]
+        )
+
+        test_price = create_test_price(
+            unit=day_unit,
+            fixed_fee=Decimal('0.00'),
+            fee_per_unit=Decimal('1.00'),
+            modifiers=trial_length_modifiers,
+            limit_from=1,
+            limit_to=None
+        )
+
+        self.assertEqual(
+            test_price.calculate_total(12, [(trial_length_modifier_type, 5,)]),
+            Decimal('12.00')
+        )
+
+    def test_calculate_total_priorities_observed(self):
+        day_unit = Unit.objects.get(id='DAY')
+        trial_length_modifier_type, trial_length_modifiers = create_test_modifiers(
+            unit=day_unit, modifiers=[
+                dict(
+                    limit_from=1, limit_to=None, percent_per_unit=Decimal('0.00'),
+                    fixed_percent=Decimal('20.00'), priority=0
+                )
+            ]
+        )
+        case_unit = Unit.objects.get(id='CASE')
+        case_modifier_type, case_modifiers = create_test_modifiers(
+            unit=case_unit, modifiers=[
+                dict(
+                    limit_from=2, limit_to=None, percent_per_unit=Decimal('15.00'),
+                    fixed_percent=Decimal('0.00'), priority=1
+                )
+            ]
+        )
+
+        test_price = create_test_price(
+            unit=day_unit,
+            fixed_fee=Decimal('0.00'),
+            fee_per_unit=Decimal('1.00'),
+            modifiers=trial_length_modifiers + case_modifiers,
+            limit_from=1,
+            limit_to=None
+        )
+
+        self.assertEqual(
+            test_price.calculate_total(
+                12, [(trial_length_modifier_type, 5,), (case_modifier_type, 3,)]
+            ),
+            Decimal('18.72')
         )
