@@ -14,7 +14,7 @@ class SchemeSerializer(serializers.ModelSerializer):
             'id',
             'start_date',
             'end_date',
-            'suty',
+            'supplier_type',
             'description',
         )
 

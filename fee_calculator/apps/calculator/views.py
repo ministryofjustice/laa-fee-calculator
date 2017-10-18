@@ -5,6 +5,7 @@ import logging
 import re
 
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import backends
 from rest_framework import viewsets, views
 from rest_framework.compat import coreapi
@@ -12,7 +13,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.schemas import AutoSchema, ManualSchema
 
-from .constants import SUTY_BASE_TYPE
+from .constants import SUPPLIER_BASE_TYPE
 from .filters import (
     PriceFilter, OffenceClassFilter, AdvocateTypeFilter, ScenarioFilter,
     FeeTypeFilter
@@ -40,10 +41,10 @@ class OrderedReadOnlyModelViewSet(viewsets.ReadOnlyModelViewSet):
 
 class SchemeViewSet(OrderedReadOnlyModelViewSet):
     """
-    Viewing fee type(s).
+    Viewing fee scheme(s).
     """
     schema = AutoSchema(manual_fields=[
-        coreapi.Field('suty', **{
+        coreapi.Field('supplier_type', **{
             'required': False,
             'location': 'query',
             'type': 'string',
@@ -62,7 +63,7 @@ class SchemeViewSet(OrderedReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = super().get_queryset()
 
-        suty = self.request.query_params.get('suty')
+        supplier_type = self.request.query_params.get('supplier_type')
         case_date = self.request.query_params.get('case_date')
 
         if case_date:
@@ -77,17 +78,45 @@ class SchemeViewSet(OrderedReadOnlyModelViewSet):
                 start_date__lte=case_date
             )
 
-        if suty:
+        if supplier_type:
             try:
-                suty = SUTY_BASE_TYPE.for_constant(suty.upper()).value
+                supplier_type = SUPPLIER_BASE_TYPE.for_constant(supplier_type.upper()).value
             except KeyError:
                 raise ValidationError(
-                    '`suty` should be one of: [%s]'
-                    % ', '.join(SUTY_BASE_TYPE.constants)
+                    '`supplier_type` should be one of: [%s]'
+                    % ', '.join(SUPPLIER_BASE_TYPE.constants)
                 )
-            queryset = queryset.filter(suty_base_type=suty)
+            queryset = queryset.filter(suty_base_type=supplier_type)
 
         return queryset
+
+
+class NestedSchemeMixin():
+
+    def get_scheme_queryset(self, scheme_pk):
+        scheme = get_object_or_404(Scheme, pk=scheme_pk)
+        queryset = self.get_queryset().filter(prices__scheme=scheme).distinct()
+        return self.filter_queryset(queryset)
+
+    def list(self, request, scheme_pk=None):
+        queryset = self.get_scheme_queryset(scheme_pk)
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, scheme_pk=None, pk=None):
+        queryset = self.get_scheme_queryset(scheme_pk)
+        obj = get_object_or_404(queryset, pk=pk)
+
+        self.check_object_permissions(self.request, obj)
+
+        serializer = self.get_serializer(obj)
+        return Response(serializer.data)
 
 
 class BasePriceFilteredViewSet(OrderedReadOnlyModelViewSet):
@@ -164,7 +193,7 @@ class BasePriceFilteredViewSet(OrderedReadOnlyModelViewSet):
         return queryset
 
 
-class FeeTypeViewSet(BasePriceFilteredViewSet):
+class FeeTypeViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
     """
     Viewing fee type(s).
     """
@@ -173,7 +202,7 @@ class FeeTypeViewSet(BasePriceFilteredViewSet):
     filter_class = FeeTypeFilter
 
 
-class ScenarioViewSet(OrderedReadOnlyModelViewSet):
+class ScenarioViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     """
     Viewing scenario(s).
     """
@@ -183,7 +212,7 @@ class ScenarioViewSet(OrderedReadOnlyModelViewSet):
     filter_class = ScenarioFilter
 
 
-class OffenceClassViewSet(OrderedReadOnlyModelViewSet):
+class OffenceClassViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     """
     Viewing offence class(es).
     """
@@ -193,9 +222,9 @@ class OffenceClassViewSet(OrderedReadOnlyModelViewSet):
     filter_class = OffenceClassFilter
 
 
-class AdvocateTypeViewSet(OrderedReadOnlyModelViewSet):
+class AdvocateTypeViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     """
-    Advocate types.
+    Viewing advocate type(s).
     """
     queryset = AdvocateType.objects.all()
     serializer_class = AdvocateTypeSerializer
@@ -203,32 +232,26 @@ class AdvocateTypeViewSet(OrderedReadOnlyModelViewSet):
     filter_class = AdvocateTypeFilter
 
 
-class UnitViewSet(BasePriceFilteredViewSet):
+class UnitViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
     """
-    Viewing units.
+    Viewing unit(s).
     """
     queryset = Unit.objects.all()
     serializer_class = UnitSerializer
 
 
-class ModifierTypeViewSet(BasePriceFilteredViewSet):
+class ModifierTypeViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
     """
-    Viewing modifier types.
+    Viewing modifier type(s).
     """
     queryset = ModifierType.objects.all()
     serializer_class = ModifierTypeSerializer
     relation_name = 'values__prices'
 
 
-class PriceViewSet(OrderedReadOnlyModelViewSet):
+class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     """
-    Prices.
-
-    retrieve:
-    get a price instance.
-
-    list:
-    get a list of prices.
+    Viewing price(s).
     """
     queryset = Price.objects.all()
     serializer_class = PriceSerializer
@@ -237,11 +260,15 @@ class PriceViewSet(OrderedReadOnlyModelViewSet):
 
 
 class CalculatorView(views.APIView):
+    """
+    Calculate total fee amount
+    """
+
     allowed_methods = ['GET']
     schema = ManualSchema(fields=[
-        coreapi.Field('scheme', **{
+        coreapi.Field('scheme_pk', **{
             'required': True,
-            'location': 'query',
+            'location': 'path',
             'type': 'integer',
             'description': '',
         }),
@@ -337,7 +364,7 @@ class CalculatorView(views.APIView):
         return number
 
     def get(self, *args, **kwargs):
-        scheme = self.get_model_param('scheme', Scheme, required=True)
+        scheme = get_object_or_404(Scheme, pk=kwargs['scheme_pk'])
         fee_types = self.get_model_param(
             'fee_type_code', FeeType, required=True, lookup='code', many=True
         )

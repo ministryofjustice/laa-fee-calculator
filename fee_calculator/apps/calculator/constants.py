@@ -2,7 +2,7 @@
 from extended_choices import Choices
 
 
-SUTY_BASE_TYPE = Choices(
+SUPPLIER_BASE_TYPE = Choices(
     ('ADVOCATE', 1, 'Advocate'),
     ('SOLICITOR', 2, 'Solicitor'),
 )

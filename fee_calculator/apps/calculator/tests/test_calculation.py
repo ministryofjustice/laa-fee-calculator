@@ -18,11 +18,15 @@ CSV_PATH = os.path.join(
 
 
 class CalculatorTestCase(TestCase):
-    endpoint = '/api/%s/calculate/' % settings.API_VERSION
     fixtures = [
         'advocatetype', 'feetype', 'offenceclass', 'price', 'scenario',
         'scheme', 'unit', 'modifiertype', 'modifier',
     ]
+
+    def endpoint(self, scheme_id):
+        return '/api/{version}/fee-schemes/{scheme_id}/calculate/'.format(
+            version=settings.API_VERSION, scheme_id=scheme_id
+        )
 
     def assertRowValuesCorrect(self, row):
         """
@@ -37,7 +41,7 @@ class CalculatorTestCase(TestCase):
         # get scheme for date
         scheme_resp = self.client.get(
             '/api/{version}/fee-schemes/'.format(version=settings.API_VERSION),
-            data=dict(suty='advocate', case_date=calculation_date)
+            data=dict(supplier_type='advocate', case_date=calculation_date)
         )
         self.assertEqual(
             scheme_resp.status_code, status.HTTP_200_OK, scheme_resp.content
@@ -58,7 +62,8 @@ class CalculatorTestCase(TestCase):
         if not is_basic:
             # get unit for fee type
             unit_resp = self.client.get(
-                '/api/{version}/units/'.format(version=settings.API_VERSION),
+                '/api/{version}/fee-schemes/{scheme_id}/units/'.format(
+                    version=settings.API_VERSION, scheme_id=scheme_id),
                 data=data
             )
             self.assertEqual(
@@ -80,7 +85,7 @@ class CalculatorTestCase(TestCase):
 
         fees = {}
 
-        resp = self.client.get(self.endpoint, data=data)
+        resp = self.client.get(self.endpoint(scheme_id), data=data)
         self.assertEqual(resp.status_code, status.HTTP_200_OK, resp.content)
         fees['basic'] = resp.data['amount']
 
@@ -89,7 +94,7 @@ class CalculatorTestCase(TestCase):
                 data['unit'] = 'PPE'
                 data['unit_count'] = int(row['PPE'])
 
-                resp = self.client.get(self.endpoint, data=data)
+                resp = self.client.get(self.endpoint(scheme_id), data=data)
                 self.assertEqual(
                     resp.status_code, status.HTTP_200_OK, resp.content
                 )
@@ -99,7 +104,7 @@ class CalculatorTestCase(TestCase):
                 data['unit'] = 'PW'
                 data['unit_count'] = int(row['NUM_OF_WITNESSES'])
 
-                resp = self.client.get(self.endpoint, data=data)
+                resp = self.client.get(self.endpoint(scheme_id), data=data)
                 self.assertEqual(
                     resp.status_code, status.HTTP_200_OK, resp.content
                 )

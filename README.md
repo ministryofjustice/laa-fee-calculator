@@ -14,14 +14,14 @@ Calculator
 
 Swagger docs are accessible at `/api/v1/docs/`
 
-First request `/api/v1/fee-schemes/?suty=<suty>&case_date=<case_date>` to get the appropriate scheme.
+First request `/api/v1/fee-schemes/?supplier_type=<supplier_type>&case_date=<case_date>` to get the appropriate scheme.
 
 Then request:
 
 ```
-/api/v1/scenarios/?scheme=<scheme_id>
-/api/v1/offence-classes/?scheme=<scheme_id>
-/api/v1/advocate-types/?scheme=<scheme_id>
+/api/v1/fee-schemes/<scheme_id>/scenarios/
+/api/v1/fee-schemes/<scheme_id>/offence-classes/
+/api/v1/fee-schemes/<scheme_id>/advocate-types/
 ```
 
 to get the options for these values.
@@ -29,7 +29,7 @@ to get the options for these values.
 Once all of these choices have been made, use the values to request:
 
 ```
-/api/v1/fee-types/?scheme=<scheme_id>&scenario=<scenario_id>&advocate_typ=<advocate_type_id>&offence_class=<offence_class_id>
+/api/v1/fee-schemes/<scheme_id>/fee-types/?scenario=<scenario_id>&advocate_typ=<advocate_type_id>&offence_class=<offence_class_id>
 ```
 
 This will give you a list of fee types which are applicable for the situation
@@ -38,14 +38,14 @@ For each applicable fee type, find out the information required by the user
 by requesting the relevant units and modifiers:
 
 ```
-/api/v1/units/?scheme=<scheme_id>&scenario=<scenario_id>&advocate_typ=<advocate_type_id>&offence_class=<offence_class_id>&fee_type_code=<fee_type_code>
-/api/v1/modifiers/?scheme=<scheme_id>&scenario=<scenario_id>&advocate_typ=<advocate_type_id>&offence_class=<offence_class_id>&fee_type_code=<fee_type_code>
+/api/v1/fee-schemes/<scheme_id>/units/?scenario=<scenario_id>&advocate_typ=<advocate_type_id>&offence_class=<offence_class_id>&fee_type_code=<fee_type_code>
+/api/v1/fee-schemes/<scheme_id>/modifiers/?scenario=<scenario_id>&advocate_typ=<advocate_type_id>&offence_class=<offence_class_id>&fee_type_code=<fee_type_code>
 ```
 
 For each applicable unit, make a request to the calculate endpoint as shown:
 
 ```
-/api/v1/calculate/?scheme=<scheme_id>&scenario=<scenario_id>&advocate_type=<advocate_type_id>&offence_class=<offence_class_id>&fee_type_code=<fee_type_code>&unit=<unit_id>&unit_count=<number_of_units>
+/api/v1/fee-schemes/<scheme_id>/calculate/?scenario=<scenario_id>&advocate_type=<advocate_type_id>&offence_class=<offence_class_id>&fee_type_code=<fee_type_code>&unit=<unit_id>&unit_count=<number_of_units>
 ```
 
 For modifiers, for every request to the calculate endpoint, add additional URL parameters of the form:
@@ -75,4 +75,4 @@ For example when calculating the basic advocate's fee, if the number of days att
 Prices
 ======
 
-As well as the calculator endpoint, one can also get a list of prices directly from the endpoint `/api/v1/prices/`. See swagger documentation for available filters.
+As well as the calculator endpoint, one can also get a list of prices directly from the endpoint `/api/v1/fee-schemes/<scheme_id>/prices/`. See swagger documentation for available filters.

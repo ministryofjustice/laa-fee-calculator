@@ -3,18 +3,18 @@ from decimal import Decimal
 
 from django.db import models
 
-from .constants import SUTY_BASE_TYPE
+from .constants import SUPPLIER_BASE_TYPE
 from .exceptions import RequiredModifierMissingException
 
 
 class Scheme(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
-    suty_base_type = models.PositiveSmallIntegerField(choices=SUTY_BASE_TYPE)
+    suty_base_type = models.PositiveSmallIntegerField(choices=SUPPLIER_BASE_TYPE)
     description = models.CharField(max_length=150)
 
-    def suty(self):
-        return SUTY_BASE_TYPE.for_value(self.suty_base_type).constant
+    def supplier_type(self):
+        return SUPPLIER_BASE_TYPE.for_value(self.suty_base_type).constant
 
     def __str__(self):
         return self.description
