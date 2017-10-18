@@ -64,6 +64,13 @@ class PriceTestCase(TestCase):
         self.assertEqual(test_price.get_applicable_unit_count(12), 8)
         self.assertEqual(test_price.get_applicable_unit_count(15), 11)
 
+    def test_get_applicable_unit_count_with_non_integers(self):
+        test_price = create_test_price(limit_from=1, limit_to=30)
+
+        self.assertEqual(test_price.get_applicable_unit_count(Decimal('0.5')), 0)
+        self.assertEqual(test_price.get_applicable_unit_count(1), 1)
+        self.assertEqual(test_price.get_applicable_unit_count(Decimal('4.5')), 4.5)
+
     def test_get_applicable_unit_count_with_limit_to(self):
         test_price = create_test_price(limit_from=0, limit_to=12)
 

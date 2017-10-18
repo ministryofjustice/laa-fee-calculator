@@ -92,10 +92,13 @@ class SchemeViewSet(OrderedReadOnlyModelViewSet):
 
 
 class NestedSchemeMixin():
+    scheme_relation_name = 'prices'
 
     def get_scheme_queryset(self, scheme_pk):
         scheme = get_object_or_404(Scheme, pk=scheme_pk)
-        queryset = self.get_queryset().filter(prices__scheme=scheme).distinct()
+        queryset = self.get_queryset().filter(
+            **{'{relation}__scheme'.format(relation=self.scheme_relation_name): scheme}
+        ).distinct()
         return self.filter_queryset(queryset)
 
     def list(self, request, scheme_pk=None):
@@ -247,6 +250,7 @@ class ModifierTypeViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
     queryset = ModifierType.objects.all()
     serializer_class = ModifierTypeSerializer
     relation_name = 'values__prices'
+    scheme_relation_name = 'values__prices'
 
 
 class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):

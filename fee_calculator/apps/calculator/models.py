@@ -73,8 +73,10 @@ class ModifierType(models.Model):
 def get_value_covered_by_range(value, limit_from, limit_to):
     value_covered = value
     if limit_from:
+        if value < limit_from:
+            return Decimal('0')
         value_covered -= (limit_from - 1)
-    if limit_to and value >= limit_to:
+    if limit_to and value > limit_to:
         value_covered -= (value - limit_to)
     return max(value_covered, Decimal('0'))
 
