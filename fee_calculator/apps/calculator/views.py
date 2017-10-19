@@ -15,8 +15,7 @@ from rest_framework.schemas import AutoSchema, ManualSchema
 
 from .constants import SUPPLIER_BASE_TYPE
 from .filters import (
-    PriceFilter, OffenceClassFilter, AdvocateTypeFilter, ScenarioFilter,
-    FeeTypeFilter
+    PriceFilter, FeeTypeFilter
 )
 from .models import (
     Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price, Unit,
@@ -92,12 +91,12 @@ class SchemeViewSet(OrderedReadOnlyModelViewSet):
 
 
 class NestedSchemeMixin():
-    scheme_relation_name = 'prices'
+    scheme_relation_name = 'prices__scheme'
 
     def get_scheme_queryset(self, scheme_pk):
         scheme = get_object_or_404(Scheme, pk=scheme_pk)
         queryset = self.get_queryset().filter(
-            **{'{relation}__scheme'.format(relation=self.scheme_relation_name): scheme}
+            **{'{relation}'.format(relation=self.scheme_relation_name): scheme}
         ).distinct()
         return self.filter_queryset(queryset)
 
@@ -159,7 +158,6 @@ class BasePriceFilteredViewSet(OrderedReadOnlyModelViewSet):
             'description': '',
         }),
     ])
-    filter_backends = (backends.DjangoFilterBackend,)
     relation_name = 'prices'
 
     def get_queryset(self):
@@ -202,6 +200,7 @@ class FeeTypeViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
     """
     queryset = FeeType.objects.all()
     serializer_class = FeeTypeSerializer
+    filter_backends = (backends.DjangoFilterBackend,)
     filter_class = FeeTypeFilter
 
 
@@ -211,8 +210,6 @@ class ScenarioViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     """
     queryset = Scenario.objects.all()
     serializer_class = ScenarioSerializer
-    filter_backends = (backends.DjangoFilterBackend,)
-    filter_class = ScenarioFilter
 
 
 class OffenceClassViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
@@ -221,8 +218,6 @@ class OffenceClassViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     """
     queryset = OffenceClass.objects.all()
     serializer_class = OffenceClassSerializer
-    filter_backends = (backends.DjangoFilterBackend,)
-    filter_class = OffenceClassFilter
 
 
 class AdvocateTypeViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
@@ -231,8 +226,6 @@ class AdvocateTypeViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     """
     queryset = AdvocateType.objects.all()
     serializer_class = AdvocateTypeSerializer
-    filter_backends = (backends.DjangoFilterBackend,)
-    filter_class = AdvocateTypeFilter
 
 
 class UnitViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
@@ -250,7 +243,7 @@ class ModifierTypeViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
     queryset = ModifierType.objects.all()
     serializer_class = ModifierTypeSerializer
     relation_name = 'values__prices'
-    scheme_relation_name = 'values__prices'
+    scheme_relation_name = 'values__prices__scheme'
 
 
 class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
@@ -261,6 +254,7 @@ class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     serializer_class = PriceSerializer
     filter_backends = (backends.DjangoFilterBackend,)
     filter_class = PriceFilter
+    scheme_relation_name = 'scheme'
 
 
 class CalculatorView(views.APIView):

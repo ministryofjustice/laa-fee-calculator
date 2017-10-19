@@ -31,43 +31,6 @@ class ModelOrNoneChoiceFilter(django_filters.ModelChoiceFilter):
         return qs
 
 
-price_scheme_filter = django_filters.ModelChoiceFilter(
-    name='prices__scheme',
-    queryset=models.Scheme.objects.all(),
-    distinct=True
-)
-
-
-class ScenarioFilter(django_filters.FilterSet):
-    scheme = price_scheme_filter
-
-    class Meta:
-        model = models.Scenario
-        fields = (
-            'scheme',
-        )
-
-
-class OffenceClassFilter(django_filters.FilterSet):
-    scheme = price_scheme_filter
-
-    class Meta:
-        model = models.OffenceClass
-        fields = (
-            'scheme',
-        )
-
-
-class AdvocateTypeFilter(django_filters.FilterSet):
-    scheme = price_scheme_filter
-
-    class Meta:
-        model = models.AdvocateType
-        fields = (
-            'scheme',
-        )
-
-
 class FeeTypeFilter(django_filters.FilterSet):
     is_basic = filters.BooleanFilter()
 
@@ -102,7 +65,6 @@ class PriceFilter(django_filters.FilterSet):
     class Meta:
         model = models.Price
         fields = {
-            'scheme': ['exact'],
             'scenario': ['exact'],
             'unit': ['exact'],
             'limit_from': ['exact', 'gte'],
