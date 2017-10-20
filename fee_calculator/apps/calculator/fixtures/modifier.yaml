@@ -26,3 +26,20 @@
   pk: 7
   fields: {modifier_type: 4, limit_from: 0, limit_to: 0, percent_per_unit: '0.00',
     required: False, priority: 5, fixed_percent: '-50.00'}
+- model: calculator.modifier
+  pk: 8
+  fields: {modifier_type: 5, limit_from: 0, limit_to: 0, percent_per_unit: '0.00',
+    required: False, priority: 5, fixed_percent: '-30.00'}
+- model: calculator.modifier
+  pk: 9
+  fields: {modifier_type: 5, limit_from: 1, limit_to: null, percent_per_unit: '0.00',
+    required: False, priority: 5, fixed_percent: '-20.00'}
+- model: calculator.modifier
+  pk: 10
+  fields: {modifier_type: 5, limit_from: 0, limit_to: 0, percent_per_unit: '0.00',
+    required: False, priority: 5, fixed_percent: '-40.00'}
+- model: calculator.modifier
+  pk: 11
+  fields: {modifier_type: 5, limit_from: 1, limit_to: null, percent_per_unit: '0.00',
+    required: False, priority: 5, fixed_percent: '-25.00'}
+

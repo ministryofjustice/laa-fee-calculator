@@ -10,3 +10,6 @@
 - model: calculator.modifiertype
   pk: 4
   fields: {name: 'PPE', description: 'Pages of prosecuting evidence', unit: PPE}
+- model: calculator.modifiertype
+  pk: 5
+  fields: {name: 'RETRIAL INTERVAL', description: 'Months between trials', unit: MONTH}

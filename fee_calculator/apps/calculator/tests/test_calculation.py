@@ -14,7 +14,7 @@ from .lib.utils import scenario_ccr_to_id
 
 CSV_PATH = os.path.join(
     os.path.dirname(__file__),
-    'data/test_data.csv')
+    'data/test_dataset.csv')
 
 
 class CalculatorTestCase(TestCase):
@@ -32,9 +32,15 @@ class CalculatorTestCase(TestCase):
         """
         Assert row values equal calculated values
         """
-        calculation_date = datetime.strptime(
-            row['CALCULATION_DATE'], '%d/%m/%Y'
-        ).date() if row['CALCULATION_DATE'] else datetime.now().date()
+        calc_date_str = row['REP_ORD_DATE']
+        if calc_date_str:
+            if len(calc_date_str) > 10:
+                calc_date_str = calc_date_str[:-9]
+            calculation_date = datetime.strptime(
+                calc_date_str, '%d/%m/%Y'
+            ).date()
+        else:
+            calculation_date = datetime.now().date()
 
         is_basic = row['BILL_SUB_TYPE'] == 'AGFS_FEE'
 
@@ -53,7 +59,7 @@ class CalculatorTestCase(TestCase):
             'scheme': scheme_id,
             'fee_type_code': row['BILL_SUB_TYPE'],
             'scenario': scenario_ccr_to_id(
-                row['BILL_SCENARIO_ID'], row['THIRD_CRACKED']),
+                row['BILL_SCENARIO_ID'], row['THIRD_CRACKED'] or 3),
             'advocate_type': row['PERSON_TYPE'],
             'offence_class': row['OFFENCE_CATEGORY'],
         }
@@ -74,14 +80,20 @@ class CalculatorTestCase(TestCase):
         data['unit'] = unit
         data['unit_count'] = (
             Decimal(row['NUM_ATTENDANCE_DAYS'])
-            if row['BILL_SUB_TYPE'] == 'AGFS_FEE'
+            if row['BILL_TYPE'] == 'AGFS_FEE'
             else Decimal(row['QUANTITY'])
         ) or 1,
 
-        data['modifier_1'] = int(row['NUM_OF_CASES'])
-        data['modifier_2'] = int(row['NO_DEFENDANTS'])
-        data['modifier_3'] = int(row['TRIAL_LENGTH'])
-        data['modifier_4'] = int(row['PPE'])
+        if row['NUM_OF_CASES']:
+            data['modifier_1'] = int(row['NUM_OF_CASES'])
+        if row['NO_DEFENDANTS']:
+            data['modifier_2'] = int(row['NO_DEFENDANTS'])
+        if row['TRIAL_LENGTH']:
+            data['modifier_3'] = int(row['TRIAL_LENGTH'])
+        if row['PPE']:
+            data['modifier_4'] = int(row['PPE'])
+        if row['MONTHS']:
+            data['modifier_5'] = max(Decimal(row['MONTHS']), 0)
 
         fees = {}
 

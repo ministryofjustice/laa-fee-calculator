@@ -394,7 +394,7 @@ class CalculatorView(views.APIView):
         ).prefetch_related('modifiers')
 
         if len(prices) == 0:
-            amount = 0
+            amount = Decimal('0')
         else:
             # sum total from all prices whose range is covered by the unit_count
             amount = sum((
@@ -403,5 +403,5 @@ class CalculatorView(views.APIView):
             ))
 
         return Response({
-            'amount': amount
+            'amount': amount.quantize(Decimal('0.01'))
         })

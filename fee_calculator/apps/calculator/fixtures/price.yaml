@@ -25,7 +25,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 3
   fields:
@@ -53,7 +53,7 @@
     fee_per_unit: '979.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 5
   fields:
@@ -81,7 +81,7 @@
     fee_per_unit: '387.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 7
   fields:
@@ -109,7 +109,7 @@
     fee_per_unit: '414.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 9
   fields:
@@ -137,7 +137,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 11
   fields:
@@ -165,7 +165,7 @@
     fee_per_unit: '857.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 13
   fields:
@@ -193,7 +193,7 @@
     fee_per_unit: '387.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 15
   fields:
@@ -221,7 +221,7 @@
     fee_per_unit: '414.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 17
   fields:
@@ -249,7 +249,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 19
   fields:
@@ -277,7 +277,7 @@
     fee_per_unit: '816.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 21
   fields:
@@ -305,7 +305,7 @@
     fee_per_unit: '387.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 23
   fields:
@@ -333,7 +333,7 @@
     fee_per_unit: '414.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 25
   fields:
@@ -361,7 +361,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 27
   fields:
@@ -389,7 +389,7 @@
     fee_per_unit: '816.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 29
   fields:
@@ -417,7 +417,7 @@
     fee_per_unit: '387.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 31
   fields:
@@ -445,7 +445,7 @@
     fee_per_unit: '414.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 33
   fields:
@@ -473,7 +473,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 35
   fields:
@@ -501,7 +501,7 @@
     fee_per_unit: '612.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 37
   fields:
@@ -529,7 +529,7 @@
     fee_per_unit: '387.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 39
   fields:
@@ -557,7 +557,7 @@
     fee_per_unit: '414.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 41
   fields:
@@ -585,7 +585,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 43
   fields:
@@ -613,7 +613,7 @@
     fee_per_unit: '612.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 45
   fields:
@@ -641,7 +641,7 @@
     fee_per_unit: '387.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 47
   fields:
@@ -669,7 +669,7 @@
     fee_per_unit: '414.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 49
   fields:
@@ -697,7 +697,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 51
   fields:
@@ -725,7 +725,7 @@
     fee_per_unit: '612.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 53
   fields:
@@ -753,7 +753,7 @@
     fee_per_unit: '387.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 55
   fields:
@@ -781,7 +781,7 @@
     fee_per_unit: '414.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 57
   fields:
@@ -809,7 +809,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 59
   fields:
@@ -837,7 +837,7 @@
     fee_per_unit: '816.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 61
   fields:
@@ -865,7 +865,7 @@
     fee_per_unit: '387.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 63
   fields:
@@ -893,7 +893,7 @@
     fee_per_unit: '414.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 65
   fields:
@@ -921,7 +921,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 67
   fields:
@@ -949,7 +949,7 @@
     fee_per_unit: '816.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 69
   fields:
@@ -977,7 +977,7 @@
     fee_per_unit: '387.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 71
   fields:
@@ -1005,7 +1005,7 @@
     fee_per_unit: '414.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 73
   fields:
@@ -1033,7 +1033,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 75
   fields:
@@ -1061,7 +1061,7 @@
     fee_per_unit: '979.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 77
   fields:
@@ -1089,7 +1089,7 @@
     fee_per_unit: '387.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 79
   fields:
@@ -1117,7 +1117,7 @@
     fee_per_unit: '414.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 81
   fields:
@@ -1145,7 +1145,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 83
   fields:
@@ -1173,7 +1173,7 @@
     fee_per_unit: '979.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 85
   fields:
@@ -1201,7 +1201,7 @@
     fee_per_unit: '387.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 87
   fields:
@@ -1229,7 +1229,7 @@
     fee_per_unit: '414.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 89
   fields:
@@ -1257,7 +1257,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 91
   fields:
@@ -1285,7 +1285,7 @@
     fee_per_unit: '734.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 93
   fields:
@@ -1313,7 +1313,7 @@
     fee_per_unit: '331.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 95
   fields:
@@ -1341,7 +1341,7 @@
     fee_per_unit: '356.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 97
   fields:
@@ -1369,7 +1369,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 99
   fields:
@@ -1397,7 +1397,7 @@
     fee_per_unit: '643.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 101
   fields:
@@ -1425,7 +1425,7 @@
     fee_per_unit: '331.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 103
   fields:
@@ -1453,7 +1453,7 @@
     fee_per_unit: '356.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 105
   fields:
@@ -1481,7 +1481,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 107
   fields:
@@ -1509,7 +1509,7 @@
     fee_per_unit: '612.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 109
   fields:
@@ -1537,7 +1537,7 @@
     fee_per_unit: '331.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 111
   fields:
@@ -1565,7 +1565,7 @@
     fee_per_unit: '356.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 113
   fields:
@@ -1593,7 +1593,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 115
   fields:
@@ -1621,7 +1621,7 @@
     fee_per_unit: '612.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 117
   fields:
@@ -1649,7 +1649,7 @@
     fee_per_unit: '331.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 119
   fields:
@@ -1677,7 +1677,7 @@
     fee_per_unit: '356.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 121
   fields:
@@ -1705,7 +1705,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 123
   fields:
@@ -1733,7 +1733,7 @@
     fee_per_unit: '459.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 125
   fields:
@@ -1761,7 +1761,7 @@
     fee_per_unit: '331.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 127
   fields:
@@ -1789,7 +1789,7 @@
     fee_per_unit: '356.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 129
   fields:
@@ -1817,7 +1817,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 131
   fields:
@@ -1845,7 +1845,7 @@
     fee_per_unit: '459.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 133
   fields:
@@ -1873,7 +1873,7 @@
     fee_per_unit: '331.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 135
   fields:
@@ -1901,7 +1901,7 @@
     fee_per_unit: '356.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 137
   fields:
@@ -1929,7 +1929,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 139
   fields:
@@ -1957,7 +1957,7 @@
     fee_per_unit: '459.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 141
   fields:
@@ -1985,7 +1985,7 @@
     fee_per_unit: '331.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 143
   fields:
@@ -2013,7 +2013,7 @@
     fee_per_unit: '356.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 145
   fields:
@@ -2041,7 +2041,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 147
   fields:
@@ -2069,7 +2069,7 @@
     fee_per_unit: '612.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 149
   fields:
@@ -2097,7 +2097,7 @@
     fee_per_unit: '331.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 151
   fields:
@@ -2125,7 +2125,7 @@
     fee_per_unit: '356.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 153
   fields:
@@ -2153,7 +2153,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 155
   fields:
@@ -2181,7 +2181,7 @@
     fee_per_unit: '612.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 157
   fields:
@@ -2209,7 +2209,7 @@
     fee_per_unit: '331.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 159
   fields:
@@ -2237,7 +2237,7 @@
     fee_per_unit: '356.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 161
   fields:
@@ -2265,7 +2265,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 163
   fields:
@@ -2293,7 +2293,7 @@
     fee_per_unit: '734.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 165
   fields:
@@ -2321,7 +2321,7 @@
     fee_per_unit: '331.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 167
   fields:
@@ -2349,7 +2349,7 @@
     fee_per_unit: '356.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 169
   fields:
@@ -2377,7 +2377,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 171
   fields:
@@ -2405,7 +2405,7 @@
     fee_per_unit: '734.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 173
   fields:
@@ -2433,7 +2433,7 @@
     fee_per_unit: '331.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 175
   fields:
@@ -2461,7 +2461,7 @@
     fee_per_unit: '356.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 177
   fields:
@@ -2489,7 +2489,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 179
   fields:
@@ -2517,7 +2517,7 @@
     fee_per_unit: '490.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 181
   fields:
@@ -2545,7 +2545,7 @@
     fee_per_unit: '221.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 183
   fields:
@@ -2573,7 +2573,7 @@
     fee_per_unit: '237.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 185
   fields:
@@ -2601,7 +2601,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 187
   fields:
@@ -2629,7 +2629,7 @@
     fee_per_unit: '428.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 189
   fields:
@@ -2657,7 +2657,7 @@
     fee_per_unit: '221.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 191
   fields:
@@ -2685,7 +2685,7 @@
     fee_per_unit: '237.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 193
   fields:
@@ -2713,7 +2713,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 195
   fields:
@@ -2741,7 +2741,7 @@
     fee_per_unit: '408.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 197
   fields:
@@ -2769,7 +2769,7 @@
     fee_per_unit: '221.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 199
   fields:
@@ -2797,7 +2797,7 @@
     fee_per_unit: '237.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 201
   fields:
@@ -2825,7 +2825,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 203
   fields:
@@ -2853,7 +2853,7 @@
     fee_per_unit: '408.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 205
   fields:
@@ -2881,7 +2881,7 @@
     fee_per_unit: '221.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 207
   fields:
@@ -2909,7 +2909,7 @@
     fee_per_unit: '237.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 209
   fields:
@@ -2937,7 +2937,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 211
   fields:
@@ -2965,7 +2965,7 @@
     fee_per_unit: '306.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 213
   fields:
@@ -2993,7 +2993,7 @@
     fee_per_unit: '221.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 215
   fields:
@@ -3021,7 +3021,7 @@
     fee_per_unit: '237.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 217
   fields:
@@ -3049,7 +3049,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 219
   fields:
@@ -3077,7 +3077,7 @@
     fee_per_unit: '306.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 221
   fields:
@@ -3105,7 +3105,7 @@
     fee_per_unit: '221.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 223
   fields:
@@ -3133,7 +3133,7 @@
     fee_per_unit: '237.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 225
   fields:
@@ -3161,7 +3161,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 227
   fields:
@@ -3189,7 +3189,7 @@
     fee_per_unit: '306.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 229
   fields:
@@ -3217,7 +3217,7 @@
     fee_per_unit: '221.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 231
   fields:
@@ -3245,7 +3245,7 @@
     fee_per_unit: '237.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 233
   fields:
@@ -3273,7 +3273,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 235
   fields:
@@ -3301,7 +3301,7 @@
     fee_per_unit: '408.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 237
   fields:
@@ -3329,7 +3329,7 @@
     fee_per_unit: '221.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 239
   fields:
@@ -3357,7 +3357,7 @@
     fee_per_unit: '237.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 241
   fields:
@@ -3385,7 +3385,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 243
   fields:
@@ -3413,7 +3413,7 @@
     fee_per_unit: '408.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 245
   fields:
@@ -3441,7 +3441,7 @@
     fee_per_unit: '221.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 247
   fields:
@@ -3469,7 +3469,7 @@
     fee_per_unit: '237.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 249
   fields:
@@ -3497,7 +3497,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 251
   fields:
@@ -3525,7 +3525,7 @@
     fee_per_unit: '490.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 253
   fields:
@@ -3553,7 +3553,7 @@
     fee_per_unit: '221.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 255
   fields:
@@ -3581,7 +3581,7 @@
     fee_per_unit: '237.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 257
   fields:
@@ -3609,7 +3609,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 259
   fields:
@@ -3637,7 +3637,7 @@
     fee_per_unit: '490.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 261
   fields:
@@ -3665,7 +3665,7 @@
     fee_per_unit: '221.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 263
   fields:
@@ -3693,7 +3693,7 @@
     fee_per_unit: '237.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 265
   fields:
@@ -3721,7 +3721,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 267
   fields:
@@ -3749,7 +3749,7 @@
     fee_per_unit: '530.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 269
   fields:
@@ -3777,7 +3777,7 @@
     fee_per_unit: '266.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 271
   fields:
@@ -3805,7 +3805,7 @@
     fee_per_unit: '285.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 273
   fields:
@@ -3833,7 +3833,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 275
   fields:
@@ -3861,7 +3861,7 @@
     fee_per_unit: '469.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 277
   fields:
@@ -3889,7 +3889,7 @@
     fee_per_unit: '247.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 279
   fields:
@@ -3917,7 +3917,7 @@
     fee_per_unit: '265.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 281
   fields:
@@ -3945,7 +3945,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 283
   fields:
@@ -3973,7 +3973,7 @@
     fee_per_unit: '408.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 285
   fields:
@@ -4001,7 +4001,7 @@
     fee_per_unit: '247.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 287
   fields:
@@ -4029,7 +4029,7 @@
     fee_per_unit: '265.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 289
   fields:
@@ -4057,7 +4057,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 291
   fields:
@@ -4085,7 +4085,7 @@
     fee_per_unit: '408.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 293
   fields:
@@ -4113,7 +4113,7 @@
     fee_per_unit: '266.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 295
   fields:
@@ -4141,7 +4141,7 @@
     fee_per_unit: '285.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 297
   fields:
@@ -4169,7 +4169,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 299
   fields:
@@ -4197,7 +4197,7 @@
     fee_per_unit: '326.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 301
   fields:
@@ -4225,7 +4225,7 @@
     fee_per_unit: '225.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 303
   fields:
@@ -4253,7 +4253,7 @@
     fee_per_unit: '241.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 305
   fields:
@@ -4281,7 +4281,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 307
   fields:
@@ -4309,7 +4309,7 @@
     fee_per_unit: '326.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 309
   fields:
@@ -4337,7 +4337,7 @@
     fee_per_unit: '225.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 311
   fields:
@@ -4365,7 +4365,7 @@
     fee_per_unit: '241.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 313
   fields:
@@ -4393,7 +4393,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 315
   fields:
@@ -4421,7 +4421,7 @@
     fee_per_unit: '326.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 317
   fields:
@@ -4449,7 +4449,7 @@
     fee_per_unit: '225.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 319
   fields:
@@ -4477,7 +4477,7 @@
     fee_per_unit: '241.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 321
   fields:
@@ -4505,7 +4505,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 323
   fields:
@@ -4533,7 +4533,7 @@
     fee_per_unit: '408.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 325
   fields:
@@ -4561,7 +4561,7 @@
     fee_per_unit: '247.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 327
   fields:
@@ -4589,7 +4589,7 @@
     fee_per_unit: '265.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 329
   fields:
@@ -4617,7 +4617,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 331
   fields:
@@ -4645,7 +4645,7 @@
     fee_per_unit: '408.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 333
   fields:
@@ -4673,7 +4673,7 @@
     fee_per_unit: '247.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 335
   fields:
@@ -4701,7 +4701,7 @@
     fee_per_unit: '265.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 337
   fields:
@@ -4729,7 +4729,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 339
   fields:
@@ -4757,7 +4757,7 @@
     fee_per_unit: '530.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 341
   fields:
@@ -4785,7 +4785,7 @@
     fee_per_unit: '266.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 343
   fields:
@@ -4813,7 +4813,7 @@
     fee_per_unit: '285.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 345
   fields:
@@ -4841,7 +4841,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 2
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 8, 9]
 - model: calculator.price
   pk: 347
   fields:
@@ -4869,7 +4869,7 @@
     fee_per_unit: '530.000'
     limit_from: 3
     limit_to: 40
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 349
   fields:
@@ -4897,7 +4897,7 @@
     fee_per_unit: '266.000'
     limit_from: 41
     limit_to: 50
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 351
   fields:
@@ -4925,7 +4925,7 @@
     fee_per_unit: '285.000'
     limit_from: 51
     limit_to: 9999
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 353
   fields:
@@ -4953,7 +4953,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 355
   fields:
@@ -4981,7 +4981,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 357
   fields:
@@ -5009,7 +5009,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 359
   fields:
@@ -5037,7 +5037,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 361
   fields:
@@ -5065,7 +5065,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 363
   fields:
@@ -5093,7 +5093,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 365
   fields:
@@ -5121,7 +5121,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 367
   fields:
@@ -5149,7 +5149,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 369
   fields:
@@ -5177,7 +5177,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 371
   fields:
@@ -5205,7 +5205,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 373
   fields:
@@ -5233,7 +5233,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 375
   fields:
@@ -5261,7 +5261,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 377
   fields:
@@ -5289,7 +5289,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 379
   fields:
@@ -5317,7 +5317,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 381
   fields:
@@ -5345,7 +5345,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 383
   fields:
@@ -5373,7 +5373,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 385
   fields:
@@ -5401,7 +5401,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 387
   fields:
@@ -5429,7 +5429,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 389
   fields:
@@ -5457,7 +5457,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 391
   fields:
@@ -5485,7 +5485,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 393
   fields:
@@ -5513,7 +5513,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 395
   fields:
@@ -5541,7 +5541,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 397
   fields:
@@ -5569,7 +5569,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 399
   fields:
@@ -5597,7 +5597,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 401
   fields:
@@ -5625,7 +5625,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 403
   fields:
@@ -5653,7 +5653,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 405
   fields:
@@ -5681,7 +5681,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 407
   fields:
@@ -5709,7 +5709,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 409
   fields:
@@ -5737,7 +5737,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 411
   fields:
@@ -5765,7 +5765,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 413
   fields:
@@ -5793,7 +5793,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 415
   fields:
@@ -5821,7 +5821,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 417
   fields:
@@ -5849,7 +5849,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 419
   fields:
@@ -5877,7 +5877,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 421
   fields:
@@ -5905,7 +5905,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 423
   fields:
@@ -5933,7 +5933,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 425
   fields:
@@ -5961,7 +5961,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 427
   fields:
@@ -5989,7 +5989,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 429
   fields:
@@ -6017,7 +6017,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 431
   fields:
@@ -6045,7 +6045,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 433
   fields:
@@ -6073,7 +6073,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 435
   fields:
@@ -6101,7 +6101,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 437
   fields:
@@ -6129,7 +6129,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 439
   fields:
@@ -6157,7 +6157,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 529
   fields:
@@ -6185,7 +6185,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 531
   fields:
@@ -6213,7 +6213,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 533
   fields:
@@ -6241,7 +6241,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 535
   fields:
@@ -6269,7 +6269,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 537
   fields:
@@ -6297,7 +6297,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 539
   fields:
@@ -6325,7 +6325,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 541
   fields:
@@ -6353,7 +6353,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 543
   fields:
@@ -6381,7 +6381,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 545
   fields:
@@ -6409,7 +6409,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 547
   fields:
@@ -6437,7 +6437,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 549
   fields:
@@ -6465,7 +6465,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 551
   fields:
@@ -6493,7 +6493,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [1, 2, 3, 10, 11]
 - model: calculator.price
   pk: 553
   fields:
@@ -6521,7 +6521,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 555
   fields:
@@ -6549,7 +6549,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 557
   fields:
@@ -6577,7 +6577,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 559
   fields:
@@ -6605,7 +6605,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 561
   fields:
@@ -6633,7 +6633,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 563
   fields:
@@ -6661,7 +6661,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 565
   fields:
@@ -6689,7 +6689,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 567
   fields:
@@ -6717,7 +6717,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 569
   fields:
@@ -6745,7 +6745,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 571
   fields:
@@ -6773,7 +6773,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 573
   fields:
@@ -6801,7 +6801,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 575
   fields:
@@ -6829,7 +6829,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 577
   fields:
@@ -6857,7 +6857,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 579
   fields:
@@ -6885,7 +6885,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 581
   fields:
@@ -6913,7 +6913,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 583
   fields:
@@ -6941,7 +6941,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 585
   fields:
@@ -6969,7 +6969,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 587
   fields:
@@ -6997,7 +6997,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 589
   fields:
@@ -7025,7 +7025,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 591
   fields:
@@ -7053,7 +7053,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 593
   fields:
@@ -7081,7 +7081,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 595
   fields:
@@ -7109,7 +7109,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 597
   fields:
@@ -7137,7 +7137,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 599
   fields:
@@ -7165,7 +7165,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 601
   fields:
@@ -7193,7 +7193,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 603
   fields:
@@ -7221,7 +7221,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 605
   fields:
@@ -7249,7 +7249,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 607
   fields:
@@ -7277,7 +7277,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 609
   fields:
@@ -7305,7 +7305,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 611
   fields:
@@ -7333,7 +7333,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 613
   fields:
@@ -7361,7 +7361,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 615
   fields:
@@ -7389,7 +7389,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [3, 2, 1]
+    modifiers: [11, 10, 3, 2, 1]
 - model: calculator.price
   pk: 617
   fields:
@@ -7403,7 +7403,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 618
   fields:
@@ -7431,7 +7431,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 620
   fields:
@@ -7459,7 +7459,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 622
   fields:
@@ -7487,7 +7487,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 624
   fields:
@@ -7515,7 +7515,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 626
   fields:
@@ -7543,7 +7543,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 628
   fields:
@@ -7571,7 +7571,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 630
   fields:
@@ -7599,7 +7599,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 632
   fields:
@@ -7627,7 +7627,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 634
   fields:
@@ -7655,7 +7655,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 636
   fields:
@@ -7683,7 +7683,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 638
   fields:
@@ -7711,7 +7711,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 640
   fields:
@@ -7739,7 +7739,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 642
   fields:
@@ -7767,7 +7767,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 644
   fields:
@@ -7795,7 +7795,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 646
   fields:
@@ -7823,7 +7823,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 648
   fields:
@@ -7851,7 +7851,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 650
   fields:
@@ -7879,7 +7879,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 652
   fields:
@@ -7907,7 +7907,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 654
   fields:
@@ -7935,7 +7935,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 656
   fields:
@@ -7963,7 +7963,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 658
   fields:
@@ -7991,7 +7991,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 660
   fields:
@@ -8019,7 +8019,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 662
   fields:
@@ -8047,7 +8047,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 664
   fields:
@@ -8075,7 +8075,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 666
   fields:
@@ -8103,7 +8103,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 668
   fields:
@@ -8131,7 +8131,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 670
   fields:
@@ -8159,7 +8159,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 672
   fields:
@@ -8187,7 +8187,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 674
   fields:
@@ -8215,7 +8215,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 676
   fields:
@@ -8243,7 +8243,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 678
   fields:
@@ -8271,7 +8271,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 680
   fields:
@@ -8299,7 +8299,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 682
   fields:
@@ -8327,7 +8327,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 684
   fields:
@@ -8355,7 +8355,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 686
   fields:
@@ -8383,7 +8383,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 688
   fields:
@@ -8411,7 +8411,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 690
   fields:
@@ -8439,7 +8439,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 692
   fields:
@@ -8467,7 +8467,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 694
   fields:
@@ -8495,7 +8495,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 696
   fields:
@@ -8523,7 +8523,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 698
   fields:
@@ -8551,7 +8551,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 700
   fields:
@@ -8579,7 +8579,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 702
   fields:
@@ -8607,7 +8607,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: null
-    modifiers: [1, 2, 3, 7]
+    modifiers: [7, 3, 2, 1]
 - model: calculator.price
   pk: 704
   fields:
@@ -9265,7 +9265,7 @@
     fee_per_unit: '6.530'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 751
   fields:
@@ -9293,7 +9293,7 @@
     fee_per_unit: '6.530'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 753
   fields:
@@ -9321,7 +9321,7 @@
     fee_per_unit: '6.530'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 755
   fields:
@@ -9349,7 +9349,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 757
   fields:
@@ -9377,7 +9377,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 759
   fields:
@@ -9405,7 +9405,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 761
   fields:
@@ -9433,7 +9433,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 763
   fields:
@@ -9461,7 +9461,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 765
   fields:
@@ -9489,7 +9489,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 767
   fields:
@@ -9517,7 +9517,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 769
   fields:
@@ -9545,7 +9545,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 771
   fields:
@@ -9573,7 +9573,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 773
   fields:
@@ -9601,7 +9601,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 775
   fields:
@@ -9629,7 +9629,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 777
   fields:
@@ -9657,7 +9657,7 @@
     fee_per_unit: '3.260'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 779
   fields:
@@ -9685,7 +9685,7 @@
     fee_per_unit: '3.260'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 781
   fields:
@@ -9713,7 +9713,7 @@
     fee_per_unit: '3.260'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 783
   fields:
@@ -9741,7 +9741,7 @@
     fee_per_unit: '3.260'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 785
   fields:
@@ -9769,7 +9769,7 @@
     fee_per_unit: '3.260'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 787
   fields:
@@ -9797,7 +9797,7 @@
     fee_per_unit: '3.260'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 789
   fields:
@@ -9825,7 +9825,7 @@
     fee_per_unit: '3.260'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 791
   fields:
@@ -9853,7 +9853,7 @@
     fee_per_unit: '3.260'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 793
   fields:
@@ -9881,7 +9881,7 @@
     fee_per_unit: '3.260'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 795
   fields:
@@ -9909,7 +9909,7 @@
     fee_per_unit: '3.260'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 797
   fields:
@@ -9937,7 +9937,7 @@
     fee_per_unit: '3.260'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 799
   fields:
@@ -9965,7 +9965,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 801
   fields:
@@ -9993,7 +9993,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 803
   fields:
@@ -10021,7 +10021,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 805
   fields:
@@ -10049,7 +10049,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 807
   fields:
@@ -10077,7 +10077,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 809
   fields:
@@ -10105,7 +10105,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 811
   fields:
@@ -10133,7 +10133,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 813
   fields:
@@ -10161,7 +10161,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 815
   fields:
@@ -10189,7 +10189,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 817
   fields:
@@ -10217,7 +10217,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 819
   fields:
@@ -10245,7 +10245,7 @@
     fee_per_unit: '4.900'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 821
   fields:
@@ -10273,7 +10273,7 @@
     fee_per_unit: '6.530'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 823
   fields:
@@ -10301,7 +10301,7 @@
     fee_per_unit: '6.530'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 825
   fields:
@@ -10329,7 +10329,7 @@
     fee_per_unit: '6.530'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 827
   fields:
@@ -10357,7 +10357,7 @@
     fee_per_unit: '6.530'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 829
   fields:
@@ -10385,7 +10385,7 @@
     fee_per_unit: '6.530'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 831
   fields:
@@ -10413,7 +10413,7 @@
     fee_per_unit: '6.530'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 833
   fields:
@@ -10441,7 +10441,7 @@
     fee_per_unit: '6.530'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 835
   fields:
@@ -10469,7 +10469,7 @@
     fee_per_unit: '6.530'
     limit_from: 11
     limit_to: null
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 837
   fields:
@@ -10497,7 +10497,7 @@
     fee_per_unit: '2.850'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 839
   fields:
@@ -10525,7 +10525,7 @@
     fee_per_unit: '1.430'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 841
   fields:
@@ -10553,7 +10553,7 @@
     fee_per_unit: '1.800'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 843
   fields:
@@ -10581,7 +10581,7 @@
     fee_per_unit: '0.900'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 845
   fields:
@@ -10609,7 +10609,7 @@
     fee_per_unit: '1.280'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 847
   fields:
@@ -10637,7 +10637,7 @@
     fee_per_unit: '0.640'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 849
   fields:
@@ -10665,7 +10665,7 @@
     fee_per_unit: '2.850'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 851
   fields:
@@ -10693,7 +10693,7 @@
     fee_per_unit: '1.430'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 853
   fields:
@@ -10721,7 +10721,7 @@
     fee_per_unit: '0.920'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 855
   fields:
@@ -10749,7 +10749,7 @@
     fee_per_unit: '0.460'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 857
   fields:
@@ -10777,7 +10777,7 @@
     fee_per_unit: '1.200'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 859
   fields:
@@ -10805,7 +10805,7 @@
     fee_per_unit: '0.610'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 861
   fields:
@@ -10833,7 +10833,7 @@
     fee_per_unit: '1.200'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 863
   fields:
@@ -10861,7 +10861,7 @@
     fee_per_unit: '0.610'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 865
   fields:
@@ -10889,7 +10889,7 @@
     fee_per_unit: '1.650'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 867
   fields:
@@ -10917,7 +10917,7 @@
     fee_per_unit: '0.820'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 869
   fields:
@@ -10945,7 +10945,7 @@
     fee_per_unit: '1.610'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 871
   fields:
@@ -10973,7 +10973,7 @@
     fee_per_unit: '0.800'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 873
   fields:
@@ -11001,7 +11001,7 @@
     fee_per_unit: '2.850'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 875
   fields:
@@ -11029,7 +11029,7 @@
     fee_per_unit: '1.430'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 877
   fields:
@@ -11057,7 +11057,7 @@
     fee_per_unit: '1.590'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 879
   fields:
@@ -11085,7 +11085,7 @@
     fee_per_unit: '0.800'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 947
   fields:
@@ -11113,7 +11113,7 @@
     fee_per_unit: '5.070'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 949
   fields:
@@ -11141,7 +11141,7 @@
     fee_per_unit: '1.270'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 951
   fields:
@@ -11169,7 +11169,7 @@
     fee_per_unit: '1.680'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 953
   fields:
@@ -11197,7 +11197,7 @@
     fee_per_unit: '3.200'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 955
   fields:
@@ -11225,7 +11225,7 @@
     fee_per_unit: '0.800'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 957
   fields:
@@ -11253,7 +11253,7 @@
     fee_per_unit: '1.060'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 959
   fields:
@@ -11281,7 +11281,7 @@
     fee_per_unit: '0.750'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 961
   fields:
@@ -11309,7 +11309,7 @@
     fee_per_unit: '2.270'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 963
   fields:
@@ -11337,7 +11337,7 @@
     fee_per_unit: '0.570'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 965
   fields:
@@ -11365,7 +11365,7 @@
     fee_per_unit: '5.070'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 967
   fields:
@@ -11393,7 +11393,7 @@
     fee_per_unit: '1.270'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 969
   fields:
@@ -11421,7 +11421,7 @@
     fee_per_unit: '1.680'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 971
   fields:
@@ -11449,7 +11449,7 @@
     fee_per_unit: '1.630'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 973
   fields:
@@ -11477,7 +11477,7 @@
     fee_per_unit: '0.410'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 975
   fields:
@@ -11505,7 +11505,7 @@
     fee_per_unit: '0.540'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 977
   fields:
@@ -11533,7 +11533,7 @@
     fee_per_unit: '0.540'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 979
   fields:
@@ -11561,7 +11561,7 @@
     fee_per_unit: '0.710'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 981
   fields:
@@ -11589,7 +11589,7 @@
     fee_per_unit: '2.140'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 983
   fields:
@@ -11617,7 +11617,7 @@
     fee_per_unit: '0.710'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 985
   fields:
@@ -11645,7 +11645,7 @@
     fee_per_unit: '2.140'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 987
   fields:
@@ -11673,7 +11673,7 @@
     fee_per_unit: '0.540'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 989
   fields:
@@ -11701,7 +11701,7 @@
     fee_per_unit: '2.930'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 991
   fields:
@@ -11729,7 +11729,7 @@
     fee_per_unit: '0.730'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 993
   fields:
@@ -11757,7 +11757,7 @@
     fee_per_unit: '0.960'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 995
   fields:
@@ -11785,7 +11785,7 @@
     fee_per_unit: '2.870'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 997
   fields:
@@ -11813,7 +11813,7 @@
     fee_per_unit: '0.710'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 999
   fields:
@@ -11841,7 +11841,7 @@
     fee_per_unit: '0.940'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1001
   fields:
@@ -11869,7 +11869,7 @@
     fee_per_unit: '5.070'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1003
   fields:
@@ -11897,7 +11897,7 @@
     fee_per_unit: '1.270'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1005
   fields:
@@ -11925,7 +11925,7 @@
     fee_per_unit: '1.680'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1007
   fields:
@@ -11953,7 +11953,7 @@
     fee_per_unit: '0.710'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1009
   fields:
@@ -11981,7 +11981,7 @@
     fee_per_unit: '0.940'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1011
   fields:
@@ -12009,7 +12009,7 @@
     fee_per_unit: '2.830'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1013
   fields:
@@ -12037,7 +12037,7 @@
     fee_per_unit: '1.430'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1015
   fields:
@@ -12065,7 +12065,7 @@
     fee_per_unit: '0.720'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1017
   fields:
@@ -12093,7 +12093,7 @@
     fee_per_unit: '0.900'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1019
   fields:
@@ -12121,7 +12121,7 @@
     fee_per_unit: '0.450'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1021
   fields:
@@ -12149,7 +12149,7 @@
     fee_per_unit: '0.320'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1023
   fields:
@@ -12177,7 +12177,7 @@
     fee_per_unit: '0.640'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1025
   fields:
@@ -12205,7 +12205,7 @@
     fee_per_unit: '1.430'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1027
   fields:
@@ -12233,7 +12233,7 @@
     fee_per_unit: '0.720'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1029
   fields:
@@ -12261,7 +12261,7 @@
     fee_per_unit: '0.460'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1031
   fields:
@@ -12289,7 +12289,7 @@
     fee_per_unit: '0.230'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1033
   fields:
@@ -12317,7 +12317,7 @@
     fee_per_unit: '0.610'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1035
   fields:
@@ -12345,7 +12345,7 @@
     fee_per_unit: '0.300'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1037
   fields:
@@ -12373,7 +12373,7 @@
     fee_per_unit: '0.300'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1039
   fields:
@@ -12401,7 +12401,7 @@
     fee_per_unit: '0.610'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1041
   fields:
@@ -12429,7 +12429,7 @@
     fee_per_unit: '0.830'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1043
   fields:
@@ -12457,7 +12457,7 @@
     fee_per_unit: '0.420'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1045
   fields:
@@ -12485,7 +12485,7 @@
     fee_per_unit: '0.800'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1047
   fields:
@@ -12513,7 +12513,7 @@
     fee_per_unit: '0.400'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1049
   fields:
@@ -12541,7 +12541,7 @@
     fee_per_unit: '1.430'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1051
   fields:
@@ -12569,7 +12569,7 @@
     fee_per_unit: '0.720'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1053
   fields:
@@ -12597,7 +12597,7 @@
     fee_per_unit: '0.800'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1055
   fields:
@@ -12625,7 +12625,7 @@
     fee_per_unit: '0.400'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1119
   fields:
@@ -12653,7 +12653,7 @@
     fee_per_unit: '0.480'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1123
   fields:
@@ -12681,7 +12681,7 @@
     fee_per_unit: '2.540'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1125
   fields:
@@ -12709,7 +12709,7 @@
     fee_per_unit: '0.640'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1127
   fields:
@@ -12737,7 +12737,7 @@
     fee_per_unit: '0.840'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1129
   fields:
@@ -12765,7 +12765,7 @@
     fee_per_unit: '1.600'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1131
   fields:
@@ -12793,7 +12793,7 @@
     fee_per_unit: '0.400'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1133
   fields:
@@ -12821,7 +12821,7 @@
     fee_per_unit: '0.530'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1135
   fields:
@@ -12849,7 +12849,7 @@
     fee_per_unit: '0.370'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1137
   fields:
@@ -12877,7 +12877,7 @@
     fee_per_unit: '1.140'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1139
   fields:
@@ -12905,7 +12905,7 @@
     fee_per_unit: '0.280'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1141
   fields:
@@ -12933,7 +12933,7 @@
     fee_per_unit: '2.540'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1143
   fields:
@@ -12961,7 +12961,7 @@
     fee_per_unit: '0.640'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1145
   fields:
@@ -12989,7 +12989,7 @@
     fee_per_unit: '0.840'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1147
   fields:
@@ -13017,7 +13017,7 @@
     fee_per_unit: '0.820'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1149
   fields:
@@ -13045,7 +13045,7 @@
     fee_per_unit: '0.200'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1151
   fields:
@@ -13073,7 +13073,7 @@
     fee_per_unit: '0.270'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1153
   fields:
@@ -13101,7 +13101,7 @@
     fee_per_unit: '0.270'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1155
   fields:
@@ -13129,7 +13129,7 @@
     fee_per_unit: '0.360'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1157
   fields:
@@ -13157,7 +13157,7 @@
     fee_per_unit: '1.070'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1159
   fields:
@@ -13185,7 +13185,7 @@
     fee_per_unit: '0.360'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1161
   fields:
@@ -13213,7 +13213,7 @@
     fee_per_unit: '1.070'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1163
   fields:
@@ -13241,7 +13241,7 @@
     fee_per_unit: '0.270'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1165
   fields:
@@ -13269,7 +13269,7 @@
     fee_per_unit: '1.460'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1167
   fields:
@@ -13297,7 +13297,7 @@
     fee_per_unit: '0.370'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1169
   fields:
@@ -13325,7 +13325,7 @@
     fee_per_unit: '0.480'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1171
   fields:
@@ -13353,7 +13353,7 @@
     fee_per_unit: '1.430'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1173
   fields:
@@ -13381,7 +13381,7 @@
     fee_per_unit: '0.360'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1175
   fields:
@@ -13409,7 +13409,7 @@
     fee_per_unit: '0.480'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1177
   fields:
@@ -13437,7 +13437,7 @@
     fee_per_unit: '2.540'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1179
   fields:
@@ -13465,7 +13465,7 @@
     fee_per_unit: '0.640'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1181
   fields:
@@ -13493,7 +13493,7 @@
     fee_per_unit: '0.840'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1183
   fields:
@@ -13521,7 +13521,7 @@
     fee_per_unit: '0.360'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1185
   fields:
@@ -13549,7 +13549,7 @@
     fee_per_unit: '0.470'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1187
   fields:
@@ -13577,7 +13577,7 @@
     fee_per_unit: '1.420'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1189
   fields:
@@ -13605,7 +13605,7 @@
     fee_per_unit: '2.150'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1191
   fields:
@@ -13633,7 +13633,7 @@
     fee_per_unit: '1.070'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1193
   fields:
@@ -13661,7 +13661,7 @@
     fee_per_unit: '1.350'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1195
   fields:
@@ -13689,7 +13689,7 @@
     fee_per_unit: '0.670'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1197
   fields:
@@ -13717,7 +13717,7 @@
     fee_per_unit: '0.480'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1199
   fields:
@@ -13745,7 +13745,7 @@
     fee_per_unit: '0.960'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1201
   fields:
@@ -13773,7 +13773,7 @@
     fee_per_unit: '2.150'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1203
   fields:
@@ -13801,7 +13801,7 @@
     fee_per_unit: '1.070'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1205
   fields:
@@ -13829,7 +13829,7 @@
     fee_per_unit: '0.690'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1207
   fields:
@@ -13857,7 +13857,7 @@
     fee_per_unit: '0.350'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1209
   fields:
@@ -13885,7 +13885,7 @@
     fee_per_unit: '0.900'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1211
   fields:
@@ -13913,7 +13913,7 @@
     fee_per_unit: '0.460'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1213
   fields:
@@ -13941,7 +13941,7 @@
     fee_per_unit: '0.460'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1215
   fields:
@@ -13969,7 +13969,7 @@
     fee_per_unit: '0.900'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1217
   fields:
@@ -13997,7 +13997,7 @@
     fee_per_unit: '1.240'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1219
   fields:
@@ -14025,7 +14025,7 @@
     fee_per_unit: '0.610'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1221
   fields:
@@ -14053,7 +14053,7 @@
     fee_per_unit: '1.210'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1223
   fields:
@@ -14081,7 +14081,7 @@
     fee_per_unit: '0.600'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1225
   fields:
@@ -14109,7 +14109,7 @@
     fee_per_unit: '2.150'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1227
   fields:
@@ -14137,7 +14137,7 @@
     fee_per_unit: '1.070'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1229
   fields:
@@ -14165,7 +14165,7 @@
     fee_per_unit: '1.190'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1231
   fields:
@@ -14193,7 +14193,7 @@
     fee_per_unit: '0.600'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1299
   fields:
@@ -14221,7 +14221,7 @@
     fee_per_unit: '3.800'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1301
   fields:
@@ -14249,7 +14249,7 @@
     fee_per_unit: '0.950'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1303
   fields:
@@ -14277,7 +14277,7 @@
     fee_per_unit: '1.260'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1305
   fields:
@@ -14305,7 +14305,7 @@
     fee_per_unit: '2.400'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1307
   fields:
@@ -14333,7 +14333,7 @@
     fee_per_unit: '0.600'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1309
   fields:
@@ -14361,7 +14361,7 @@
     fee_per_unit: '0.800'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1311
   fields:
@@ -14389,7 +14389,7 @@
     fee_per_unit: '0.560'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1313
   fields:
@@ -14417,7 +14417,7 @@
     fee_per_unit: '1.700'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1315
   fields:
@@ -14445,7 +14445,7 @@
     fee_per_unit: '0.430'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1317
   fields:
@@ -14473,7 +14473,7 @@
     fee_per_unit: '3.800'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1319
   fields:
@@ -14501,7 +14501,7 @@
     fee_per_unit: '0.950'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1321
   fields:
@@ -14529,7 +14529,7 @@
     fee_per_unit: '1.260'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1323
   fields:
@@ -14557,7 +14557,7 @@
     fee_per_unit: '1.220'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1325
   fields:
@@ -14585,7 +14585,7 @@
     fee_per_unit: '0.310'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1327
   fields:
@@ -14613,7 +14613,7 @@
     fee_per_unit: '0.410'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1329
   fields:
@@ -14641,7 +14641,7 @@
     fee_per_unit: '0.410'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1331
   fields:
@@ -14669,7 +14669,7 @@
     fee_per_unit: '0.530'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1333
   fields:
@@ -14697,7 +14697,7 @@
     fee_per_unit: '1.600'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1335
   fields:
@@ -14725,7 +14725,7 @@
     fee_per_unit: '0.530'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1337
   fields:
@@ -14753,7 +14753,7 @@
     fee_per_unit: '1.600'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1339
   fields:
@@ -14781,7 +14781,7 @@
     fee_per_unit: '0.410'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1341
   fields:
@@ -14809,7 +14809,7 @@
     fee_per_unit: '2.200'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1343
   fields:
@@ -14837,7 +14837,7 @@
     fee_per_unit: '0.540'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1345
   fields:
@@ -14865,7 +14865,7 @@
     fee_per_unit: '0.720'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1347
   fields:
@@ -14893,7 +14893,7 @@
     fee_per_unit: '2.140'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1349
   fields:
@@ -14921,7 +14921,7 @@
     fee_per_unit: '0.530'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1351
   fields:
@@ -14949,7 +14949,7 @@
     fee_per_unit: '0.710'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1353
   fields:
@@ -14977,7 +14977,7 @@
     fee_per_unit: '3.800'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1355
   fields:
@@ -15005,7 +15005,7 @@
     fee_per_unit: '0.950'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1357
   fields:
@@ -15033,7 +15033,7 @@
     fee_per_unit: '1.260'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1359
   fields:
@@ -15061,7 +15061,7 @@
     fee_per_unit: '0.530'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1361
   fields:
@@ -15089,7 +15089,7 @@
     fee_per_unit: '0.710'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1363
   fields:
@@ -15117,7 +15117,7 @@
     fee_per_unit: '2.130'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1365
   fields:
@@ -15145,7 +15145,7 @@
     fee_per_unit: '1.190'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1367
   fields:
@@ -15173,7 +15173,7 @@
     fee_per_unit: '0.590'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1369
   fields:
@@ -15201,7 +15201,7 @@
     fee_per_unit: '0.810'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1371
   fields:
@@ -15229,7 +15229,7 @@
     fee_per_unit: '0.410'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1373
   fields:
@@ -15257,7 +15257,7 @@
     fee_per_unit: '0.300'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1375
   fields:
@@ -15285,7 +15285,7 @@
     fee_per_unit: '0.600'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1377
   fields:
@@ -15313,7 +15313,7 @@
     fee_per_unit: '1.190'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1379
   fields:
@@ -15341,7 +15341,7 @@
     fee_per_unit: '0.590'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1381
   fields:
@@ -15369,7 +15369,7 @@
     fee_per_unit: '0.350'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1383
   fields:
@@ -15397,7 +15397,7 @@
     fee_per_unit: '0.170'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1385
   fields:
@@ -15425,7 +15425,7 @@
     fee_per_unit: '0.540'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1387
   fields:
@@ -15453,7 +15453,7 @@
     fee_per_unit: '0.270'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1389
   fields:
@@ -15481,7 +15481,7 @@
     fee_per_unit: '0.270'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1391
   fields:
@@ -15509,7 +15509,7 @@
     fee_per_unit: '0.540'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1393
   fields:
@@ -15537,7 +15537,7 @@
     fee_per_unit: '0.540'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1395
   fields:
@@ -15565,7 +15565,7 @@
     fee_per_unit: '0.280'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1397
   fields:
@@ -15593,7 +15593,7 @@
     fee_per_unit: '0.420'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1399
   fields:
@@ -15621,7 +15621,7 @@
     fee_per_unit: '0.220'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1401
   fields:
@@ -15649,7 +15649,7 @@
     fee_per_unit: '1.190'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1403
   fields:
@@ -15677,7 +15677,7 @@
     fee_per_unit: '0.590'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1405
   fields:
@@ -15705,7 +15705,7 @@
     fee_per_unit: '1.020'
     limit_from: 1
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1407
   fields:
@@ -15733,7 +15733,7 @@
     fee_per_unit: '0.510'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1475
   fields:
@@ -15761,7 +15761,7 @@
     fee_per_unit: '4.520'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1477
   fields:
@@ -15789,7 +15789,7 @@
     fee_per_unit: '2.100'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1479
   fields:
@@ -15817,7 +15817,7 @@
     fee_per_unit: '0.690'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1481
   fields:
@@ -15845,7 +15845,7 @@
     fee_per_unit: '3.110'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1483
   fields:
@@ -15873,7 +15873,7 @@
     fee_per_unit: '1.450'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1485
   fields:
@@ -15901,7 +15901,7 @@
     fee_per_unit: '0.480'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1487
   fields:
@@ -15929,7 +15929,7 @@
     fee_per_unit: '1.070'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1489
   fields:
@@ -15957,7 +15957,7 @@
     fee_per_unit: '0.360'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1491
   fields:
@@ -15985,7 +15985,7 @@
     fee_per_unit: '2.310'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1493
   fields:
@@ -16013,7 +16013,7 @@
     fee_per_unit: '4.520'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1495
   fields:
@@ -16041,7 +16041,7 @@
     fee_per_unit: '2.100'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1497
   fields:
@@ -16069,7 +16069,7 @@
     fee_per_unit: '0.690'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1499
   fields:
@@ -16097,7 +16097,7 @@
     fee_per_unit: '1.340'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1501
   fields:
@@ -16125,7 +16125,7 @@
     fee_per_unit: '0.630'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1503
   fields:
@@ -16153,7 +16153,7 @@
     fee_per_unit: '0.200'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1505
   fields:
@@ -16181,7 +16181,7 @@
     fee_per_unit: '0.960'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1507
   fields:
@@ -16209,7 +16209,7 @@
     fee_per_unit: '0.320'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1509
   fields:
@@ -16237,7 +16237,7 @@
     fee_per_unit: '2.080'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1511
   fields:
@@ -16265,7 +16265,7 @@
     fee_per_unit: '0.960'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1513
   fields:
@@ -16293,7 +16293,7 @@
     fee_per_unit: '0.320'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1515
   fields:
@@ -16321,7 +16321,7 @@
     fee_per_unit: '2.080'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1517
   fields:
@@ -16349,7 +16349,7 @@
     fee_per_unit: '2.080'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1519
   fields:
@@ -16377,7 +16377,7 @@
     fee_per_unit: '0.320'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1521
   fields:
@@ -16405,7 +16405,7 @@
     fee_per_unit: '0.970'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1523
   fields:
@@ -16433,7 +16433,7 @@
     fee_per_unit: '1.630'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1525
   fields:
@@ -16461,7 +16461,7 @@
     fee_per_unit: '0.760'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1527
   fields:
@@ -16489,7 +16489,7 @@
     fee_per_unit: '0.250'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1529
   fields:
@@ -16517,7 +16517,7 @@
     fee_per_unit: '4.520'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1531
   fields:
@@ -16545,7 +16545,7 @@
     fee_per_unit: '2.100'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1533
   fields:
@@ -16573,7 +16573,7 @@
     fee_per_unit: '0.690'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1535
   fields:
@@ -16601,7 +16601,7 @@
     fee_per_unit: '3.910'
     limit_from: 1
     limit_to: 250
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1537
   fields:
@@ -16629,7 +16629,7 @@
     fee_per_unit: '1.820'
     limit_from: 251
     limit_to: 1000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1539
   fields:
@@ -16657,7 +16657,7 @@
     fee_per_unit: '0.600'
     limit_from: 1001
     limit_to: 10000
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 1541
   fields:
@@ -19149,7 +19149,7 @@
     fee_per_unit: '1.630'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1719
   fields:
@@ -19177,7 +19177,7 @@
     fee_per_unit: '1.630'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1721
   fields:
@@ -19205,7 +19205,7 @@
     fee_per_unit: '1.630'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1723
   fields:
@@ -19233,7 +19233,7 @@
     fee_per_unit: '1.630'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1725
   fields:
@@ -19261,7 +19261,7 @@
     fee_per_unit: '1.630'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1727
   fields:
@@ -19289,7 +19289,7 @@
     fee_per_unit: '1.630'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1729
   fields:
@@ -19317,7 +19317,7 @@
     fee_per_unit: '1.630'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1731
   fields:
@@ -19345,7 +19345,7 @@
     fee_per_unit: '1.630'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1733
   fields:
@@ -19373,7 +19373,7 @@
     fee_per_unit: '1.630'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1735
   fields:
@@ -19401,7 +19401,7 @@
     fee_per_unit: '1.630'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1737
   fields:
@@ -19429,7 +19429,7 @@
     fee_per_unit: '1.630'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1739
   fields:
@@ -19457,7 +19457,7 @@
     fee_per_unit: '0.810'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1741
   fields:
@@ -19485,7 +19485,7 @@
     fee_per_unit: '0.810'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1743
   fields:
@@ -19513,7 +19513,7 @@
     fee_per_unit: '0.810'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1745
   fields:
@@ -19541,7 +19541,7 @@
     fee_per_unit: '0.810'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1747
   fields:
@@ -19569,7 +19569,7 @@
     fee_per_unit: '0.810'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1749
   fields:
@@ -19597,7 +19597,7 @@
     fee_per_unit: '0.810'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1751
   fields:
@@ -19625,7 +19625,7 @@
     fee_per_unit: '0.810'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1753
   fields:
@@ -19653,7 +19653,7 @@
     fee_per_unit: '0.810'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1755
   fields:
@@ -19681,7 +19681,7 @@
     fee_per_unit: '0.810'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1757
   fields:
@@ -19709,7 +19709,7 @@
     fee_per_unit: '0.810'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1759
   fields:
@@ -19737,7 +19737,7 @@
     fee_per_unit: '0.810'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1761
   fields:
@@ -19765,7 +19765,7 @@
     fee_per_unit: '1.230'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1763
   fields:
@@ -19793,7 +19793,7 @@
     fee_per_unit: '1.230'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1765
   fields:
@@ -19821,7 +19821,7 @@
     fee_per_unit: '1.230'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1767
   fields:
@@ -19849,7 +19849,7 @@
     fee_per_unit: '1.230'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1769
   fields:
@@ -19877,7 +19877,7 @@
     fee_per_unit: '1.230'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1771
   fields:
@@ -19905,7 +19905,7 @@
     fee_per_unit: '1.230'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1773
   fields:
@@ -19933,7 +19933,7 @@
     fee_per_unit: '1.230'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1775
   fields:
@@ -19961,7 +19961,7 @@
     fee_per_unit: '1.230'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1777
   fields:
@@ -19989,7 +19989,7 @@
     fee_per_unit: '1.230'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1779
   fields:
@@ -20017,7 +20017,7 @@
     fee_per_unit: '1.230'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1781
   fields:
@@ -20045,7 +20045,7 @@
     fee_per_unit: '1.230'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1783
   fields:
@@ -20073,7 +20073,7 @@
     fee_per_unit: '0.980'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1785
   fields:
@@ -20101,7 +20101,7 @@
     fee_per_unit: '0.980'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1787
   fields:
@@ -20129,7 +20129,7 @@
     fee_per_unit: '0.980'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1789
   fields:
@@ -20157,7 +20157,7 @@
     fee_per_unit: '0.980'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1791
   fields:
@@ -20185,7 +20185,7 @@
     fee_per_unit: '0.980'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1793
   fields:
@@ -20213,7 +20213,7 @@
     fee_per_unit: '0.980'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1795
   fields:
@@ -20241,7 +20241,7 @@
     fee_per_unit: '0.980'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1797
   fields:
@@ -20269,7 +20269,7 @@
     fee_per_unit: '0.980'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1799
   fields:
@@ -20297,7 +20297,7 @@
     fee_per_unit: '0.980'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1801
   fields:
@@ -20325,7 +20325,7 @@
     fee_per_unit: '0.980'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1803
   fields:
@@ -20353,7 +20353,7 @@
     fee_per_unit: '0.980'
     limit_from: 1
     limit_to: 10000
-    modifiers: []
+    modifiers: [9, 8]
 - model: calculator.price
   pk: 1805
   fields:
@@ -20409,7 +20409,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1809
   fields:
@@ -20521,7 +20521,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1817
   fields:
@@ -20759,7 +20759,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1834
   fields:
@@ -20941,7 +20941,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1847
   fields:
@@ -21109,7 +21109,7 @@
     fee_per_unit: '497.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1859
   fields:
@@ -21151,7 +21151,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1862
   fields:
@@ -21361,7 +21361,7 @@
     fee_per_unit: '346.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1877
   fields:
@@ -21529,7 +21529,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1889
   fields:
@@ -21697,7 +21697,7 @@
     fee_per_unit: '173.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1901
   fields:
@@ -21837,7 +21837,7 @@
     fee_per_unit: '87.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1911
   fields:
@@ -22019,7 +22019,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1924
   fields:
@@ -22131,7 +22131,7 @@
     fee_per_unit: '87.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1932
   fields:
@@ -22299,7 +22299,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1944
   fields:
@@ -22383,7 +22383,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1950
   fields:
@@ -22593,7 +22593,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1965
   fields:
@@ -22733,7 +22733,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1975
   fields:
@@ -22831,7 +22831,7 @@
     fee_per_unit: '497.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 1982
   fields:
@@ -23097,7 +23097,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2001
   fields:
@@ -23153,7 +23153,7 @@
     fee_per_unit: '346.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2005
   fields:
@@ -23433,7 +23433,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2025
   fields:
@@ -23447,7 +23447,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2026
   fields:
@@ -23615,7 +23615,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2038
   fields:
@@ -23797,7 +23797,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2051
   fields:
@@ -23979,7 +23979,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2064
   fields:
@@ -24063,7 +24063,7 @@
     fee_per_unit: '216.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2070
   fields:
@@ -24329,7 +24329,7 @@
     fee_per_unit: '108.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2089
   fields:
@@ -24469,7 +24469,7 @@
     fee_per_unit: '151.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2099
   fields:
@@ -24665,7 +24665,7 @@
     fee_per_unit: '108.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2113
   fields:
@@ -24763,7 +24763,7 @@
     fee_per_unit: '151.000'
     limit_from: 1
     limit_to: 30
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2120
   fields:
@@ -24931,7 +24931,7 @@
     fee_per_unit: '88.000'
     limit_from: 1
     limit_to: 30
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2132
   fields:
@@ -25057,7 +25057,7 @@
     fee_per_unit: '108.000'
     limit_from: 1
     limit_to: 30
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2141
   fields:
@@ -25225,7 +25225,7 @@
     fee_per_unit: '88.000'
     limit_from: 1
     limit_to: 30
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2153
   fields:
@@ -25379,7 +25379,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2164
   fields:
@@ -25533,7 +25533,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2175
   fields:
@@ -25701,7 +25701,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2187
   fields:
@@ -25785,7 +25785,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2193
   fields:
@@ -25911,7 +25911,7 @@
     fee_per_unit: '74.000'
     limit_from: 4
     limit_to: 4
-    modifiers: [4]
+    modifiers: [11, 10, 4]
 - model: calculator.price
   pk: 2202
   fields:
@@ -26191,7 +26191,7 @@
     fee_per_unit: '39.000'
     limit_from: 4
     limit_to: 4
-    modifiers: [4]
+    modifiers: [11, 10, 4]
 - model: calculator.price
   pk: 2222
   fields:
@@ -26219,7 +26219,7 @@
     fee_per_unit: '56.000'
     limit_from: 4
     limit_to: 4
-    modifiers: [4]
+    modifiers: [11, 10, 4]
 - model: calculator.price
   pk: 2224
   fields:
@@ -26373,7 +26373,7 @@
     fee_per_unit: '39.000'
     limit_from: 4
     limit_to: 4
-    modifiers: [4]
+    modifiers: [11, 10, 4]
 - model: calculator.price
   pk: 2235
   fields:
@@ -26611,7 +26611,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2252
   fields:
@@ -26695,7 +26695,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2258
   fields:
@@ -26947,7 +26947,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2276
   fields:
@@ -27045,7 +27045,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2283
   fields:
@@ -27143,7 +27143,7 @@
     fee_per_unit: '324.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2290
   fields:
@@ -27423,7 +27423,7 @@
     fee_per_unit: '173.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2310
   fields:
@@ -27563,7 +27563,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2320
   fields:
@@ -27717,7 +27717,7 @@
     fee_per_unit: '173.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2331
   fields:
@@ -27857,7 +27857,7 @@
     fee_per_unit: '497.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2341
   fields:
@@ -27927,7 +27927,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2346
   fields:
@@ -28095,7 +28095,7 @@
     fee_per_unit: '346.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2358
   fields:
@@ -28291,7 +28291,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2372
   fields:
@@ -28459,7 +28459,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2384
   fields:
@@ -28543,7 +28543,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2390
   fields:
@@ -28781,7 +28781,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2407
   fields:
@@ -28921,7 +28921,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2417
   fields:
@@ -29005,7 +29005,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2423
   fields:
@@ -29187,7 +29187,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2436
   fields:
@@ -29397,7 +29397,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2451
   fields:
@@ -29579,7 +29579,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2464
   fields:
@@ -29635,7 +29635,7 @@
     fee_per_unit: '497.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2468
   fields:
@@ -29831,7 +29831,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2482
   fields:
@@ -29915,7 +29915,7 @@
     fee_per_unit: '346.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2488
   fields:
@@ -30069,7 +30069,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2499
   fields:
@@ -30307,7 +30307,7 @@
     fee_per_unit: '281.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2516
   fields:
@@ -30405,7 +30405,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2523
   fields:
@@ -30531,7 +30531,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2532
   fields:
@@ -30783,7 +30783,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2550
   fields:
@@ -30867,7 +30867,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2556
   fields:
@@ -31077,7 +31077,7 @@
     fee_per_unit: '108.000'
     limit_from: 1
     limit_to: 30
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2571
   fields:
@@ -31175,7 +31175,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2578
   fields:
@@ -31301,7 +31301,7 @@
     fee_per_unit: '108.000'
     limit_from: 1
     limit_to: 30
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2587
   fields:
@@ -31595,7 +31595,7 @@
     fee_per_unit: '74.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2608
   fields:
@@ -31721,7 +31721,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2617
   fields:
@@ -31805,7 +31805,7 @@
     fee_per_unit: '56.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2623
   fields:
@@ -32029,7 +32029,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2639
   fields:
@@ -32155,7 +32155,7 @@
     fee_per_unit: '74.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2648
   fields:
@@ -32225,7 +32225,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2653
   fields:
@@ -32407,7 +32407,7 @@
     fee_per_unit: '56.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2666
   fields:
@@ -32533,7 +32533,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2675
   fields:
@@ -32701,7 +32701,7 @@
     fee_per_unit: '216.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2687
   fields:
@@ -32869,7 +32869,7 @@
     fee_per_unit: '108.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2699
   fields:
@@ -33051,7 +33051,7 @@
     fee_per_unit: '151.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2712
   fields:
@@ -33275,7 +33275,7 @@
     fee_per_unit: '108.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 2728
   fields:
@@ -33387,7 +33387,7 @@
     fee_per_unit: '26.000'
     limit_from: 1
     limit_to: 1
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2736
   fields:
@@ -33541,7 +33541,7 @@
     fee_per_unit: '26.000'
     limit_from: 1
     limit_to: 1
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2747
   fields:
@@ -33709,7 +33709,7 @@
     fee_per_unit: '26.000'
     limit_from: 1
     limit_to: 1
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2759
   fields:
@@ -33793,7 +33793,7 @@
     fee_per_unit: '26.000'
     limit_from: 1
     limit_to: 1
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2765
   fields:
@@ -33919,7 +33919,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2774
   fields:
@@ -34073,7 +34073,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2785
   fields:
@@ -34241,7 +34241,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2797
   fields:
@@ -34409,7 +34409,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2809
   fields:
@@ -34633,7 +34633,7 @@
     fee_per_unit: '497.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2825
   fields:
@@ -34717,7 +34717,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2831
   fields:
@@ -34983,7 +34983,7 @@
     fee_per_unit: '346.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2850
   fields:
@@ -35081,7 +35081,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2857
   fields:
@@ -35193,7 +35193,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 5
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2865
   fields:
@@ -35249,7 +35249,7 @@
     fee_per_unit: '173.000'
     limit_from: 6
     limit_to: null
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2869
   fields:
@@ -35375,7 +35375,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 5
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2878
   fields:
@@ -35459,7 +35459,7 @@
     fee_per_unit: '87.000'
     limit_from: 6
     limit_to: null
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2884
   fields:
@@ -35515,7 +35515,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 5
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2888
   fields:
@@ -35641,7 +35641,7 @@
     fee_per_unit: '130.000'
     limit_from: 6
     limit_to: null
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2897
   fields:
@@ -35669,7 +35669,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 5
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2899
   fields:
@@ -35781,7 +35781,7 @@
     fee_per_unit: '87.000'
     limit_from: 6
     limit_to: null
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 2907
   fields:
@@ -36159,7 +36159,7 @@
     fee_per_unit: '74.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2934
   fields:
@@ -36285,7 +36285,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2943
   fields:
@@ -36439,7 +36439,7 @@
     fee_per_unit: '56.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2954
   fields:
@@ -36593,7 +36593,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2965
   fields:
@@ -36831,7 +36831,7 @@
     fee_per_unit: '74.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2982
   fields:
@@ -36887,7 +36887,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2986
   fields:
@@ -37055,7 +37055,7 @@
     fee_per_unit: '56.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 2998
   fields:
@@ -37223,7 +37223,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3010
   fields:
@@ -37363,7 +37363,7 @@
     fee_per_unit: '173.000'
     limit_from: 5
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3020
   fields:
@@ -37419,7 +37419,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 4
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3024
   fields:
@@ -37503,7 +37503,7 @@
     fee_per_unit: '87.000'
     limit_from: 5
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3030
   fields:
@@ -37657,7 +37657,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 4
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3041
   fields:
@@ -37741,7 +37741,7 @@
     fee_per_unit: '130.000'
     limit_from: 5
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3047
   fields:
@@ -37783,7 +37783,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 4
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3050
   fields:
@@ -37881,7 +37881,7 @@
     fee_per_unit: '87.000'
     limit_from: 5
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3057
   fields:
@@ -37965,7 +37965,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 4
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3063
   fields:
@@ -38007,7 +38007,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3066
   fields:
@@ -38245,7 +38245,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3083
   fields:
@@ -38413,7 +38413,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3095
   fields:
@@ -38581,7 +38581,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3107
   fields:
@@ -38665,7 +38665,7 @@
     fee_per_unit: '497.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3113
   fields:
@@ -38819,7 +38819,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3124
   fields:
@@ -38987,7 +38987,7 @@
     fee_per_unit: '346.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3136
   fields:
@@ -39113,7 +39113,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3145
   fields:
@@ -39267,7 +39267,7 @@
     fee_per_unit: '74.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3156
   fields:
@@ -39421,7 +39421,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3167
   fields:
@@ -39603,7 +39603,7 @@
     fee_per_unit: '56.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3180
   fields:
@@ -39757,7 +39757,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3191
   fields:
@@ -39883,7 +39883,7 @@
     fee_per_unit: '74.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3200
   fields:
@@ -40037,7 +40037,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3211
   fields:
@@ -40163,7 +40163,7 @@
     fee_per_unit: '56.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3220
   fields:
@@ -40359,7 +40359,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3234
   fields:
@@ -40739,678 +40739,6 @@
     limit_to: 30
     modifiers: [3, 2]
 - model: calculator.price
-  pk: 3261
-  fields:
-    scenario: 1
-    scheme: 10
-    advocate_type: QC
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3262
-  fields:
-    scenario: 6
-    scheme: 10
-    advocate_type: QC
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3263
-  fields:
-    scenario: 5
-    scheme: 10
-    advocate_type: QC
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3264
-  fields:
-    scenario: 12
-    scheme: 10
-    advocate_type: QC
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3265
-  fields:
-    scenario: 10
-    scheme: 10
-    advocate_type: QC
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3266
-  fields:
-    scenario: 9
-    scheme: 10
-    advocate_type: QC
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3267
-  fields:
-    scenario: 4
-    scheme: 10
-    advocate_type: QC
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3268
-  fields:
-    scenario: 11
-    scheme: 10
-    advocate_type: QC
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3269
-  fields:
-    scenario: 3
-    scheme: 10
-    advocate_type: QC
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3270
-  fields:
-    scenario: 2
-    scheme: 10
-    advocate_type: QC
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3271
-  fields:
-    scenario: 7
-    scheme: 10
-    advocate_type: QC
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3272
-  fields:
-    scenario: 8
-    scheme: 10
-    advocate_type: QC
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3273
-  fields:
-    scenario: 10
-    scheme: 10
-    advocate_type: LEDJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3274
-  fields:
-    scenario: 7
-    scheme: 10
-    advocate_type: LEDJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3275
-  fields:
-    scenario: 6
-    scheme: 10
-    advocate_type: LEDJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3276
-  fields:
-    scenario: 4
-    scheme: 10
-    advocate_type: LEDJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3277
-  fields:
-    scenario: 1
-    scheme: 10
-    advocate_type: LEDJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3278
-  fields:
-    scenario: 8
-    scheme: 10
-    advocate_type: LEDJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3279
-  fields:
-    scenario: 2
-    scheme: 10
-    advocate_type: LEDJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3280
-  fields:
-    scenario: 12
-    scheme: 10
-    advocate_type: LEDJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3281
-  fields:
-    scenario: 11
-    scheme: 10
-    advocate_type: LEDJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3282
-  fields:
-    scenario: 9
-    scheme: 10
-    advocate_type: LEDJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3283
-  fields:
-    scenario: 5
-    scheme: 10
-    advocate_type: LEDJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3284
-  fields:
-    scenario: 3
-    scheme: 10
-    advocate_type: LEDJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3285
-  fields:
-    scenario: 3
-    scheme: 10
-    advocate_type: LEADJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3286
-  fields:
-    scenario: 7
-    scheme: 10
-    advocate_type: LEADJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3287
-  fields:
-    scenario: 4
-    scheme: 10
-    advocate_type: LEADJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3288
-  fields:
-    scenario: 12
-    scheme: 10
-    advocate_type: LEADJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3289
-  fields:
-    scenario: 9
-    scheme: 10
-    advocate_type: LEADJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3290
-  fields:
-    scenario: 5
-    scheme: 10
-    advocate_type: LEADJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3291
-  fields:
-    scenario: 11
-    scheme: 10
-    advocate_type: LEADJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3292
-  fields:
-    scenario: 2
-    scheme: 10
-    advocate_type: LEADJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3293
-  fields:
-    scenario: 10
-    scheme: 10
-    advocate_type: LEADJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3294
-  fields:
-    scenario: 6
-    scheme: 10
-    advocate_type: LEADJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3295
-  fields:
-    scenario: 1
-    scheme: 10
-    advocate_type: LEADJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3296
-  fields:
-    scenario: 8
-    scheme: 10
-    advocate_type: LEADJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3297
-  fields:
-    scenario: 4
-    scheme: 10
-    advocate_type: JRALONE
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3298
-  fields:
-    scenario: 7
-    scheme: 10
-    advocate_type: JRALONE
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3299
-  fields:
-    scenario: 2
-    scheme: 10
-    advocate_type: JRALONE
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3300
-  fields:
-    scenario: 11
-    scheme: 10
-    advocate_type: JRALONE
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3301
-  fields:
-    scenario: 12
-    scheme: 10
-    advocate_type: JRALONE
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3302
-  fields:
-    scenario: 9
-    scheme: 10
-    advocate_type: JRALONE
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3303
-  fields:
-    scenario: 6
-    scheme: 10
-    advocate_type: JRALONE
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3304
-  fields:
-    scenario: 1
-    scheme: 10
-    advocate_type: JRALONE
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3305
-  fields:
-    scenario: 10
-    scheme: 10
-    advocate_type: JRALONE
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3306
-  fields:
-    scenario: 5
-    scheme: 10
-    advocate_type: JRALONE
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3307
-  fields:
-    scenario: 8
-    scheme: 10
-    advocate_type: JRALONE
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3308
-  fields:
-    scenario: 3
-    scheme: 10
-    advocate_type: JRALONE
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
   pk: 3309
   fields:
     scenario: 1
@@ -41465,7 +40793,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3313
   fields:
@@ -41619,7 +40947,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3324
   fields:
@@ -41815,7 +41143,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3338
   fields:
@@ -41983,7 +41311,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3350
   fields:
@@ -42053,7 +41381,7 @@
     fee_per_unit: '497.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3355
   fields:
@@ -42291,7 +41619,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3372
   fields:
@@ -42375,7 +41703,7 @@
     fee_per_unit: '346.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3378
   fields:
@@ -42557,7 +41885,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3391
   fields:
@@ -43159,7 +42487,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3434
   fields:
@@ -43173,7 +42501,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3435
   fields:
@@ -43187,7 +42515,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3436
   fields:
@@ -43201,7 +42529,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3437
   fields:
@@ -47123,62 +46451,6 @@
     limit_to: 240
     modifiers: []
 - model: calculator.price
-  pk: 3717
-  fields:
-    scenario: 13
-    scheme: 10
-    advocate_type: QC
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3718
-  fields:
-    scenario: 13
-    scheme: 10
-    advocate_type: LEDJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3719
-  fields:
-    scenario: 13
-    scheme: 10
-    advocate_type: LEADJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3720
-  fields:
-    scenario: 13
-    scheme: 10
-    advocate_type: JRALONE
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
   pk: 3721
   fields:
     scenario: 13
@@ -47359,7 +46631,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3734
   fields:
@@ -47373,7 +46645,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3735
   fields:
@@ -47387,7 +46659,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3736
   fields:
@@ -47401,7 +46673,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3737
   fields:
@@ -47415,7 +46687,7 @@
     fee_per_unit: '497.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3738
   fields:
@@ -47429,7 +46701,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3739
   fields:
@@ -47443,7 +46715,7 @@
     fee_per_unit: '346.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3740
   fields:
@@ -47457,7 +46729,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3741
   fields:
@@ -47471,7 +46743,7 @@
     fee_per_unit: '173.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3742
   fields:
@@ -47485,7 +46757,7 @@
     fee_per_unit: '87.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3743
   fields:
@@ -47499,7 +46771,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3744
   fields:
@@ -47513,7 +46785,7 @@
     fee_per_unit: '87.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3745
   fields:
@@ -47527,7 +46799,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3746
   fields:
@@ -47541,7 +46813,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3747
   fields:
@@ -47555,7 +46827,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3748
   fields:
@@ -47569,7 +46841,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3749
   fields:
@@ -47583,7 +46855,7 @@
     fee_per_unit: '497.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3750
   fields:
@@ -47597,7 +46869,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3751
   fields:
@@ -47611,7 +46883,7 @@
     fee_per_unit: '346.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3752
   fields:
@@ -47625,7 +46897,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3753
   fields:
@@ -47639,7 +46911,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3754
   fields:
@@ -47653,7 +46925,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3755
   fields:
@@ -47667,7 +46939,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3756
   fields:
@@ -47681,7 +46953,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3757
   fields:
@@ -47695,7 +46967,7 @@
     fee_per_unit: '216.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3758
   fields:
@@ -47709,7 +46981,7 @@
     fee_per_unit: '108.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3759
   fields:
@@ -47723,7 +46995,7 @@
     fee_per_unit: '151.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3760
   fields:
@@ -47737,7 +47009,7 @@
     fee_per_unit: '108.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3761
   fields:
@@ -47751,7 +47023,7 @@
     fee_per_unit: '151.000'
     limit_from: 1
     limit_to: 30
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3762
   fields:
@@ -47765,7 +47037,7 @@
     fee_per_unit: '88.000'
     limit_from: 1
     limit_to: 30
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3763
   fields:
@@ -47779,7 +47051,7 @@
     fee_per_unit: '108.000'
     limit_from: 1
     limit_to: 30
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3764
   fields:
@@ -47793,7 +47065,7 @@
     fee_per_unit: '88.000'
     limit_from: 1
     limit_to: 30
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3765
   fields:
@@ -47807,7 +47079,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3766
   fields:
@@ -47821,7 +47093,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3767
   fields:
@@ -47835,7 +47107,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3768
   fields:
@@ -47849,7 +47121,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3769
   fields:
@@ -47863,7 +47135,7 @@
     fee_per_unit: '74.000'
     limit_from: 4
     limit_to: 4
-    modifiers: [4]
+    modifiers: [11, 10, 4]
 - model: calculator.price
   pk: 3770
   fields:
@@ -47877,7 +47149,7 @@
     fee_per_unit: '39.000'
     limit_from: 4
     limit_to: 4
-    modifiers: [4]
+    modifiers: [11, 10, 4]
 - model: calculator.price
   pk: 3771
   fields:
@@ -47891,7 +47163,7 @@
     fee_per_unit: '56.000'
     limit_from: 4
     limit_to: 4
-    modifiers: [4]
+    modifiers: [11, 10, 4]
 - model: calculator.price
   pk: 3772
   fields:
@@ -47905,7 +47177,7 @@
     fee_per_unit: '39.000'
     limit_from: 4
     limit_to: 4
-    modifiers: [4]
+    modifiers: [11, 10, 4]
 - model: calculator.price
   pk: 3773
   fields:
@@ -47919,7 +47191,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3774
   fields:
@@ -47933,7 +47205,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3775
   fields:
@@ -47947,7 +47219,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3776
   fields:
@@ -47961,7 +47233,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3777
   fields:
@@ -47975,7 +47247,7 @@
     fee_per_unit: '324.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3778
   fields:
@@ -47989,7 +47261,7 @@
     fee_per_unit: '173.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3779
   fields:
@@ -48003,7 +47275,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3780
   fields:
@@ -48017,7 +47289,7 @@
     fee_per_unit: '173.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3781
   fields:
@@ -48031,7 +47303,7 @@
     fee_per_unit: '497.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3782
   fields:
@@ -48045,7 +47317,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3783
   fields:
@@ -48059,7 +47331,7 @@
     fee_per_unit: '346.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3784
   fields:
@@ -48073,7 +47345,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3785
   fields:
@@ -48087,7 +47359,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3786
   fields:
@@ -48101,7 +47373,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3787
   fields:
@@ -48115,7 +47387,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3788
   fields:
@@ -48129,7 +47401,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3789
   fields:
@@ -48143,7 +47415,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3790
   fields:
@@ -48157,7 +47429,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3791
   fields:
@@ -48171,7 +47443,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3792
   fields:
@@ -48185,7 +47457,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3793
   fields:
@@ -48199,7 +47471,7 @@
     fee_per_unit: '497.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3794
   fields:
@@ -48213,7 +47485,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3795
   fields:
@@ -48227,7 +47499,7 @@
     fee_per_unit: '346.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3796
   fields:
@@ -48241,7 +47513,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3797
   fields:
@@ -48255,7 +47527,7 @@
     fee_per_unit: '281.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3798
   fields:
@@ -48269,7 +47541,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3799
   fields:
@@ -48283,7 +47555,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3800
   fields:
@@ -48297,7 +47569,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3801
   fields:
@@ -48311,7 +47583,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3802
   fields:
@@ -48325,7 +47597,7 @@
     fee_per_unit: '108.000'
     limit_from: 1
     limit_to: 30
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3803
   fields:
@@ -48339,7 +47611,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3804
   fields:
@@ -48353,7 +47625,7 @@
     fee_per_unit: '108.000'
     limit_from: 1
     limit_to: 30
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3805
   fields:
@@ -48367,7 +47639,7 @@
     fee_per_unit: '74.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3806
   fields:
@@ -48381,7 +47653,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3807
   fields:
@@ -48395,7 +47667,7 @@
     fee_per_unit: '56.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3808
   fields:
@@ -48409,7 +47681,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3809
   fields:
@@ -48423,7 +47695,7 @@
     fee_per_unit: '74.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3810
   fields:
@@ -48437,7 +47709,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3811
   fields:
@@ -48451,7 +47723,7 @@
     fee_per_unit: '56.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3812
   fields:
@@ -48465,7 +47737,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3813
   fields:
@@ -48479,7 +47751,7 @@
     fee_per_unit: '216.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3814
   fields:
@@ -48493,7 +47765,7 @@
     fee_per_unit: '108.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3815
   fields:
@@ -48507,7 +47779,7 @@
     fee_per_unit: '151.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3816
   fields:
@@ -48521,7 +47793,7 @@
     fee_per_unit: '108.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [1, 3, 2]
+    modifiers: [11, 10, 1, 3, 2]
 - model: calculator.price
   pk: 3817
   fields:
@@ -48535,7 +47807,7 @@
     fee_per_unit: '26.000'
     limit_from: 1
     limit_to: 1
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3818
   fields:
@@ -48549,7 +47821,7 @@
     fee_per_unit: '26.000'
     limit_from: 1
     limit_to: 1
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3819
   fields:
@@ -48563,7 +47835,7 @@
     fee_per_unit: '26.000'
     limit_from: 1
     limit_to: 1
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3820
   fields:
@@ -48577,7 +47849,7 @@
     fee_per_unit: '26.000'
     limit_from: 1
     limit_to: 1
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3821
   fields:
@@ -48591,7 +47863,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3822
   fields:
@@ -48605,7 +47877,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3823
   fields:
@@ -48619,7 +47891,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3824
   fields:
@@ -48633,7 +47905,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3825
   fields:
@@ -48647,7 +47919,7 @@
     fee_per_unit: '497.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3826
   fields:
@@ -48661,7 +47933,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3827
   fields:
@@ -48675,7 +47947,7 @@
     fee_per_unit: '346.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3828
   fields:
@@ -48689,7 +47961,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3829
   fields:
@@ -48703,7 +47975,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 5
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3830
   fields:
@@ -48717,7 +47989,7 @@
     fee_per_unit: '173.000'
     limit_from: 6
     limit_to: null
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3831
   fields:
@@ -48731,7 +48003,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 5
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3832
   fields:
@@ -48745,7 +48017,7 @@
     fee_per_unit: '87.000'
     limit_from: 6
     limit_to: null
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3833
   fields:
@@ -48759,7 +48031,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 5
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3834
   fields:
@@ -48773,7 +48045,7 @@
     fee_per_unit: '130.000'
     limit_from: 6
     limit_to: null
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3835
   fields:
@@ -48787,7 +48059,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 5
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3836
   fields:
@@ -48801,7 +48073,7 @@
     fee_per_unit: '87.000'
     limit_from: 6
     limit_to: null
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3837
   fields:
@@ -48815,7 +48087,7 @@
     fee_per_unit: '74.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3838
   fields:
@@ -48829,7 +48101,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3839
   fields:
@@ -48843,7 +48115,7 @@
     fee_per_unit: '56.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3840
   fields:
@@ -48857,7 +48129,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3841
   fields:
@@ -48871,7 +48143,7 @@
     fee_per_unit: '74.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3842
   fields:
@@ -48885,7 +48157,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3843
   fields:
@@ -48899,7 +48171,7 @@
     fee_per_unit: '56.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3844
   fields:
@@ -48913,7 +48185,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3845
   fields:
@@ -48927,7 +48199,7 @@
     fee_per_unit: '173.000'
     limit_from: 5
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3846
   fields:
@@ -48941,7 +48213,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 4
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3847
   fields:
@@ -48955,7 +48227,7 @@
     fee_per_unit: '87.000'
     limit_from: 5
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3848
   fields:
@@ -48969,7 +48241,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 4
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3849
   fields:
@@ -48983,7 +48255,7 @@
     fee_per_unit: '130.000'
     limit_from: 5
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3850
   fields:
@@ -48997,7 +48269,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 4
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3851
   fields:
@@ -49011,7 +48283,7 @@
     fee_per_unit: '87.000'
     limit_from: 5
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3852
   fields:
@@ -49025,7 +48297,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 4
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3853
   fields:
@@ -49039,7 +48311,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3854
   fields:
@@ -49053,7 +48325,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3855
   fields:
@@ -49067,7 +48339,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3856
   fields:
@@ -49081,7 +48353,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 60
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3857
   fields:
@@ -49095,7 +48367,7 @@
     fee_per_unit: '497.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3858
   fields:
@@ -49109,7 +48381,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3859
   fields:
@@ -49123,7 +48395,7 @@
     fee_per_unit: '346.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3860
   fields:
@@ -49137,7 +48409,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3861
   fields:
@@ -49151,7 +48423,7 @@
     fee_per_unit: '74.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3862
   fields:
@@ -49165,7 +48437,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3863
   fields:
@@ -49179,7 +48451,7 @@
     fee_per_unit: '56.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3864
   fields:
@@ -49193,7 +48465,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3865
   fields:
@@ -49207,7 +48479,7 @@
     fee_per_unit: '74.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3866
   fields:
@@ -49221,7 +48493,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3867
   fields:
@@ -49235,7 +48507,7 @@
     fee_per_unit: '56.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3868
   fields:
@@ -49249,63 +48521,7 @@
     fee_per_unit: '39.000'
     limit_from: 1
     limit_to: 240
-    modifiers: []
-- model: calculator.price
-  pk: 3869
-  fields:
-    scenario: 14
-    scheme: 10
-    advocate_type: QC
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '74.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3870
-  fields:
-    scenario: 14
-    scheme: 10
-    advocate_type: LEDJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3871
-  fields:
-    scenario: 14
-    scheme: 10
-    advocate_type: LEADJR
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '56.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
-- model: calculator.price
-  pk: 3872
-  fields:
-    scenario: 14
-    scheme: 10
-    advocate_type: JRALONE
-    offence_class: null
-    fee_type: 40
-    unit: HOUR
-    fixed_fee: '0.000'
-    fee_per_unit: '39.000'
-    limit_from: 1
-    limit_to: 30
-    modifiers: []
+    modifiers: [11, 10]
 - model: calculator.price
   pk: 3873
   fields:
@@ -49319,7 +48535,7 @@
     fee_per_unit: '260.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3874
   fields:
@@ -49333,7 +48549,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3875
   fields:
@@ -49347,7 +48563,7 @@
     fee_per_unit: '195.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3876
   fields:
@@ -49361,7 +48577,7 @@
     fee_per_unit: '130.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3877
   fields:
@@ -49375,7 +48591,7 @@
     fee_per_unit: '497.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3878
   fields:
@@ -49389,7 +48605,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3879
   fields:
@@ -49403,7 +48619,7 @@
     fee_per_unit: '346.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3880
   fields:
@@ -49417,7 +48633,7 @@
     fee_per_unit: '238.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3881
   fields:
@@ -49431,7 +48647,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3882
   fields:
@@ -49445,7 +48661,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3883
   fields:
@@ -49459,7 +48675,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3884
   fields:
@@ -49473,7 +48689,7 @@
     fee_per_unit: '0.000'
     limit_from: 1
     limit_to: 30
-    modifiers: [3, 2]
+    modifiers: [11, 10, 3, 2]
 - model: calculator.price
   pk: 3885
   fields:
@@ -49487,7 +48703,7 @@
     fee_per_unit: '74.000'
     limit_from: 5
     limit_to: 5
-    modifiers: [5]
+    modifiers: [11, 10, 5]
 - model: calculator.price
   pk: 3886
   fields:
@@ -49767,7 +48983,7 @@
     fee_per_unit: '39.000'
     limit_from: 5
     limit_to: 5
-    modifiers: [5]
+    modifiers: [11, 10, 5]
 - model: calculator.price
   pk: 3906
   fields:
@@ -49795,7 +49011,7 @@
     fee_per_unit: '56.000'
     limit_from: 5
     limit_to: 5
-    modifiers: [5]
+    modifiers: [11, 10, 5]
 - model: calculator.price
   pk: 3908
   fields:
@@ -49949,7 +49165,7 @@
     fee_per_unit: '39.000'
     limit_from: 5
     limit_to: 5
-    modifiers: [5]
+    modifiers: [11, 10, 5]
 - model: calculator.price
   pk: 3919
   fields:
@@ -50159,7 +49375,7 @@
     fee_per_unit: '74.000'
     limit_from: 5
     limit_to: 5
-    modifiers: [5]
+    modifiers: [11, 10, 5]
 - model: calculator.price
   pk: 3938
   fields:
@@ -50173,7 +49389,7 @@
     fee_per_unit: '39.000'
     limit_from: 5
     limit_to: 5
-    modifiers: [5]
+    modifiers: [11, 10, 5]
 - model: calculator.price
   pk: 3939
   fields:
@@ -50187,7 +49403,7 @@
     fee_per_unit: '56.000'
     limit_from: 5
     limit_to: 5
-    modifiers: [5]
+    modifiers: [11, 10, 5]
 - model: calculator.price
   pk: 3940
   fields:
@@ -50201,7 +49417,7 @@
     fee_per_unit: '39.000'
     limit_from: 5
     limit_to: 5
-    modifiers: [5]
+    modifiers: [11, 10, 5]
 - model: calculator.price
   pk: 3941
   fields:
@@ -50215,7 +49431,7 @@
     fee_per_unit: '74.000'
     limit_from: 6
     limit_to: 6
-    modifiers: [6]
+    modifiers: [11, 10, 6]
 - model: calculator.price
   pk: 3942
   fields:
@@ -50495,7 +49711,7 @@
     fee_per_unit: '39.000'
     limit_from: 6
     limit_to: 6
-    modifiers: [6]
+    modifiers: [11, 10, 6]
 - model: calculator.price
   pk: 3962
   fields:
@@ -50523,7 +49739,7 @@
     fee_per_unit: '56.000'
     limit_from: 6
     limit_to: 6
-    modifiers: [6]
+    modifiers: [11, 10, 6]
 - model: calculator.price
   pk: 3964
   fields:
@@ -50677,7 +49893,7 @@
     fee_per_unit: '39.000'
     limit_from: 6
     limit_to: 6
-    modifiers: [6]
+    modifiers: [11, 10, 6]
 - model: calculator.price
   pk: 3975
   fields:
@@ -50887,7 +50103,7 @@
     fee_per_unit: '74.000'
     limit_from: 6
     limit_to: 6
-    modifiers: [6]
+    modifiers: [11, 10, 6]
 - model: calculator.price
   pk: 3994
   fields:
@@ -50901,7 +50117,7 @@
     fee_per_unit: '39.000'
     limit_from: 6
     limit_to: 6
-    modifiers: [6]
+    modifiers: [11, 10, 6]
 - model: calculator.price
   pk: 3995
   fields:
@@ -50915,7 +50131,7 @@
     fee_per_unit: '56.000'
     limit_from: 6
     limit_to: 6
-    modifiers: [6]
+    modifiers: [11, 10, 6]
 - model: calculator.price
   pk: 3996
   fields:
@@ -50929,4 +50145,4 @@
     fee_per_unit: '39.000'
     limit_from: 6
     limit_to: 6
-    modifiers: [6]
+    modifiers: [11, 10, 6]

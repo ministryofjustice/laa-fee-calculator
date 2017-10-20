@@ -137,11 +137,12 @@ class Modifier(models.Model):
         return fixed_modifier + per_unit_modifier
 
     def __str__(self):
-        return '{modifier_type}, {limit_from}-{limit_to}, {percent}%'.format(
+        return '{modifier_type}, {limit_from}-{limit_to}, {pu}% pu, {fixed}% fixed'.format(
             modifier_type=self.modifier_type.name,
             limit_from=self.limit_from,
             limit_to=self.limit_to,
-            percent=self.percent_per_unit
+            pu=self.percent_per_unit,
+            fixed=self.fixed_percent
         )
 
 

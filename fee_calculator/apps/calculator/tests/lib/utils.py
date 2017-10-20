@@ -152,3 +152,11 @@ def scenario_ccr_to_id(ccr_id, third):
     if isinstance(scenario, dict):
         return scenario[int(third)]
     return scenario
+
+
+def scenario_id_to_ccr(scenario_id):
+    for key, value in SCENARIO_MAP.items():
+        if value == scenario_id:
+            return key
+        elif isinstance(value, dict) and scenario_id in value.values():
+            return key
