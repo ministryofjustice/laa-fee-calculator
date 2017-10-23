@@ -14,7 +14,8 @@ from .lib.utils import scenario_ccr_to_id
 
 CSV_PATH = os.path.join(
     os.path.dirname(__file__),
-    'data/test_dataset.csv')
+    'data/test_dataset.csv'
+)
 
 
 class CalculatorTestCase(TestCase):
@@ -60,8 +61,8 @@ class CalculatorTestCase(TestCase):
             'fee_type_code': row['BILL_SUB_TYPE'],
             'scenario': scenario_ccr_to_id(
                 row['BILL_SCENARIO_ID'], row['THIRD_CRACKED'] or 3),
-            'advocate_type': row['PERSON_TYPE'],
-            'offence_class': row['OFFENCE_CATEGORY'],
+            'advocate_type': row['PERSON_TYPE'] or None,
+            'offence_class': row['OFFENCE_CATEGORY'] or None,
         }
 
         unit = 'DAY'

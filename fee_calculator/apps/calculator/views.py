@@ -329,11 +329,11 @@ class CalculatorView(views.APIView):
     modifier_pattern = re.compile(r'modifier_(\d+)')
 
     def get_param(self, param_name, required=False, default=None):
-        number = self.request.query_params.get(param_name, default)
-        if number is None:
+        value = self.request.query_params.get(param_name, default)
+        if value is None:
             if required:
                 raise ValidationError('`%s` is a required field' % param_name)
-        return number
+        return value
 
     def get_model_param(
         self, param_name, model_class, required=False, lookup='pk', many=False,
@@ -348,7 +348,7 @@ class CalculatorView(views.APIView):
                     instance = model_class.objects.get(**{lookup: instance})
         except model_class.DoesNotExist:
             raise ValidationError(
-                '`%s` is not a valid %s' % (param_name, model_class.__name__)
+                '`%s` is not a valid %s' % (instance, model_class.__name__)
             )
         return instance
 

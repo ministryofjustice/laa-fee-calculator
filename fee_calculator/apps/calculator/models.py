@@ -132,7 +132,7 @@ class Modifier(models.Model):
                 self.percent_per_unit/Decimal('100.00')
             ))*self.get_applicable_unit_count(count)
         else:
-            per_unit_modifier = Decimal('0')
+            per_unit_modifier = Decimal('0.00')
 
         return fixed_modifier + per_unit_modifier
 
