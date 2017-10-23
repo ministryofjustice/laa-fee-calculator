@@ -123,12 +123,6 @@ class NestedSchemeMixin():
 
 class BasePriceFilteredViewSet(OrderedReadOnlyModelViewSet):
     schema = AutoSchema(manual_fields=[
-        coreapi.Field('scheme', **{
-            'required': False,
-            'location': 'query',
-            'type': 'integer',
-            'description': '',
-        }),
         coreapi.Field('scenario', **{
             'required': False,
             'location': 'query',

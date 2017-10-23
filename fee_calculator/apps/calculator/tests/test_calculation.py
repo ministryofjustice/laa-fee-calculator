@@ -2,6 +2,7 @@
 import csv
 from datetime import datetime
 from decimal import Decimal
+from math import floor
 import os
 
 from django.conf import settings
@@ -61,8 +62,8 @@ class CalculatorTestCase(TestCase):
             'fee_type_code': row['BILL_SUB_TYPE'],
             'scenario': scenario_ccr_to_id(
                 row['BILL_SCENARIO_ID'], row['THIRD_CRACKED'] or 3),
-            'advocate_type': row['PERSON_TYPE'] or None,
-            'offence_class': row['OFFENCE_CATEGORY'] or None,
+            'advocate_type': row['PERSON_TYPE'],
+            'offence_class': row['OFFENCE_CATEGORY'],
         }
 
         unit = 'DAY'
@@ -76,6 +77,7 @@ class CalculatorTestCase(TestCase):
             self.assertEqual(
                 unit_resp.status_code, status.HTTP_200_OK, unit_resp.content
             )
+            self.assertEqual(unit_resp.json()['count'], 1, data)
             unit = unit_resp.json()['results'][0]['id']
 
         data['unit'] = unit
@@ -94,7 +96,7 @@ class CalculatorTestCase(TestCase):
         if row['PPE']:
             data['modifier_4'] = int(row['PPE'])
         if row['MONTHS']:
-            data['modifier_5'] = max(Decimal(row['MONTHS']), 0)
+            data['modifier_5'] = max(floor(Decimal(row['MONTHS'])), 0)
 
         fees = {}
 
