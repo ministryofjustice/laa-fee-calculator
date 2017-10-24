@@ -96,7 +96,7 @@ class CalculatorTestCase(TestCase):
         if row['PPE']:
             data['modifier_4'] = int(row['PPE'])
         if row['MONTHS']:
-            data['modifier_5'] = max(floor(Decimal(row['MONTHS'])), 0)
+            data['modifier_5'] = floor(abs(Decimal(row['MONTHS'])))
 
         fees = {}
 
@@ -125,8 +125,9 @@ class CalculatorTestCase(TestCase):
                 )
                 fees['pw'] = resp.data['amount']
 
+        total = sum(fees.values())
         self.assertEqual(
-            sum(fees.values()),
+            total,
             Decimal(row['CALC_FEE_EXC_VAT']),
             '%s %s' % (fees, data,)
         )
