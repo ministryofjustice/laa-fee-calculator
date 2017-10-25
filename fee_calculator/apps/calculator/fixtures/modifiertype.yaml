@@ -1,15 +1,15 @@
 - model: calculator.modifiertype
   pk: 1
-  fields: {name: 'CASE UPLIFT', description: 'Number of cases', unit: CASE}
+  fields: {name: 'NUMBER_OF_CASES', description: 'Number of cases', unit: CASE}
 - model: calculator.modifiertype
   pk: 2
-  fields: {name: 'DEFENDANT UPLIFT', description: 'Number of defendants', unit: DEFENDANT}
+  fields: {name: 'NUMBER_OF_DEFENDANTS', description: 'Number of defendants', unit: DEFENDANT}
 - model: calculator.modifiertype
   pk: 3
-  fields: {name: 'TRIAL LENGTH', description: 'Trial length', unit: DAY}
+  fields: {name: 'TRIAL_LENGTH', description: 'Trial length', unit: DAY}
 - model: calculator.modifiertype
   pk: 4
-  fields: {name: 'PPE', description: 'Pages of prosecuting evidence', unit: PPE}
+  fields: {name: 'PAGES_OF_PROSECUTING_EVIDENCE', description: 'Pages of prosecuting evidence', unit: PPE}
 - model: calculator.modifiertype
   pk: 5
-  fields: {name: 'RETRIAL INTERVAL', description: 'Months between trials', unit: MONTH}
+  fields: {name: 'RETRIAL_INTERVAL', description: 'Whole months between trials', unit: MONTH}
