@@ -196,12 +196,13 @@ class Price(models.Model):
         # query for prices will use:
         # `.prefetch_related('modifiers')`
         for modifier in self.modifiers.all():
-            modifier_applicable = False
+            modifier_applied = False
             for modifier_type, count in modifier_counts:
                 modifier_applicable = modifier.is_applicable(modifier_type, count)
                 if modifier_applicable:
+                    modifier_applied = True
                     applicable_modifiers.append((modifier, count,))
-            if modifier.required and not modifier_applicable:
+            if modifier.required and not modifier_applied:
                 raise RequiredModifierMissingException
         return sorted(applicable_modifiers, key=lambda m: m[0].priority)
 
