@@ -7,10 +7,7 @@ from rest_framework.test import APITestCase
 
 class SchemeApiTestCase(APITestCase):
     endpoint = '/api/%s/fee-schemes/' % settings.API_VERSION
-    fixtures = [
-        'advocatetype', 'feetype', 'offenceclass', 'price', 'scenario',
-        'scheme', 'unit', 'modifiertype', 'modifier'
-    ]
+    fixtures = ['scheme']
 
     def _test_get_not_allowed(self, url):
         response = self.client.get(url)
@@ -35,20 +32,20 @@ class SchemeApiTestCase(APITestCase):
     def test_get_list_available(self):
         response = self.client.get(self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['results']), 10)
+        self.assertEqual(len(response.data['results']), 2)
 
     def test_get_detail_available(self):
         response = self.client.get('%s1/' % self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_by_date_available(self):
-        response = self.client.get('%s?supplier_type=advocate&case_date=2011-04-02' % self.endpoint)
+        response = self.client.get('%s?supplier_type=advocate&case_date=2012-04-02' % self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['results'][0]['id'], 8)
+        self.assertEqual(response.data['results'][0]['id'], 1)
 
     def test_methods_not_allowed(self):
         for url in [self.endpoint, '%s1/' % self.endpoint,
-                    '%s?supplier_type=advocate&case_date=2011-04-02' % self.endpoint]:
+                    '%s?supplier_type=advocate&case_date=2012-04-02' % self.endpoint]:
             self._test_post_not_allowed(url)
             self._test_put_not_allowed(url)
             self._test_patch_not_allowed(url)
