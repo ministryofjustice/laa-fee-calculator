@@ -48,8 +48,7 @@ def create_test_modifiers(
 
 class PriceTestCase(TestCase):
     fixtures = [
-        'advocatetype', 'feetype', 'offenceclass', 'price', 'scenario',
-        'scheme', 'unit', 'modifiertype', 'modifier',
+        'advocatetype', 'feetype', 'offenceclass', 'scenario', 'scheme', 'unit'
     ]
 
     def assertSortedListEqual(self, list1, list2, msg=None):
@@ -335,13 +334,13 @@ class PriceTestCase(TestCase):
             Decimal('14.40')
         )
 
-    def test_calculate_total_with_fixed_modifier_not_applied_outside_range(self):
+    def test_calculate_total_with_strict_range_not_applied_outside_range(self):
         day_unit = Unit.objects.get(id='DAY')
         trial_length_modifier_type, trial_length_modifiers = create_test_modifiers(
             unit=day_unit, modifiers=[
                 dict(
                     limit_from=1, limit_to=3, percent_per_unit=Decimal('0.00'),
-                    fixed_percent=Decimal('20.00')
+                    fixed_percent=Decimal('20.00'), strict_range=True
                 )
             ]
         )

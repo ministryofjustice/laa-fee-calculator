@@ -89,6 +89,7 @@ class Modifier(models.Model):
     modifier_type = models.ForeignKey(ModifierType, related_name='values')
     required = models.BooleanField(default=False)
     priority = models.SmallIntegerField(default=0)
+    strict_range = models.BooleanField(default=False)
 
     def get_applicable_unit_count(self, unit_count):
         '''
@@ -101,39 +102,20 @@ class Modifier(models.Model):
 
     def is_applicable(self, modifier_type, count):
         if self.modifier_type == modifier_type:
-            if self.fixed_percent and self.percent_per_unit:
+            if self.strict_range:
                 return (
-                    self.is_applicable_for_fixed_percent(count) and
-                    self.is_applicable_for_percent_per_unit(count)
+                    count >= self.limit_from and
+                    (self.limit_to is None or count <= self.limit_to)
                 )
-            elif self.fixed_percent:
-                return self.is_applicable_for_fixed_percent(count)
             else:
-                return self.is_applicable_for_percent_per_unit(count)
+                return count >= self.limit_from
         return False
 
-    def is_applicable_for_percent_per_unit(self, count):
-        return count >= self.limit_from
-
-    def is_applicable_for_fixed_percent(self, count):
-        return (
-            count >= self.limit_from and
-            (self.limit_to is None or count <= self.limit_to)
-        )
-
     def apply(self, count, total):
-        if self.is_applicable_for_fixed_percent(count):
-            fixed_modifier = total*self.fixed_percent/Decimal('100.00')
-        else:
-            fixed_modifier = Decimal('0')
-
-        if self.is_applicable_for_percent_per_unit(count):
-            per_unit_modifier = (total*(
-                self.percent_per_unit/Decimal('100.00')
-            ))*self.get_applicable_unit_count(count)
-        else:
-            per_unit_modifier = Decimal('0.00')
-
+        fixed_modifier = total*self.fixed_percent/Decimal('100.00')
+        per_unit_modifier = (
+            total*(self.percent_per_unit/Decimal('100.00'))
+        )*self.get_applicable_unit_count(count)
         return fixed_modifier + per_unit_modifier
 
     def __str__(self):
