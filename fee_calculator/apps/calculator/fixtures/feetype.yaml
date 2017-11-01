@@ -310,3 +310,6 @@
 - model: calculator.feetype
   pk: 99
   fields: {name: Cost judge preparation award, code: AGFS_CJD_EXP, is_basic: false}
+- model: calculator.feetype
+  pk: 100
+  fields: {name: Litigator fee, code: LIT_FEE, is_basic: true}

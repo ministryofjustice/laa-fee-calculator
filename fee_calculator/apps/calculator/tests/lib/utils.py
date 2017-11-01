@@ -131,7 +131,7 @@ def bill_to_code(bill_type, sub_type):
     return REVERSE_FEES_MAP[(bill_type, sub_type)]
 
 
-SCENARIO_MAP = {
+CCR_SCENARIO_MAP = {
     2694: 1,
     2695: 2,
     2696: {1: 3, 2: 13, 3: 13},
@@ -148,15 +148,65 @@ SCENARIO_MAP = {
 
 
 def scenario_ccr_to_id(ccr_id, third):
-    scenario = SCENARIO_MAP[int(ccr_id)]
+    scenario = CCR_SCENARIO_MAP[int(ccr_id)]
     if isinstance(scenario, dict):
         return scenario[int(third)]
     return scenario
 
 
 def scenario_id_to_ccr(scenario_id):
-    for key, value in SCENARIO_MAP.items():
+    for key, value in CCR_SCENARIO_MAP.items():
         if value == scenario_id:
             return key
         elif isinstance(value, dict) and scenario_id in value.values():
             return key
+
+
+CLF_SCENARIO_MAP = {
+    294: 1,
+    295: 2,
+    296: 15,
+    297: 4,
+    298: 5,
+    299: 6,
+    300: 7,
+    301: 8,
+    302: 9,
+    303: 16,
+    304: 11,
+    305: 17,
+    306: 18,
+    307: 19,
+    308: 20,
+    309: 21,
+    310: 22,
+    311: 23,
+    312: 24,
+    313: 25,
+    314: 26,
+    315: 27,
+    316: 28,
+    317: 29,
+    318: 30,
+    319: 31,
+    320: 32,
+    321: 33,
+    322: 34,
+    323: 35,
+    324: 36,
+    325: 12,
+    326: 37,
+    327: 38,
+    328: 39,
+    329: 40,
+    330: 41,
+    331: 42,
+    332: 43,
+    333: 44,
+    334: 45,
+    335: 46
+}
+
+
+def scenario_clf_to_id(clf_id):
+    return CLF_SCENARIO_MAP[int(clf_id)]

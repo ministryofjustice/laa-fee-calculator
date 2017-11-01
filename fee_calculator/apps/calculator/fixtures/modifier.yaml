@@ -42,4 +42,11 @@
   pk: 11
   fields: {modifier_type: 5, limit_from: 1, limit_to: null, percent_per_unit: '0.00',
     required: False, priority: 5, fixed_percent: '-25.00', strict_range: True}
-
+- model: calculator.modifier
+  pk: 12
+  fields: {modifier_type: 2, limit_from: 2, limit_to: 4, percent_per_unit: '0.00',
+    required: False, priority: 0, fixed_percent: '20.00', strict_range: True}
+- model: calculator.modifier
+  pk: 13
+  fields: {modifier_type: 2, limit_from: 5, limit_to: null, percent_per_unit: '0.00',
+    required: False, priority: 0, fixed_percent: '30.00', strict_range: True}

@@ -21,7 +21,7 @@ class Scheme(models.Model):
 
 
 class Scenario(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
@@ -150,6 +150,9 @@ class Price(models.Model):
         '''
         Calculate the total from any fixed_fee, fee_per_unit and modifiers
         '''
+        if not self.is_applicable(unit_count):
+            return Decimal(0)
+
         total = self.fixed_fee + (
             self.get_applicable_unit_count(unit_count)*self.fee_per_unit
         )
@@ -167,6 +170,9 @@ class Price(models.Model):
                 current_priority = modifier.priority
             fees.append(modifier.apply(count, total))
         return total + sum(fees)
+
+    def is_applicable(self, count):
+        return count >= self.limit_from
 
     def get_applicable_modifiers(self, calculated_price, modifier_counts):
         '''
