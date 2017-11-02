@@ -42,22 +42,22 @@ by requesting the relevant units and modifiers:
 /api/v1/fee-schemes/<scheme_id>/modifiers/?scenario=<scenario_id>&advocate_typ=<advocate_type_id>&offence_class=<offence_class_id>&fee_type_code=<fee_type_code>
 ```
 
-For each applicable unit, make a request to the calculate endpoint as shown:
+Make a request to the calculate endpoint as shown:
 
 ```
-/api/v1/fee-schemes/<scheme_id>/calculate/?scenario=<scenario_id>&advocate_type=<advocate_type_id>&offence_class=<offence_class_id>&fee_type_code=<fee_type_code>&unit=<unit_id>&unit_count=<number_of_units>
+/api/v1/fee-schemes/<scheme_id>/calculate/?scenario=<scenario_id>&advocate_type=<advocate_type_id>&offence_class=<offence_class_id>&fee_type_code=<fee_type_code>&<unit_id>=<number_of_units>
 ```
 
-For modifiers, for every request to the calculate endpoint, add additional URL parameters of the form:
+With a `<unit_id>=<number_of_units>` for each applicable unit of the fee type eg for the basic fee of a trial that was 6 days long with 1002 pages of evidence and 2 witnesses one would add:
 
 ```
-modifier_%n=<number_of_units>
+&day=6&ppe=102&pw=2
 ```
 
-where %n is an integer which is the id of the relevant modifier eg if there are 3 defendants and 2 cases one would add:
+For modifiers, for every request to the calculate endpoint, add additional URL parameters of the form `<modifier_type_name>=<number_of_units>` eg if there are 3 defendants and 2 cases one would add:
 
 ```
-&modifier_2=3&modifier_1=2
+&number_of_defendants=3&number_of_cases=2
 ```
 
 to the calculate request.
