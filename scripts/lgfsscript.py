@@ -1,3 +1,8 @@
+'''
+This script, using data exported using the commented SQL statements, will create
+the required prices for the litigator fee scheme.
+'''
+
 from collections import defaultdict
 import csv
 from decimal import Decimal
@@ -13,6 +18,13 @@ def listdict():
     return defaultdict(list)
 
 
+'''
+select bs.id as scenario_id, bs.trbc_trial_basis, bs.percent, bs.formula, bs.min_trial_length, bs.min_evidence_pages,
+    ep.ofty_offence_type, ep.evidence_pages, ep.trial_fee, ep.fee_per_page
+    from bill_scenarios bs join
+      evidence_pages_uplifts ep on bs.trbc_trial_basis=ep.trbc_trial_basis
+      where bs.fsth_fee_structure_id=7 and ep.fsth_fee_structure_id=7;
+'''
 with open('lgfs_joined_ppe_data.csv') as data_export:
     reader = csv.DictReader(data_export)
     data = defaultdict(listdict)
@@ -54,6 +66,15 @@ for scenario in data:
             previous_price = (Decimal(fee['TRIAL_FEE'])*discount) - previous_price
 
 
+'''
+select bs.id as scenario_id, bs.trbc_trial_basis, bs.percent, bs.formula, bs.min_trial_length, bs.min_evidence_pages,
+    bf.ofty_offence_type, bf.basic_fee_value, bf.basic_evidence_pages_value, tup.trial_length, tup. trial_uplift_value,
+    tup.ppe_cutoff_value
+    from bill_scenarios bs join
+      basic_fees bf on bs.trbc_trial_basis=bf.trbc_trial_basis join
+      trial_uplifts_ppe_cut_offs tup on bf.ofty_offence_type=tup.ofty_offence_type
+      where bs.fsth_fee_structure_id=7 and bf.fsth_fee_structure_id=7 and tup.fsth_fee_structure_id=7;
+'''
 with open('lgfs_joined_day_data.csv') as data_export:
     reader = csv.DictReader(data_export)
     data = defaultdict(listdict)
