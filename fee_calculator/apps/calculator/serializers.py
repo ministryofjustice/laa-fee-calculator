@@ -27,6 +27,7 @@ class FeeTypeSerializer(serializers.ModelSerializer):
             'name',
             'code',
             'is_basic',
+            'aggregation',
         )
 
 

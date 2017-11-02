@@ -2,7 +2,6 @@
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
 import logging
-import re
 
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
@@ -11,15 +10,15 @@ from rest_framework import viewsets, views
 from rest_framework.compat import coreapi
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
-from rest_framework.schemas import AutoSchema, ManualSchema
+from rest_framework.schemas import AutoSchema
 
 from .constants import SUPPLIER_BASE_TYPE
 from .filters import (
-    PriceFilter, FeeTypeFilter
+    PriceFilter, FeeTypeFilter, CalculatorSchema
 )
 from .models import (
     Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price, Unit,
-    ModifierType
+    ModifierType, calculate_total
 )
 from .serializers import (
     SchemeSerializer, FeeTypeSerializer, ScenarioSerializer,
@@ -257,7 +256,7 @@ class CalculatorView(views.APIView):
     """
 
     allowed_methods = ['GET']
-    schema = ManualSchema(fields=[
+    schema = CalculatorSchema(fields=[
         coreapi.Field('scheme_pk', **{
             'required': True,
             'location': 'path',
@@ -291,36 +290,9 @@ class CalculatorView(views.APIView):
             'description': (
                 'Note the query will return prices with `offence_class_id` '
                 'either matching the value or null.'),
-        }),
-        coreapi.Field('unit', **{
-            'required': False,
-            'location': 'query',
-            'type': 'string',
-            'description': (
-                'The code of the unit to calculate the price for. Default is `DAY`.'
-            ),
-        }),
-        coreapi.Field('unit_count', **{
-            'required': False,
-            'location': 'query',
-            'type': 'integer',
-            'description': (
-                'The number of units to calculate the price for. Default is 1.'
-            ),
-        }),
-        coreapi.Field('modifier_%n', **{
-            'required': False,
-            'location': 'query',
-            'type': 'integer',
-            'description': (
-                'The number of units of an applicable modifier. Paramater name is '
-                'of the format `modifier_%n` where `%n` should be the integer '
-                '`id` of the relevant modifier.'
-            ),
-        }),
+        })
     ])
     filter_backends = (backends.DjangoFilterBackend,)
-    modifier_pattern = re.compile(r'modifier_(\d+)')
 
     def get_param(self, param_name, required=False, default=None):
         value = self.request.query_params.get(param_name, default)
@@ -357,44 +329,34 @@ class CalculatorView(views.APIView):
 
     def get(self, *args, **kwargs):
         scheme = get_object_or_404(Scheme, pk=kwargs['scheme_pk'])
-        fee_types = self.get_model_param(
-            'fee_type_code', FeeType, required=True, lookup='code', many=True
+        fee_type = self.get_model_param(
+            'fee_type_code', FeeType, required=True, lookup='code'
         )
         scenario = self.get_model_param('scenario', Scenario, required=True)
         advocate_type = self.get_model_param('advocate_type', AdvocateType)
         offence_class = self.get_model_param('offence_class', OffenceClass)
-        unit = self.get_model_param('unit', Unit, default='DAY')
-        unit_count = self.get_decimal_param('unit_count', default=Decimal('1'))
 
+        units = Unit.objects.values_list('pk', flat=True)
+        modifiers = ModifierType.objects.values_list('name', flat=True)
+        unit_counts = []
         modifier_counts = []
         for param in self.request.query_params:
-            result = self.modifier_pattern.match(param)
-            if result:
-                try:
-                    pk = result.group(1)
-                    modifier_type = ModifierType.objects.get(pk=pk)
-                except ModifierType.DoesNotExist:
-                    raise ValidationError(
-                        '`%s` is not a valid Modifier' % (pk)
-                    )
-                count = self.get_decimal_param(param)
-                modifier_counts.append((modifier_type, count,))
+            if param.upper() in units:
+                unit_counts.append((
+                    Unit.objects.get(pk=param.upper()),
+                    self.get_decimal_param(param),
+                ))
 
-        prices = Price.objects.filter(
-            Q(advocate_type=advocate_type) | Q(advocate_type__isnull=True),
-            Q(offence_class=offence_class) | Q(offence_class__isnull=True),
-            scheme=scheme, fee_type__in=fee_types, unit=unit,
-            scenario=scenario
-        ).prefetch_related('modifiers')
+            if param.upper() in modifiers:
+                modifier_counts.append((
+                    ModifierType.objects.get(name=param.upper()),
+                    self.get_decimal_param(param),
+                ))
 
-        if len(prices) == 0:
-            amount = Decimal('0')
-        else:
-            # sum total from all prices whose range is covered by the unit_count
-            amount = sum((
-                price.calculate_total(unit_count, modifier_counts)
-                for price in prices
-            ))
+        amount = calculate_total(
+            scheme, scenario, fee_type, offence_class, advocate_type,
+            unit_counts, modifier_counts
+        )
 
         return Response({
             'amount': amount.quantize(Decimal('0.01'))

@@ -2,8 +2,9 @@
 from decimal import Decimal
 
 from django.db import models
+from django.db.models import Q
 
-from .constants import SUPPLIER_BASE_TYPE
+from .constants import SUPPLIER_BASE_TYPE, AGGREGATION_TYPE
 from .exceptions import RequiredModifierMissingException
 
 
@@ -31,6 +32,9 @@ class FeeType(models.Model):
     name = models.CharField(max_length=128)
     code = models.CharField(max_length=20, db_index=True)
     is_basic = models.BooleanField()
+    aggregation = models.CharField(
+        max_length=20, choices=AGGREGATION_TYPE, default=AGGREGATION_TYPE.SUM
+    )
 
     def __str__(self):
         return self.name
@@ -202,3 +206,29 @@ class Price(models.Model):
         return get_value_covered_by_range(
             unit_count, self.limit_from, self.limit_to
         )
+
+
+def calculate_total(
+    scheme, scenario, fee_type, offence_class, advocate_type, unit_counts,
+    modifier_counts
+):
+    amounts = []
+    for unit, unit_count in unit_counts:
+        prices = Price.objects.filter(
+            Q(advocate_type=advocate_type) | Q(advocate_type__isnull=True),
+            Q(offence_class=offence_class) | Q(offence_class__isnull=True),
+            scheme=scheme, fee_type=fee_type, unit=unit,
+            scenario=scenario
+        ).prefetch_related('modifiers')
+
+        if len(prices) > 0:
+            # sum total from all prices whose range is covered by the unit_count
+            amounts.append(sum((
+                price.calculate_total(unit_count, modifier_counts)
+                for price in prices
+            )))
+
+    if fee_type.aggregation == AGGREGATION_TYPE.MAX:
+        return max(amounts)
+    else:
+        return sum(amounts)

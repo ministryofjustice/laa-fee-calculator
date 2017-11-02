@@ -71,7 +71,6 @@ class CalculatorTestCase(TestCase):
             'offence_class': row['OFFENCE_CATEGORY'],
         }
 
-        unit = 'DAY'
         if not is_basic:
             # get unit for fee type
             unit_resp = self.client.get(
@@ -84,57 +83,34 @@ class CalculatorTestCase(TestCase):
             )
             self.assertEqual(unit_resp.json()['count'], 1, data)
             unit = unit_resp.json()['results'][0]['id']
-
-        data['unit'] = unit
-        data['unit_count'] = (
-            Decimal(row['NUM_ATTENDANCE_DAYS'])
-            if row['BILL_TYPE'] == 'AGFS_FEE'
-            else Decimal(row['QUANTITY'])
-        ) or 1,
+            data[unit] = (
+                Decimal(row['NUM_ATTENDANCE_DAYS'])
+                if row['BILL_TYPE'] == 'AGFS_FEE'
+                else Decimal(row['QUANTITY'])
+            ) or 1
+        else:
+            data['DAY'] = Decimal(row['NUM_ATTENDANCE_DAYS']) or 1
+            data['PPE'] = int(row['PPE'])
+            data['PW'] = int(row['NUM_OF_WITNESSES'])
 
         if row['NUM_OF_CASES']:
-            data['modifier_1'] = int(row['NUM_OF_CASES'])
+            data['NUMBER_OF_CASES'] = int(row['NUM_OF_CASES'])
         if row['NO_DEFENDANTS']:
-            data['modifier_2'] = int(row['NO_DEFENDANTS'])
+            data['NUMBER_OF_DEFENDANTS'] = int(row['NO_DEFENDANTS'])
         if row['TRIAL_LENGTH']:
-            data['modifier_3'] = int(row['TRIAL_LENGTH'])
+            data['TRIAL_LENGTH'] = int(row['TRIAL_LENGTH'])
         if row['PPE']:
-            data['modifier_4'] = int(row['PPE'])
+            data['PAGES_OF_PROSECUTING_EVIDENCE'] = int(row['PPE'])
         if row['MONTHS']:
-            data['modifier_5'] = floor(abs(Decimal(row['MONTHS'])))
-
-        fees = {}
+            data['RETRIAL_INTERVAL'] = floor(abs(Decimal(row['MONTHS'])))
 
         resp = self.client.get(self.endpoint(scheme_id), data=data)
         self.assertEqual(resp.status_code, status.HTTP_200_OK, resp.content)
-        fees['basic'] = resp.data['amount']
 
-        if is_basic:
-            if row['PPE']:
-                data['unit'] = 'PPE'
-                data['unit_count'] = int(row['PPE'])
-
-                resp = self.client.get(self.endpoint(scheme_id), data=data)
-                self.assertEqual(
-                    resp.status_code, status.HTTP_200_OK, resp.content
-                )
-                fees['ppe'] = resp.data['amount']
-
-            if row['NUM_OF_WITNESSES']:
-                data['unit'] = 'PW'
-                data['unit_count'] = int(row['NUM_OF_WITNESSES'])
-
-                resp = self.client.get(self.endpoint(scheme_id), data=data)
-                self.assertEqual(
-                    resp.status_code, status.HTTP_200_OK, resp.content
-                )
-                fees['pw'] = resp.data['amount']
-
-        total = sum(fees.values())
         self.assertEqual(
-            total,
+            resp.data['amount'],
             Decimal(row['CALC_FEE_EXC_VAT']),
-            '%s %s' % (fees, data,)
+            data
         )
 
     def assertLgfsRowValuesCorrect(self, row):
@@ -211,7 +187,7 @@ def test_name(prefix, row, line_number):
 test_name.__test__ = False
 
 
-def make_agfs_test(scheme, row, line_number):
+def make_agfs_test(row, line_number):
     """
     Generate a test method
     """
@@ -224,7 +200,7 @@ def make_agfs_test(scheme, row, line_number):
 make_agfs_test.__test__ = False
 
 
-def make_lgfs_test(scheme, row, line_number):
+def make_lgfs_test(row, line_number):
     """
     Generate a test method
     """
@@ -250,10 +226,11 @@ def create_tests():
             if row['BILL_SUB_TYPE'] in priced_fees:
                 setattr(CalculatorTestCase, test_name('agfs', row, i+2), make_agfs_test(row, i+2))
 
-    with open(LGFS_CSV_PATH) as csvfile:
-        reader = csv.DictReader(csvfile)
-        for i, row in enumerate(reader):
-            setattr(CalculatorTestCase, test_name('lgfs', row, i+2), make_lgfs_test(row, i+2))
+    # with open(LGFS_CSV_PATH) as csvfile:
+    #     reader = csv.DictReader(csvfile)
+    #     for i, row in enumerate(reader):
+    #         setattr(CalculatorTestCase, test_name('lgfs', row, i+2), make_lgfs_test(row, i+2))
+
 
 create_tests.__test__ = False
 
