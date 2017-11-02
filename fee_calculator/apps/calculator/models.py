@@ -228,7 +228,10 @@ def calculate_total(
                 for price in prices
             )))
 
-    if fee_type.aggregation == AGGREGATION_TYPE.MAX:
-        return max(amounts)
+    if len(amounts) > 0:
+        if fee_type.aggregation == AGGREGATION_TYPE.MAX:
+            return max(amounts)
+        else:
+            return sum(amounts)
     else:
-        return sum(amounts)
+        return Decimal('0')
