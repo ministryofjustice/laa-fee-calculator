@@ -117,7 +117,7 @@ class CalculatorTestCase(TestCase):
         """
         Assert row values equal calculated values
         """
-        calc_date_str = row['CALCULATION_DATE']
+        calc_date_str = row['REP_ORD_DATE']
         if calc_date_str:
             if len(calc_date_str) > 10:
                 calc_date_str = calc_date_str[:-9]
@@ -141,35 +141,24 @@ class CalculatorTestCase(TestCase):
         data = {
             'scheme': scheme_id,
             'fee_type_code': row['BILL_SUB_TYPE'],
-            'scenario': scenario_clf_to_id(row['SCENARIO_ID']),
+            'scenario': scenario_clf_to_id(row['SCENARIO']),
             'offence_class': row['OFFENCE_CATEGORY'],
-            'unit': 'DAY'
+            'day': int(row['TRIAL_LENGTH']) if row['TRIAL_LENGTH'] else 0,
+            'ppe': int(row['EVIDENCE_PAGES']) if row['EVIDENCE_PAGES'] else 0
         }
 
-        data['unit_count'] = Decimal(row['TRIAL_LENGTH'])
-
         if row['NO_DEFENDANTS']:
-            data['modifier_2'] = int(row['NO_DEFENDANTS'])
-
-        fees = {}
-        resp = self.client.get(self.endpoint(scheme_id), data=data)
-        self.assertEqual(resp.status_code, status.HTTP_200_OK, resp.content)
-        fees['days'] = resp.data['amount']
-
-        data['unit'] = 'PPE'
-        data['unit_count'] = int(row['EVIDENCE_PAGES'])
+            data['NUMBER_OF_DEFENDANTS'] = int(row['NO_DEFENDANTS'])
 
         resp = self.client.get(self.endpoint(scheme_id), data=data)
         self.assertEqual(
             resp.status_code, status.HTTP_200_OK, resp.content
         )
-        fees['ppe'] = resp.data['amount']
 
-        fee = max(fees.values())
         self.assertEqual(
-            fee,
+            resp.data['amount'],
             Decimal(row['CALC_FEE_EXC_VAT']),
-            '%s %s' % (fees, data,)
+            data
         )
 
 
@@ -226,10 +215,10 @@ def create_tests():
             if row['BILL_SUB_TYPE'] in priced_fees:
                 setattr(CalculatorTestCase, test_name('agfs', row, i+2), make_agfs_test(row, i+2))
 
-    # with open(LGFS_CSV_PATH) as csvfile:
-    #     reader = csv.DictReader(csvfile)
-    #     for i, row in enumerate(reader):
-    #         setattr(CalculatorTestCase, test_name('lgfs', row, i+2), make_lgfs_test(row, i+2))
+    with open(LGFS_CSV_PATH) as csvfile:
+        reader = csv.DictReader(csvfile)
+        for i, row in enumerate(reader):
+            setattr(CalculatorTestCase, test_name('lgfs', row, i+2), make_lgfs_test(row, i+2))
 
 
 create_tests.__test__ = False

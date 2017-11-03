@@ -8,7 +8,7 @@ import csv
 from decimal import Decimal
 
 from calculator.models import (
-    Price, Scheme, Scenario, FeeType, OffenceClass, Unit, ModifierType, Modifier
+    Price, Scheme, Scenario, FeeType, OffenceClass, Unit, Modifier
 )
 from calculator.tests.lib.utils import scenario_clf_to_id
 
@@ -18,8 +18,17 @@ def listdict():
     return defaultdict(list)
 
 
+lgfs_scheme = Scheme.objects.get(pk=2)
+lit_fee_type = FeeType.objects.get(pk=54)
+day_unit = Unit.objects.get(pk='DAY')
+ppe_unit = Unit.objects.get(pk='PPE')
+lgfs_modifier_1 = Modifier.objects.get(pk=12)
+lgfs_modifier_2 = Modifier.objects.get(pk=13)
+
+
 '''
-select bs.id as scenario_id, bs.trbc_trial_basis, bs.percent, bs.formula, bs.min_trial_length, bs.min_evidence_pages,
+select bs.scenario, bs.trbc_trial_basis, bs.percent, bs.formula,
+    bs.min_trial_length, bs.min_evidence_pages,
     ep.ofty_offence_type, ep.evidence_pages, ep.trial_fee, ep.fee_per_page
     from bill_scenarios bs join
       evidence_pages_uplifts ep on bs.trbc_trial_basis=ep.trbc_trial_basis
@@ -29,7 +38,7 @@ with open('lgfs_joined_ppe_data.csv') as data_export:
     reader = csv.DictReader(data_export)
     data = defaultdict(listdict)
     for line in reader:
-        data[line['SCENARIO_ID']][line['OFTY_OFFENCE_TYPE']].append(line)
+        data[line['SCENARIO']][line['OFTY_OFFENCE_TYPE']].append(line)
 
 for scenario in data:
     for offence_type in data[scenario]:
@@ -41,33 +50,37 @@ for scenario in data:
                 continue
 
             discount = Decimal(fee['PERCENT'])/Decimal('100')
-            fee_per_page = Decimal(fee['FEE_PER_PAGE'])*discount
 
-            limit_from = previous_pages
-            limit_to = int(fee['EVIDENCE_PAGES']) - 1
+            page_difference = int(fee['EVIDENCE_PAGES']) - previous_pages
+            fee_difference = Decimal(fee['TRIAL_FEE'])*discount - previous_price
+
+            fee_per_page = fee_difference/page_difference
+
+            limit_from = previous_pages + 1
+            limit_to = int(fee['EVIDENCE_PAGES'])
 
             price = Price.objects.create(
-                scheme=Scheme.objects.get(pk=2),
-                scenario=Scenario.objects.get(pk=scenario_clf_to_id(fee['SCENARIO_ID'])),
-                fee_type=FeeType.objects.get(pk=100),
+                scheme=lgfs_scheme,
+                scenario=Scenario.objects.get(pk=scenario_clf_to_id(fee['SCENARIO'])),
+                fee_type=lit_fee_type,
                 advocate_type=None,
                 offence_class=OffenceClass.objects.get(pk=fee['OFTY_OFFENCE_TYPE']),
-                unit=Unit.objects.get(pk='PPE'),
+                unit=ppe_unit,
                 fee_per_unit=fee_per_page,
-                fixed_fee=previous_price,
+                fixed_fee=Decimal(0),
                 limit_from=limit_from,
                 limit_to=limit_to,
             )
-            price.modifiers.add(Modifier.objects.get(pk=12))
-            price.modifiers.add(Modifier.objects.get(pk=13))
+            price.modifiers.add(lgfs_modifier_1)
+            price.modifiers.add(lgfs_modifier_2)
             price.save()
 
             previous_pages = int(fee['EVIDENCE_PAGES'])
-            previous_price = (Decimal(fee['TRIAL_FEE'])*discount) - previous_price
+            previous_price = Decimal(fee['TRIAL_FEE'])*discount
 
 
 '''
-select bs.id as scenario_id, bs.trbc_trial_basis, bs.percent, bs.formula, bs.min_trial_length, bs.min_evidence_pages,
+select bs.scenario, bs.trbc_trial_basis, bs.percent, bs.formula, bs.min_trial_length, bs.min_evidence_pages,
     bf.ofty_offence_type, bf.basic_fee_value, bf.basic_evidence_pages_value, tup.trial_length, tup. trial_uplift_value,
     tup.ppe_cutoff_value
     from bill_scenarios bs join
@@ -79,19 +92,13 @@ with open('lgfs_joined_day_data.csv') as data_export:
     reader = csv.DictReader(data_export)
     data = defaultdict(listdict)
     for line in reader:
-        data[line['SCENARIO_ID']][line['OFTY_OFFENCE_TYPE']].append(line)
-
-lgfs_scheme = Scheme.objects.get(pk=2),
-lit_fee_type = FeeType.objects.get(pk=100),
-day_unit = Unit.objects.get(pk='DAY')
-ppe_unit = Unit.objects.get(pk='PPE')
-day_modifier = ModifierType.objects.get(pk=3)
-ppe_modifier = ModifierType.objects.get(pk=4)
+        data[line['SCENARIO']][line['OFTY_OFFENCE_TYPE']].append(line)
 
 for scenario in data:
     for offence_type in data[scenario]:
         fees = sorted(data[scenario][offence_type], key=lambda f: int(f['TRIAL_LENGTH']))
-        previous_price = Decimal('0')
+        previous_total = Decimal('0')
+        last_created_price = None
         for fee in fees:
             trial_length = int(fee['TRIAL_LENGTH'])
             # basic fee applies for length 1-2
@@ -104,8 +111,8 @@ for scenario in data:
 
             discount = Decimal(fee['PERCENT'])/Decimal('100')
             total_fee = Decimal(fee['BASIC_FEE_VALUE']) + Decimal(fee['TRIAL_UPLIFT_VALUE'])
-            step_fee = (total_fee - previous_price)*discount
-            previous_price = total_fee
+            step_fee = (total_fee - previous_total)*discount
+            previous_total = total_fee
 
             if fee['FORMULA'] == 'FIXED':
                 limit_from = int(fee['MIN_TRIAL_LENGTH'])
@@ -123,34 +130,27 @@ for scenario in data:
                 fixed_fee = Decimal(0)
                 fee_per_unit = step_fee
 
-            price = Price.objects.create(
-                scheme=Scheme.objects.get(pk=2),
-                scenario=Scenario.objects.get(pk=scenario_clf_to_id(fee['SCENARIO_ID'])),
-                fee_type=FeeType.objects.get(pk=100),
-                advocate_type=None,
-                offence_class=OffenceClass.objects.get(pk=fee['OFTY_OFFENCE_TYPE']),
-                unit=Unit.objects.get(pk='DAY'),
-                fee_per_unit=fee_per_unit,
-                fixed_fee=fixed_fee,
-                limit_from=limit_from,
-                limit_to=limit_to,
-            )
+            if last_created_price and last_created_price.fee_per_unit == fee_per_unit:
+                last_created_price.limit_to = limit_to
+                last_created_price.save()
+            else:
+                price = Price.objects.create(
+                    scheme=lgfs_scheme,
+                    scenario=Scenario.objects.get(pk=scenario_clf_to_id(fee['SCENARIO'])),
+                    fee_type=lit_fee_type,
+                    advocate_type=None,
+                    offence_class=OffenceClass.objects.get(pk=fee['OFTY_OFFENCE_TYPE']),
+                    unit=day_unit,
+                    fee_per_unit=fee_per_unit,
+                    fixed_fee=fixed_fee,
+                    limit_from=limit_from,
+                    limit_to=limit_to,
+                )
 
-            # conditional, created = Modifier.objects.get_or_create(
-            #     limit_from=0,
-            #     limit_to=int(fee['PPE_CUTOFF_VALUE']),
-            #     required=True,
-            #     fixed_percent=Decimal(0),
-            #     percent_per_unit=Decimal(0),
-            #     strict_range=False,
-            #     priority=0,
-            #     modifier_type=ModifierType.objects.get(pk=4)
-            # )
-            # price.modifiers.add(conditional)
+                if (fee['FORMULA'] in ['DAYS', 'PPE'] or
+                        fee['TRBC_TRIAL_BASIS'] == 'ELECTED CASE NOT PROCEEDED'):
+                    price.modifiers.add(lgfs_modifier_1)
+                    price.modifiers.add(lgfs_modifier_2)
 
-            if (fee['FORMULA'] in ['DAYS', 'PPE'] or
-                    fee['TRBC_TRIAL_BASIS'] == 'ELECTED CASE NOT PROCEEDED'):
-                price.modifiers.add(Modifier.objects.get(pk=12))
-                price.modifiers.add(Modifier.objects.get(pk=13))
-
-            price.save()
+                price.save()
+                last_created_price = price

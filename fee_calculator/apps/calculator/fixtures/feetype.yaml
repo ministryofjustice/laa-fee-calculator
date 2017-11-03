@@ -167,7 +167,7 @@
   fields: {name: Cost judge application fee, code: AGFS_CJD_FEE, is_basic: false, aggregation: 'sum'}
 - model: calculator.feetype
   pk: 54
-  fields: {name: Litigator fee, code: LIT_FEE, is_basic: false, aggregation: 'sum'}
+  fields: {name: Litigator fee, code: LIT_FEE, is_basic: true, aggregation: 'max'}
 - model: calculator.feetype
   pk: 55
   fields: {name: Accident reconstruction report, code: ACCIDENT, is_basic: false, aggregation: 'sum'}
@@ -304,6 +304,3 @@
 - model: calculator.feetype
   pk: 99
   fields: {name: Cost judge preparation award, code: AGFS_CJD_EXP, is_basic: false, aggregation: 'sum'}
-- model: calculator.feetype
-  pk: 100
-  fields: {name: Litigator fee, code: LIT_FEE, is_basic: true, aggregation: 'max'}
