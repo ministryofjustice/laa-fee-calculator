@@ -12,7 +12,7 @@ class Scheme(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
     suty_base_type = models.PositiveSmallIntegerField(choices=SUPPLIER_BASE_TYPE)
-    description = models.CharField(max_length=150)
+    description = models.CharField(max_length=255)
 
     def supplier_type(self):
         return SUPPLIER_BASE_TYPE.for_value(self.suty_base_type).constant
@@ -29,8 +29,8 @@ class Scenario(models.Model):
 
 
 class FeeType(models.Model):
-    name = models.CharField(max_length=128)
-    code = models.CharField(max_length=20, db_index=True)
+    name = models.CharField(max_length=255)
+    code = models.CharField(max_length=64, db_index=True)
     is_basic = models.BooleanField()
     aggregation = models.CharField(
         max_length=20, choices=AGGREGATION_TYPE, default=AGGREGATION_TYPE.SUM
@@ -41,7 +41,7 @@ class FeeType(models.Model):
 
 
 class AdvocateType(models.Model):
-    id = models.CharField(max_length=12, primary_key=True)
+    id = models.CharField(max_length=32, primary_key=True)
     name = models.CharField(max_length=64)
 
     def __str__(self):
@@ -51,14 +51,14 @@ class AdvocateType(models.Model):
 class OffenceClass(models.Model):
     id = models.CharField(max_length=64, primary_key=True)
     name = models.CharField(max_length=64)
-    description = models.CharField(max_length=150)
+    description = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
 
 
 class Unit(models.Model):
-    id = models.CharField(max_length=12, primary_key=True)
+    id = models.CharField(max_length=32, primary_key=True)
     name = models.CharField(max_length=64)
 
     def __str__(self):
@@ -67,7 +67,7 @@ class Unit(models.Model):
 
 class ModifierType(models.Model):
     name = models.CharField(max_length=64)
-    description = models.CharField(max_length=150)
+    description = models.CharField(max_length=255)
     unit = models.ForeignKey(Unit)
 
     def __str__(self):
@@ -144,8 +144,8 @@ class Price(models.Model):
     fee_type = models.ForeignKey(
         'FeeType', related_name='prices')
     unit = models.ForeignKey('Unit', related_name='prices')
-    fixed_fee = models.DecimalField(max_digits=10, decimal_places=3)
-    fee_per_unit = models.DecimalField(max_digits=10, decimal_places=3)
+    fixed_fee = models.DecimalField(max_digits=12, decimal_places=5)
+    fee_per_unit = models.DecimalField(max_digits=12, decimal_places=5)
     limit_from = models.SmallIntegerField(default=1)
     limit_to = models.SmallIntegerField(null=True)
     modifiers = models.ManyToManyField(Modifier, related_name='prices')
