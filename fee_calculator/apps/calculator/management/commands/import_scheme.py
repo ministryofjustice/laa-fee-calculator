@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 
 from openpyxl import load_workbook
 
-from calculator.constants import SUTY_BASE_TYPE
+from calculator.constants import SUPPLIER_BASE_TYPE
 from calculator.models import Scheme
 
 
@@ -46,10 +46,9 @@ class Command(BaseCommand):
         for fesh_first_id, calculator in calculators.items():
             header = headers[fesh_first_id]
             s, c = Scheme.objects.get_or_create(
-                effective_date=header['effective_date'],
                 start_date=header['start_date'],
                 end_date=header['end_date'],
-                suty_base_type=SUTY_BASE_TYPE.for_constant(
+                supplier_base_type=SUPPLIER_BASE_TYPE.for_constant(
                     calculator['suty_base_type']
                 ).value,
                 description=calculator['description'],

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-BASIC_FEES_MAP =  {
+BASIC_FEES_MAP = {
     'FXACV': 'AGFS_APPEAL_CON',
     'FXASE': 'AGFS_APPEAL_SEN',
     'FXCBR': 'AGFS_ORDER_BRCH',
@@ -131,21 +131,82 @@ def bill_to_code(bill_type, sub_type):
     return REVERSE_FEES_MAP[(bill_type, sub_type)]
 
 
-SCENARIO_MAP = {
+CCR_SCENARIO_MAP = {
     2694: 1,
     2695: 2,
-    2696: 3,
+    2696: {1: 3, 2: 13, 3: 13},
     2697: 4,
     2698: 5,
     2699: 6,
     2700: 7,
     2701: 8,
     2702: 9,
-    2703: 10,
+    2703: {1: 10, 2: 14, 3: 14},
     2704: 11,
     2705: 12
 }
 
 
-def scenario_ccr_to_id(ccr_id):
-    return SCENARIO_MAP[int(ccr_id)]
+def scenario_ccr_to_id(ccr_id, third):
+    scenario = CCR_SCENARIO_MAP[int(ccr_id)]
+    if isinstance(scenario, dict):
+        return scenario[int(third)]
+    return scenario
+
+
+def scenario_id_to_ccr(scenario_id):
+    for key, value in CCR_SCENARIO_MAP.items():
+        if value == scenario_id:
+            return key
+        elif isinstance(value, dict) and scenario_id in value.values():
+            return key
+
+
+CLF_SCENARIO_MAP = {
+    'ST1TS0T1': 1,
+    'ST1TS0T2': 2,
+    'ST1TS0T3': 15,
+    'ST1TS0T4': 4,
+    'ST1TS0T5': 5,
+    'ST1TS0T6': 6,
+    'ST1TS0T7': 7,
+    'ST1TS0T8': 8,
+    'ST3TS3TB': 9,
+    'ST1TS0T9': 16,
+    'ST1TS0TA': 11,
+    'ST2TS1T0': 17,
+    'ST3TS1T2': 18,
+    'ST3TS1T3': 19,
+    'ST3TS1T4': 20,
+    'ST2TS2T0': 21,
+    'ST3TS2T3': 22,
+    'ST3TS2T4': 23,
+    'ST2TS3T0': 24,
+    'ST3TS3T4': 25,
+    'ST3TS3TA': 26,
+    'ST2TS4T0': 27,
+    'ST3TS4T9': 28,
+    'ST3TS4TA': 29,
+    'ST2TS5T0': 30,
+    'ST3TS5TA': 31,
+    'ST1TS0TC': 32,
+    'ST2TS6TA': 33,
+    'ST3TS6TA': 34,
+    'ST2TS7T4': 35,
+    'ST3TS7T4': 36,
+    'ST4TS0T1': 12,
+    'ST4TS0T2': 37,
+    'ST4TS0T3': 38,
+    'ST4TS0T4': 39,
+    'ST4TS0T5': 40,
+    'ST4TS0T6': 41,
+    'ST4TS0T7': 42,
+    'ST1TS0T0': 43,
+    'ST1TS1T0': 44,
+    'ST1TS2T0': 45,
+    'ST1TS3T0': 46
+}
+
+
+def scenario_clf_to_id(clf_id):
+    return CLF_SCENARIO_MAP[clf_id]

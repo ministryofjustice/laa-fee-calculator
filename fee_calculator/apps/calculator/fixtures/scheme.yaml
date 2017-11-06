@@ -1,40 +1,8 @@
 - model: calculator.scheme
   pk: 1
-  fields: {effective_date: 2006-08-31, start_date: 2006-04-01, end_date: 2007-12-16,
-    suty_base_type: 2, description: LGFS Calculation Scheme - Pre 2009}
+  fields: {start_date: 2012-04-01, end_date: null, suty_base_type: 1, description: AGFS
+      Fee Scheme 9}
 - model: calculator.scheme
   pk: 2
-  fields: {effective_date: 2007-12-17, start_date: 2007-12-17, end_date: 2009-02-28,
-    suty_base_type: 2, description: LGFS Calculation Scheme 2009}
-- model: calculator.scheme
-  pk: 3
-  fields: {effective_date: 2009-03-01, start_date: 2009-03-01, end_date: null, suty_base_type: 2,
-    description: LGFS Calculation Scheme 2010}
-- model: calculator.scheme
-  pk: 4
-  fields: {effective_date: 2000-01-01, start_date: 2000-01-01, end_date: 2009-04-29,
-    suty_base_type: 1, description: AGFS Fee Scheme 0-3}
-- model: calculator.scheme
-  pk: 5
-  fields: {effective_date: 2007-04-30, start_date: 2007-04-30, end_date: 2010-04-26,
-    suty_base_type: 1, description: AGFS Fee Scheme 4}
-- model: calculator.scheme
-  pk: 6
-  fields: {effective_date: 2010-04-27, start_date: 2010-04-27, end_date: 2011-01-03,
-    suty_base_type: 1, description: AGFS Fee Scheme 5}
-- model: calculator.scheme
-  pk: 7
-  fields: {effective_date: 2011-01-04, start_date: 2011-01-04, end_date: 2011-03-31,
-    suty_base_type: 1, description: AGFS Fee Scheme 6}
-- model: calculator.scheme
-  pk: 8
-  fields: {effective_date: 2011-04-01, start_date: 2011-04-01, end_date: 2011-10-02,
-    suty_base_type: 1, description: AGFS Fee Scheme 7}
-- model: calculator.scheme
-  pk: 9
-  fields: {effective_date: 2011-10-03, start_date: 2011-10-03, end_date: 2012-03-31,
-    suty_base_type: 1, description: AGFS Fee Scheme 8}
-- model: calculator.scheme
-  pk: 10
-  fields: {effective_date: 2012-04-01, start_date: 2012-04-01, end_date: null, suty_base_type: 1,
-    description: AGFS Fee Scheme 9}
+  fields: {start_date: 2016-04-01, end_date: null, suty_base_type: 2, description: LGFS
+      Fee Scheme 8}

@@ -1,30 +1,36 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import url, include
 
-from rest_framework import routers
+from rest_framework_nested import routers
 from rest_framework_swagger.views import get_swagger_view
 
 from calculator.views import (
-    BaseSchemeViewSet, SchemeViewSet, FeeTypeViewSet, ScenarioViewSet,
-    OffenceClassViewSet, AdvocateTypeViewSet, PriceViewSet, CalculatorView)
+    SchemeViewSet, FeeTypeViewSet, ScenarioViewSet,
+    OffenceClassViewSet, AdvocateTypeViewSet, PriceViewSet, CalculatorView,
+    UnitViewSet, ModifierTypeViewSet
+)
 
 
-router = routers.DefaultRouter(trailing_slash=False)
-router.register(r'fee-schemes', BaseSchemeViewSet, base_name='fee-schemes')
+router = routers.DefaultRouter()
 router.register(r'fee-schemes', SchemeViewSet, base_name='fee-schemes')
-router.register(r'fee-types', FeeTypeViewSet, base_name='fee-types')
-router.register(r'scenarios', ScenarioViewSet, base_name='scenarios')
-router.register(r'advocate-types', AdvocateTypeViewSet,
-                base_name='advocate-types')
-router.register(r'offence-classes', OffenceClassViewSet,
-                base_name='offence-classes')
-router.register(r'prices', PriceViewSet,
-                base_name='prices')
+
+schemes_router = routers.NestedSimpleRouter(router, r'fee-schemes', lookup='scheme')
+schemes_router.register(r'fee-types', FeeTypeViewSet, base_name='fee-types')
+schemes_router.register(r'scenarios', ScenarioViewSet, base_name='scenarios')
+schemes_router.register(r'advocate-types', AdvocateTypeViewSet,
+                        base_name='advocate-types')
+schemes_router.register(r'offence-classes', OffenceClassViewSet,
+                        base_name='offence-classes')
+schemes_router.register(r'units', UnitViewSet, base_name='units')
+schemes_router.register(r'modifier-types', ModifierTypeViewSet,
+                        base_name='modifier-types')
+schemes_router.register(r'prices', PriceViewSet, base_name='prices')
 
 schema_view = get_swagger_view(title='Calculator API')
 
 urlpatterns = (
+    url(r'^fee-schemes/(?P<scheme_pk>[^/.]+)/calculate/$', CalculatorView.as_view(), name='calculator'),
     url(r'^', include(router.urls)),
-    url(r'^docs$', schema_view),
-    url(r'calculate', CalculatorView.as_view(), name='calculator'),
+    url(r'^', include(schemes_router.urls)),
+    url(r'^docs/$', schema_view),
 )

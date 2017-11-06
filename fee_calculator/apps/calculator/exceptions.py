@@ -1,0 +1,2 @@
+class RequiredModifierMissingException(Exception):
+    pass

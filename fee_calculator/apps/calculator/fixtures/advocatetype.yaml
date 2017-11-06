@@ -1,12 +1,12 @@
 - model: calculator.advocatetype
   pk: JRALONE
-  fields: {name: Junior Alone}
+  fields: {name: Junior alone}
 - model: calculator.advocatetype
   pk: LEADJR
-  fields: {name: Leading Junior}
+  fields: {name: Leading junior}
 - model: calculator.advocatetype
   pk: LEDJR
-  fields: {name: Led Junior}
+  fields: {name: Led junior}
 - model: calculator.advocatetype
   pk: QC
   fields: {name: QC}

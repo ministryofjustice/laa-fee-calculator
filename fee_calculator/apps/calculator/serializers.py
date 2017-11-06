@@ -2,7 +2,9 @@
 from rest_framework import serializers
 
 from .models import (
-    Scheme, Scenario, FeeType, AdvocateType, OffenceClass, Price)
+    Scheme, Scenario, FeeType, AdvocateType, OffenceClass, Price, Unit,
+    ModifierType, Modifier
+)
 
 
 class SchemeSerializer(serializers.ModelSerializer):
@@ -10,10 +12,9 @@ class SchemeSerializer(serializers.ModelSerializer):
         model = Scheme
         fields = (
             'id',
-            'effective_date',
             'start_date',
             'end_date',
-            'suty_base_type',
+            'supplier_type',
             'description',
         )
 
@@ -21,27 +22,78 @@ class SchemeSerializer(serializers.ModelSerializer):
 class FeeTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = FeeType
-        fields = ('id', 'name', 'code', 'is_basic')
+        fields = (
+            'id',
+            'name',
+            'code',
+            'is_basic',
+            'aggregation',
+        )
 
 
 class ScenarioSerializer(serializers.ModelSerializer):
-    fee_types = FeeTypeSerializer(many=True, read_only=True)
-
     class Meta:
         model = Scenario
-        fields = ('id', 'name', 'force_third', 'fee_types')
+        fields = (
+            'id',
+            'name',
+        )
 
 
 class AdvocateTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = AdvocateType
-        fields = ('id', 'name')
+        fields = (
+            'id',
+            'name',
+        )
 
 
 class OffenceClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = OffenceClass
-        fields = ('id', 'name', 'description')
+        fields = (
+            'id',
+            'name',
+            'description',
+        )
+
+
+class UnitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Unit
+        fields = (
+            'id',
+            'name',
+        )
+
+
+class ModifierTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ModifierType
+        fields = (
+            'id',
+            'name',
+            'description',
+            'unit',
+        )
+
+
+class ModifierSerializer(serializers.ModelSerializer):
+    modifier_type = ModifierTypeSerializer(read_only=True)
+
+    class Meta:
+        model = Modifier
+        fields = (
+            'limit_from',
+            'limit_to',
+            'fixed_percent',
+            'percent_per_unit',
+            'modifier_type',
+            'required',
+            'priority',
+            'strict_range',
+        )
 
 
 class PriceSerializer(serializers.ModelSerializer):
@@ -50,10 +102,22 @@ class PriceSerializer(serializers.ModelSerializer):
     advocate_type = AdvocateTypeSerializer(read_only=True)
     fee_type = FeeTypeSerializer(read_only=True)
     offence_class = OffenceClassSerializer(read_only=True)
-    unit = serializers.StringRelatedField(read_only=True)
+    unit = UnitSerializer(read_only=True)
+    modifiers = ModifierSerializer(many=True, read_only=True)
 
     class Meta:
         model = Price
-        fields = ('id', 'scenario', 'advocate_type', 'fee_type',
-                  'offence_class', 'scheme', 'unit', 'fee_per_unit',
-                  'uplift_percent', 'limit_from', 'limit_to', 'third')
+        fields = (
+            'id',
+            'scenario',
+            'advocate_type',
+            'fee_type',
+            'offence_class',
+            'scheme',
+            'unit',
+            'fee_per_unit',
+            'fixed_fee',
+            'limit_from',
+            'limit_to',
+            'modifiers',
+        )
