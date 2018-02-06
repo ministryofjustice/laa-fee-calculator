@@ -1,6 +1,7 @@
 # laa-fee-calculator
 Fee calculator for LAA
 
+For development setup see instructions [here](./docs/DEVELOPMENT.md)
 
 Load data into calculator
 ==========================
