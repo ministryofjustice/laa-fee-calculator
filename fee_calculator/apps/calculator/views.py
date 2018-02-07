@@ -250,49 +250,60 @@ class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     scheme_relation_name = 'scheme'
 
 
+class classproperty:
+    def __init__(self, getter):
+        self.getter = getter
+
+    def __get__(self, instance, clazz):
+        return self.getter(clazz)
+
+
 class CalculatorView(views.APIView):
     """
     Calculate total fee amount
     """
 
     allowed_methods = ['GET']
-    schema = CalculatorSchema(fields=[
-        coreapi.Field('scheme_pk', **{
-            'required': True,
-            'location': 'path',
-            'type': 'integer',
-            'description': '',
-        }),
-        coreapi.Field('fee_type_code', **{
-            'required': True,
-            'location': 'query',
-            'type': 'string',
-            'description': '',
-        }),
-        coreapi.Field('scenario', **{
-            'required': True,
-            'location': 'query',
-            'type': 'integer',
-            'description': '',
-        }),
-        coreapi.Field('advocate_type', **{
-            'required': False,
-            'location': 'query',
-            'type': 'string',
-            'description': (
-                'Note the query will return prices with `advocate_type_id` '
-                'either matching the value or null.'),
-        }),
-        coreapi.Field('offence_class', **{
-            'required': False,
-            'location': 'query',
-            'type': 'string',
-            'description': (
-                'Note the query will return prices with `offence_class_id` '
-                'either matching the value or null.'),
-        })
-    ])
     filter_backends = (backends.DjangoFilterBackend,)
+
+    @classproperty
+    def schema(cls):
+        return CalculatorSchema(fields=[
+            coreapi.Field('scheme_pk', **{
+                'required': True,
+                'location': 'path',
+                'type': 'integer',
+                'description': '',
+            }),
+            coreapi.Field('fee_type_code', **{
+                'required': True,
+                'location': 'query',
+                'type': 'string',
+                'description': '',
+            }),
+            coreapi.Field('scenario', **{
+                'required': True,
+                'location': 'query',
+                'type': 'integer',
+                'description': '',
+            }),
+            coreapi.Field('advocate_type', **{
+                'required': False,
+                'location': 'query',
+                'type': 'string',
+                'description': (
+                    'Note the query will return prices with `advocate_type_id` '
+                    'either matching the value or null.'),
+            }),
+            coreapi.Field('offence_class', **{
+                'required': False,
+                'location': 'query',
+                'type': 'string',
+                'description': (
+                    'Note the query will return prices with `offence_class_id` '
+                    'either matching the value or null.'),
+            })
+        ])
 
     def get_param(self, param_name, required=False, default=None):
         value = self.request.query_params.get(param_name, default)
