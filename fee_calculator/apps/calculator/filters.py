@@ -2,7 +2,6 @@
 import logging
 
 from django.db.models import Q
-from django.db.utils import ProgrammingError
 import django_filters
 from django_filters.constants import EMPTY_VALUES
 from django_filters.fields import Lookup
@@ -19,34 +18,29 @@ logger = logging.getLogger('laa-calc')
 class CalculatorSchema(ManualSchema):
 
     def __init__(self, fields, *args, **kwargs):
-        try:
-            for unit in models.Unit.objects.all():
-                fields.append(
-                    coreapi.Field(unit.pk.lower(), **{
-                        'required': False,
-                        'location': 'query',
-                        'type': 'number',
-                        'description': (
-                            'The number of units of the named unit'
-                        ),
-                    }),
-                )
+        for unit in models.Unit.objects.all():
+            fields.append(
+                coreapi.Field(unit.pk.lower(), **{
+                    'required': False,
+                    'location': 'query',
+                    'type': 'number',
+                    'description': (
+                        'The number of units of the named unit'
+                    ),
+                }),
+            )
 
-            for modifier in models.ModifierType.objects.all():
-                fields.append(
-                    coreapi.Field(modifier.name.lower(), **{
-                        'required': False,
-                        'location': 'query',
-                        'type': 'number',
-                        'description': (
-                            'The number of units of the named modifier type'
-                        ),
-                    }),
-                )
-        except ProgrammingError as e:
-            # avoids issues caused by migration not having been applied yet
-            logger.exception(e)
-
+        for modifier in models.ModifierType.objects.all():
+            fields.append(
+                coreapi.Field(modifier.name.lower(), **{
+                    'required': False,
+                    'location': 'query',
+                    'type': 'number',
+                    'description': (
+                        'The number of units of the named modifier type'
+                    ),
+                }),
+            )
         super().__init__(fields, *args, **kwargs)
 
 
