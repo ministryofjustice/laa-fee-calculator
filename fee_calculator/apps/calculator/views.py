@@ -250,12 +250,15 @@ class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     scheme_relation_name = 'scheme'
 
 
-class classproperty:
+class cached_class_property:
     def __init__(self, getter):
         self.getter = getter
+        self.cached = None
 
     def __get__(self, instance, clazz):
-        return self.getter(clazz)
+        if self.cached is None:
+            self.cached = self.getter(clazz)
+        return self.cached
 
 
 class CalculatorView(views.APIView):
@@ -266,7 +269,7 @@ class CalculatorView(views.APIView):
     allowed_methods = ['GET']
     filter_backends = (backends.DjangoFilterBackend,)
 
-    @classproperty
+    @cached_class_property
     def schema(cls):
         return CalculatorSchema(fields=[
             coreapi.Field('scheme_pk', **{
