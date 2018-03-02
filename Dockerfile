@@ -26,6 +26,6 @@ ADD . /app
 
 # run uwsgi on 8080
 EXPOSE 8080
-ENV DJANGO_SETTINGS_MODULE=fee_calculator.settings.base
+ENV DJANGO_SETTINGS_MODULE=fee_calculator.settings.docker
 RUN venv/bin/python manage.py collectstatic
 CMD venv/bin/python manage.py migrate --no-input && venv/bin/uwsgi --ini uwsgi.ini
