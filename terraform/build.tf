@@ -79,10 +79,20 @@ resource "aws_codebuild_project" "codebuild_project" {
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
-    image        = "aws/codebuild/ubuntu-base:14.04"
+    image        = "aws/codebuild/docker:17.09.0"
     type         = "LINUX_CONTAINER"
-  }
+    privileged_mode = true
 
+    environment_variable {
+      "name"  = "AWS_DEFAULT_REGION"
+      "value" = "eu-west-1"
+    }
+
+    environment_variable {
+      "name"  = "REPOSITORY_URI"
+      "value" = "926803513772.dkr.ecr.eu-west-1.amazonaws.com/${var.project_name}"
+    }
+  }
   source {
     type     = "CODEPIPELINE"
     buildspec = "buildspec.yml"
