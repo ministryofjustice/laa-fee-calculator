@@ -34,7 +34,7 @@ phases:
     commands:
       - docker push "$IMAGE_URI"
       - printf '[{"name":"simple-app","imageUri":"%s"}]' "$IMAGE_URI" > images.json
-      - "kubectl apply -f apps/non-prod-kuberos"
+      - "kubectl apply -f kubernetes_deploy/"
 artifacts:
   files:
      - images.json

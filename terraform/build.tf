@@ -90,7 +90,7 @@ resource "aws_codebuild_project" "codebuild_project" {
 
     environment_variable {
       "name"  = "REPOSITORY_URI"
-      "value" = "926803513772.dkr.ecr.eu-west-1.amazonaws.com/${var.project_name}"
+      "value" = "926803513772.dkr.ecr.eu-west-1.amazonaws.com/laa-fee-calculator"
     }
   }
   source {
