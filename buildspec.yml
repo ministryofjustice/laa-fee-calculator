@@ -7,8 +7,21 @@ version: 0.2
      # key: "value"
 
 phases:
-#  install:
-#    commands:
+  install
+    commands:
+       - "apt update"
+       - "apt install -y awscli git"
+       - "wget https://github.com/kubernetes/kops/releases/download/1.8.0/kops-linux-amd64"
+       - "chmod +x kops-linux-amd64"
+       - "mv kops-linux-amd64 /usr/local/bin/kops"
+       - "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+       - "chmod +x kubectl"
+       - "mv ./kubectl /usr/local/bin/kubectl"
+    commands:
+      - "mkdir ~/.kube/"
+      - "aws s3 cp s3://non-production-cluster-keystore/kubecfg.yaml ~/.kube/config"
+      - "export KOPS_STATE_STORE=s3://moj-cp-k8s-investigation-kops"
+      - "kops export kubecfg non-production.k8s.integration.dsd.io"
   pre_build:
     commands:
       - $(aws ecr get-login --no-include-email)
@@ -21,6 +34,7 @@ phases:
     commands:
       - docker push "$IMAGE_URI"
       - printf '[{"name":"simple-app","imageUri":"%s"}]' "$IMAGE_URI" > images.json
+      - "kubectl apply -f apps/non-prod-kuberos"
 artifacts:
   files:
      - images.json

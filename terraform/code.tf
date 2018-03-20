@@ -59,15 +59,16 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
       ],
       "Resource": "*"
     },
+    {
       "Effect": "Allow",
       "Action": [
-        "ecr:GetDownloadUrlForLayer",
-        "ecr:BatchGetImage",
-        "ecr:BatchCheckLayerAvailability",
-        "ecr:PutImage",
-        "ecr:InitiateLayerUpload",
-        "ecr:UploadLayerPart",
-        "ecr:CompleteLayerUpload"
+        "ecs:DescribeServices",
+        "ecs:DescribeTaskDefinition",
+        "ecs:DescribeTasks",
+        "ecs:ListTasks",
+        "ecs:RegisterTaskDefinition",
+        "ecs:UpdateService",
+        "iam:PassRole"
       ],
       "Resource": "*"
     }
@@ -101,7 +102,7 @@ resource "aws_codepipeline" "code_pipeline" {
       owner            = "ThirdParty"
       provider         = "GitHub"
       version          = "1"
-      output_artifacts = ["test"]
+      output_artifacts = ["App"]
       configuration {
         Owner      = "ministryofjustice"
         Repo       = "${var.git_repo}"
@@ -120,7 +121,7 @@ resource "aws_codepipeline" "code_pipeline" {
       owner           = "AWS"
       provider        = "CodeBuild"
       version         = "1"
-      input_artifacts = ["test"]
+      input_artifacts = ["App"]
       configuration {
         ProjectName = "${var.project_name}"
       }
