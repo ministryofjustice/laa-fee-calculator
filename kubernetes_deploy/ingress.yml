@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: laa-fees-ing
+spec:
+  rules:
+  - host: laa-fee-calculator.apps.non-production.k8s.integration.dsd.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: laa-fees-svc
+          servicePort: 80

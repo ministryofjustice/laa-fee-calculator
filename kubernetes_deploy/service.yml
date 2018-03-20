@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: laa-fees-svc
+  labels:
+    app: laa-fees-svc
+spec:
+  ports:
+  - port: 80
+    name: http
+    targetPort: 80
+  selector:
+    app: laa-fees-app
