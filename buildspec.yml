@@ -21,11 +21,11 @@ phases:
       - "aws s3 cp s3://non-production-cluster-keystore/kubecfg.yaml ~/.kube/config"
       - "export KOPS_STATE_STORE=s3://moj-cp-k8s-investigation-kops"
       - "kops export kubecfg non-production.k8s.integration.dsd.io"
-#  pre_build:
-#    commands:
-#      - "aws ecr get-login --no-include-email"
-#      - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
-#      - IMAGE_URI="${REPOSITORY_URI}:${TAG}"
+  pre_build:
+    commands:
+      - "aws ecr get-login --no-include-email"
+      - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+      - IMAGE_URI="${REPOSITORY_URI}:${TAG}"
 #  build:
 #    commands:
 #      - docker build --tag "$IMAGE_URI" .
