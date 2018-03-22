@@ -23,8 +23,8 @@ phases:
       - "kops export kubecfg non-production.k8s.integration.dsd.io"
   pre_build:
     commands:
-      - $(aws ecr get-login --region eu-west-1)
-#      - "aws ecr get-login --no-include-email"
+#      - $(aws ecr get-login --region eu-west-1)
+      - "aws ecr get-login --no-include-email"
       - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
       - IMAGE_URI="${REPOSITORY_URI}:${TAG}"
   build:
@@ -35,6 +35,7 @@ phases:
       - "docker build --build-arg SECRET_KEY=`cat ~/password.txt` --tag $IMAGE_URI ."
   post_build:
     commands:
+      - "cat ~/.docker/config"
       - "docker push $IMAGE_URI"
       - printf '[{"name":"simple-app","imageUri":"%s"}]' "$IMAGE_URI" > images.json
       - "kubectl apply -f kubernetes_deploy/"
