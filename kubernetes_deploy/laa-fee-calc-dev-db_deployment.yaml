@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+ name: laa-fee-dev-db
+spec:
+ template:
+   metadata:
+     labels:
+       app: laa-fee-dev-db
+   spec:
+    containers:
+    - image: postgres
+      name: laa-fee-dev-db
+      env:
+        - name: POSTGRES_DB
+          value: fee_calculator
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        - name: POSTGRES_USER
+          value: postgres
+      ports:
+      - containerPort: 5432
+        name: laa-fee-dev-db

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: laa-fee-dev-app
+spec:
+ ports:
+ - port: 8000
+   name: http
+   targetPort: 8080
+ selector:
+   app: laa-fee-dev-app

@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "laa-fee-dev-app"
+spec:
+  template:
+    metadata:
+      labels:
+        app: "laa-fee-dev-app"
+    spec:
+      containers:
+      - image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/k8s-laa-calculator
+        name: "laa-fee-dev-app"
+        ports:
+        - containerPort: 8080
+          name: "laa-fee-dev-app"
+        env:
+        - name: DB_HOST
+          value: laa-fee-dev-db
+        - name: DB_NAME
+          value: fee_calculator
+        - name: DB_PASSWORD
+          value: postgres
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_USERNAME
+          value: postgres
+        - name: DEBUG
+          value: "True"
+        - name: DJANGO_SECRET_KEY
+          value: CHANGE_ME
+        - name: ENV
+          value: local
