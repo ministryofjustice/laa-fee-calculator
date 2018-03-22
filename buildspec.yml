@@ -37,7 +37,7 @@ phases:
   post_build:
     commands:
 #      - "cat .docker/config"
-      - "docker push $IMAGE_URI"
+      - "docker push https://$IMAGE_URI"
       - printf '[{"name":"simple-app","imageUri":"%s"}]' "$IMAGE_URI" > images.json
       - "kubectl apply -f kubernetes_deploy/"
 artifacts:
