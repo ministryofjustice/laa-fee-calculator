@@ -24,8 +24,8 @@ phases:
   pre_build:
     commands:
 #      - $(aws ecr get-login --region eu-west-1)
-#      - "aws ecr get-login --no-include-email"
-      - eval $(aws ecr get-login --no-include-email | sed ‘s|https://||’)
+      - "aws ecr get-login --no-include-email"
+#      - eval $(aws ecr get-login --no-include-email | sed ‘s|https://||’)
       - "aws ecr describe-repositories" 
       - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
       - IMAGE_URI="${REPOSITORY_URI}:${TAG}"
