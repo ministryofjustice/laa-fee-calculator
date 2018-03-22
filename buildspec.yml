@@ -44,7 +44,7 @@ phases:
       - printf '[{"name":"simple-app","imageUri":"%s"}]' "$IMAGE_URI" > images.json
       - "kubectl apply -f kubernetes_deploy/"
       - "POD=$(kubectl get pods -n laa-fee-calculator-dev | grep laa-fee-dev-app | awk '{print $1}')"
-      - "kubectl exec $POD venv/bin/python manage.py loaddata advocatetype feetype offenceclass price scenario scheme unit modifier modifiertype"
+      - "kubectl exec $POD -n laa-fee-calculator-dev venv/bin/python manage.py loaddata advocatetype feetype offenceclass price scenario scheme unit modifier modifiertype"
 artifacts:
   files:
     - images.json
