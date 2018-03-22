@@ -36,8 +36,8 @@ phases:
       - "docker build --build-arg SECRET_KEY=`cat ~/password.txt` --tag $IMAGE_URI ."
   post_build:
     commands:
-#      - "cat .docker/config"
-      - "docker push https://$IMAGE_URI"
+      - "find / -name config.json"
+      - "docker push $IMAGE_URI"
       - printf '[{"name":"simple-app","imageUri":"%s"}]' "$IMAGE_URI" > images.json
       - "kubectl apply -f kubernetes_deploy/"
 artifacts:
