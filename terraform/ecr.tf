@@ -14,6 +14,7 @@ resource "aws_ecr_repository_policy" "ecr_repository_policy" {
             "Effect": "Allow",
             "Principal": "*",
             "Action": [
+                "ecr:GetAuthorizationToken",
                 "ecr:GetDownloadUrlForLayer",
                 "ecr:BatchGetImage",
                 "ecr:BatchCheckLayerAvailability",
