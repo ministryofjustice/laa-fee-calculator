@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: laa-fees-app
+spec:
+  template:
+    metadata:
+      labels:
+        app: "laa-fees"
+    spec:
+      containers:
+      - image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/laa-fee-calculator 
+        name: "laa-fee-calculator"
+        ports:
+        - containerPort: 80
+          name: http

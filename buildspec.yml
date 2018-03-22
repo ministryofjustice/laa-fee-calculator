@@ -1,0 +1,54 @@
+version: 0.2
+
+#env:
+  #variables:
+     # key: "value"
+  #parameter-store:
+     # key: "value"
+
+phases:
+  install:
+    commands:
+      - "apt update"
+      - "apt install -y awscli git pwgen"
+      - "wget https://github.com/kubernetes/kops/releases/download/1.8.0/kops-linux-amd64"
+      - "chmod +x kops-linux-amd64"
+      - "mv kops-linux-amd64 /usr/local/bin/kops"
+      - "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+      - "chmod +x kubectl"
+      - "mv ./kubectl /usr/local/bin/kubectl"
+      - "mkdir ~/.kube/"
+      - "aws s3 cp s3://non-production-cluster-keystore/kubecfg.yaml ~/.kube/config"
+      - "export KOPS_STATE_STORE=s3://moj-cp-k8s-investigation-kops"
+      - "kops export kubecfg non-production.k8s.integration.dsd.io"
+  pre_build:
+    commands:
+#      - $(aws ecr get-login --region eu-west-1)
+#      - "aws ecr get-login --no-include-email"
+      - eval $(aws ecr get-login --no-include-email | sed ‘s|https://||’)
+      - "aws ecr describe-repositories" 
+      - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+      - IMAGE_URI="${REPOSITORY_URI}:${TAG}"
+  build:
+    commands:
+      - "echo $IMAGE_URI"
+      - "pwgen -s 50 1 > ~/password.txt"
+      - "aws s3 cp ~/password.txt s3://non-production-cluster-keystore/password.txt"
+      - "docker build --build-arg SECRET_KEY=`cat ~/password.txt` --tag $IMAGE_URI ."
+  post_build:
+    commands:
+      - "ls -la"
+      - "ls -la /root/"
+      - "docker push $IMAGE_URI"
+      - printf '[{"name":"simple-app","imageUri":"%s"}]' "$IMAGE_URI" > images.json
+      - "kubectl apply -f kubernetes_deploy/"
+artifacts:
+  files:
+    - images.json
+
+  #discard-paths: yes
+  #base-directory: location
+
+#cache:
+  #paths:
+    # - paths
