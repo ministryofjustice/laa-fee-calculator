@@ -10,7 +10,7 @@ phases:
   install:
     commands:
       - "apt update"
-      - "apt install -y awscli git"
+      - "apt install -y awscli git pwgen"
       - "wget https://github.com/kubernetes/kops/releases/download/1.8.0/kops-linux-amd64"
       - "chmod +x kops-linux-amd64"
       - "mv kops-linux-amd64 /usr/local/bin/kops"
@@ -29,6 +29,10 @@ phases:
   build:
     commands:
       - "echo $IMAGE_URI"
+      - "pwgen -s 50 1 > password.txt"
+      - "aws s3 cp ~/password.txt s3://non-production-cluster-keystore/password.txt"
+      - "export SECRET_KEY=`cat ~/password.txt`"
+      - "echo SECRET_KEY=$SECRET_KEY"
       - "docker build --tag $IMAGE_URI ."
   post_build:
     commands:

@@ -6,7 +6,7 @@ RUN set -ex; echo en_GB.UTF-8 UTF-8 > /etc/locale.gen && locale-gen
 ENV LANG=en_GB.UTF-8
 ENV TZ=Europe/London
 ARG SECRET_KEY
-# ENV SECRET_KEY=$SECRET_KEY
+ENV SECRET_KEY=$SECRET_KEY
 ENV DJANGO_SECRET_KEY=$SECRET_KEY
 RUN timedatectl set-timezone Europe/London || true
 
