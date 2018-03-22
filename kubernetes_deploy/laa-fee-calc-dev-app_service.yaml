@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
  name: laa-fee-dev-app
+ namespace: laa-fee-calculator-dev
 spec:
  ports:
  - port: 8000
