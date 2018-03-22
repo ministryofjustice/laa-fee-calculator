@@ -28,7 +28,7 @@ phases:
 #      - eval $(aws ecr get-login --no-include-email | sed ‘s|https://||’)
       - eval $(aws ecr get-login | sed 's/-e none //g')
       - "aws ecr describe-repositories" 
-      - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+      - TAG="latest"
       - IMAGE_URI="${REPOSITORY_URI}:${TAG}"
   build:
     commands:
