@@ -23,9 +23,6 @@ phases:
       - "kops export kubecfg non-production.k8s.integration.dsd.io"
   pre_build:
     commands:
-#      - $(aws ecr get-login --region eu-west-1)
-#      - "aws ecr get-login --no-include-email"
-#      - eval $(aws ecr get-login --no-include-email | sed ‘s|https://||’)
       - eval $(aws ecr get-login | sed 's/-e none //g')
       - "aws ecr describe-repositories" 
       - TAG="latest"

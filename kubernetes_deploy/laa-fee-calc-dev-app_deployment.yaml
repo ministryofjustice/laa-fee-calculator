@@ -10,7 +10,7 @@ spec:
         app: "laa-fee-dev-app"
     spec:
       containers:
-      - image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/laa-fee-calculator
+      - image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/laa-fee-calculator:latest
         name: "laa-fee-dev-app"
         ports:
         - containerPort: 8080
