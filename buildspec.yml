@@ -42,7 +42,7 @@ phases:
       - printf '[{"name":"simple-app","imageUri":"%s"}]' "$IMAGE_URI" > images.json
       - "kubectl apply -f kubernetes_deploy/"
 #      - "kubectl set image deployment/laa-fee-dev-app 926803513772.dkr.ecr.eu-west-1.amazonaws.com/laa-fee-calculator=926803513772.dkr.ecr.eu-west-1.amazonaws.com/laa-fee-calculator:$TAG"
-      - "kubctl set image deployment/laa-fee-dev-app *=926803513772.dkr.ecr.eu-west-1.amazonaws.com/laa-fee-calculator:$TAG --namespace laa-fee-calculator-dev"
+      - "kubectl set image deployment/laa-fee-dev-app *=926803513772.dkr.ecr.eu-west-1.amazonaws.com/laa-fee-calculator:$TAG --namespace laa-fee-calculator-dev"
       - "kubectl rollout status deployment/laa-fee-dev-app"
       - "POD=$(kubectl get pods -n laa-fee-calculator-dev | grep laa-fee-dev-app | awk '{print $1}')"
       - "kubectl exec $POD -n laa-fee-calculator-dev venv/bin/python manage.py loaddata advocatetype feetype offenceclass price scenario scheme unit modifier modifiertype"
