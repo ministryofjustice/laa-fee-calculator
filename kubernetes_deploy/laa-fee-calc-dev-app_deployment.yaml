@@ -32,7 +32,7 @@ spec:
           value: CHANGE_ME
         - name: ENV
           value: local
-        lifecycle:
-          postStart:
-            exec:
-              command: ["/usr/bin/python", "manage.py", "loaddata", "advocatetype", "feetype", "offenceclass", "price", "scenario", "scheme", "unit", "modifier", "modifiertype"]
+#        lifecycle:
+#          postStart:
+#            exec:
+#              command: ["/usr/bin/python", "manage.py", "loaddata", "advocatetype", "feetype", "offenceclass", "price", "scenario", "scheme", "unit", "modifier", "modifiertype"]
