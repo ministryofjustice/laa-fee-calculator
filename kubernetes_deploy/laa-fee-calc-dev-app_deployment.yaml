@@ -32,7 +32,12 @@ spec:
           value: CHANGE_ME
         - name: ENV
           value: local
-#        lifecycle:
-#          postStart:
-#            exec:
+        lifecycle:
+          postStart:
+            exec:
+               command:
+                 - "apt-get install -y python-pip"
+                 - "pip install -r requirements.txt"
+                 - "python manage.py loaddata advocatetype feetype offenceclass price scenario scheme unit modifier modifiertype"
+
 #              command: ["/usr/bin/python", "manage.py", "loaddata", "advocatetype", "feetype", "offenceclass", "price", "scenario", "scheme", "unit", "modifier", "modifiertype"]
