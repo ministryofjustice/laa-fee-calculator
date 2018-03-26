@@ -46,7 +46,7 @@ phases:
 
       - "PODS=$(kubectl get pods --selector='app=laa-fee-dev-app'  --namespace=laa-fee-calculator-dev -o name  | sed 's%pods/%%')"
       - "echo $PODS"
-      - "echo $PODS | while read POD; do kubectl exec -n laa-fee-calculator-dev 'apt-get install -y python-pip; pip install -r requirements.txt; python manage.py loaddata advocatetype feetype offenceclass price scenario scheme unit modifier modifiertype'; done"
+      - "echo $PODS | while read POD; do kubectl exec -n laa-fee-calculator-dev $POD 'apt-get install -y python-pip; pip install -r requirements.txt; python manage.py loaddata advocatetype feetype offenceclass price scenario scheme unit modifier modifiertype'; done"
 
 artifacts:
   files:
