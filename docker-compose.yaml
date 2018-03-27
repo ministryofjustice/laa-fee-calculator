@@ -10,6 +10,7 @@ db:
 
 django:
   build: .
+  # image: hwf-calc-new
   ports:
     - "8000:8080"
   links:
