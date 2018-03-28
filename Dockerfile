@@ -1,4 +1,4 @@
-FROM python:3.5-alpine as baseimg
+FROM buildpack-deps:xenial as baseimg
 RUN apk add --no-cache ca-certificates postgresql-dev build-base linux-headers
 RUN pip install -U setuptools pip wheel
 ARG SECRET_KEY
@@ -12,7 +12,7 @@ RUN pip install -r requirements/base.txt
 ADD . /app
 RUN python manage.py collectstatic
 
-FROM python:3.5-alpine as deployimg
+FROM buildpack-deps:xenial as deployimg
 RUN apk add --no-cache ca-certificates postgresql-dev uwsgi-python bash
 COPY --from=baseimg /app /app
 COPY --from=baseimg /usr/local/lib/python3.5 /usr/local/lib/python3.5
