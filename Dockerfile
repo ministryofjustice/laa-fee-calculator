@@ -13,6 +13,6 @@ RUN python manage.py collectstatic
 FROM python:3.5-alpine as deployimg
 RUN apk add --no-cache ca-certificates postgresql-dev uwsgi-python bash
 COPY --from=baseimg /app /app
-COPY --from=baseimg /usr/local/lib/python3.5/site-packages /usr/local/lib/python3.5/site-packages
+COPY --from=baseimg /usr/local/lib/python3.5 /usr/local/lib/python3.5
 WORKDIR /app
 CMD python manage.py migrate --no-input && uwsgi --ini uwsgi.ini
