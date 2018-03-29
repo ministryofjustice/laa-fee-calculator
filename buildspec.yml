@@ -40,10 +40,10 @@ phases:
       - printf '[{"name":"simple-app","imageUri":"%s"}]' "$IMAGE_URI" > images.json
       - "kubectl apply -f kubernetes_deploy/"
       - "kubectl set image deployment/laa-fee-dev-app *=926803513772.dkr.ecr.eu-west-1.amazonaws.com/laa-fee-calculator:$TAG --namespace laa-fee-calculator-dev"
-#      - "sleep 60"
-#      - "PODS=$(kubectl get pods --selector='app=laa-fee-dev-app'  --namespace=laa-fee-calculator-dev -o name  | sed 's%pods/%%' | sed 's%pod/%%')"
-#      - "echo $PODS"
-#      - "echo $PODS | while read POD; do kubectl exec -n laa-fee-calculator-dev $POD -- /bin/bash -c 'apt-get install -y libpq-dev python-pip; pip install -r requirements.txt; /usr/bin/python manage.py loaddata advocatetype feetype offenceclass price scenario scheme unit modifier modifiertype'; done"
+      - "sleep 60"
+      - "PODS=$(kubectl get pods --selector='app=laa-fee-dev-app'  --namespace=laa-fee-calculator-dev -o name  | sed 's%pods/%%' | sed 's%pod/%%')"
+      - "echo $PODS"
+      - "echo $PODS | while read POD; do kubectl exec -n laa-fee-calculator-dev $POD -- /bin/bash -c 'apt-get install -y libpq-dev python-pip; pip install -r requirements.txt; /usr/bin/python manage.py loaddata advocatetype feetype offenceclass price scenario scheme unit modifier modifiertype'; done"
 
 artifacts:
   files:
