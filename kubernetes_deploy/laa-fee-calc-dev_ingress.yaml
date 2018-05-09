@@ -9,7 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   rules:
-  - host: laa-fee-calc-dev.apps.non-production.k8s.integration.dsd.io
+  - host: laa-fee-calculator-dev.apps.non-production.k8s.integration.dsd.io
     http:
       paths:
       - path: /
