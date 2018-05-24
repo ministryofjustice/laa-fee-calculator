@@ -1,4 +1,212 @@
 - model: calculator.offenceclass
+  pk: '10.1'
+  fields: {name: 'Band 10.1: Driving Offences', description: Death and serious injury
+      by driving cases (unless standard).}
+- model: calculator.offenceclass
+  pk: '1.1'
+  fields: {name: 'Band 1.1: Murder/Manslaughter', description: 'Killing of a child
+      (16 years old or under); killing of two or more persons; killing of a police
+      officer, prison officer or equivalent public servant in the course of their
+      duty; killing of a patient in a medical or nursing care context; corporate manslaughter;
+      manslaughter by gross negligence; missing body killing.'}
+- model: calculator.offenceclass
+  pk: '11.1'
+  fields: {name: 'Band 11.1: Burglary & Robbery', description: 'Aggravated burglary,
+      burglary with intent to GBH or rape, and armed robbery.'}
+- model: calculator.offenceclass
+  pk: '11.2'
+  fields: {name: 'Band 11.2: Burglary & Robbery', description: Indictable only burglary;
+      other robberies.}
+- model: calculator.offenceclass
+  pk: '1.2'
+  fields: {name: 'Band 1.2: Murder/Manslaughter', description: 'Killing done with
+      a firearm; defendant has a previous conviction for murder; body is dismembered
+      (literally), or destroyed by fire or other means by the offender; the defendant
+      is a child (16 or under).'}
+- model: calculator.offenceclass
+  pk: '12.1'
+  fields: {name: 'Band 12.1: Firearms Offences', description: Possession or supply
+      of a firearm/ammunition with any ulterior intent or any offence for which the
+      maximum penalty is life imprisonment.}
+- model: calculator.offenceclass
+  pk: '12.2'
+  fields: {name: 'Band 12.2: Firearms Offences', description: Minimum sentence offence.}
+- model: calculator.offenceclass
+  pk: '12.3'
+  fields: {name: 'Band 12.3: Firearms Offences', description: All other offences (unless
+      standard).}
+- model: calculator.offenceclass
+  pk: '1.3'
+  fields: {name: 'Band 1.3: Murder/Manslaughter', description: All other cases of
+      murder.}
+- model: calculator.offenceclass
+  pk: '13.1'
+  fields: {name: 'Band 13.1: Other offences against the person', description: ' "Kidnapping;
+      false imprisonment; blackmail (unless standard)."'}
+- model: calculator.offenceclass
+  pk: '1.4'
+  fields: {name: 'Band 1.4: Murder/Manslaughter', description: All other cases of
+      manslaughter.}
+- model: calculator.offenceclass
+  pk: '14.1'
+  fields: {name: 'Band 14.1: Exploitation / human trafficking offences', description: All
+      exploitation / human trafficking offences (unless standard}
+- model: calculator.offenceclass
+  pk: '15.1'
+  fields: {name: 'Band 15.1: Public Order Offences', description: Riot and prison
+      mutiny/riot.}
+- model: calculator.offenceclass
+  pk: '15.2'
+  fields: {name: 'Band 15.2: Public Order Offences', description: Violent disorder.}
+- model: calculator.offenceclass
+  pk: '15.3'
+  fields: {name: 'Band 15.3: Public Order Offences', description: Affray.}
+- model: calculator.offenceclass
+  pk: '16.1'
+  fields: {name: 'Band 16.1: Regulatory Offences', description: "Health and Safety
+      or environmental cases involving one or more fatalities or defined by the HSE
+      or EA as a category or Stage 1 \u201Cmajor incident\u201D; Death of a child;
+      A major accident at a site regulated by the Control of Major Accident Hazards
+      Regulations 1999 (as amended); large scale explosion."}
+- model: calculator.offenceclass
+  pk: '16.2'
+  fields: {name: 'Band 16.2: Regulatory Offences', description: 'Health and Safety
+      or environmental cases not falling within Band 1 but involving: - Serious and
+      permanent personal injury/disability and/or widespread - Destruction of property
+      (other than that owned or occupied by the defendant) - Extensive pollution/irreparable
+      damage to the environment - Toxic gas release (e.g. carbon monoxide, chlorine
+      gas) - Cases involving incidents governed by mining/railways/aviation legislation'}
+- model: calculator.offenceclass
+  pk: '16.3'
+  fields: {name: 'Band 16.3: Regulatory Offences', description: All other offences
+      (unless standard)}
+- model: calculator.offenceclass
+  pk: '17.1'
+  fields: {name: 'Band 17.1: Standard Cases', description: Standard cases Those cases
+      not falling under the above categories of offence will be defined as 'Standard
+      Cases'.}
+- model: calculator.offenceclass
+  pk: '2.1'
+  fields: {name: 'Band 2.1: Terrorism', description: 'Terrorist murder (S63B Terrorism
+      Act 2000); Explosive Substances Act 1883 offences - especially S2&3; preparation
+      for terrorism, S5 Terrorism Act 2000, disseminating terrorist publications,
+      S2 Terrorism Act 2006; possession of material for the purpose of terrorism,
+      S57 Terrorism Act 2000.'}
+- model: calculator.offenceclass
+  pk: '2.2'
+  fields: {name: 'Band 2.2: Terrorism', description: All other terrorist offences.}
+- model: calculator.offenceclass
+  pk: '3.1'
+  fields: {name: 'Band 3.1: Serious Violence', description: 'Attempted murder of a
+      child, two or more persons, police officer, nursing/medical contact or any violent
+      offence committed with a live firearm.'}
+- model: calculator.offenceclass
+  pk: '3.2'
+  fields: {name: 'Band 3.2: Serious Violence', description: All other attempted murder.}
+- model: calculator.offenceclass
+  pk: '3.3'
+  fields: {name: 'Band 3.3: Serious Violence', description: S18.}
+- model: calculator.offenceclass
+  pk: '3.4'
+  fields: {name: 'Band 3.4: Serious Violence', description: 'All other serious violence
+      (unless standard, or specified in Band 3.5).'}
+- model: calculator.offenceclass
+  pk: '3.5'
+  fields: {name: 'Band 3.5: Serious Violence', description: 's20 Offences Against
+      the Persons Act cases, s47 cases (Actual Bodily Harm), and Threats to Kill.'}
+- model: calculator.offenceclass
+  pk: '4.1'
+  fields: {name: 'Band 4.1: Sexual Offences (children) - defendant or victim a child
+      at the time of offence', description: Rape / Assault by penetration.}
+- model: calculator.offenceclass
+  pk: '4.2'
+  fields: {name: 'Band 4.2: Sexual Offences (children) - defendant or victim a child
+      at the time of offence', description: Sexual Assault.}
+- model: calculator.offenceclass
+  pk: '4.3'
+  fields: {name: 'Band 4.3: Sexual Offences (children) - defendant or victim a child
+      at the time of offence', description: All other offences (unless standard).}
+- model: calculator.offenceclass
+  pk: '5.1'
+  fields: {name: 'Band 5.1: Sexual Offences (adult)', description: Rape / Assault
+      by penetration.}
+- model: calculator.offenceclass
+  pk: '5.2'
+  fields: {name: 'Band 5.2: Sexual Offences (adult)', description: Sexual Assault.}
+- model: calculator.offenceclass
+  pk: '5.3'
+  fields: {name: 'Band 5.3: Sexual Offences (adult)', description: All other offences
+      (unless standard).}
+- model: calculator.offenceclass
+  pk: '6.1'
+  fields: {name: 'Band 6.1: Dishonesty (to include Proceeds of Crime and Money Laundering)',
+    description: "Over \xA310m or over 20,000 pages."}
+- model: calculator.offenceclass
+  pk: '6.2'
+  fields: {name: 'Band 6.2: Dishonesty (to include Proceeds of Crime and Money Laundering)',
+    description: "Over \xA31m or over 10,000 pages."}
+- model: calculator.offenceclass
+  pk: '6.3'
+  fields: {name: 'Band 6.3: Dishonesty (to include Proceeds of Crime and Money Laundering)',
+    description: "Over \xA3100,000."}
+- model: calculator.offenceclass
+  pk: '6.4'
+  fields: {name: 'Band 6.4: Dishonesty (to include Proceeds of Crime and Money Laundering)',
+    description: "Under \xA3100,000."}
+- model: calculator.offenceclass
+  pk: '6.5'
+  fields: {name: 'Band 6.5: Dishonesty (to include Proceeds of Crime and Money Laundering)',
+    description: "Under \xA330,000."}
+- model: calculator.offenceclass
+  pk: '7.1'
+  fields: {name: 'Band 7.1: Property Damage Offences', description: Arson with intent
+      to endanger life/reckless as to endanger life.}
+- model: calculator.offenceclass
+  pk: '7.2'
+  fields: {name: 'Band 7.2: Property Damage Offences', description: "Simple arson
+      and criminal damage over \xA330,000."}
+- model: calculator.offenceclass
+  pk: '7.3'
+  fields: {name: 'Band 7.3: Property Damage Offences', description: All other offences
+      (unless standard).}
+- model: calculator.offenceclass
+  pk: '8.1'
+  fields: {name: 'Band 8.1: Offences Against the Public Interest', description: All
+      offences against the public interest (unless standard).}
+- model: calculator.offenceclass
+  pk: '9.1'
+  fields: {name: 'Band 9.1: Drugs Offences', description: 'Class A: Importation S3
+      Misuse of Drugs Act/ S170 Customs and Excise Management Act; Or over 5,000 pages
+      of evidence; Or weight over: 5kg heroin or cocaine 10,000 ecstasy tablets 250,000
+      squares of LSD'}
+- model: calculator.offenceclass
+  pk: '9.2'
+  fields: {name: 'Band 9.2: Drugs Offences', description: 'Class B: Importation S3
+      Misuse of Drugs Act/ S170 Customs and Excise Management Act; Or over 5,000 pages
+      of evidence; Or weight over: 20kg amphetamine 200kg cannabis 5kg ketamine'}
+- model: calculator.offenceclass
+  pk: '9.3'
+  fields: {name: 'Band 9.3: Drugs Offences', description: 'Class C: Importation S3
+      Misuse of Drugs Act/ S170 Customs and Excise Management Act; Or over 5,000 pages
+      of evidence'}
+- model: calculator.offenceclass
+  pk: '9.4'
+  fields: {name: 'Band 9.4: Drugs Offences', description: 'Class A: 1,000 pages of
+      evidence; Or weight over: 1kg Heroin or Cocaine 2,000 ecstasy tablets 2,5000
+      squares of LSD'}
+- model: calculator.offenceclass
+  pk: '9.5'
+  fields: {name: 'Band 9.5: Drugs Offences', description: 'Class B: 1,000 pages of
+      evidence; Or weight over: 4kg of amphetamine 40kg of cannabis 1kg ketamine'}
+- model: calculator.offenceclass
+  pk: '9.6'
+  fields: {name: 'Band 9.6: Drugs Offences', description: 'Class C: 1,000 pages of
+      evidence'}
+- model: calculator.offenceclass
+  pk: '9.7'
+  fields: {name: 'Band 9.7: Drugs Offences', description: All other drugs cases of
+      any class (unless standard).}
+- model: calculator.offenceclass
   pk: A
   fields: {name: A, description: Homicide and related grave offences}
 - model: calculator.offenceclass
