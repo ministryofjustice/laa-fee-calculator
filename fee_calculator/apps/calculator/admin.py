@@ -33,7 +33,7 @@ class AdvocateTypeAdmin(admin.ModelAdmin):
 
 @admin.register(OffenceClass)
 class OffenceClassAdmin(admin.ModelAdmin):
-    list_display = ('description', 'id', 'name',)
+    list_display = ('name', 'id', 'description',)
 
 
 @admin.register(Unit)
