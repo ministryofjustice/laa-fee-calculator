@@ -6,11 +6,13 @@ from math import floor
 import os
 
 from django.conf import settings
-from django.test import TestCase
 from rest_framework import status
 
 from calculator.models import Price, FeeType
-from .lib.utils import scenario_ccr_to_id, scenario_clf_to_id
+from calculator.tests.lib.utils import scenario_ccr_to_id
+from calculator.tests.calculation_utils import (
+    CalculatorTestCase, get_test_name, make_test
+)
 
 
 AGFS_CSV_PATH = os.path.join(
@@ -18,24 +20,10 @@ AGFS_CSV_PATH = os.path.join(
     'data/test_dataset_agfs.csv'
 )
 
-LGFS_CSV_PATH = os.path.join(
-    os.path.dirname(__file__),
-    'data/test_dataset_lgfs.csv'
-)
 
+class Agfs9CalculatorTestCase(CalculatorTestCase):
 
-class CalculatorTestCase(TestCase):
-    fixtures = [
-        'advocatetype', 'feetype', 'offenceclass', 'price', 'scenario',
-        'scheme', 'unit', 'modifiertype', 'modifier',
-    ]
-
-    def endpoint(self, scheme_id):
-        return '/api/{version}/fee-schemes/{scheme_id}/calculate/'.format(
-            version=settings.API_VERSION, scheme_id=scheme_id
-        )
-
-    def assertAgfsRowValuesCorrect(self, row):
+    def assertRowValuesCorrect(self, row):
         """
         Assert row values equal calculated values
         """
@@ -113,99 +101,12 @@ class CalculatorTestCase(TestCase):
             data
         )
 
-    def assertLgfsRowValuesCorrect(self, row):
-        """
-        Assert row values equal calculated values
-        """
-        calc_date_str = row['REP_ORD_DATE']
-        if calc_date_str:
-            if len(calc_date_str) > 10:
-                calc_date_str = calc_date_str[:-9]
-            calculation_date = datetime.strptime(
-                calc_date_str, '%d/%m/%Y'
-            ).date()
-        else:
-            calculation_date = datetime.now().date()
-
-        # get scheme for date
-        scheme_resp = self.client.get(
-            '/api/{version}/fee-schemes/'.format(version=settings.API_VERSION),
-            data=dict(supplier_type='solicitor', case_date=calculation_date)
-        )
-        self.assertEqual(
-            scheme_resp.status_code, status.HTTP_200_OK, scheme_resp.content
-        )
-        self.assertEqual(scheme_resp.json()['count'], 1)
-        scheme_id = scheme_resp.json()['results'][0]['id']
-
-        data = {
-            'scheme': scheme_id,
-            'fee_type_code': row['BILL_SUB_TYPE'],
-            'scenario': scenario_clf_to_id(row['SCENARIO']),
-            'offence_class': row['OFFENCE_CATEGORY'],
-            'day': int(row['TRIAL_LENGTH']) if row['TRIAL_LENGTH'] else 0,
-            'ppe': int(row['EVIDENCE_PAGES']) if row['EVIDENCE_PAGES'] else 0
-        }
-
-        if row['NO_DEFENDANTS']:
-            data['NUMBER_OF_DEFENDANTS'] = int(row['NO_DEFENDANTS'])
-
-        resp = self.client.get(self.endpoint(scheme_id), data=data)
-        self.assertEqual(
-            resp.status_code, status.HTTP_200_OK, resp.content
-        )
-
-        self.assertEqual(
-            resp.data['amount'],
-            Decimal(row['CALC_FEE_EXC_VAT']),
-            data
-        )
-
-
-def test_name(prefix, row, line_number):
-    """
-    Generate the method name for the test
-    """
-    return 'test_{0}_{1}_{2}'.format(
-        prefix,
-        line_number,
-        row.get('CASE_ID')
-    )
-
-
-test_name.__test__ = False
-
-
-def make_agfs_test(row, line_number):
-    """
-    Generate a test method
-    """
-    def row_test(self):
-        self.assertAgfsRowValuesCorrect(row)
-    row_test.__doc__ = str(line_number) + ': ' + str(row.get('CASE_ID'))
-    return row_test
-
-
-make_agfs_test.__test__ = False
-
-
-def make_lgfs_test(row, line_number):
-    """
-    Generate a test method
-    """
-    def row_test(self):
-        self.assertLgfsRowValuesCorrect(row)
-    row_test.__doc__ = str(line_number) + ': ' + str(row.get('CASE_ID'))
-    return row_test
-
-
-make_lgfs_test.__test__ = False
-
 
 def create_tests():
     """
     Insert test methods into the TestCase for each case in the spreadsheet
     """
+
     with open(AGFS_CSV_PATH) as csvfile:
         reader = csv.DictReader(csvfile)
         priced_fees = FeeType.objects.filter(
@@ -213,14 +114,11 @@ def create_tests():
         ).values_list('code', flat=True).distinct()
         for i, row in enumerate(reader):
             if row['BILL_SUB_TYPE'] in priced_fees:
-                setattr(CalculatorTestCase, test_name('agfs', row, i+2), make_agfs_test(row, i+2))
+                setattr(
+                    Agfs9CalculatorTestCase,
+                    get_test_name('agfs', row, i+2),
+                    make_test(row, i+2)
+                )
 
-    with open(LGFS_CSV_PATH) as csvfile:
-        reader = csv.DictReader(csvfile)
-        for i, row in enumerate(reader):
-            setattr(CalculatorTestCase, test_name('lgfs', row, i+2), make_lgfs_test(row, i+2))
-
-
-create_tests.__test__ = False
 
 create_tests()
