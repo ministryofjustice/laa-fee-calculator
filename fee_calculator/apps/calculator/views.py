@@ -33,8 +33,9 @@ class OrderedReadOnlyModelViewSet(viewsets.ReadOnlyModelViewSet):
     default_ordering = None
 
     def filter_queryset(self, queryset):
+        queryset = super().filter_queryset(queryset)
         queryset = queryset.order_by(self.default_ordering or 'pk')
-        return super().filter_queryset(queryset)
+        return queryset
 
 
 class SchemeViewSet(OrderedReadOnlyModelViewSet):
@@ -151,10 +152,11 @@ class BasePriceFilteredViewSet(OrderedReadOnlyModelViewSet):
             'description': '',
         }),
     ])
-    relation_name = 'prices'
+    relation_name = NotImplemented
+    lookup_attr = 'pk'
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
+    def filter_queryset(self, queryset):
+        queryset = super().filter_queryset(queryset)
 
         scheme_id = self.request.query_params.get('scheme')
         scenario_id = self.request.query_params.get('scenario')
@@ -164,26 +166,34 @@ class BasePriceFilteredViewSet(OrderedReadOnlyModelViewSet):
 
         filters = []
         if scheme_id:
-            filters.append(Q(**{'{lookup}__scheme_id'.format(lookup=self.relation_name): scheme_id}))
+            filters.append(Q(scheme_id=scheme_id))
         if scenario_id:
-            filters.append(Q(**{'{lookup}__scenario_id'.format(lookup=self.relation_name): scenario_id}))
+            filters.append(Q(scenario_id=scenario_id))
         if advocate_type_id:
             filters.append(
-                Q(**{'{lookup}__advocate_type_id'.format(lookup=self.relation_name): advocate_type_id}) |
-                Q(**{'{lookup}__advocate_type_id__isnull'.format(lookup=self.relation_name): True})
+                Q(advocate_type_id=advocate_type_id) |
+                Q(advocate_type_id__isnull=True)
             )
         if offence_class_id:
             filters.append(
-                Q(**{'{lookup}__offence_class_id'.format(lookup=self.relation_name): offence_class_id}) |
-                Q(**{'{lookup}__offence_class_id__isnull'.format(lookup=self.relation_name): True})
+                Q(offence_class_id=offence_class_id) |
+                Q(offence_class_id__isnull=True)
             )
         if fee_type_code:
             filters.append(
-                Q(**{'{lookup}__fee_type__code'.format(lookup=self.relation_name): fee_type_code})
+                Q(fee_type__code=fee_type_code)
             )
 
         if filters:
-            queryset = queryset.filter(*filters).distinct()
+            applicable_prices = Price.objects.filter(*filters)
+            relevant_values = applicable_prices.values_list(
+                self.relation_name, flat=True
+            ).distinct()
+            queryset = queryset.filter(
+                **{'{lookup_attr}__in'.format(
+                    lookup_attr=self.lookup_attr
+                ): relevant_values}
+            )
         return queryset
 
 
@@ -195,6 +205,27 @@ class FeeTypeViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
     serializer_class = FeeTypeSerializer
     filter_backends = (backends.DjangoFilterBackend,)
     filter_class = FeeTypeFilter
+    relation_name = 'fee_type'
+
+
+class UnitViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
+    """
+    Viewing unit(s).
+    """
+    queryset = Unit.objects.all()
+    serializer_class = UnitSerializer
+    relation_name = 'unit'
+
+
+class ModifierTypeViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
+    """
+    Viewing modifier type(s).
+    """
+    queryset = ModifierType.objects.all()
+    serializer_class = ModifierTypeSerializer
+    relation_name = 'modifiers'
+    lookup_attr = 'values__pk'
+    scheme_relation_name = 'values__prices__scheme'
 
 
 class ScenarioViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
@@ -219,24 +250,6 @@ class AdvocateTypeViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     """
     queryset = AdvocateType.objects.all()
     serializer_class = AdvocateTypeSerializer
-
-
-class UnitViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
-    """
-    Viewing unit(s).
-    """
-    queryset = Unit.objects.all()
-    serializer_class = UnitSerializer
-
-
-class ModifierTypeViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
-    """
-    Viewing modifier type(s).
-    """
-    queryset = ModifierType.objects.all()
-    serializer_class = ModifierTypeSerializer
-    relation_name = 'values__prices'
-    scheme_relation_name = 'values__prices__scheme'
 
 
 class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
