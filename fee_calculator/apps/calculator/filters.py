@@ -25,7 +25,7 @@ class CalculatorSchema(ManualSchema):
                     'location': 'query',
                     'type': 'number',
                     'description': (
-                        'The number of units of the named unit'
+                        'Quantity of the price unit: {}'.format(unit.name)
                     ),
                 }),
             )
@@ -37,8 +37,8 @@ class CalculatorSchema(ManualSchema):
                     'location': 'query',
                     'type': 'number',
                     'description': (
-                        'The number of units of the named modifier type'
-                    ),
+                        'Price modifier: {}'.format(modifier.description)
+                    )
                 }),
             )
         super().__init__(fields, *args, **kwargs)
