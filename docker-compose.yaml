@@ -1,26 +1,29 @@
 # NB: this is only used for *local development*
 # see Dockerfile for deployed version
+version: "2.1"
 
-db:
-  image: postgres
-  environment:
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: postgres
-    POSTGRES_DB: fee_calculator
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: fee_calculator
 
-django:
-  build: .
-  # image: hwf-calc-new
-  ports:
-    - "8000:8080"
-  links:
-    - db
-  environment:
-    ENV: local
-    DEBUG: "True"
-    DJANGO_SECRET_KEY: CHANGE_ME
-    DB_NAME: fee_calculator
-    DB_USERNAME: postgres
-    DB_PASSWORD: postgres
-    DB_HOST: db
-    DB_PORT: 5432
+  django:
+    build:
+      context: .
+      args:
+        SECRET_KEY: CHANGE_ME
+    ports:
+      - "8000:8080"
+    links:
+      - db
+    environment:
+      ENV: local
+      DEBUG: "True"
+      DB_NAME: fee_calculator
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: db
+      DB_PORT: 5432
