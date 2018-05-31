@@ -76,3 +76,25 @@ Prices
 ======
 
 As well as the calculator endpoint, one can also get a list of prices directly from the endpoint `/api/v1/fee-schemes/<scheme_id>/prices/`. See swagger documentation for available filters.
+
+## Deployment
+
+Currently a commit to master will kickoff the AWS pipeline and deploy to the only environment existent at the moment.
+
+* To check where the application is running:
+
+```
+kubectl get ingress --namespace laa-fee-calculator-dev
+NAME          HOSTS                                                               ADDRESS   PORTS     AGE
+laa-fee-dev   laa-fee-calculator-dev.apps.non-production.k8s.integration.dsd.io
+```
+
+* To check what is the status of the application pods:
+
+```
+kubectl get pods -n laa-fee-calculator-dev
+NAME                               READY     STATUS    RESTARTS   AGE
+laa-fee-dev-app-6644dfb5d6-znbmx   1/1       Running   0          4m
+laa-fee-dev-db-84bfb9d45c-68grw    1/1       Running   0          73d
+tiller-deploy-5cf7859b7c-xg86p     1/1       Running   0          19d
+```
