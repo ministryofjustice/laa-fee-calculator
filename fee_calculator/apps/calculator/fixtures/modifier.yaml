@@ -4,11 +4,7 @@
     required: False, priority: 0, fixed_percent: '0.00', strict_range: False}
 - model: calculator.modifier
   pk: 2
-  fields: {modifier_type: 2, limit_from: 2, limit_to: 4, percent_per_unit: '20.00',
-    required: False, priority: 0, fixed_percent: '0.00', strict_range: False}
-- model: calculator.modifier
-  pk: 3
-  fields: {modifier_type: 2, limit_from: 5, limit_to: null, percent_per_unit: '30.00',
+  fields: {modifier_type: 2, limit_from: 2, limit_to: null, percent_per_unit: '20.00',
     required: False, priority: 0, fixed_percent: '0.00', strict_range: False}
 - model: calculator.modifier
   pk: 4
