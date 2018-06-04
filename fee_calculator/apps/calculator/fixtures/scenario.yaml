@@ -136,3 +136,15 @@
 - model: calculator.scenario
   pk: 46
   fields: {name: Interim payment - retrial start}
+- model: calculator.scenario
+  pk: 47
+  fields: {name: Cracked trial (before final third)}
+- model: calculator.scenario
+  pk: 48
+  fields: {name: Cracked before retrial (before final third)}
+- model: calculator.scenario
+  pk: 49
+  fields: {name: Cracked trial (final third)}
+- model: calculator.scenario
+  pk: 50
+  fields: {name: Cracked before retrial (final third)}

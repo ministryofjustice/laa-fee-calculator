@@ -304,3 +304,15 @@
 - model: calculator.feetype
   pk: 99
   fields: {name: Cost judge preparation award, code: AGFS_CJD_EXP, is_basic: false, aggregation: 'sum'}
+- model: calculator.feetype
+  pk: 100
+  fields: {name: Ground rules hearing (half day), code: AGFS_GRH_HALF, is_basic: false, aggregation: 'sum'}
+- model: calculator.feetype
+  pk: 101
+  fields: {name: Ground rules hearing (full day), code: AGFS_GRH_FULL, is_basic: false, aggregation: 'sum'}
+- model: calculator.feetype
+  pk: 102
+  fields: {name: Further case management hearing, code: AGFS_FCMH, is_basic: false, aggregation: 'sum'}
+- model: calculator.feetype
+  pk: 103
+  fields: {name: Plea and trial preparation hearing, code: AGFS_PLEA, is_basic: false, aggregation: 'sum'}
