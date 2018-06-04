@@ -356,8 +356,8 @@ class CalculatorView(views.APIView):
 
     def get(self, *args, **kwargs):
         scheme = get_object_or_404(Scheme, pk=kwargs['scheme_pk'])
-        fee_type = self.get_model_param(
-            'fee_type_code', FeeType, required=True, lookup='code'
+        fee_types = self.get_model_param(
+            'fee_type_code', FeeType, required=True, lookup='code', many=True
         )
         scenario = self.get_model_param('scenario', Scenario, required=True)
         advocate_type = self.get_model_param('advocate_type', AdvocateType)
@@ -380,8 +380,20 @@ class CalculatorView(views.APIView):
                     self.get_decimal_param(param),
                 ))
 
+        matching_fee_types = Price.objects.filter(
+            scheme=scheme, fee_type__in=fee_types
+        ).values_list('fee_type', flat=True).distinct()
+
+        if len(matching_fee_types) != 1:
+            raise ValidationError((
+                'fee_type_code must match a unique fee type for the scheme; '
+                '{} were found'
+            ).format(len(matching_fee_types)))
+
+        unique_fee_type = FeeType.objects.get(pk=matching_fee_types[0])
+
         amount = calculate_total(
-            scheme, scenario, fee_type, offence_class, advocate_type,
+            scheme, scenario, unique_fee_type, offence_class, advocate_type,
             unit_counts, modifier_counts
         )
 

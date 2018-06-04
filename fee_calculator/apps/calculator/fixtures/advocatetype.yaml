@@ -10,3 +10,6 @@
 - model: calculator.advocatetype
   pk: QC
   fields: {name: QC}
+- model: calculator.advocatetype
+  pk: JUNIOR
+  fields: {name: Junior}

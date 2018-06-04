@@ -131,7 +131,7 @@ def bill_to_code(bill_type, sub_type):
     return REVERSE_FEES_MAP[(bill_type, sub_type)]
 
 
-CCR_SCENARIO_MAP = {
+AGFS_9_SCENARIO_MAP = {
     2694: 1,
     2695: 2,
     2696: {1: 3, 2: 13, 3: 13},
@@ -147,15 +147,35 @@ CCR_SCENARIO_MAP = {
 }
 
 
-def scenario_ccr_to_id(ccr_id, third):
-    scenario = CCR_SCENARIO_MAP[int(ccr_id)]
+AGFS_10_SCENARIO_MAP = {
+    2782: 1,
+    2783: 2,
+    2784: {1: 47, 2: 47, 3: 49},
+    2785: 4,
+    2786: 5,
+    2787: 6,
+    2788: 7,
+    2789: 8,
+    2790: 9,
+    2791: {1: 48, 2: 48, 3: 50},
+    2792: 11,
+    2793: 12
+}
+
+
+def scenario_ccr_to_id(ccr_id, third, scheme=9):
+    scenario_map = AGFS_9_SCENARIO_MAP if scheme == 9 else AGFS_10_SCENARIO_MAP
+    scenario = scenario_map[int(ccr_id)]
     if isinstance(scenario, dict):
+        if not third:
+            raise ValueError('Third required')
         return scenario[int(third)]
     return scenario
 
 
-def scenario_id_to_ccr(scenario_id):
-    for key, value in CCR_SCENARIO_MAP.items():
+def scenario_id_to_ccr(scenario_id, scheme=9):
+    scenario_map = AGFS_9_SCENARIO_MAP if scheme == 9 else AGFS_10_SCENARIO_MAP
+    for key, value in scenario_map.items():
         if value == scenario_id:
             return key
         elif isinstance(value, dict) and scenario_id in value.values():
