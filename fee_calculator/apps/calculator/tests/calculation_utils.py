@@ -8,10 +8,11 @@ class CalculatorTestCase(TestCase):
         'advocatetype', 'feetype', 'offenceclass', 'price', 'scenario',
         'scheme', 'unit', 'modifiertype', 'modifier',
     ]
+    scheme_id = NotImplemented
 
-    def endpoint(self, scheme_id):
+    def endpoint(self):
         return '/api/{version}/fee-schemes/{scheme_id}/calculate/'.format(
-            version=settings.API_VERSION, scheme_id=scheme_id
+            version=settings.API_VERSION, scheme_id=self.scheme_id
         )
 
     def assertRowValuesCorrect(self, row):
