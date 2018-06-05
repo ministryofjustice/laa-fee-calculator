@@ -16,12 +16,12 @@ from calculator.tests.calculation_utils import (
 
 AGFS_CSV_PATH = os.path.join(
     os.path.dirname(__file__),
-    'data/test_dataset_agfs.csv'
+    'data/test_dataset_agfs_10.csv'
 )
 
 
-class Agfs9CalculatorTestCase(CalculatorTestCase):
-    scheme_id = 1
+class Agfs10CalculatorTestCase(CalculatorTestCase):
+    scheme_id = 3
 
     def assertRowValuesCorrect(self, row):
         """
@@ -33,7 +33,7 @@ class Agfs9CalculatorTestCase(CalculatorTestCase):
             'scheme': self.scheme_id,
             'fee_type_code': row['BILL_SUB_TYPE'],
             'scenario': scenario_ccr_to_id(
-                row['BILL_SCENARIO_ID'], row['THIRD_CRACKED'] or 3),
+                row['BILL_SCENARIO_ID'], row['THIRD_CRACKED'] or 3, scheme=10),
             'advocate_type': row['PERSON_TYPE'],
             'offence_class': row['OFFENCE_CATEGORY'],
         }
@@ -57,8 +57,6 @@ class Agfs9CalculatorTestCase(CalculatorTestCase):
             ) or 1
         else:
             data['DAY'] = Decimal(row['NUM_ATTENDANCE_DAYS']) or 1
-            data['PPE'] = int(row['PPE'])
-            data['PW'] = int(row['NUM_OF_WITNESSES'])
 
         if row['NUM_OF_CASES']:
             data['NUMBER_OF_CASES'] = int(row['NUM_OF_CASES'])
@@ -66,8 +64,6 @@ class Agfs9CalculatorTestCase(CalculatorTestCase):
             data['NUMBER_OF_DEFENDANTS'] = int(row['NO_DEFENDANTS'])
         if row['TRIAL_LENGTH']:
             data['TRIAL_LENGTH'] = int(row['TRIAL_LENGTH'])
-        if row['PPE']:
-            data['PAGES_OF_PROSECUTING_EVIDENCE'] = int(row['PPE'])
         if row['MONTHS']:
             data['RETRIAL_INTERVAL'] = floor(abs(Decimal(row['MONTHS'])))
 
@@ -94,7 +90,7 @@ def create_tests():
         for i, row in enumerate(reader):
             if row['BILL_SUB_TYPE'] in priced_fees:
                 setattr(
-                    Agfs9CalculatorTestCase,
+                    Agfs10CalculatorTestCase,
                     get_test_name('agfs', row, i+2),
                     make_test(row, i+2)
                 )
