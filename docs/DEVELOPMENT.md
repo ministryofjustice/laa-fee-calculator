@@ -42,7 +42,7 @@ brew link libxml2 --force
 * Install virtual environment
 
 ```
-/usr/bin/python3 -m venv venv
+`which python3` -m venv venv
 venv/bin/pip install -U setuptools pip wheel
 ```
 
@@ -64,6 +64,12 @@ CREATE DATABASE
 
 ```
 venv/bin/python manage.py migrate --no-input
+```
+
+* Seed database
+
+```
+venv/bin/python manage.py loaddata advocatetype feetype offenceclass price scenario scheme unit modifier modifiertype
 ```
 
 * Run the server
