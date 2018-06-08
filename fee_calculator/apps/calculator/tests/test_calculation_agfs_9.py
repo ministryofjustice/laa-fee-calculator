@@ -85,7 +85,8 @@ def create_tests():
     """
     Insert test methods into the TestCase for each case in the spreadsheet
     """
-
+    tested_scenarios = set()
+    tested_fees = set()
     with open(AGFS_CSV_PATH) as csvfile:
         reader = csv.DictReader(csvfile)
         priced_fees = FeeType.objects.filter(
@@ -93,11 +94,16 @@ def create_tests():
         ).values_list('code', flat=True).distinct()
         for i, row in enumerate(reader):
             if row['BILL_SUB_TYPE'] in priced_fees:
+                tested_scenarios.add(row['BILL_SCENARIO_ID'])
+                tested_fees.add(row['BILL_SUB_TYPE'])
                 setattr(
                     Agfs9CalculatorTestCase,
                     get_test_name('agfs', row, i+2),
                     make_test(row, i+2)
                 )
+    print('Testing {0} scenarios and {1} fees'.format(
+        len(tested_scenarios), len(tested_fees)
+    ))
 
 
 create_tests()

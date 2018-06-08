@@ -52,15 +52,17 @@ def create_tests():
     """
     Insert test methods into the TestCase for each case in the spreadsheet
     """
-
+    tested_scenarios = set()
     with open(LGFS_CSV_PATH) as csvfile:
         reader = csv.DictReader(csvfile)
         for i, row in enumerate(reader):
+            tested_scenarios.add(row['SCENARIO'])
             setattr(
                 Lgfs8CalculatorTestCase,
                 get_test_name('lgfs', row, i+2),
                 make_test(row, i+2)
             )
+    print('Testing {0} scenarios'.format(len(tested_scenarios)))
 
 
 create_tests()
