@@ -32,8 +32,7 @@ class Agfs10CalculatorTestCase(CalculatorTestCase):
         data = {
             'scheme': self.scheme_id,
             'fee_type_code': row['BILL_SUB_TYPE'],
-            'scenario': scenario_ccr_to_id(
-                row['BILL_SCENARIO_ID'], row['THIRD_CRACKED'] or 3, scheme=10),
+            'scenario': scenario_ccr_to_id(row['BILL_SCENARIO_ID'], scheme=10),
             'advocate_type': row['PERSON_TYPE'],
             'offence_class': row['OFFENCE_CATEGORY'],
         }
@@ -66,6 +65,8 @@ class Agfs10CalculatorTestCase(CalculatorTestCase):
             data['TRIAL_LENGTH'] = int(row['TRIAL_LENGTH'])
         if row['MONTHS']:
             data['RETRIAL_INTERVAL'] = floor(abs(Decimal(row['MONTHS'])))
+        if row['THIRD_CRACKED']:
+            data['THIRD_CRACKED'] = row['THIRD_CRACKED']
 
         resp = self.client.get(self.endpoint(), data=data)
         self.assertEqual(resp.status_code, status.HTTP_200_OK, resp.content)

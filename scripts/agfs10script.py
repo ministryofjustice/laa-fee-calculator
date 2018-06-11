@@ -22,6 +22,9 @@ retrial_1_month_modifier = Modifier.objects.get(pk=9)
 retrial_cracked_0_month_modifier = Modifier.objects.get(pk=10)
 retrial_cracked_1_month_modifier = Modifier.objects.get(pk=11)
 
+before_final_third = Modifier.objects.get(pk=16)
+final_third = Modifier.objects.get(pk=17)
+
 
 '''
 select bs.id as scenario_id, bs.trbc_trial_basis, bf.basic_fee_value,
@@ -51,7 +54,7 @@ with open('agfs_10_basic_fees.csv') as data_export:
             fee_per_unit = Decimal(fee['BASIC_FEE_VALUE'])
             fixed_fee = Decimal(0)
 
-        scenario_id = scenario_ccr_to_id(fee['SCENARIO_ID'], fee['THIRD'], scheme=10)
+        scenario_id = scenario_ccr_to_id(fee['SCENARIO_ID'], scheme=10)
         price = Price.objects.create(
             scheme=agfs_scheme,
             scenario=Scenario.objects.get(pk=scenario_id),
@@ -73,6 +76,11 @@ with open('agfs_10_basic_fees.csv') as data_export:
         if scenario_id == 16:
             price.modifiers.add(retrial_cracked_0_month_modifier)
             price.modifiers.add(retrial_cracked_1_month_modifier)
+
+        if fee['THIRD'] and int(fee['THIRD']) == 3:
+            price.modifiers.add(final_third)
+        elif fee['THIRD'] and int(fee['THIRD']) in [1, 2]:
+            price.modifiers.add(before_final_third)
 
         price.save()
 
@@ -106,12 +114,7 @@ with open('agfs_10_misc_fees.csv') as data_export:
             fee_per_unit = Decimal(fee['FEE_PER_UNIT'])
             fixed_fee = Decimal(0)
 
-        try:
-            scenario_ids = [scenario_ccr_to_id(fee['BISC_BILL_SCENARIO_ID'], None, scheme=10)]
-        except ValueError:
-            scenario_ids = []
-            for third in range(1, 4):
-                scenario_ids.append(scenario_ccr_to_id(fee['BISC_BILL_SCENARIO_ID'], third, scheme=10))
+        scenario_ids = [scenario_ccr_to_id(fee['BISC_BILL_SCENARIO_ID'], None, scheme=10)]
 
         for scenario_id in scenario_ids:
             price = Price.objects.create(

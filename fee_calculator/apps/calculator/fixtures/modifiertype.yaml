@@ -13,3 +13,6 @@
 - model: calculator.modifiertype
   pk: 5
   fields: {name: 'RETRIAL_INTERVAL', description: 'Whole months between trials', unit: MONTH}
+- model: calculator.modifiertype
+  pk: 6
+  fields: {name: 'THIRD_CRACKED', description: 'Third in which a trial cracked', unit: THIRD}
