@@ -46,3 +46,19 @@
   pk: 13
   fields: {modifier_type: 2, limit_from: 5, limit_to: null, percent_per_unit: '0.00',
     required: False, priority: 0, fixed_percent: '30.00', strict_range: True}
+- model: calculator.modifier
+  pk: 14
+  fields: {modifier_type: 6, limit_from: 1, limit_to: 1, percent_per_unit: '0.00',
+    required: True, priority: 0, fixed_percent: '0.00', strict_range: True}
+- model: calculator.modifier
+  pk: 15
+  fields: {modifier_type: 6, limit_from: 2, limit_to: 3, percent_per_unit: '0.00',
+    required: True, priority: 0, fixed_percent: '0.00', strict_range: True}
+- model: calculator.modifier
+  pk: 16
+  fields: {modifier_type: 6, limit_from: 1, limit_to: 2, percent_per_unit: '0.00',
+    required: True, priority: 0, fixed_percent: '0.00', strict_range: True}
+- model: calculator.modifier
+  pk: 17
+  fields: {modifier_type: 6, limit_from: 3, limit_to: 3, percent_per_unit: '0.00',
+    required: True, priority: 0, fixed_percent: '0.00', strict_range: True}

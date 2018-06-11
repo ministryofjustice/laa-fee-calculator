@@ -134,14 +134,14 @@ def bill_to_code(bill_type, sub_type):
 AGFS_9_SCENARIO_MAP = {
     2694: 1,
     2695: 2,
-    2696: {1: 3, 2: 13, 3: 13},
+    2696: 3,
     2697: 4,
     2698: 5,
     2699: 6,
     2700: 7,
     2701: 8,
     2702: 9,
-    2703: {1: 10, 2: 14, 3: 14},
+    2703: 10,
     2704: 11,
     2705: 12
 }
@@ -150,27 +150,22 @@ AGFS_9_SCENARIO_MAP = {
 AGFS_10_SCENARIO_MAP = {
     2782: 1,
     2783: 2,
-    2784: {1: 47, 2: 47, 3: 49},
+    2784: 3,
     2785: 4,
     2786: 5,
     2787: 6,
     2788: 7,
     2789: 8,
     2790: 9,
-    2791: {1: 48, 2: 48, 3: 50},
+    2791: 10,
     2792: 11,
     2793: 12
 }
 
 
-def scenario_ccr_to_id(ccr_id, third, scheme=9):
+def scenario_ccr_to_id(ccr_id, scheme=9):
     scenario_map = AGFS_9_SCENARIO_MAP if scheme == 9 else AGFS_10_SCENARIO_MAP
-    scenario = scenario_map[int(ccr_id)]
-    if isinstance(scenario, dict):
-        if not third:
-            raise ValueError('Third required')
-        return scenario[int(third)]
-    return scenario
+    return scenario_map[int(ccr_id)]
 
 
 def scenario_id_to_ccr(scenario_id, scheme=9):
@@ -178,21 +173,19 @@ def scenario_id_to_ccr(scenario_id, scheme=9):
     for key, value in scenario_map.items():
         if value == scenario_id:
             return key
-        elif isinstance(value, dict) and scenario_id in value.values():
-            return key
 
 
 CLF_SCENARIO_MAP = {
     'ST1TS0T1': 1,
     'ST1TS0T2': 2,
-    'ST1TS0T3': 15,
+    'ST1TS0T3': 3,
     'ST1TS0T4': 4,
     'ST1TS0T5': 5,
     'ST1TS0T6': 6,
     'ST1TS0T7': 7,
     'ST1TS0T8': 8,
     'ST3TS3TB': 9,
-    'ST1TS0T9': 16,
+    'ST1TS0T9': 10,
     'ST1TS0TA': 11,
     'ST2TS1T0': 17,
     'ST3TS1T2': 18,

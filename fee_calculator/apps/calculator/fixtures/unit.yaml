@@ -25,3 +25,6 @@
 - model: calculator.unit
   pk: MONTH
   fields: {name: Months}
+- model: calculator.unit
+  pk: THIRD
+  fields: {name: Third of a trial}

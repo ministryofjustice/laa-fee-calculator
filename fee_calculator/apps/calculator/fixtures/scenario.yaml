@@ -6,7 +6,7 @@
   fields: {name: Guilty plea}
 - model: calculator.scenario
   pk: 3
-  fields: {name: Cracked trial (first third)}
+  fields: {name: Cracked trial}
 - model: calculator.scenario
   pk: 4
   fields: {name: Trial}
@@ -27,25 +27,13 @@
   fields: {name: Breach of crown court order}
 - model: calculator.scenario
   pk: 10
-  fields: {name: Cracked before retrial (first third)}
+  fields: {name: Cracked before retrial}
 - model: calculator.scenario
   pk: 11
   fields: {name: Retrial}
 - model: calculator.scenario
   pk: 12
   fields: {name: Elected case not proceeded}
-- model: calculator.scenario
-  pk: 13
-  fields: {name: Cracked trial (after first third)}
-- model: calculator.scenario
-  pk: 14
-  fields: {name: Cracked before retrial (after first third)}
-- model: calculator.scenario
-  pk: 15
-  fields: {name: Cracked trial}
-- model: calculator.scenario
-  pk: 16
-  fields: {name: Cracked before retrial}
 - model: calculator.scenario
   pk: 17
   fields: {name: Up to and including PCMH transfer (original solicitor) - cracked trial}
@@ -136,15 +124,3 @@
 - model: calculator.scenario
   pk: 46
   fields: {name: Interim payment - retrial start}
-- model: calculator.scenario
-  pk: 47
-  fields: {name: Cracked trial (before final third)}
-- model: calculator.scenario
-  pk: 48
-  fields: {name: Cracked before retrial (before final third)}
-- model: calculator.scenario
-  pk: 49
-  fields: {name: Cracked trial (final third)}
-- model: calculator.scenario
-  pk: 50
-  fields: {name: Cracked before retrial (final third)}
