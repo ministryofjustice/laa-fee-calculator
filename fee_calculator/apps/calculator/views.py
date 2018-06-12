@@ -126,7 +126,7 @@ class NestedSchemeMixin():
         return context
 
 
-class BasePriceFilteredViewSet(OrderedReadOnlyModelViewSet):
+class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     schema = AutoSchema(manual_fields=[
         coreapi.Field('scenario', **{
             'required': False,
@@ -163,7 +163,7 @@ class BasePriceFilteredViewSet(OrderedReadOnlyModelViewSet):
     def filter_queryset(self, queryset):
         queryset = super().filter_queryset(queryset)
 
-        scheme_id = self.request.query_params.get('scheme')
+        scheme_id = self.kwargs.get('scheme_pk')
         scenario_id = self.request.query_params.get('scenario')
         advocate_type_id = self.request.query_params.get('advocate_type')
         offence_class_id = self.request.query_params.get('offence_class')
@@ -202,7 +202,7 @@ class BasePriceFilteredViewSet(OrderedReadOnlyModelViewSet):
         return queryset
 
 
-class FeeTypeViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
+class FeeTypeViewSet(BasePriceFilteredViewSet):
     """
     Viewing fee type(s).
     """
@@ -213,7 +213,7 @@ class FeeTypeViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
     relation_name = 'fee_type'
 
 
-class UnitViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
+class UnitViewSet(BasePriceFilteredViewSet):
     """
     Viewing unit(s).
     """
@@ -222,7 +222,7 @@ class UnitViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
     relation_name = 'unit'
 
 
-class ModifierTypeViewSet(NestedSchemeMixin, BasePriceFilteredViewSet):
+class ModifierTypeViewSet(BasePriceFilteredViewSet):
     """
     Viewing modifier type(s).
     """
