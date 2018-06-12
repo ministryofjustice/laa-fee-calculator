@@ -28,6 +28,18 @@ class Scenario(models.Model):
         return self.name
 
 
+class ScenarioCode(models.Model):
+    scenario = models.ForeignKey('Scenario', related_name='codes')
+    supplier_type = models.PositiveSmallIntegerField(choices=SUPPLIER_BASE_TYPE)
+    code = models.CharField(max_length=64, db_index=True)
+
+    class Meta:
+        unique_together = (('scenario', 'supplier_type',),)
+
+    def __str__(self):
+        return self.code
+
+
 class FeeType(models.Model):
     name = models.CharField(max_length=255)
     code = models.CharField(max_length=64, db_index=True)
@@ -133,16 +145,13 @@ class Modifier(models.Model):
 
 
 class Price(models.Model):
-    scenario = models.ForeignKey(
-        'Scenario', related_name='prices')
-    scheme = models.ForeignKey(
-        'Scheme', related_name='prices')
+    scenario = models.ForeignKey('Scenario', related_name='prices')
+    scheme = models.ForeignKey('Scheme', related_name='prices')
     advocate_type = models.ForeignKey(
         'AdvocateType', related_name='prices', null=True)
     offence_class = models.ForeignKey(
         'OffenceClass', related_name='prices', null=True)
-    fee_type = models.ForeignKey(
-        'FeeType', related_name='prices')
+    fee_type = models.ForeignKey('FeeType', related_name='prices')
     unit = models.ForeignKey('Unit', related_name='prices')
     fixed_fee = models.DecimalField(max_digits=12, decimal_places=5)
     fee_per_unit = models.DecimalField(max_digits=12, decimal_places=5)

@@ -223,3 +223,9 @@ CLF_SCENARIO_MAP = {
 
 def scenario_clf_to_id(clf_id):
     return CLF_SCENARIO_MAP[clf_id]
+
+
+def scenario_id_to_clf(scenario_id):
+    for key, value in CLF_SCENARIO_MAP.items():
+        if value == scenario_id:
+            return key
