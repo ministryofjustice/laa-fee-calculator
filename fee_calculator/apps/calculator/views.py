@@ -120,6 +120,11 @@ class NestedSchemeMixin():
         serializer = self.get_serializer(obj)
         return Response(serializer.data)
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['scheme_pk'] = self.kwargs.get('scheme_pk')
+        return context
+
 
 class BasePriceFilteredViewSet(OrderedReadOnlyModelViewSet):
     schema = AutoSchema(manual_fields=[

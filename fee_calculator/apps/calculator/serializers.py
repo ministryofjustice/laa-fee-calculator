@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
 from .models import (
@@ -32,12 +33,25 @@ class FeeTypeSerializer(serializers.ModelSerializer):
 
 
 class ScenarioSerializer(serializers.ModelSerializer):
+    code = serializers.SerializerMethodField()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'scheme_pk' in self.context:
+            self.scheme = get_object_or_404(Scheme, pk=self.context['scheme_pk'])
+
     class Meta:
         model = Scenario
         fields = (
             'id',
             'name',
+            'code',
         )
+
+    def get_code(self, obj):
+        if hasattr(self, 'scheme'):
+            return obj.codes.get(supplier_type=self.scheme.suty_base_type).code
+        return None
 
 
 class AdvocateTypeSerializer(serializers.ModelSerializer):
@@ -97,12 +111,6 @@ class ModifierSerializer(serializers.ModelSerializer):
 
 
 class PriceSerializer(serializers.ModelSerializer):
-    scenario = ScenarioSerializer(read_only=True)
-    scheme = SchemeSerializer(read_only=True)
-    advocate_type = AdvocateTypeSerializer(read_only=True)
-    fee_type = FeeTypeSerializer(read_only=True)
-    offence_class = OffenceClassSerializer(read_only=True)
-    unit = UnitSerializer(read_only=True)
     modifiers = ModifierSerializer(many=True, read_only=True)
 
     class Meta:
