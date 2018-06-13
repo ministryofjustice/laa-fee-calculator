@@ -8,9 +8,7 @@ django-cors-headers==2.1.0
 django-filter==1.0.4
 drf-nested-routers==0.90.0
 flake8==3.4.1
-openpyxl==2.4.8
 psycopg2==2.7.1
 PyYAML==3.12
 six==1.11.0
 uWSGI==2.0.14
-xlrd==1.0.0
