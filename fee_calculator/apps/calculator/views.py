@@ -163,15 +163,12 @@ class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     def filter_queryset(self, queryset):
         queryset = super().filter_queryset(queryset)
 
-        scheme_id = self.kwargs.get('scheme_pk')
         scenario_id = self.request.query_params.get('scenario')
         advocate_type_id = self.request.query_params.get('advocate_type')
         offence_class_id = self.request.query_params.get('offence_class')
         fee_type_code = self.request.query_params.get('fee_type_code')
 
         filters = []
-        if scheme_id:
-            filters.append(Q(scheme_id=scheme_id))
         if scenario_id:
             filters.append(Q(scenario_id=scenario_id))
         if advocate_type_id:
@@ -190,6 +187,7 @@ class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
             )
 
         if filters:
+            filters.append(Q(scheme_id=self.kwargs['scheme_pk']))
             applicable_prices = Price.objects.filter(*filters)
             relevant_values = applicable_prices.values_list(
                 self.relation_name, flat=True
