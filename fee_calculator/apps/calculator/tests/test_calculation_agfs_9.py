@@ -16,7 +16,7 @@ from calculator.tests.calculation_utils import (
 
 AGFS_CSV_PATH = os.path.join(
     os.path.dirname(__file__),
-    'data/test_dataset_agfs.csv'
+    'data/test_dataset_agfs_9.csv'
 )
 
 
