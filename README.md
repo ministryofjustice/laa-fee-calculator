@@ -7,7 +7,7 @@ Load data into calculator
 ==========================
 
 ```
-./manage.py loaddata advocatetype feetype offenceclass price scenario scheme unit modifier modifiertype scenariocode
+./manage.py loadalldata
 ```
 
 Calculator

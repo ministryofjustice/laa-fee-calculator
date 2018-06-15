@@ -69,7 +69,7 @@ venv/bin/python manage.py migrate --no-input
 * Seed database
 
 ```
-venv/bin/python manage.py loaddata advocatetype feetype offenceclass price scenario scheme unit modifier modifiertype scenariocode
+venv/bin/python manage.py loadalldata
 ```
 
 * Run the server
