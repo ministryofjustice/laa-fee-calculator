@@ -12,7 +12,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.schemas import AutoSchema
 
-from .constants import SUPPLIER_BASE_TYPE
+from .constants import SCHEME_TYPE
 from .filters import (
     PriceFilter, FeeTypeFilter, CalculatorSchema
 )
@@ -43,7 +43,7 @@ class SchemeViewSet(OrderedReadOnlyModelViewSet):
     Viewing fee scheme(s).
     """
     schema = AutoSchema(manual_fields=[
-        coreapi.Field('supplier_type', **{
+        coreapi.Field('type', **{
             'required': False,
             'location': 'query',
             'type': 'string',
@@ -62,7 +62,7 @@ class SchemeViewSet(OrderedReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = super().get_queryset()
 
-        supplier_type = self.request.query_params.get('supplier_type')
+        base_type = self.request.query_params.get('type')
         case_date = self.request.query_params.get('case_date')
 
         if case_date:
@@ -77,15 +77,15 @@ class SchemeViewSet(OrderedReadOnlyModelViewSet):
                 start_date__lte=case_date
             )
 
-        if supplier_type:
+        if base_type:
             try:
-                supplier_type = SUPPLIER_BASE_TYPE.for_constant(supplier_type.upper()).value
+                base_type = SCHEME_TYPE.for_constant(base_type.upper()).value
             except KeyError:
                 raise ValidationError(
-                    '`supplier_type` should be one of: [%s]'
-                    % ', '.join(SUPPLIER_BASE_TYPE.constants)
+                    '`base_type` should be one of: [%s]'
+                    % ', '.join(SCHEME_TYPE.constants)
                 )
-            queryset = queryset.filter(suty_base_type=supplier_type)
+            queryset = queryset.filter(base_type=base_type)
 
         return queryset
 

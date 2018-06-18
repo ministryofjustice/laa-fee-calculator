@@ -15,7 +15,7 @@ class SchemeSerializer(serializers.ModelSerializer):
             'id',
             'start_date',
             'end_date',
-            'supplier_type',
+            'type',
             'description',
         )
 
@@ -50,7 +50,7 @@ class ScenarioSerializer(serializers.ModelSerializer):
 
     def get_code(self, obj):
         if hasattr(self, 'scheme'):
-            return obj.codes.get(supplier_type=self.scheme.suty_base_type).code
+            return obj.codes.get(scheme_type=self.scheme.base_type).code
         return None
 
 

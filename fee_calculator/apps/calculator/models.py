@@ -4,18 +4,18 @@ from decimal import Decimal
 from django.db import models
 from django.db.models import Q
 
-from .constants import SUPPLIER_BASE_TYPE, AGGREGATION_TYPE
+from .constants import SCHEME_TYPE, AGGREGATION_TYPE
 from .exceptions import RequiredModifierMissingException
 
 
 class Scheme(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
-    suty_base_type = models.PositiveSmallIntegerField(choices=SUPPLIER_BASE_TYPE)
+    base_type = models.PositiveSmallIntegerField(choices=SCHEME_TYPE)
     description = models.CharField(max_length=255)
 
-    def supplier_type(self):
-        return SUPPLIER_BASE_TYPE.for_value(self.suty_base_type).constant
+    def type(self):
+        return SCHEME_TYPE.for_value(self.base_type).constant
 
     def __str__(self):
         return self.description
@@ -30,11 +30,11 @@ class Scenario(models.Model):
 
 class ScenarioCode(models.Model):
     scenario = models.ForeignKey('Scenario', related_name='codes')
-    supplier_type = models.PositiveSmallIntegerField(choices=SUPPLIER_BASE_TYPE)
+    scheme_type = models.PositiveSmallIntegerField(choices=SCHEME_TYPE)
     code = models.CharField(max_length=64, db_index=True)
 
     class Meta:
-        unique_together = (('scenario', 'supplier_type',),)
+        unique_together = (('scenario', 'scheme_type',),)
 
     def __str__(self):
         return self.code
