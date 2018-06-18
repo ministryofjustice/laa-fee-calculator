@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import csv
 from decimal import Decimal
+import math
 import os
 
 from rest_framework import status
@@ -41,10 +42,16 @@ class Lgfs8CalculatorTestCase(CalculatorTestCase):
             resp.status_code, status.HTTP_200_OK, resp.content
         )
 
-        self.assertEqual(
-            resp.data['amount'],
-            Decimal(row['CALC_FEE_EXC_VAT']),
-            data
+        returned = resp.data['amount']
+        expected = Decimal(row['CALC_FEE_EXC_VAT'])
+        close_enough = math.isclose(returned, expected, rel_tol=0.0015)
+        self.assertTrue(
+            close_enough,
+            msg='{returned} != {expected} within 0.15% tolerance : {data}'.format(
+                returned=returned,
+                expected=expected,
+                data=data
+            )
         )
 
 
