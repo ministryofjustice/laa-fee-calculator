@@ -9,10 +9,10 @@ from calculator.models import (
 @admin.register(Scheme)
 class SchemeAdmin(admin.ModelAdmin):
     list_display = (
-        'description', 'suty_base_type', 'start_date', 'end_date',
+        'description', 'base_type', 'start_date', 'end_date',
     )
     list_filter = (
-        'suty_base_type',
+        'base_type',
     )
 
 
@@ -23,7 +23,7 @@ class ScenarioAdmin(admin.ModelAdmin):
 
 @admin.register(ScenarioCode)
 class ScenarioCodeAdmin(admin.ModelAdmin):
-    list_display = ('code', 'scenario', 'supplier_type',)
+    list_display = ('code', 'scenario', 'scheme_type',)
 
 
 @admin.register(FeeType)

@@ -2,9 +2,9 @@
 from extended_choices import Choices
 
 
-SUPPLIER_BASE_TYPE = Choices(
-    ('ADVOCATE', 1, 'Advocate'),
-    ('SOLICITOR', 2, 'Solicitor'),
+SCHEME_TYPE = Choices(
+    ('AGFS', 1, 'Advocate Graduated Fee Scheme'),
+    ('LGFS', 2, 'Litigator Graduated Fee Scheme'),
 )
 
 

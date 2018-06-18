@@ -1,12 +1,12 @@
 - model: calculator.scheme
   pk: 1
-  fields: {start_date: 2012-04-01, end_date: 2018-03-31, suty_base_type: 1, description: AGFS
+  fields: {start_date: 2012-04-01, end_date: 2018-03-31, base_type: 1, description: AGFS
       Fee Scheme 9}
 - model: calculator.scheme
   pk: 2
-  fields: {start_date: 2016-04-01, end_date: null, suty_base_type: 2, description: LGFS
+  fields: {start_date: 2016-04-01, end_date: null, base_type: 2, description: LGFS
       Fee Scheme 8}
 - model: calculator.scheme
   pk: 3
-  fields: {start_date: 2018-04-01, end_date: null, suty_base_type: 1, description: AGFS
+  fields: {start_date: 2018-04-01, end_date: null, base_type: 1, description: AGFS
       Fee Scheme 10}
