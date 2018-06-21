@@ -1,0 +1,226 @@
+[
+{
+  "model": "calculator.modifier",
+  "pk": 1,
+  "fields": {
+    "limit_from": 2,
+    "limit_to": null,
+    "fixed_percent": "0.00",
+    "percent_per_unit": "20.00",
+    "modifier_type": 1,
+    "required": false,
+    "priority": 0,
+    "strict_range": false
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 2,
+  "fields": {
+    "limit_from": 2,
+    "limit_to": null,
+    "fixed_percent": "0.00",
+    "percent_per_unit": "20.00",
+    "modifier_type": 2,
+    "required": false,
+    "priority": 0,
+    "strict_range": false
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 4,
+  "fields": {
+    "limit_from": 21,
+    "limit_to": 25,
+    "fixed_percent": "0.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 3,
+    "required": true,
+    "priority": 0,
+    "strict_range": false
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 5,
+  "fields": {
+    "limit_from": 26,
+    "limit_to": 35,
+    "fixed_percent": "0.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 3,
+    "required": true,
+    "priority": 0,
+    "strict_range": false
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 6,
+  "fields": {
+    "limit_from": 36,
+    "limit_to": null,
+    "fixed_percent": "0.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 3,
+    "required": true,
+    "priority": 0,
+    "strict_range": false
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 7,
+  "fields": {
+    "limit_from": 0,
+    "limit_to": 0,
+    "fixed_percent": "-50.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 4,
+    "required": false,
+    "priority": 5,
+    "strict_range": true
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 8,
+  "fields": {
+    "limit_from": 0,
+    "limit_to": 0,
+    "fixed_percent": "-30.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 5,
+    "required": false,
+    "priority": 5,
+    "strict_range": true
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 9,
+  "fields": {
+    "limit_from": 1,
+    "limit_to": null,
+    "fixed_percent": "-20.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 5,
+    "required": false,
+    "priority": 5,
+    "strict_range": true
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 10,
+  "fields": {
+    "limit_from": 0,
+    "limit_to": 0,
+    "fixed_percent": "-40.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 5,
+    "required": false,
+    "priority": 5,
+    "strict_range": true
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 11,
+  "fields": {
+    "limit_from": 1,
+    "limit_to": null,
+    "fixed_percent": "-25.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 5,
+    "required": false,
+    "priority": 5,
+    "strict_range": true
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 12,
+  "fields": {
+    "limit_from": 2,
+    "limit_to": 4,
+    "fixed_percent": "20.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 2,
+    "required": false,
+    "priority": 0,
+    "strict_range": true
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 13,
+  "fields": {
+    "limit_from": 5,
+    "limit_to": null,
+    "fixed_percent": "30.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 2,
+    "required": false,
+    "priority": 0,
+    "strict_range": true
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 14,
+  "fields": {
+    "limit_from": 1,
+    "limit_to": 1,
+    "fixed_percent": "0.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 6,
+    "required": true,
+    "priority": 0,
+    "strict_range": true
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 15,
+  "fields": {
+    "limit_from": 2,
+    "limit_to": 3,
+    "fixed_percent": "0.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 6,
+    "required": true,
+    "priority": 0,
+    "strict_range": true
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 16,
+  "fields": {
+    "limit_from": 1,
+    "limit_to": 2,
+    "fixed_percent": "0.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 6,
+    "required": true,
+    "priority": 0,
+    "strict_range": true
+  }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 17,
+  "fields": {
+    "limit_from": 3,
+    "limit_to": 3,
+    "fixed_percent": "0.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 6,
+    "required": true,
+    "priority": 0,
+    "strict_range": true
+  }
+}
+]

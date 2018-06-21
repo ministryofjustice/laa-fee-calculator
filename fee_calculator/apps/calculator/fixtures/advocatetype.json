@@ -1,0 +1,37 @@
+[
+{
+  "model": "calculator.advocatetype",
+  "pk": "JRALONE",
+  "fields": {
+    "name": "Junior alone"
+  }
+},
+{
+  "model": "calculator.advocatetype",
+  "pk": "JUNIOR",
+  "fields": {
+    "name": "Junior"
+  }
+},
+{
+  "model": "calculator.advocatetype",
+  "pk": "LEADJR",
+  "fields": {
+    "name": "Leading junior"
+  }
+},
+{
+  "model": "calculator.advocatetype",
+  "pk": "LEDJR",
+  "fields": {
+    "name": "Led junior"
+  }
+},
+{
+  "model": "calculator.advocatetype",
+  "pk": "QC",
+  "fields": {
+    "name": "QC"
+  }
+}
+]
