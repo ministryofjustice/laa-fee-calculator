@@ -1,0 +1,72 @@
+[
+{
+  "model": "calculator.unit",
+  "pk": "CASE",
+  "fields": {
+    "name": "Case"
+  }
+},
+{
+  "model": "calculator.unit",
+  "pk": "DAY",
+  "fields": {
+    "name": "Whole Days"
+  }
+},
+{
+  "model": "calculator.unit",
+  "pk": "DEFENDANT",
+  "fields": {
+    "name": "Defendants"
+  }
+},
+{
+  "model": "calculator.unit",
+  "pk": "FIXED",
+  "fields": {
+    "name": "Fixed Amount"
+  }
+},
+{
+  "model": "calculator.unit",
+  "pk": "HALFDAY",
+  "fields": {
+    "name": "Half Days"
+  }
+},
+{
+  "model": "calculator.unit",
+  "pk": "HOUR",
+  "fields": {
+    "name": "Hours"
+  }
+},
+{
+  "model": "calculator.unit",
+  "pk": "MONTH",
+  "fields": {
+    "name": "Months"
+  }
+},
+{
+  "model": "calculator.unit",
+  "pk": "PPE",
+  "fields": {
+    "name": "Pages of Prosecuting Evidence"
+  }
+},
+{
+  "model": "calculator.unit",
+  "pk": "PW",
+  "fields": {
+    "name": "Prosecution Witnesses"
+  }
+},
+{
+  "model": "calculator.unit",
+  "pk": "THIRD",
+  "fields": {
+    "name": "Third of a trial"
+  }
+}
+]
