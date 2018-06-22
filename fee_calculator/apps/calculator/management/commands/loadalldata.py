@@ -19,4 +19,4 @@ class Command(BaseCommand):
             'feetype',
             'price'
         ]
-        call_command('loaddata', *fixtures, verbosity=verbosity)
+        call_command('loadbulkdata', *fixtures, verbosity=verbosity)
