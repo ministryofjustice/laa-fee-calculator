@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
+from django.core.management import call_command
 from django.test import TestCase
 
 
 class CalculatorTestCase(TestCase):
-    fixtures = [
-        'advocatetype', 'feetype', 'offenceclass', 'price', 'scenario',
-        'scheme', 'unit', 'modifiertype', 'modifier',
-    ]
     scheme_id = NotImplemented
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command('loadalldata', verbosity=0)
 
     def endpoint(self):
         return '/api/{version}/fee-schemes/{scheme_id}/calculate/'.format(
