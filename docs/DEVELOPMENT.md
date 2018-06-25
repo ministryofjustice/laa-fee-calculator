@@ -74,8 +74,8 @@ venv/bin/python manage.py loadalldata
 
 * reseed database
 ```
-venv/bin/python manage.py cleardata
 venv/bin/python manage.py migrate
+venv/bin/python manage.py cleardata
 venv/bin/python manage.py loadalldata
 ```
 
