@@ -67,6 +67,8 @@ class Agfs10CalculatorTestCase(CalculatorTestCase):
             data['RETRIAL_INTERVAL'] = floor(abs(Decimal(row['MONTHS'])))
         if row['THIRD_CRACKED']:
             data['THIRD_CRACKED'] = row['THIRD_CRACKED']
+        if row['PPE']:
+            data['PAGES_OF_PROSECUTING_EVIDENCE'] = int(row['PPE'])
 
         resp = self.client.get(self.endpoint(), data=data)
         self.assertEqual(resp.status_code, status.HTTP_200_OK, resp.content)
