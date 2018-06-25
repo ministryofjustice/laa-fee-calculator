@@ -159,6 +159,21 @@ LOGGING = {
 }
 
 
+# sentry exception handling
+if os.environ.get('SENTRY_DSN'):
+    INSTALLED_APPS = ('raven.contrib.django.raven_compat',) + INSTALLED_APPS
+    RAVEN_CONFIG = {
+        'dsn': os.environ['SENTRY_DSN'],
+        'release': os.environ.get('APP_GIT_COMMIT') or 'unknown',
+    }
+    LOGGING['handlers']['sentry'] = {
+        'level': 'ERROR',
+        'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler'
+    }
+    LOGGING['root']['handlers'].append('sentry')
+    LOGGING['loggers']['laa-calc']['handlers'].append('sentry')
+
+
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100
