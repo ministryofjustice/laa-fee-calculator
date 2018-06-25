@@ -72,6 +72,13 @@ venv/bin/python manage.py migrate --no-input
 venv/bin/python manage.py loadalldata
 ```
 
+* reseed database
+```
+venv/bin/python manage.py cleardata
+venv/bin/python manage.py migrate
+venv/bin/python manage.py loadalldata
+```
+
 * Run the server
 
 By default bounds to port 8080
