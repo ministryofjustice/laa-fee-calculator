@@ -17,6 +17,7 @@ day_unit = Unit.objects.get(pk='DAY')
 
 case_modifier = Modifier.objects.get(pk=1)
 defendant_modifier = Modifier.objects.get(pk=2)
+discontinuance_discount_modifier = Modifier.objects.get(pk=7)
 retrial_0_month_modifier = Modifier.objects.get(pk=8)
 retrial_1_month_modifier = Modifier.objects.get(pk=9)
 retrial_cracked_0_month_modifier = Modifier.objects.get(pk=10)
@@ -76,6 +77,8 @@ with open('agfs_10_basic_fees.csv') as data_export:
         if scenario_id == 16:
             price.modifiers.add(retrial_cracked_0_month_modifier)
             price.modifiers.add(retrial_cracked_1_month_modifier)
+        if scenario_id == 1:
+            price.modifiers.add(discontinuance_discount_modifier)
 
         if fee['THIRD'] and int(fee['THIRD']) == 3:
             price.modifiers.add(final_third)
@@ -114,13 +117,19 @@ with open('agfs_10_misc_fees.csv') as data_export:
             fee_per_unit = Decimal(fee['FEE_PER_UNIT'])
             fixed_fee = Decimal(0)
 
-        scenario_ids = [scenario_ccr_to_id(fee['BISC_BILL_SCENARIO_ID'], None, scheme=10)]
+        scenario_ids = [scenario_ccr_to_id(fee['BISC_BILL_SCENARIO_ID'], scheme=10)]
+
+        if fee['BIST_BILL_SUB_TYPE'] == 'AGFS_PLEA':
+            # non-unique code, different name for different schemes
+            fee_type = FeeType.objects.get(id=103)
+        else:
+            fee_type = FeeType.objects.get(code=fee['BIST_BILL_SUB_TYPE'])
 
         for scenario_id in scenario_ids:
             price = Price.objects.create(
                 scheme=agfs_scheme,
                 scenario=Scenario.objects.get(pk=scenario_id),
-                fee_type=FeeType.objects.get(code=fee['BIST_BILL_SUB_TYPE']),
+                fee_type=fee_type,
                 advocate_type=AdvocateType.objects.get(pk=fee['PSTY_PERSON_TYPE']),
                 offence_class=None,
                 unit=Unit.objects.get(pk=fee['UNIT']),
