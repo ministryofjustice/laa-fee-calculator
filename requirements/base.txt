@@ -12,3 +12,4 @@ psycopg2==2.7.1
 PyYAML==3.12
 six==1.11.0
 uWSGI==2.0.14
+raven>=6.6,<7
