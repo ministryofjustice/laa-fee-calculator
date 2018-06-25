@@ -1,3 +1,4 @@
+from collections import defaultdict
 import os
 import warnings
 
@@ -54,9 +55,35 @@ class Command(LoadDataCommand):
                 if len(models_in_file) == 1:
                     model = list(models_in_file)[0]
                     try:
-                        model.objects.bulk_create(
-                            [obj.object for obj in objects_to_create]
-                        )
+                        model_objects = []
+                        m2m_related_objects = defaultdict(list)
+                        for obj in objects_to_create:
+                            model_objects.append(obj.object)
+                            if obj.m2m_data:
+                                for accessor_field, m2m_list in obj.m2m_data.items():
+                                    m2m_rel = getattr(model, accessor_field).rel
+                                    related_model = m2m_rel.model
+                                    through_model = m2m_rel.through
+
+                                    for m2m_id in m2m_list:
+                                        model_id_field = '{}_id'.format(
+                                            model._meta.model_name
+                                        )
+                                        related_model_id_field = '{}_id'.format(
+                                            related_model._meta.model_name
+                                        )
+                                        m2m_related_objects[through_model].append(
+                                            through_model(**{
+                                                model_id_field: obj.object.pk,
+                                                related_model_id_field: m2m_id
+                                            })
+                                        )
+
+                        model.objects.bulk_create(model_objects)
+                        for m2m_model in m2m_related_objects:
+                            m2m_model.objects.bulk_create(
+                                m2m_related_objects[m2m_model]
+                            )
                         loaded_objects_in_fixture += len(objects_to_create)
                         if show_progress:
                             self.stdout.write(
