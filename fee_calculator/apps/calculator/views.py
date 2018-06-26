@@ -285,6 +285,7 @@ class OffenceClassViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     """
     queryset = OffenceClass.objects.all()
     serializer_class = OffenceClassSerializer
+    lookup_value_regex = '[^/]+'
 
 
 class AdvocateTypeViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
