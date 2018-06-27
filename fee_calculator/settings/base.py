@@ -208,6 +208,8 @@ AUTODISCOVER_HEALTHCHECKS = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+TEST_RUNNER = 'calculator.tests.PreloadDataDiscoverRunner'
+
 try:
     from .local import *
 except ImportError:
