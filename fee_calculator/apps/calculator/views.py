@@ -45,9 +45,11 @@ def get_model_param(
     try:
         if result is not None and result is not '':
             if many:
-                result = model_class.objects.filter(**{lookup: result})
-                if len(result) == 0:
+                candidates = model_class.objects.filter(**{lookup: result})
+                if len(candidates) == 0:
                     raise model_class.DoesNotExist
+                else:
+                    result = candidates
             else:
                 result = model_class.objects.get(**{lookup: result})
     except (model_class.DoesNotExist, ValueError):
