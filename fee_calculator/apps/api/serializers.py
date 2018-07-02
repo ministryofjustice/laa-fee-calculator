@@ -2,7 +2,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
-from .models import (
+from calculator.models import (
     Scheme, Scenario, FeeType, AdvocateType, OffenceClass, Price, Unit,
     ModifierType, Modifier
 )
