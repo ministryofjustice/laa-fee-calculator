@@ -12,13 +12,13 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.schemas import AutoSchema
 
-from .constants import SCHEME_TYPE
-from .filters import (
-    PriceFilter, FeeTypeFilter, CalculatorSchema
-)
-from .models import (
+from calculator.constants import SCHEME_TYPE
+from calculator.models import (
     Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price, Unit,
     ModifierType, calculate_total
+)
+from .filters import (
+    PriceFilter, FeeTypeFilter, CalculatorSchema
 )
 from .serializers import (
     SchemeSerializer, FeeTypeSerializer, ScenarioSerializer,

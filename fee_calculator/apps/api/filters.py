@@ -10,7 +10,7 @@ from rest_framework.compat import coreapi
 from rest_framework.schemas import ManualSchema
 import six
 
-from . import models
+from calculator import models as calc_models
 
 logger = logging.getLogger('laa-calc')
 
@@ -18,7 +18,7 @@ logger = logging.getLogger('laa-calc')
 class CalculatorSchema(ManualSchema):
 
     def __init__(self, fields, *args, **kwargs):
-        for unit in models.Unit.objects.all():
+        for unit in calc_models.Unit.objects.all():
             fields.append(
                 coreapi.Field(unit.pk.lower(), **{
                     'required': False,
@@ -30,7 +30,7 @@ class CalculatorSchema(ManualSchema):
                 }),
             )
 
-        for modifier in models.ModifierType.objects.all():
+        for modifier in calc_models.ModifierType.objects.all():
             fields.append(
                 coreapi.Field(modifier.name.lower(), **{
                     'required': False,
@@ -67,7 +67,7 @@ class FeeTypeFilter(django_filters.FilterSet):
     is_basic = filters.BooleanFilter()
 
     class Meta:
-        model = models.FeeType
+        model = calc_models.FeeType
         fields = (
             'is_basic',
         )
@@ -79,7 +79,7 @@ class PriceFilter(django_filters.FilterSet):
     )
     offence_class = ModelOrNoneChoiceFilter(
         name='offence_class',
-        queryset=models.OffenceClass.objects.all(),
+        queryset=calc_models.OffenceClass.objects.all(),
         help_text=(
             'Note the query will return prices '
             'with `offence_class` either matching the value or null.'
@@ -87,7 +87,7 @@ class PriceFilter(django_filters.FilterSet):
     )
     advocate_type = ModelOrNoneChoiceFilter(
         name='advocate_type',
-        queryset=models.AdvocateType.objects.all(),
+        queryset=calc_models.AdvocateType.objects.all(),
         help_text=(
             'Note the query will return prices '
             'with `advocate_type` either matching the value or null.'
@@ -95,7 +95,7 @@ class PriceFilter(django_filters.FilterSet):
     )
 
     class Meta:
-        model = models.Price
+        model = calc_models.Price
         fields = {
             'scenario': ['exact'],
             'unit': ['exact'],

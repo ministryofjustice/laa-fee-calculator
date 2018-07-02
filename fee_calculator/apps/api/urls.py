@@ -4,7 +4,7 @@ from django.conf.urls import url, include
 from rest_framework_nested import routers
 from rest_framework_swagger.views import get_swagger_view
 
-from calculator.views import (
+from api.views import (
     SchemeViewSet, FeeTypeViewSet, ScenarioViewSet,
     OffenceClassViewSet, AdvocateTypeViewSet, PriceViewSet, CalculatorView,
     UnitViewSet, ModifierTypeViewSet
