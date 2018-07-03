@@ -33,6 +33,7 @@ jobs:
   staging_deploy:
     docker:
       - image: ${ECR_ENDPOINT}/cloud-platform/tools:latest-circle
+        entrypoint: /docker-entrypoint.sh
         environment:
           GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
