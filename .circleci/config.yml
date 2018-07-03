@@ -1,0 +1,73 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: ${ECR_ENDPOINT}/cloud-platform/tools:c6788fa70d684840381b0b09f11bca058458ffb2
+        environment:
+          GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
+          APPLICATION_DEPLOY_NAME: laa-fee-calculator
+          DJANGO_SECRET_KEY: laa-fee-calculator
+          # APPLICATION_HOST_URL: laa-fee-calculator-dev.apps.cloud-platform-test-1.k8s.integration.dsd.io
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+            name: Build application Docker image
+            command: | 
+              docker build --build-arg DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY} -t app .
+      - deploy:
+            name: Push application Docker image
+            command: | 
+              login="$(aws ecr get-login --region eu-west-1 --no-include-email)"
+              ${login}
+
+              docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
+              docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
+
+              if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+                docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:latest"
+                docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:latest"
+              fi
+
+  dev_deploy:
+    docker:
+      - image: ${ECR_ENDPOINT}/cloud-platform/tools:c6788fa70d684840381b0b09f11bca058458ffb2
+        environment: 
+          GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
+          APPLICATION_DEPLOY_NAME: laa-fee-calculator
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+            name: Authenticate with test-1 cluster
+            command: |
+              echo -n ${K8S_CA_CERT} | base64 -d > ./ca.crt
+              kubectl config set-cluster cloud-platform-live-0 --certificate-authority=./ca.crt --server=https://api.cloud-platform-live-0.k8s.integration.dsd.io
+              kubectl config set-credentials circleci --token=${K8S_CIRCLE_TOKEN}
+              kubectl config set-context cloud-platform-live-0 --cluster=cloud-platform-live-0 --user=circleci --namespace=laa-fee-calculator-staging
+              kubectl config use-context cloud-platform-live-0
+      - deploy: 
+            name: Kubectl deployment
+            command: |
+              kubectl set image \
+              -f kubernetes_deploy/deployment.yaml \
+              app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} \
+              --local \
+              -o yaml | kubectl apply -f -
+              kubectl apply -f kubernetes_deploy/ingress.yaml \
+              -f kubernetes_deploy/service.yaml
+
+workflows:
+  version: 2
+  build-test-and-approval-deploy:
+    jobs: 
+      - build
+      - dev_deploy_approval:
+          type: approval
+          requires: 
+            - build
+      - dev_deploy:
+          requires:
+            - dev_deploy_approval
