@@ -2,7 +2,6 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: laa-fee-calculator
-  namespace: laa-fee-calculator-staging
 spec:
   template:
     metadata:
@@ -10,7 +9,7 @@ spec:
         app: laa-fee-calculator-app
     spec:
       containers:
-      - image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/claim-for-crown-court-defence/laa-fee-calculator:2360dbf6420c00eca4176678e7fbd683a64a9e97
+      - image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/claim-for-crown-court-defence/laa-fee-calculator:latest
         name: app
         ports:
         - containerPort: 8080
