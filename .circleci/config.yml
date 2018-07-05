@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circle
+      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
         environment:
           GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
@@ -32,7 +32,7 @@ jobs:
 
   staging_deploy:
     docker:
-      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circle
+      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
         environment:
           GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
@@ -53,7 +53,7 @@ jobs:
 
   production_deploy:
     docker:
-      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circle
+      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
         environment:
           GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
