@@ -39,8 +39,6 @@ jobs:
           HOSTNAME: laa-fee-calculator-staging.apps.cloud-platform-live-0.k8s.integration.dsd.io
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
       - deploy:
             name: Kubectl deployment
             command: |
@@ -48,7 +46,7 @@ jobs:
               kubectl config use-context staging
               kubectl set image -f kubernetes_deploy/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
                 | kubectl apply -f -
-              sed -E 's/([[:space:]]+- host: ).+/\1${HOSTNAME}/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
+              sed -E 's/([[:space:]]+- host: ).+/\1'"${HOSTNAME}"'/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
               kubectl apply  -f kubernetes_deploy/service.yaml
 
   production_deploy:
@@ -60,8 +58,6 @@ jobs:
           HOSTNAME: laa-fee-calculator.apps.cloud-platform-live-0.k8s.integration.dsd.io
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
       - deploy:
             name: Kubectl deployment
             command: |
@@ -69,7 +65,7 @@ jobs:
               kubectl config use-context production
               kubectl set image -f kubernetes_deploy/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
                 | kubectl apply -f -
-              sed -E 's/([[:space:]]+- host: ).+/\1${HOSTNAME}/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
+              sed -E 's/([[:space:]]+- host: ).+/\1'"${HOSTNAME}"'/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
               kubectl apply -f kubernetes_deploy/ingress.yaml -f kubernetes_deploy/service.yaml
 
 workflows:
