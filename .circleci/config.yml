@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ${ECR_ENDPOINT}/cloud-platform/tools:latest-circle
+      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circle
         environment:
           GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
@@ -32,8 +32,7 @@ jobs:
 
   staging_deploy:
     docker:
-      - image: ${ECR_ENDPOINT}/cloud-platform/tools:latest-circle
-        entrypoint: /docker-entrypoint.sh
+      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circle
         environment:
           GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
@@ -45,6 +44,7 @@ jobs:
       - deploy:
             name: Kubectl deployment
             command: |
+              setup-kube-auth
               kubectl config use-context staging
               kubectl set image -f kubernetes_deploy/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
                 | kubectl apply -f -
@@ -53,7 +53,7 @@ jobs:
 
   production_deploy:
     docker:
-      - image: ${ECR_ENDPOINT}/cloud-platform/tools:latest-circle
+      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circle
         environment:
           GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
@@ -65,6 +65,7 @@ jobs:
       - deploy:
             name: Kubectl deployment
             command: |
+              setup-kube-auth
               kubectl config use-context production
               kubectl set image -f kubernetes_deploy/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
                 | kubectl apply -f -
