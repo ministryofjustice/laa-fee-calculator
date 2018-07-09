@@ -44,20 +44,20 @@ for scenario in data:
     for offence_type in data[scenario]:
         fees = sorted(data[scenario][offence_type], key=lambda f: int(f['EVIDENCE_PAGES']))
         previous_pages = 0
-        previous_price = Decimal('0')
+        fixed_fee = Decimal(0)
         for fee in fees:
             if fee['FORMULA'] == 'FIXED':
                 continue
 
             discount = Decimal(fee['PERCENT'])/Decimal('100')
 
-            page_difference = int(fee['EVIDENCE_PAGES']) - previous_pages
-            fee_difference = Decimal(fee['TRIAL_FEE'])*discount - previous_price
+            limit_from = previous_pages
+            limit_to = int(fee['EVIDENCE_PAGES']) - 1
 
-            fee_per_page = fee_difference/page_difference
-
-            limit_from = previous_pages + 1
-            limit_to = int(fee['EVIDENCE_PAGES'])
+            if limit_from == 0:
+                fee_per_page = Decimal(0)
+            else:
+                fee_per_page = Decimal(fee['FEE_PER_PAGE'])
 
             price = Price.objects.create(
                 scheme=lgfs_scheme,
@@ -66,17 +66,42 @@ for scenario in data:
                 advocate_type=None,
                 offence_class=OffenceClass.objects.get(pk=fee['OFTY_OFFENCE_TYPE']),
                 unit=ppe_unit,
-                fee_per_unit=fee_per_page,
-                fixed_fee=Decimal(0),
+                fee_per_unit=fee_per_page*discount,
+                fixed_fee=(fixed_fee or Decimal(fee['TRIAL_FEE']))*discount,
                 limit_from=limit_from,
                 limit_to=limit_to,
+                strict_range=True
             )
             price.modifiers.add(lgfs_modifier_1)
             price.modifiers.add(lgfs_modifier_2)
             price.save()
 
             previous_pages = int(fee['EVIDENCE_PAGES'])
-            previous_price = Decimal(fee['TRIAL_FEE'])*discount
+            fixed_fee = Decimal(fee['TRIAL_FEE'])
+
+        discount = Decimal(fee['PERCENT'])/Decimal('100')
+
+        limit_from = previous_pages
+        limit_to = None
+
+        price = Price.objects.create(
+            scheme=lgfs_scheme,
+            scenario=Scenario.objects.get(pk=scenario_clf_to_id(fee['SCENARIO'])),
+            fee_type=lit_fee_type,
+            advocate_type=None,
+            offence_class=OffenceClass.objects.get(pk=fee['OFTY_OFFENCE_TYPE']),
+            unit=ppe_unit,
+            fee_per_unit=Decimal(0),
+            fixed_fee=Decimal(fee['TRIAL_FEE'])*discount,
+            limit_from=limit_from,
+            limit_to=limit_to,
+            strict_range=True
+        )
+        price.modifiers.add(lgfs_modifier_1)
+        price.modifiers.add(lgfs_modifier_2)
+        price.save()
+
+
 
 
 '''

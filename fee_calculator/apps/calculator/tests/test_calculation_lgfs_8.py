@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import csv
-from decimal import Decimal
+from decimal import Decimal, localcontext
 import math
 import os
 
@@ -44,13 +44,13 @@ class Lgfs8CalculatorTestCase(CalculatorTestCase):
 
         returned = resp.data['amount']
         expected = Decimal(row['ACTUAL_FEE_EXC_VAT'] or row['CALC_FEE_EXC_VAT'])
-        close_enough = math.isclose(returned, expected, rel_tol=0.0015)
+        close_enough = math.isclose(returned, expected, abs_tol=0.011)
         if not close_enough:
             expected = Decimal(row['CALC_FEE_EXC_VAT'])
-            close_enough = math.isclose(returned, expected, rel_tol=0.0015)
+            close_enough = math.isclose(returned, expected, abs_tol=0.011)
         self.assertTrue(
             close_enough,
-            msg='{returned} != {expected} within 0.15% tolerance : {data}'.format(
+            msg='{returned} != {expected} within £0.01 tolerance : {data}'.format(
                 returned=returned,
                 expected=expected,
                 data=data

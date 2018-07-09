@@ -157,6 +157,7 @@ class Price(models.Model):
     fee_per_unit = models.DecimalField(max_digits=12, decimal_places=5)
     limit_from = models.SmallIntegerField(default=1)
     limit_to = models.SmallIntegerField(null=True)
+    strict_range = models.BooleanField(default=False)
     modifiers = models.ManyToManyField(Modifier, related_name='prices')
 
     def calculate_total(self, unit_count, modifier_counts):
@@ -166,9 +167,16 @@ class Price(models.Model):
         if not self.is_applicable(unit_count):
             return Decimal(0)
 
-        total = self.fixed_fee + (
-            self.get_applicable_unit_count(unit_count)*self.fee_per_unit
-        )
+        if self.fixed_fee and self.strict_range:
+            # first unit is included in fixed fee
+            total = self.fixed_fee + (
+                (self.get_applicable_unit_count(unit_count) - 1)*self.fee_per_unit
+            )
+        else:
+            total = self.fixed_fee + (
+                (self.get_applicable_unit_count(unit_count))*self.fee_per_unit
+            )
+
         try:
             modifiers = self.get_applicable_modifiers(total, modifier_counts)
         except RequiredModifierMissingException:
@@ -185,7 +193,13 @@ class Price(models.Model):
         return total + sum(fees)
 
     def is_applicable(self, count):
-        return count >= self.limit_from
+        if self.strict_range:
+            return (
+                count >= self.limit_from and
+                (self.limit_to is None or count <= self.limit_to)
+            )
+        else:
+            return count >= self.limit_from
 
     def get_applicable_modifiers(self, calculated_price, modifier_counts):
         '''
