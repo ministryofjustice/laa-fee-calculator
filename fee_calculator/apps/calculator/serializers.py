@@ -128,4 +128,5 @@ class PriceSerializer(serializers.ModelSerializer):
             'limit_from',
             'limit_to',
             'modifiers',
+            'strict_range',
         )
