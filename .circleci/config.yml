@@ -1,6 +1,7 @@
 version: 2
-jobs:
-  build:
+
+referecences:
+  container_config: &container_config
     docker:
       - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
         environment:
@@ -8,81 +9,102 @@ jobs:
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
           DJANGO_SECRET_KEY: laa-fee-calculator
           # APPLICATION_HOST_URL: laa-fee-calculator-dev.apps.cloud-platform-test-1.k8s.integration.dsd.io
+
+  setup_python_env: &setup_python_env
+    run:
+      name: Set up pyhton dependencies
+      command: |
+        apk add linux-headers
+        apk add python3-dev
+        python3 -m venv venv
+        pip3 install -r requirements/base.txt
+
+  build_docker_image: &build_docker_image
+    run:
+      name: Build laa-fee-calculator docker image
+      command: docker build --build-arg DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY} -t app .
+
+  push_docker_image: &push_docker_image
+    run:
+      name: Push laa-fee-calculator docker image
+      command: |
+        login="$(aws ecr get-login --region eu-west-1 --no-include-email)"
+        ${login}
+
+        docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
+        docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
+
+        if [ "${CIRCLE_BRANCH}" == "master" ]; then
+          docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:latest"
+          docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:latest"
+        fi
+
+  deploy_docker_image: &deploy_docker_image
+    deploy:
+      name: Deploy laa-fee-calculator docker image
+      command: |
+        kubectl set image -f kubernetes_deploy/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
+          | kubectl apply -f -
+        sed -E 's/([[:space:]]+- host: ).+/\1'"${HOSTNAME}"'/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
+        kubectl apply  -f kubernetes_deploy/service.yaml
+
+jobs:
+  test:
+    <<: *container_config
+    steps:
+      - checkout
+      - *setup_python_env
+      - run: python3 manage.py test
+
+  build:
+    <<: *container_config
     steps:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-      - run:
-            name: Build application Docker image
-            command: |
-              docker build --build-arg DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY} -t app .
-      - deploy:
-            name: Push application Docker image
-            command: |
-              login="$(aws ecr get-login --region eu-west-1 --no-include-email)"
-              ${login}
-
-              docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
-              docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
-
-              if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:latest"
-                docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:latest"
-              fi
+      - *build_docker_image
+      - *push_docker_image
 
   staging_deploy:
-    docker:
-      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
-        environment:
-          GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
-          APPLICATION_DEPLOY_NAME: laa-fee-calculator
-          HOSTNAME: laa-fee-calculator-staging.apps.cloud-platform-live-0.k8s.integration.dsd.io
+    <<: *container_config
     steps:
       - checkout
-      - deploy:
-            name: Kubectl deployment
-            command: |
-              setup-kube-auth
-              kubectl config use-context staging
-              kubectl set image -f kubernetes_deploy/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
-                | kubectl apply -f -
-              sed -E 's/([[:space:]]+- host: ).+/\1'"${HOSTNAME}"'/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
-              kubectl apply  -f kubernetes_deploy/service.yaml
+      - run:
+          name: Kubectl deployment
+          command: |
+            setup-kube-auth
+            kubectl config use-context staging
+      - *deploy_docker_image
 
   production_deploy:
-    docker:
-      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
-        environment:
-          GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
-          APPLICATION_DEPLOY_NAME: laa-fee-calculator
-          HOSTNAME: laa-fee-calculator.apps.cloud-platform-live-0.k8s.integration.dsd.io
+    <<: *container_config
     steps:
       - checkout
-      - deploy:
-            name: Kubectl deployment
-            command: |
-              setup-kube-auth
-              kubectl config use-context production
-              kubectl set image -f kubernetes_deploy/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
-                | kubectl apply -f -
-              sed -E 's/([[:space:]]+- host: ).+/\1'"${HOSTNAME}"'/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
-              kubectl apply -f kubernetes_deploy/ingress.yaml -f kubernetes_deploy/service.yaml
+      - run:
+          name: Kubectl deployment
+          command: |
+            setup-kube-auth
+            kubectl config use-context production
+      - *deploy_docker_image
 
 workflows:
   version: 2
   build-test-and-approval-deploy:
-    jobs: 
-      - build
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
       - staging_deploy_approval:
           type: approval
-          requires: 
+          requires:
             - build
       - staging_deploy:
           requires:
             - staging_deploy_approval
       - production_deploy_approval:
           type: approval
-          requires: 
+          requires:
             - build
             - staging_deploy
       - production_deploy:
