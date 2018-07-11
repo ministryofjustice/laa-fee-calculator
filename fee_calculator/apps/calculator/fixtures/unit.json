@@ -68,5 +68,12 @@
   "fields": {
     "name": "Third of a trial"
   }
+},
+{
+  "model": "calculator.unit",
+  "pk": "LEVEL",
+  "fields": {
+    "name": "Evidence provision fee level"
+  }
 }
 ]
