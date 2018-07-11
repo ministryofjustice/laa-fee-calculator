@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
 from django.test import TestCase
+from rest_framework import status
 
 
 class CalculatorTestCase(TestCase):
@@ -13,6 +14,18 @@ class CalculatorTestCase(TestCase):
 
     def assertRowValuesCorrect(self, row):
         return NotImplemented
+
+    def check_result(self, data, expected):
+        resp = self.client.get(self.endpoint(), data=data)
+        self.assertEqual(
+            resp.status_code, status.HTTP_200_OK, resp.content
+        )
+
+        self.assertEqual(
+            resp.data['amount'],
+            expected,
+            data
+        )
 
 
 def get_test_name(prefix, row, line_number):

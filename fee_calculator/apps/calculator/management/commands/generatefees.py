@@ -18,11 +18,21 @@ def listdict():
 
 
 class Command(BaseCommand):
-    help = 'Generate fees from data exported from CCR/CCLF'
+    help = '''
+        Generate fees from data exported from CCR/CCLF. This is NOT SUFFICIENT
+        to generate accurate fees, as the prices have been manually changed
+        afterwards in some cases. This code SHOULD NOT BE USED on its own for
+        the insertion of a new scheme, but is left here in order to give some
+        idea of the structure of the prices as compared to those in CCR/CCLF
+        when creating a new scheme. Typical usage of this command would be to
+        load all current data, run this command to generate the new data,
+        perform any corrections, then dump data to a new prices fixture which
+        will be committed.
+    '''
 
     def add_arguments(self, parser):
         parser.add_argument(
-            'scheme', type=str, choices=['AGFS10', 'LGFS8', 'LGFS9'],
+            'scheme', type=str, choices=['AGFS10', 'LGFS2016', 'LGFS2017'],
             help='Type of scheme fees being generated for'
         )
         parser.add_argument(
@@ -85,11 +95,29 @@ class Command(BaseCommand):
                         where bs.fsth_fee_structure_id=X;
             ''')
         )
+        parser.add_argument(
+            '--evid_prov_fees', action='store_true', help=('''
+                Indicate of the evidence provision fees should be generated
+                for this scheme. Import from files will not occur if this
+                option is present. Only applicable for LGFS schemes.
+            ''')
+        )
 
     def handle(self, *args, **options):
         scheme_name = options['scheme']
 
-        if scheme_name in ['LGFS8', 'LGFS9']:
+        scheme_id = {'AGFS10': 3, 'LGFS2016': 2, 'LGFS2017': 4}[scheme_name]
+
+        if options['evid_prov_fees']:
+            if scheme_name in ['LGFS2016', 'LGFS2017']:
+                generate_evidence_provision_fees(scheme_id)
+                return
+            else:
+                raise CommandError(
+                    "'evid_prov_fees' is only applicable to LGFS schemes"
+                )
+
+        if scheme_name in ['LGFS2016', 'LGFS2017']:
             if not options['lgfs_ppe_fees']:
                 raise CommandError(
                     "'lgfs_ppe_fees' is required for scheme {}".format(scheme_name)
@@ -98,7 +126,6 @@ class Command(BaseCommand):
                 raise CommandError(
                     "'lgfs_daily_fees' is required for scheme {}".format(scheme_name)
                 )
-            scheme_id = {'LGFS8': 2, 'LGFS9': 4}[scheme_name]
             generate_lgfs_fees(
                 Scheme.objects.get(pk=scheme_id),
                 options['lgfs_ppe_fees'],
@@ -114,7 +141,7 @@ class Command(BaseCommand):
                     "'agfs_10_misc_fees' is required for scheme {}".format(scheme_name)
                 )
             generate_agfs10_fees(
-                Scheme.objects.get(pk=1),
+                Scheme.objects.get(pk=scheme_id),
                 options['agfs_10_basic_fees'],
                 options['agfs_10_misc_fees']
             )
@@ -125,8 +152,8 @@ def generate_lgfs_fees(lgfs_scheme, ppe_fees_path, daily_fees_path):
     lit_fee_type = FeeType.objects.get(pk=54)
     day_unit = Unit.objects.get(pk='DAY')
     ppe_unit = Unit.objects.get(pk='PPE')
-    lgfs_modifier_1 = Modifier.objects.get(pk=12)
-    lgfs_modifier_2 = Modifier.objects.get(pk=13)
+    defendant_uplift_1 = Modifier.objects.get(pk=12)
+    defendant_uplift_2 = Modifier.objects.get(pk=13)
 
     with open(ppe_fees_path) as data_export:
         reader = csv.DictReader(data_export)
@@ -172,8 +199,8 @@ def generate_lgfs_fees(lgfs_scheme, ppe_fees_path, daily_fees_path):
                     limit_to=limit_to,
                     strict_range=True
                 )
-                price.modifiers.add(lgfs_modifier_1)
-                price.modifiers.add(lgfs_modifier_2)
+                price.modifiers.add(defendant_uplift_1)
+                price.modifiers.add(defendant_uplift_2)
                 price.save()
 
                 previous_pages = int(fee['EVIDENCE_PAGES'])
@@ -197,8 +224,8 @@ def generate_lgfs_fees(lgfs_scheme, ppe_fees_path, daily_fees_path):
                 limit_to=limit_to,
                 strict_range=True
             )
-            price.modifiers.add(lgfs_modifier_1)
-            price.modifiers.add(lgfs_modifier_2)
+            price.modifiers.add(defendant_uplift_1)
+            price.modifiers.add(defendant_uplift_2)
             price.save()
 
     for scenario in daily_data:
@@ -256,11 +283,30 @@ def generate_lgfs_fees(lgfs_scheme, ppe_fees_path, daily_fees_path):
 
                     if (fee['FORMULA'] in ['DAYS', 'PPE'] or
                             fee['TRBC_TRIAL_BASIS'] == 'ELECTED CASE NOT PROCEEDED'):
-                        price.modifiers.add(lgfs_modifier_1)
-                        price.modifiers.add(lgfs_modifier_2)
+                        price.modifiers.add(defendant_uplift_1)
+                        price.modifiers.add(defendant_uplift_2)
 
                     price.save()
                     last_created_price = price
+
+
+@atomic
+def generate_evidence_provision_fees(scheme_id):
+    for scenario_id in Price.objects.filter(scheme_id=scheme_id).values_list(
+        'scenario', flat=True
+    ).distinct():
+        Price(
+            scheme=Scheme.objects.get(id=scheme_id),
+            scenario=Scenario.objects.get(id=scenario_id),
+            fee_type=FeeType.objects.get(code='EVID_PROV_FEE'),
+            advocate_type=None,
+            offence_class=None,
+            unit=Unit.objects.get(pk='LEVEL'),
+            fee_per_unit=45,
+            fixed_fee=0,
+            limit_from=1,
+            limit_to=2,
+        ).save()
 
 
 @atomic
