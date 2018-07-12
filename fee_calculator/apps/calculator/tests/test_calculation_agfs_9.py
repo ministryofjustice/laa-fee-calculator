@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import csv
 from decimal import Decimal
 from math import floor
 import os
@@ -7,21 +6,16 @@ import os
 from django.conf import settings
 from rest_framework import status
 
-from calculator.models import Price, FeeType
 from calculator.tests.lib.utils import scenario_ccr_to_id
-from calculator.tests.calculation_utils import (
-    CalculatorTestCase, get_test_name, make_test
-)
+from calculator.tests.base import AgfsCalculatorTestCase
 
 
-AGFS_CSV_PATH = os.path.join(
-    os.path.dirname(__file__),
-    'data/test_dataset_agfs_9.csv'
-)
-
-
-class Agfs9CalculatorTestCase(CalculatorTestCase):
+class Agfs9CalculatorTestCase(AgfsCalculatorTestCase):
     scheme_id = 1
+    csv_path = os.path.join(
+        os.path.dirname(__file__),
+        'data/test_dataset_agfs_9.csv'
+    )
 
     def assertRowValuesCorrect(self, row):
         """
@@ -82,29 +76,4 @@ class Agfs9CalculatorTestCase(CalculatorTestCase):
         )
 
 
-def create_tests():
-    """
-    Insert test methods into the TestCase for each case in the spreadsheet
-    """
-    tested_scenarios = set()
-    tested_fees = set()
-    with open(AGFS_CSV_PATH) as csvfile:
-        reader = csv.DictReader(csvfile)
-        priced_fees = FeeType.objects.filter(
-            id__in=Price.objects.all().values_list('fee_type_id', flat=True).distinct()
-        ).values_list('code', flat=True).distinct()
-        for i, row in enumerate(reader):
-            if row['BILL_SUB_TYPE'] in priced_fees:
-                tested_scenarios.add(row['BILL_SCENARIO_ID'])
-                tested_fees.add(row['BILL_SUB_TYPE'])
-                setattr(
-                    Agfs9CalculatorTestCase,
-                    get_test_name('agfs', row, i+2),
-                    make_test(row, i+2)
-                )
-    print('Testing {0} scenarios and {1} fees'.format(
-        len(tested_scenarios), len(tested_fees)
-    ))
-
-
-create_tests()
+Agfs9CalculatorTestCase.create_tests()
