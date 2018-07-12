@@ -322,6 +322,11 @@ def generate_agfs10_fees(agfs_scheme, basic_fees_path, misc_fees_path):
     retrial_1_month_modifier = Modifier.objects.get(pk=9)
     retrial_cracked_0_month_modifier = Modifier.objects.get(pk=10)
     retrial_cracked_1_month_modifier = Modifier.objects.get(pk=11)
+    conferences_trial_length_limits = [
+        (7, 8, Modifier.objects.get(pk=4)),
+        (9, 10, Modifier.objects.get(pk=5)),
+        (11, 12, Modifier.objects.get(pk=6)),
+    ]
 
     before_final_third = Modifier.objects.get(pk=16)
     final_third = Modifier.objects.get(pk=17)
@@ -407,21 +412,44 @@ def generate_agfs10_fees(agfs_scheme, basic_fees_path, misc_fees_path):
                 fee_type = FeeType.objects.get(code=fee['BIST_BILL_SUB_TYPE'])
 
             for scenario_id in scenario_ids:
-                price = Price.objects.create(
-                    scheme=agfs_scheme,
-                    scenario=Scenario.objects.get(pk=scenario_id),
-                    fee_type=fee_type,
-                    advocate_type=AdvocateType.objects.get(pk=fee['PSTY_PERSON_TYPE']),
-                    offence_class=None,
-                    unit=Unit.objects.get(pk=fee['UNIT']),
-                    fee_per_unit=fee_per_unit,
-                    fixed_fee=fixed_fee,
-                    limit_from=limit_from,
-                    limit_to=limit_to,
-                )
-                if fee['DEFENDANT_UPLIFT_ALLOWED'] == 'Y':
-                    price.modifiers.add(defendant_modifier)
-                if fee['CASE_UPLIFT_ALLOWED'] == 'Y':
-                    price.modifiers.add(case_modifier)
+                if fee['BIST_BILL_SUB_TYPE'] == 'AGFS_CONFERENCE':
+                    for length_limit in conferences_trial_length_limits:
+                        price = Price.objects.create(
+                            scheme=agfs_scheme,
+                            scenario=Scenario.objects.get(pk=scenario_id),
+                            fee_type=fee_type,
+                            advocate_type=AdvocateType.objects.get(pk=fee['PSTY_PERSON_TYPE']),
+                            offence_class=None,
+                            unit=Unit.objects.get(pk=fee['UNIT']),
+                            fee_per_unit=fee_per_unit,
+                            fixed_fee=fixed_fee,
+                            limit_from=length_limit[0],
+                            limit_to=length_limit[1],
+                        )
+                        price.modifiers.add(length_limit[2])
 
-                price.save()
+                        if fee['DEFENDANT_UPLIFT_ALLOWED'] == 'Y':
+                            price.modifiers.add(defendant_modifier)
+                        if fee['CASE_UPLIFT_ALLOWED'] == 'Y':
+                            price.modifiers.add(case_modifier)
+
+                        price.save()
+                else:
+                    price = Price.objects.create(
+                        scheme=agfs_scheme,
+                        scenario=Scenario.objects.get(pk=scenario_id),
+                        fee_type=fee_type,
+                        advocate_type=AdvocateType.objects.get(pk=fee['PSTY_PERSON_TYPE']),
+                        offence_class=None,
+                        unit=Unit.objects.get(pk=fee['UNIT']),
+                        fee_per_unit=fee_per_unit,
+                        fixed_fee=fixed_fee,
+                        limit_from=limit_from,
+                        limit_to=limit_to,
+                    )
+                    if fee['DEFENDANT_UPLIFT_ALLOWED'] == 'Y':
+                        price.modifiers.add(defendant_modifier)
+                    if fee['CASE_UPLIFT_ALLOWED'] == 'Y':
+                        price.modifiers.add(case_modifier)
+
+                    price.save()
