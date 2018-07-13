@@ -45,7 +45,10 @@ class FeeType(models.Model):
     code = models.CharField(max_length=64, db_index=True)
     is_basic = models.BooleanField()
     aggregation = models.CharField(
-        max_length=20, choices=AGGREGATION_TYPE, default=AGGREGATION_TYPE.SUM
+        max_length=20, choices=AGGREGATION_TYPE, default=AGGREGATION_TYPE.SUM,
+        help_text=(
+            'Specifies how multiple prices for this fee type will be combined.'
+        )
     )
 
     def __str__(self):
@@ -100,12 +103,34 @@ def get_value_covered_by_range(value, limit_from, limit_to):
 class Modifier(models.Model):
     limit_from = models.IntegerField()
     limit_to = models.IntegerField(null=True)
-    fixed_percent = models.DecimalField(max_digits=6, decimal_places=2)
-    percent_per_unit = models.DecimalField(max_digits=6, decimal_places=2)
+    fixed_percent = models.DecimalField(
+        max_digits=6, decimal_places=2, help_text=(
+            'Adds this percent to the fee if this modifier is applicable.'
+        )
+    )
+    percent_per_unit = models.DecimalField(
+        max_digits=6, decimal_places=2, help_text=(
+            'Adds this percent to the fee for each unit within the range '
+            'covered by `limit_from` and `limit_to` if this modifier is '
+            'applicable.'
+        )
+    )
     modifier_type = models.ForeignKey(ModifierType, related_name='values')
-    required = models.BooleanField(default=False)
-    priority = models.SmallIntegerField(default=0)
-    strict_range = models.BooleanField(default=False)
+    required = models.BooleanField(default=False, help_text=(
+        'If `True`, prices with this modifier will not be applicable unless '
+        'this modifier is applicable.'
+    ))
+    priority = models.SmallIntegerField(default=0, help_text=(
+        'When applying modifiers to to the value of the fee, those with the '
+        'lowest value of `priority` will be applied first. A `priority` of 0 '
+        'will mean that the modifier will only provide an increase on the '
+        'base fee.'
+    ))
+    strict_range = models.BooleanField(default=False, help_text=(
+        'If `True`, this modifier will only be applicable if the unit count '
+        'is >= `limit_from` and <= `limit_to`. If `False`, it will apply as '
+        'long as the unit count is >= `limit_from`.'
+    ))
 
     def get_applicable_unit_count(self, unit_count):
         '''
@@ -153,11 +178,25 @@ class Price(models.Model):
         'OffenceClass', related_name='prices', null=True)
     fee_type = models.ForeignKey('FeeType', related_name='prices')
     unit = models.ForeignKey('Unit', related_name='prices')
-    fixed_fee = models.DecimalField(max_digits=12, decimal_places=5)
-    fee_per_unit = models.DecimalField(max_digits=12, decimal_places=5)
+    fixed_fee = models.DecimalField(
+        max_digits=12, decimal_places=5, help_text=(
+            'Adds this value to the fee if this price is applicable.'
+        )
+    )
+    fee_per_unit = models.DecimalField(
+        max_digits=12, decimal_places=5, help_text=(
+            'Adds this value to the fee for each unit within the range '
+            'covered by `limit_from` and `limit_to` if this price is '
+            'applicable.'
+        )
+    )
     limit_from = models.SmallIntegerField(default=1)
     limit_to = models.SmallIntegerField(null=True)
-    strict_range = models.BooleanField(default=False)
+    strict_range = models.BooleanField(default=False, help_text=(
+        'If `True`, this price will only be applicable if the unit count '
+        'is >= `limit_from` and <= `limit_to`. If `False`, it will apply as '
+        'long as the unit count is >= `limit_from`.'
+    ))
     modifiers = models.ManyToManyField(Modifier, related_name='prices')
 
     def calculate_total(self, unit_count, modifier_counts):
