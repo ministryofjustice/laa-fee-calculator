@@ -13,7 +13,8 @@ from calculator.models import (
 def create_test_price(
     scheme=None, scenario=None, fee_type=None, offence_class=None,
     advocate_type=None, unit=None, fixed_fee=Decimal('0.00'),
-    fee_per_unit=Decimal('1.00'), limit_from=0, limit_to=None, modifiers=[]
+    fee_per_unit=Decimal('1.00'), limit_from=0, limit_to=None, modifiers=[],
+    strict_range=False
 ):
     test_price = Price.objects.create(
         scheme=scheme or Scheme.objects.all().first(),
@@ -25,7 +26,8 @@ def create_test_price(
         fixed_fee=fixed_fee,
         fee_per_unit=fee_per_unit,
         limit_from=limit_from,
-        limit_to=limit_to
+        limit_to=limit_to,
+        strict_range=strict_range
     )
     test_price.modifiers = modifiers
     test_price.save()
@@ -334,7 +336,7 @@ class PriceTestCase(TestCase):
             Decimal('14.40')
         )
 
-    def test_calculate_total_with_strict_range_not_applied_outside_range(self):
+    def test_calculate_total_with_modifier_strict_range_not_applied_outside_range(self):
         day_unit = Unit.objects.get(id='DAY')
         trial_length_modifier_type, trial_length_modifiers = create_test_modifiers(
             unit=day_unit, modifiers=[
@@ -393,4 +395,36 @@ class PriceTestCase(TestCase):
                 12, [(trial_length_modifier_type, 5,), (case_modifier_type, 3,)]
             ),
             Decimal('18.72')
+        )
+
+    def test_calculate_total_with_price_strict_range(self):
+        day_unit = Unit.objects.get(id='DAY')
+        test_price_1 = create_test_price(
+            unit=day_unit,
+            fixed_fee=Decimal('5.00'),
+            fee_per_unit=Decimal('1.00'),
+            limit_from=1,
+            limit_to=9,
+            strict_range=True
+        )
+        test_price_2 = create_test_price(
+            unit=day_unit,
+            fixed_fee=Decimal('10.00'),
+            fee_per_unit=Decimal('1.00'),
+            limit_from=10,
+            limit_to=19,
+            strict_range=True
+        )
+
+        self.assertEqual(
+            test_price_1.calculate_total(10, []),
+            Decimal('0.00')
+        )
+        self.assertEqual(
+            test_price_2.calculate_total(10, []),
+            Decimal('10.00')
+        )
+        self.assertEqual(
+            test_price_2.calculate_total(11, []),
+            Decimal('11.00')
         )
