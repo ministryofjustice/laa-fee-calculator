@@ -435,13 +435,19 @@ def generate_agfs10_fees(agfs_scheme, basic_fees_path, misc_fees_path):
 
                         price.save()
                 else:
+                    if fee['BIST_BILL_SUB_TYPE'] in ['AGFS_COMMITTAL', 'AGFS_CONTEMPT']:
+                        # correct erroneous 'HALFDAY' unit for these fees
+                        unit = Unit.objects.get(pk='DAY')
+                    else:
+                        unit = Unit.objects.get(pk=fee['UNIT'])
+
                     price = Price.objects.create(
                         scheme=agfs_scheme,
                         scenario=Scenario.objects.get(pk=scenario_id),
                         fee_type=fee_type,
                         advocate_type=AdvocateType.objects.get(pk=fee['PSTY_PERSON_TYPE']),
                         offence_class=None,
-                        unit=Unit.objects.get(pk=fee['UNIT']),
+                        unit=unit,
                         fee_per_unit=fee_per_unit,
                         fixed_fee=fixed_fee,
                         limit_from=limit_from,
