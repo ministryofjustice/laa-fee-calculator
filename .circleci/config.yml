@@ -8,11 +8,10 @@ referecences:
           GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
           DJANGO_SECRET_KEY: laa-fee-calculator
-          # APPLICATION_HOST_URL: laa-fee-calculator-dev.apps.cloud-platform-test-1.k8s.integration.dsd.io
 
   setup_python_env: &setup_python_env
     run:
-      name: Set up pyhton dependencies
+      name: Set up python dependencies
       command: |
         apk add linux-headers
         apk add python3-dev
@@ -45,7 +44,7 @@ referecences:
       command: |
         kubectl set image -f kubernetes_deploy/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
           | kubectl apply -f -
-        sed -E 's/([[:space:]]+- host: ).+/\1'"${HOSTNAME}"'/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
+        sed -E 's/([[:space:]]+- host: ).+/\1'"${INGRESS_HOSTNAME}"'/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
         kubectl apply  -f kubernetes_deploy/service.yaml
 
 jobs:
@@ -74,6 +73,7 @@ jobs:
           command: |
             setup-kube-auth
             kubectl config use-context staging
+            export INGRESS_HOSTNAME=laa-fee-calculator-staging.apps.cloud-platform-live-0.k8s.integration.dsd.io
       - *deploy_docker_image
 
   production_deploy:
@@ -85,16 +85,18 @@ jobs:
           command: |
             setup-kube-auth
             kubectl config use-context production
+            export INGRESS_HOSTNAME=laa-fee-calculator-production.apps.cloud-platform-live-0.k8s.integration.dsd.io
       - *deploy_docker_image
 
 workflows:
   version: 2
   build-test-and-approval-deploy:
     jobs:
-      - test
-      - build:
-          requires:
-            - test
+      # - test
+      # - build:
+      #     requires:
+      #       - test
+      - build
       - staging_deploy_approval:
           type: approval
           requires:
