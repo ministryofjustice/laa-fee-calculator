@@ -21,10 +21,13 @@ from moj_irat.views import PingJsonView, HealthcheckView
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include('api.urls')),
     url(r'^ping.json$', PingJsonView.as_view(**settings.PING_JSON_KEYS),
         name='ping_json'),
     url(r'^healthcheck.json$', HealthcheckView.as_view(),
         name='healthcheck_json'),
 ]
+
+
+if settings.ADMIN_ENABLED:
+    urlpatterns.append(url(r'^admin/', admin.site.urls))

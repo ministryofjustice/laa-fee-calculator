@@ -225,6 +225,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 TEST_RUNNER = 'calculator.tests.PreloadDataDiscoverRunner'
 
+ADMIN_ENABLED = False
+
 try:
     from .local import *
 except ImportError:
