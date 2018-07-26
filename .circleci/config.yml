@@ -72,6 +72,7 @@ jobs:
             | kubectl apply -f -
             sed -E 's/([[:space:]]+- host: ).+/\1'"${INGRESS_HOSTNAME}"'/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
             kubectl apply  -f kubernetes_deploy/service.yaml
+            kubectl apply -f kubernetes_deploy/secrets/staging.yaml
 
   production_deploy:
     <<: *container_config
@@ -91,6 +92,7 @@ jobs:
             | kubectl apply -f -
             sed -E 's/([[:space:]]+- host: ).+/\1'"${INGRESS_HOSTNAME}"'/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
             kubectl apply  -f kubernetes_deploy/service.yaml
+            kubectl apply -f kubernetes_deploy/secrets/production.yaml
 
 workflows:
   version: 2
