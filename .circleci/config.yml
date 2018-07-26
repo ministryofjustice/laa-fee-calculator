@@ -38,15 +38,6 @@ referecences:
           docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:latest"
         fi
 
-  deploy_docker_image: &deploy_docker_image
-    deploy:
-      name: Deploy laa-fee-calculator docker image
-      command: |
-        kubectl set image -f kubernetes_deploy/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
-          | kubectl apply -f -
-        sed -E 's/([[:space:]]+- host: ).+/\1'"${INGRESS_HOSTNAME}"'/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
-        kubectl apply  -f kubernetes_deploy/service.yaml
-
 jobs:
   test:
     <<: *container_config
@@ -73,8 +64,14 @@ jobs:
           command: |
             setup-kube-auth
             kubectl config use-context staging
+      - deploy:
+          name: Deploy laa-fee-calculator docker image
+          command: |
             export INGRESS_HOSTNAME=laa-fee-calculator-staging.apps.cloud-platform-live-0.k8s.integration.dsd.io
-      - *deploy_docker_image
+            kubectl set image -f kubernetes_deploy/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
+            | kubectl apply -f -
+            sed -E 's/([[:space:]]+- host: ).+/\1'"${INGRESS_HOSTNAME}"'/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
+            kubectl apply  -f kubernetes_deploy/service.yaml
 
   production_deploy:
     <<: *container_config
@@ -86,7 +83,14 @@ jobs:
             setup-kube-auth
             kubectl config use-context production
             export INGRESS_HOSTNAME=laa-fee-calculator-production.apps.cloud-platform-live-0.k8s.integration.dsd.io
-      - *deploy_docker_image
+      - deploy:
+          name: Deploy laa-fee-calculator docker image
+          command: |
+            export INGRESS_HOSTNAME=laa-fee-calculator-production.apps.cloud-platform-live-0.k8s.integration.dsd.io
+            kubectl set image -f kubernetes_deploy/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
+            | kubectl apply -f -
+            sed -E 's/([[:space:]]+- host: ).+/\1'"${INGRESS_HOSTNAME}"'/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
+            kubectl apply  -f kubernetes_deploy/service.yaml
 
 workflows:
   version: 2
