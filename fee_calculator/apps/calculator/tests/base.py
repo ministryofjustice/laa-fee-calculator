@@ -189,4 +189,4 @@ class EvidenceProvisionFeeTestMixin():
             'offence_class': 'D',
             'level': 3
         }
-        self.check_result(data, Decimal(90))
+        self.check_result(data, Decimal(0))

@@ -302,10 +302,24 @@ def generate_evidence_provision_fees(scheme_id):
             advocate_type=None,
             offence_class=None,
             unit=Unit.objects.get(pk='LEVEL'),
-            fee_per_unit=45,
-            fixed_fee=0,
+            fee_per_unit=0,
+            fixed_fee=45,
             limit_from=1,
+            limit_to=1,
+            strict_range=True,
+        ).save()
+        Price(
+            scheme=Scheme.objects.get(id=scheme_id),
+            scenario=Scenario.objects.get(id=scenario_id),
+            fee_type=FeeType.objects.get(code='EVID_PROV_FEE'),
+            advocate_type=None,
+            offence_class=None,
+            unit=Unit.objects.get(pk='LEVEL'),
+            fee_per_unit=0,
+            fixed_fee=90,
+            limit_from=2,
             limit_to=2,
+            strict_range=True,
         ).save()
 
 
