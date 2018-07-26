@@ -15,12 +15,10 @@ spec:
         - containerPort: 8080
           name: http
         env:
-        - name: DEBUG
-          value: "True"
         - name: DJANGO_SECRET_KEY
           valueFrom:
             secretKeyRef:
               name: django-secret
               key: key
         - name: ENV
-          value: local
+          value: staging
