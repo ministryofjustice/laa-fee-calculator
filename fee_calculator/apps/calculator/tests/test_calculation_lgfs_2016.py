@@ -5,11 +5,11 @@ import os
 from calculator.tests.base import LgfsCalculatorTestCase
 
 
-class Lgfs8CalculatorTestCase(LgfsCalculatorTestCase):
+class Lgfs2016CalculatorTestCase(LgfsCalculatorTestCase):
     scheme_id = 2
     csv_path = os.path.join(
         os.path.dirname(__file__),
-        'data/test_dataset_lgfs_8.csv'
+        'data/test_dataset_lgfs_2016.csv'
     )
 
     def test_evidence_provision_fee_0(self):
@@ -53,4 +53,4 @@ class Lgfs8CalculatorTestCase(LgfsCalculatorTestCase):
         self.check_result(data, Decimal(90))
 
 
-Lgfs8CalculatorTestCase.create_tests()
+Lgfs2016CalculatorTestCase.create_tests()
