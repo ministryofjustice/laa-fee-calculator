@@ -80,7 +80,7 @@ jobs:
             kubectl apply \
                 -f kubernetes_deploy/staging/service.yaml \
                 -f kubernetes_deploy/staging/ingress.yaml \
-                -f kubernetes_deploy/staging/secret.yaml
+                -f kubernetes_deploy/staging/django-secret.yaml
 
   production_deploy:
     <<: *container_config
@@ -100,7 +100,7 @@ jobs:
             kubectl apply \
                 -f kubernetes_deploy/production/service.yaml \
                 -f kubernetes_deploy/production/ingress.yaml \
-                -f kubernetes_deploy/production/secret.yaml
+                -f kubernetes_deploy/production/django-secret.yaml
 
 workflows:
   version: 2
