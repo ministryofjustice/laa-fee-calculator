@@ -67,12 +67,12 @@ jobs:
       - deploy:
           name: Deploy laa-fee-calculator docker image
           command: |
-            export INGRESS_HOSTNAME=laa-fee-calculator-staging.apps.cloud-platform-live-0.k8s.integration.dsd.io
-            kubectl set image -f kubernetes_deploy/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
+            kubectl set image -f kubernetes_deploy/staging/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
             | kubectl apply -f -
-            sed -E 's/([[:space:]]+- host: ).+/\1'"${INGRESS_HOSTNAME}"'/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
-            kubectl apply  -f kubernetes_deploy/service.yaml
-            kubectl apply -f kubernetes_deploy/secrets/staging.yaml
+            kubectl apply \
+                -f kubernetes_deploy/staging/service.yaml \
+                -f kubernetes_deploy/staging/ingress.yaml \
+                -f kubernetes_deploy/staging/secret.yaml
 
   production_deploy:
     <<: *container_config
@@ -83,16 +83,15 @@ jobs:
           command: |
             setup-kube-auth
             kubectl config use-context production
-            export INGRESS_HOSTNAME=laa-fee-calculator-production.apps.cloud-platform-live-0.k8s.integration.dsd.io
       - deploy:
           name: Deploy laa-fee-calculator docker image
           command: |
-            export INGRESS_HOSTNAME=laa-fee-calculator-production.apps.cloud-platform-live-0.k8s.integration.dsd.io
-            kubectl set image -f kubernetes_deploy/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
+            kubectl set image -f kubernetes_deploy/production/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
             | kubectl apply -f -
-            sed -E 's/([[:space:]]+- host: ).+/\1'"${INGRESS_HOSTNAME}"'/' kubernetes_deploy/ingress.yaml | kubectl apply -f -
-            kubectl apply  -f kubernetes_deploy/service.yaml
-            kubectl apply -f kubernetes_deploy/secrets/production.yaml
+            kubectl apply \
+                -f kubernetes_deploy/production/service.yaml \
+                -f kubernetes_deploy/production/ingress.yaml \
+                -f kubernetes_deploy/production/secret.yaml
 
 workflows:
   version: 2
