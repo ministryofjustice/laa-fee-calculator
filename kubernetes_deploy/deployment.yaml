@@ -18,6 +18,9 @@ spec:
         - name: DEBUG
           value: "True"
         - name: DJANGO_SECRET_KEY
-          value: CHANGE_ME
+          valueFrom:
+            secretKeyRef:
+              name: django-secret
+              key: key
         - name: ENV
           value: local
