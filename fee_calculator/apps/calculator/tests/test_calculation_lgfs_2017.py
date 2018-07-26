@@ -6,14 +6,14 @@ from calculator.tests.base import (
 )
 
 
-class Lgfs2016CalculatorTestCase(
+class Lgfs2017CalculatorTestCase(
     LgfsCalculatorTestCase, EvidenceProvisionFeeTestMixin
 ):
-    scheme_id = 2
+    scheme_id = 4
     csv_path = os.path.join(
         os.path.dirname(__file__),
-        'data/test_dataset_lgfs_2016.csv'
+        'data/test_dataset_lgfs_2017.csv'
     )
 
 
-Lgfs2016CalculatorTestCase.create_tests()
+Lgfs2017CalculatorTestCase.create_tests()
