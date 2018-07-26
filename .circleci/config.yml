@@ -1,6 +1,6 @@
 version: 2
 
-referecences:
+references:
   container_config: &container_config
     docker:
       - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
@@ -8,6 +8,13 @@ referecences:
           GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
           DJANGO_SECRET_KEY: laa-fee-calculator
+
+  decrypt_secrets: &decrypt_secrets
+    run:
+      name: Decrypt secrets file
+      command: |
+        echo "${GIT_CRYPT_KEY}" | base64 -d > git-crypt.key
+        git-crypt unlock git-crypt.key
 
   setup_python_env: &setup_python_env
     run:
@@ -64,6 +71,7 @@ jobs:
           command: |
             setup-kube-auth
             kubectl config use-context staging
+      - *decrypt_secrets
       - deploy:
           name: Deploy laa-fee-calculator docker image
           command: |
@@ -83,6 +91,7 @@ jobs:
           command: |
             setup-kube-auth
             kubectl config use-context production
+      - *decrypt_secrets
       - deploy:
           name: Deploy laa-fee-calculator docker image
           command: |
