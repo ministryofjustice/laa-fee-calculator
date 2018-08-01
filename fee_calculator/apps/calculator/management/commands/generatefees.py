@@ -400,6 +400,23 @@ def generate_agfs10_fees(agfs_scheme, basic_fees_path, misc_fees_path):
     with open('agfs_10_misc_fees.csv') as data_export:
         reader = csv.DictReader(data_export)
         for fee in reader:
+            scenario_id = scenario_ccr_to_id(fee['BISC_BILL_SCENARIO_ID'], scheme=10)
+
+            # these hearing fees should only be claimable for matching scenario
+            if fee['BIST_BILL_SUB_TYPE'] == 'AGFS_APPEAL_CON' and scenario_id != 5:
+                continue
+            if fee['BIST_BILL_SUB_TYPE'] == 'AGFS_APPEAL_SEN' and scenario_id != 6:
+                continue
+            if fee['BIST_BILL_SUB_TYPE'] == 'AGFS_COMMITTAL' and scenario_id != 7:
+                continue
+            if fee['BIST_BILL_SUB_TYPE'] in ['AGFS_CONTEMPT', 'AGFS_CNTMPT_APP'] and scenario_id != 8:
+                continue
+            if fee['BIST_BILL_SUB_TYPE'] == 'AGFS_ORDER_BRCH' and scenario_id != 9:
+                continue
+            # only misc fee claimable for elected not proceeded is confiscation
+            if scenario_id == 12 and fee['BIST_BILL_SUB_TYPE'] not in ['AGFS_CONFISC_HF', 'AGFS_CONFISC_WL']:
+                continue
+
             try:
                 limit_from = int(fee['LIMIT_FROM'])
             except ValueError:
@@ -417,59 +434,56 @@ def generate_agfs10_fees(agfs_scheme, basic_fees_path, misc_fees_path):
                 fee_per_unit = Decimal(fee['FEE_PER_UNIT'])
                 fixed_fee = Decimal(0)
 
-            scenario_ids = [scenario_ccr_to_id(fee['BISC_BILL_SCENARIO_ID'], scheme=10)]
-
             if fee['BIST_BILL_SUB_TYPE'] == 'AGFS_PLEA':
                 # non-unique code, different name for different schemes
                 fee_type = FeeType.objects.get(id=103)
             else:
                 fee_type = FeeType.objects.get(code=fee['BIST_BILL_SUB_TYPE'])
 
-            for scenario_id in scenario_ids:
-                if fee['BIST_BILL_SUB_TYPE'] == 'AGFS_CONFERENCE':
-                    for length_limit in conferences_trial_length_limits:
-                        price = Price.objects.create(
-                            scheme=agfs_scheme,
-                            scenario=Scenario.objects.get(pk=scenario_id),
-                            fee_type=fee_type,
-                            advocate_type=AdvocateType.objects.get(pk=fee['PSTY_PERSON_TYPE']),
-                            offence_class=None,
-                            unit=Unit.objects.get(pk=fee['UNIT']),
-                            fee_per_unit=fee_per_unit,
-                            fixed_fee=fixed_fee,
-                            limit_from=length_limit[0],
-                            limit_to=length_limit[1],
-                        )
-                        price.modifiers.add(length_limit[2])
-
-                        if fee['DEFENDANT_UPLIFT_ALLOWED'] == 'Y':
-                            price.modifiers.add(defendant_modifier)
-                        if fee['CASE_UPLIFT_ALLOWED'] == 'Y':
-                            price.modifiers.add(case_modifier)
-
-                        price.save()
-                else:
-                    if fee['BIST_BILL_SUB_TYPE'] in ['AGFS_COMMITTAL', 'AGFS_CONTEMPT']:
-                        # correct erroneous 'HALFDAY' unit for these fees
-                        unit = Unit.objects.get(pk='DAY')
-                    else:
-                        unit = Unit.objects.get(pk=fee['UNIT'])
-
+            if fee['BIST_BILL_SUB_TYPE'] == 'AGFS_CONFERENCE':
+                for length_limit in conferences_trial_length_limits:
                     price = Price.objects.create(
                         scheme=agfs_scheme,
                         scenario=Scenario.objects.get(pk=scenario_id),
                         fee_type=fee_type,
                         advocate_type=AdvocateType.objects.get(pk=fee['PSTY_PERSON_TYPE']),
                         offence_class=None,
-                        unit=unit,
+                        unit=Unit.objects.get(pk=fee['UNIT']),
                         fee_per_unit=fee_per_unit,
                         fixed_fee=fixed_fee,
-                        limit_from=limit_from,
-                        limit_to=limit_to,
+                        limit_from=length_limit[0],
+                        limit_to=length_limit[1],
                     )
+                    price.modifiers.add(length_limit[2])
+
                     if fee['DEFENDANT_UPLIFT_ALLOWED'] == 'Y':
                         price.modifiers.add(defendant_modifier)
                     if fee['CASE_UPLIFT_ALLOWED'] == 'Y':
                         price.modifiers.add(case_modifier)
 
                     price.save()
+            else:
+                if fee['BIST_BILL_SUB_TYPE'] in ['AGFS_COMMITTAL', 'AGFS_CONTEMPT']:
+                    # correct erroneous 'HALFDAY' unit for these fees
+                    unit = Unit.objects.get(pk='DAY')
+                else:
+                    unit = Unit.objects.get(pk=fee['UNIT'])
+
+                price = Price.objects.create(
+                    scheme=agfs_scheme,
+                    scenario=Scenario.objects.get(pk=scenario_id),
+                    fee_type=fee_type,
+                    advocate_type=AdvocateType.objects.get(pk=fee['PSTY_PERSON_TYPE']),
+                    offence_class=None,
+                    unit=unit,
+                    fee_per_unit=fee_per_unit,
+                    fixed_fee=fixed_fee,
+                    limit_from=limit_from,
+                    limit_to=limit_to,
+                )
+                if fee['DEFENDANT_UPLIFT_ALLOWED'] == 'Y':
+                    price.modifiers.add(defendant_modifier)
+                if fee['CASE_UPLIFT_ALLOWED'] == 'Y':
+                    price.modifiers.add(case_modifier)
+
+                price.save()
