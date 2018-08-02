@@ -190,3 +190,88 @@ class EvidenceProvisionFeeTestMixin():
             'level': 3
         }
         self.check_result(data, Decimal(0))
+
+
+class BaseWarrantFeeTestMixin():
+    default_warrant_offence_class = 'A'
+    default_warrant_advocate_type = 'QC'
+
+    def _test_warrant_fee_matches_appropriate_base(
+        self, base_scenario_id, warrant_scenario_id, fee_type_code
+    ):
+        data = {
+            'scheme': self.scheme_id,
+            'scenario': base_scenario_id,
+            'fee_type_code': fee_type_code,
+            'offence_class': self.default_warrant_offence_class,
+            'advocate_type': self.default_warrant_advocate_type
+        }
+
+        unit_resp = self.client.get(
+            '/api/{version}/fee-schemes/{scheme_id}/units/'.format(
+                version=settings.API_VERSION, scheme_id=self.scheme_id),
+            data=data
+        )
+        self.assertEqual(
+            unit_resp.status_code, status.HTTP_200_OK, unit_resp.content
+        )
+        unit = unit_resp.json()['results'][0]['id']
+        data[unit] = 1
+
+        base_resp = self.client.get(self.endpoint(), data=data)
+
+        # check 0 returned without warrant_interval >= 3
+        data['scenario'] = warrant_scenario_id
+        self.check_result(data, Decimal(0))
+
+        data['warrant_interval'] = 3
+        self.check_result(data, base_resp.data['amount'])
+
+
+class Agfs10WarrantFeeTestMixin(BaseWarrantFeeTestMixin):
+    default_warrant_offence_class = '1.1'
+
+    def test_trial_warrant_fee_equals_guilty_plea_fee(self):
+        self._test_warrant_fee_matches_appropriate_base(2, 47, 'AGFS_FEE')
+
+    def test_appeal_against_conviction_warrant_fee(self):
+        self._test_warrant_fee_matches_appropriate_base(5, 51, 'AGFS_APPEAL_CON')
+
+    def test_appeal_against_sentence_warrant_fee(self):
+        self._test_warrant_fee_matches_appropriate_base(6, 52, 'AGFS_APPEAL_SEN')
+
+    def test_committal_for_sentence_warrant_fee(self):
+        self._test_warrant_fee_matches_appropriate_base(7, 53, 'AGFS_COMMITTAL')
+
+    def test_order_breach_warrant_fee(self):
+        self._test_warrant_fee_matches_appropriate_base(9, 54, 'AGFS_ORDER_BRCH')
+
+
+class LgfsWarrantFeeTestMixin(BaseWarrantFeeTestMixin):
+
+    def test_pre_plea_warrant_fee_equals_guilty_plea_fee(self):
+        self._test_warrant_fee_matches_appropriate_base(2, 48, 'LIT_FEE')
+
+    def test_post_plea_warrant_fee_equals_cracked_trial_fee(self):
+        self._test_warrant_fee_matches_appropriate_base(3, 49, 'LIT_FEE')
+
+    def test_trail_started_warrant_fee_equals_trial_fee(self):
+        self._test_warrant_fee_matches_appropriate_base(4, 50, 'LIT_FEE')
+
+    def test_post_plea_retrial_warrant_fee_equals_cracked_retrial_fee(self):
+        self._test_warrant_fee_matches_appropriate_base(10, 55, 'LIT_FEE')
+
+    def test_retrial_started_warrant_fee_equals_retrial_fee(self):
+        self._test_warrant_fee_matches_appropriate_base(11, 56, 'LIT_FEE')
+
+    def test_appeal_against_conviction_warrant_fee(self):
+        self._test_warrant_fee_matches_appropriate_base(5, 51, 'LIT_FEE')
+
+    def test_appeal_against_sentence_warrant_fee(self):
+        self._test_warrant_fee_matches_appropriate_base(6, 52, 'LIT_FEE')
+
+    def test_committal_for_sentence_warrant_fee(self):
+        self._test_warrant_fee_matches_appropriate_base(7, 53, 'LIT_FEE')
+
+    def test_order_breach_warrant_fee(self):
+        self._test_warrant_fee_matches_appropriate_base(9, 54, 'LIT_FEE')

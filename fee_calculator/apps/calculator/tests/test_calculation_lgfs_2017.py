@@ -2,12 +2,12 @@
 import os
 
 from calculator.tests.base import (
-    LgfsCalculatorTestCase, EvidenceProvisionFeeTestMixin
+    LgfsCalculatorTestCase, EvidenceProvisionFeeTestMixin, LgfsWarrantFeeTestMixin
 )
 
 
 class Lgfs2017CalculatorTestCase(
-    LgfsCalculatorTestCase, EvidenceProvisionFeeTestMixin
+    LgfsCalculatorTestCase, EvidenceProvisionFeeTestMixin, LgfsWarrantFeeTestMixin
 ):
     scheme_id = 4
     csv_path = os.path.join(

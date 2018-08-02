@@ -96,10 +96,19 @@ class Command(BaseCommand):
             ''')
         )
         parser.add_argument(
-            '--evid_prov_fees', action='store_true', help=('''
-                Indicate of the evidence provision fees should be generated
-                for this scheme. Import from files will not occur if this
-                option is present. Only applicable for LGFS schemes.
+            '--action', type=str, required=True,
+            choices=['from_files', 'evid_prov_fees', 'warrant_fees'],
+            help=('''
+                from_files:
+                Generate fees from provided CSV files (see other args)
+
+                evid_prov_fees:
+                Generate evidence provision fees for this scheme.
+                Only applicable for LGFS schemes.
+
+                warrant_fees:
+                Generate warrant fees for this scheme.
+                Applicable for AGFS10, LGFS2016, LGFS2017.
             ''')
         )
 
@@ -108,43 +117,52 @@ class Command(BaseCommand):
 
         scheme_id = {'AGFS10': 3, 'LGFS2016': 2, 'LGFS2017': 4}[scheme_name]
 
-        if options['evid_prov_fees']:
+        if options['action'] == 'evid_prov_fees':
             if scheme_name in ['LGFS2016', 'LGFS2017']:
                 generate_evidence_provision_fees(scheme_id)
-                return
             else:
                 raise CommandError(
                     "'evid_prov_fees' is only applicable to LGFS schemes"
                 )
-
-        if scheme_name in ['LGFS2016', 'LGFS2017']:
-            if not options['lgfs_ppe_fees']:
+        elif options['action'] == 'warrant_fees':
+            if scheme_name in ['LGFS2016', 'LGFS2017', 'AGFS10']:
+                if scheme_name == 'AGFS10':
+                    generate_agfs_10_warrant_fees(scheme_id)
+                else:
+                    generate_lgfs_warrant_fees(scheme_id)
+            else:
                 raise CommandError(
-                    "'lgfs_ppe_fees' is required for scheme {}".format(scheme_name)
+                    "'warrant_fees' is only applicable to LGFS2016, LGFS2017, AGFS10"
                 )
-            if not options['lgfs_daily_fees']:
-                raise CommandError(
-                    "'lgfs_daily_fees' is required for scheme {}".format(scheme_name)
+        elif options['action'] == 'from_files':
+            if scheme_name in ['LGFS2016', 'LGFS2017']:
+                if not options['lgfs_ppe_fees']:
+                    raise CommandError(
+                        "'lgfs_ppe_fees' is required for scheme {}".format(scheme_name)
+                    )
+                if not options['lgfs_daily_fees']:
+                    raise CommandError(
+                        "'lgfs_daily_fees' is required for scheme {}".format(scheme_name)
+                    )
+                generate_lgfs_fees(
+                    Scheme.objects.get(pk=scheme_id),
+                    options['lgfs_ppe_fees'],
+                    options['lgfs_daily_fees']
                 )
-            generate_lgfs_fees(
-                Scheme.objects.get(pk=scheme_id),
-                options['lgfs_ppe_fees'],
-                options['lgfs_daily_fees']
-            )
-        elif scheme_name == 'AGFS10':
-            if not options['agfs_10_basic_fees']:
-                raise CommandError(
-                    "'agfs_10_basic_fees' is required for scheme {}".format(scheme_name)
+            elif scheme_name == 'AGFS10':
+                if not options['agfs_10_basic_fees']:
+                    raise CommandError(
+                        "'agfs_10_basic_fees' is required for scheme {}".format(scheme_name)
+                    )
+                if not options['agfs_10_misc_fees']:
+                    raise CommandError(
+                        "'agfs_10_misc_fees' is required for scheme {}".format(scheme_name)
+                    )
+                generate_agfs10_fees(
+                    Scheme.objects.get(pk=scheme_id),
+                    options['agfs_10_basic_fees'],
+                    options['agfs_10_misc_fees']
                 )
-            if not options['agfs_10_misc_fees']:
-                raise CommandError(
-                    "'agfs_10_misc_fees' is required for scheme {}".format(scheme_name)
-                )
-            generate_agfs10_fees(
-                Scheme.objects.get(pk=scheme_id),
-                options['agfs_10_basic_fees'],
-                options['agfs_10_misc_fees']
-            )
 
 
 @atomic
@@ -324,6 +342,50 @@ def generate_evidence_provision_fees(scheme_id):
 
 
 @atomic
+def generate_lgfs_warrant_fees(scheme_id):
+    warrant_interval_modifier = Modifier.objects.get(pk=18)
+
+    warrant_pre_pcmh = Scenario.objects.get(pk=48)
+    warrant_post_pcmh = Scenario.objects.get(pk=49)
+    warrant_trial_started = Scenario.objects.get(pk=50)
+    warrant_appeal_conviction = Scenario.objects.get(pk=51)
+    warrant_appeal_sentence = Scenario.objects.get(pk=52)
+    warrant_committal_sentence = Scenario.objects.get(pk=53)
+    warrant_breach_court_order = Scenario.objects.get(pk=54)
+    warrant_post_pcmh_retrial = Scenario.objects.get(pk=55)
+    warrant_trial_started_retrial = Scenario.objects.get(pk=56)
+
+    def clone_prices(base_scenario_id, new_scenario):
+        for price in Price.objects.filter(scheme_id=scheme_id, scenario_id=base_scenario_id):
+            price.id = None
+            price.scenario = new_scenario
+            price.save()
+            price.modifiers.add(warrant_interval_modifier)
+
+    for base_scenario_id, new_scenario in [
+        # duplicate guilty plea prices for pre pcmh
+        (2, warrant_pre_pcmh),
+        # duplicate cracked trial prices for post pcmh
+        (3, warrant_post_pcmh),
+        # duplicate trial prices for trial started
+        (4, warrant_trial_started),
+        # duplicate cracked retrial prices for post pcmh retrial
+        (10, warrant_post_pcmh_retrial),
+        # duplicate retrial prices for retrial started
+        (11, warrant_trial_started_retrial),
+        # duplicate prices for appeal against conviction
+        (5, warrant_appeal_conviction),
+        # duplicate prices for appeal against sentence
+        (6, warrant_appeal_sentence),
+        # duplicate prices for committal for sentence
+        (7, warrant_committal_sentence),
+        # duplicate prices for breach of crown court order
+        (9, warrant_breach_court_order),
+    ]:
+        clone_prices(base_scenario_id, new_scenario)
+
+
+@atomic
 def generate_agfs10_fees(agfs_scheme, basic_fees_path, misc_fees_path):
     basic_agfs_fee = FeeType.objects.get(pk=34)
 
@@ -487,3 +549,38 @@ def generate_agfs10_fees(agfs_scheme, basic_fees_path, misc_fees_path):
                     price.modifiers.add(case_modifier)
 
                 price.save()
+
+
+@atomic
+def generate_agfs_10_warrant_fees(scheme_id):
+    warrant_interval_modifier = Modifier.objects.get(pk=18)
+
+    warrant_trial = Scenario.objects.get(pk=47)
+    warrant_appeal_conviction = Scenario.objects.get(pk=51)
+    warrant_appeal_sentence = Scenario.objects.get(pk=52)
+    warrant_committal_sentence = Scenario.objects.get(pk=53)
+    warrant_breach_court_order = Scenario.objects.get(pk=54)
+
+    def clone_prices(base_scenario_id, fee_type_code, new_scenario):
+        for price in Price.objects.filter(
+            scheme_id=scheme_id, scenario_id=base_scenario_id,
+            fee_type__code=fee_type_code
+        ):
+            price.id = None
+            price.scenario = new_scenario
+            price.save()
+            price.modifiers.add(warrant_interval_modifier)
+
+    for base_scenario_id, fee_type_code, new_scenario in [
+        # duplicate guilty plea prices for trial
+        (2, 'AGFS_FEE', warrant_trial),
+        # duplicate prices for appeal against conviction
+        (5, 'AGFS_APPEAL_CON', warrant_appeal_conviction),
+        # duplicate prices for appeal against sentence
+        (6, 'AGFS_APPEAL_SEN', warrant_appeal_sentence),
+        # duplicate prices for committal
+        (7, 'AGFS_COMMITTAL', warrant_committal_sentence),
+        # duplicate prices for breach of crown court order
+        (9, 'AGFS_ORDER_BRCH', warrant_breach_court_order),
+    ]:
+        clone_prices(base_scenario_id, fee_type_code, new_scenario)

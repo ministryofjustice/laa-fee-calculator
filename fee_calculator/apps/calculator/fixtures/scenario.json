@@ -292,5 +292,75 @@
   "fields": {
     "name": "Interim payment - retrial start"
   }
+},
+{
+  "model": "calculator.scenario",
+  "pk": 47,
+  "fields": {
+    "name": "Warrant issued - trial"
+  }
+},
+{
+  "model": "calculator.scenario",
+  "pk": 48,
+  "fields": {
+    "name": "Warrant issued - trial (before plea hearing)"
+  }
+},
+{
+  "model": "calculator.scenario",
+  "pk": 49,
+  "fields": {
+    "name": "Warrant issued - trial (after plea hearing)"
+  }
+},
+{
+  "model": "calculator.scenario",
+  "pk": 50,
+  "fields": {
+    "name": "Warrant issued - trial (after trial start)"
+  }
+},
+{
+  "model": "calculator.scenario",
+  "pk": 51,
+  "fields": {
+    "name": "Warrant issued - appeal against conviction"
+  }
+},
+{
+  "model": "calculator.scenario",
+  "pk": 52,
+  "fields": {
+    "name": "Warrant issued - appeal against sentence"
+  }
+},
+{
+  "model": "calculator.scenario",
+  "pk": 53,
+  "fields": {
+    "name": "Warrant issued - committal for sentence"
+  }
+},
+{
+  "model": "calculator.scenario",
+  "pk": 54,
+  "fields": {
+    "name": "Warrant issued - breach of crown court order"
+  }
+},
+{
+  "model": "calculator.scenario",
+  "pk": 55,
+  "fields": {
+    "name": "Warrant issued - retrial (after plea hearing)"
+  }
+},
+{
+  "model": "calculator.scenario",
+  "pk": 56,
+  "fields": {
+    "name": "Warrant issued - retrial (after trial start)"
+  }
 }
 ]
