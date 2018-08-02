@@ -7,10 +7,10 @@ from django.conf import settings
 from rest_framework import status
 
 from calculator.tests.lib.utils import scenario_ccr_to_id
-from calculator.tests.base import AgfsCalculatorTestCase
+from calculator.tests.base import AgfsCalculatorTestCase, Agfs10WarrantFeeTestMixin
 
 
-class Agfs10CalculatorTestCase(AgfsCalculatorTestCase):
+class Agfs10CalculatorTestCase(AgfsCalculatorTestCase, Agfs10WarrantFeeTestMixin):
     scheme_id = 3
     csv_path = os.path.join(
         os.path.dirname(__file__),

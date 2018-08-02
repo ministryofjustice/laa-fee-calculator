@@ -52,5 +52,14 @@
     "description": "Third in which a trial cracked",
     "unit": "THIRD"
   }
+},
+{
+  "model": "calculator.modifiertype",
+  "pk": 7,
+  "fields": {
+    "name": "WARRANT_INTERVAL",
+    "description": "Whole months between warrant issue and execution",
+    "unit": "MONTH"
+  }
 }
 ]
