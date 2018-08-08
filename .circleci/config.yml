@@ -51,6 +51,7 @@ jobs:
     steps:
       - checkout
       - *setup_python_env
+      - run: python3 manage.py migrate --no-input
       - run: python3 manage.py test
 
   build:
@@ -106,11 +107,10 @@ workflows:
   version: 2
   build-test-and-approval-deploy:
     jobs:
-      # - test
-      # - build:
-      #     requires:
-      #       - test
-      - build
+      - test
+      - build:
+          requires:
+            - test
       - staging_deploy_approval:
           type: approval
           requires:
