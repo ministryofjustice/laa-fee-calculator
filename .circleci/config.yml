@@ -51,7 +51,6 @@ jobs:
     steps:
       - checkout
       - *setup_python_env
-      - run: python3 manage.py migrate --no-input
       - run: python3 manage.py test
 
   build:
