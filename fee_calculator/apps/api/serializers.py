@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from calculator.models import (
     Scheme, Scenario, FeeType, AdvocateType, OffenceClass, Price, Unit,
-    ModifierType, Modifier
+    ModifierType, Modifier, ScenarioCode
 )
 
 
@@ -50,7 +50,10 @@ class ScenarioSerializer(serializers.ModelSerializer):
 
     def get_code(self, obj):
         if hasattr(self, 'scheme'):
-            return obj.codes.get(scheme_type=self.scheme.base_type).code
+            try:
+                return obj.codes.get(scheme_type=self.scheme.base_type).code
+            except ScenarioCode.DoesNotExist:
+                pass
         return None
 
 
