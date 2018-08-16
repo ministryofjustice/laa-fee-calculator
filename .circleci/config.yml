@@ -8,7 +8,6 @@ references:
           GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
           DJANGO_SECRET_KEY: laa-fee-calculator
-          BUILD_DATE: method-to-be-confirmed
 
   decrypt_secrets: &decrypt_secrets
     run:
@@ -30,6 +29,8 @@ references:
     run:
       name: Build laa-fee-calculator docker image
       command: |
+        export BUILD_DATE=$(date -Is) >> $BASH_ENV
+        source $BASH_ENV
         docker build \
           --build-arg DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY} \
           --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
