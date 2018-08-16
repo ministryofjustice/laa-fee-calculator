@@ -397,7 +397,7 @@ class CalculatorView(views.APIView):
             scheme=scheme, fee_type__in=fee_types
         ).values_list('fee_type', flat=True).distinct()
 
-        if len(matching_fee_types) > 1:
+        if len(matching_fee_types) != 1:
             raise ValidationError((
                 'fee_type_code must match a unique fee type for the scheme; '
                 '{} were found'
