@@ -5,6 +5,10 @@ ENV \
   TZ=Europe/London
 
 ARG DJANGO_SECRET_KEY
+ARG VERSION_NUMBER
+ARG COMMIT_ID
+ARG BUILD_DATE
+ARG BUILD_TAG
 
 # pre-create directories
 WORKDIR /app
@@ -41,6 +45,11 @@ ADD . /app
 # run uwsgi on 8080
 EXPOSE 8080
 ENV DJANGO_SETTINGS_MODULE=fee_calculator.settings.docker
+
+ENV APPVERSION=${VERSION_NUMBER}
+ENV APP_GIT_COMMIT=${COMMIT_ID}
+ENV APP_BUILD_DATE=${BUILD_DATE}
+ENV APP_BUILD_TAG=${BUILD_TAG}
 
 RUN python3 manage.py migrate --no-input \
     && python3 manage.py loadalldata \
