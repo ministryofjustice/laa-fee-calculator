@@ -410,6 +410,10 @@ def generate_agfs10_fees(agfs_scheme, basic_fees_path, misc_fees_path):
     with open('agfs_10_basic_fees.csv') as data_export:
         reader = csv.DictReader(data_export)
         for fee in reader:
+            # don't double up prices for first two thirds
+            if fee['THIRD'] and int(fee['THIRD']) == 2:
+                continue
+
             try:
                 limit_from = int(fee['TRIAL_DAY_FROM'])
             except ValueError:
@@ -454,7 +458,7 @@ def generate_agfs10_fees(agfs_scheme, basic_fees_path, misc_fees_path):
 
             if fee['THIRD'] and int(fee['THIRD']) == 3:
                 price.modifiers.add(final_third)
-            elif fee['THIRD'] and int(fee['THIRD']) in [1, 2]:
+            elif fee['THIRD'] and int(fee['THIRD']) == 1:
                 price.modifiers.add(before_final_third)
 
             price.save()
