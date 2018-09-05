@@ -32,7 +32,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            'scheme', type=str, choices=['AGFS10', 'LGFS2016', 'LGFS2017'],
+            'scheme', type=str, choices=['AGFS10', 'LGFS2016'],
             help='Type of scheme fees being generated for'
         )
         parser.add_argument(
@@ -108,34 +108,34 @@ class Command(BaseCommand):
 
                 warrant_fees:
                 Generate warrant fees for this scheme.
-                Applicable for AGFS10, LGFS2016, LGFS2017.
+                Applicable for AGFS10, LGFS2016.
             ''')
         )
 
     def handle(self, *args, **options):
         scheme_name = options['scheme']
 
-        scheme_id = {'AGFS10': 3, 'LGFS2016': 2, 'LGFS2017': 4}[scheme_name]
+        scheme_id = {'AGFS10': 3, 'LGFS2016': 2}[scheme_name]
 
         if options['action'] == 'evid_prov_fees':
-            if scheme_name in ['LGFS2016', 'LGFS2017']:
+            if scheme_name in ['LGFS2016']:
                 generate_evidence_provision_fees(scheme_id)
             else:
                 raise CommandError(
                     "'evid_prov_fees' is only applicable to LGFS schemes"
                 )
         elif options['action'] == 'warrant_fees':
-            if scheme_name in ['LGFS2016', 'LGFS2017', 'AGFS10']:
+            if scheme_name in ['LGFS2016', 'AGFS10']:
                 if scheme_name == 'AGFS10':
                     generate_agfs_10_warrant_fees(scheme_id)
                 else:
                     generate_lgfs_warrant_fees(scheme_id)
             else:
                 raise CommandError(
-                    "'warrant_fees' is only applicable to LGFS2016, LGFS2017, AGFS10"
+                    "'warrant_fees' is only applicable to LGFS2016, AGFS10"
                 )
         elif options['action'] == 'from_files':
-            if scheme_name in ['LGFS2016', 'LGFS2017']:
+            if scheme_name in ['LGFS2016']:
                 if not options['lgfs_ppe_fees']:
                     raise CommandError(
                         "'lgfs_ppe_fees' is required for scheme {}".format(scheme_name)

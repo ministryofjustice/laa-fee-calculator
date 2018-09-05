@@ -14,7 +14,7 @@
   "pk": 2,
   "fields": {
     "start_date": "2016-04-01",
-    "end_date": "2017-11-30",
+    "end_date": null,
     "base_type": 2,
     "description": "LGFS Fee Scheme 2016-04"
   }
@@ -27,16 +27,6 @@
     "end_date": null,
     "base_type": 1,
     "description": "AGFS Fee Scheme 10"
-  }
-},
-{
-  "model": "calculator.scheme",
-  "pk": 4,
-  "fields": {
-    "start_date": "2017-12-01",
-    "end_date": null,
-    "base_type": 2,
-    "description": "LGFS Fee Scheme 2017-12"
   }
 }
 ]
