@@ -4,6 +4,10 @@ metadata:
   name: laa-fee-calculator
   namespace: laa-fee-calculator-production
 spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: laa-fee-calculator-app
   template:
     metadata:
       labels:

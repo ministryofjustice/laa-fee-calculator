@@ -3,6 +3,10 @@ kind: Deployment
 metadata:
   name: laa-fee-calculator
 spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: laa-fee-calculator-app
   template:
     metadata:
       labels:
