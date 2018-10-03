@@ -24,9 +24,19 @@
   "pk": 3,
   "fields": {
     "start_date": "2018-04-01",
-    "end_date": null,
+    "end_date": "2018-12-02",
     "base_type": 1,
     "description": "AGFS Fee Scheme 10"
+  }
+},
+{
+  "model": "calculator.scheme",
+  "pk": 4,
+  "fields": {
+    "start_date": "2018-12-03",
+    "end_date": null,
+    "base_type": 1,
+    "description": "AGFS Fee Scheme 11"
   }
 }
 ]
