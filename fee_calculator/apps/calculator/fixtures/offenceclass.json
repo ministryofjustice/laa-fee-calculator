@@ -124,7 +124,7 @@
   "pk": "16.1",
   "fields": {
     "name": "Band 16.1: Regulatory Offences",
-    "description": "Health and Safety or environmental cases involving one or more fatalities or defined by the HSE or EA as a category or Stage 1 \u201cmajor incident\u201d; Death of a child; A major accident at a site regulated by the Control of Major Accident Hazards Regulations 1999 (as amended); large scale explosion."
+    "description": "Health and safety or environmental cases involving one or more fatalities or defined by the HSE or EA as a category or Stage 1 \u201cmajor incident\u201d; Death of a child; A major accident at a site regulated by the Control of Major Accident Hazards Regulations 1999 (as amended); large scale explosion."
   }
 },
 {
@@ -132,7 +132,7 @@
   "pk": "16.2",
   "fields": {
     "name": "Band 16.2: Regulatory Offences",
-    "description": "Health and Safety or environmental cases not falling within Band 1 but involving: - Serious and permanent personal injury/disability and/or widespread - Destruction of property (other than that owned or occupied by the defendant) - Extensive pollution/irreparable damage to the environment - Toxic gas release (e.g. carbon monoxide, chlorine gas) - Cases involving incidents governed by mining/railways/aviation legislation"
+    "description": "Health and safety or environmental cases not falling within Band 1 but involving: - Serious and permanent personal injury/disability and/or widespread - Destruction of property (other than that owned or occupied by the defendant) - Extensive pollution/irreparable damage to the environment - Toxic gas release (e.g. carbon monoxide, chlorine gas) - Cases involving incidents governed by mining/railways/aviation legislation"
   }
 },
 {
@@ -148,7 +148,7 @@
   "pk": "17.1",
   "fields": {
     "name": "Band 17.1: Standard Cases",
-    "description": "Standard cases Those cases not falling under the above categories of offence will be defined as 'Standard Cases'."
+    "description": "Those cases not falling under the above categories of offence will be defined as 'Standard Cases'."
   }
 },
 {
