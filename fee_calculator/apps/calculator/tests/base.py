@@ -7,7 +7,7 @@ from django.conf import settings
 from django.test import TestCase
 from rest_framework import status
 
-from calculator.tests.lib.utils import scenario_clf_to_id
+from calculator.tests.lib.utils import scenario_clf_to_id, scenario_ccr_to_id
 from calculator.models import Price, FeeType
 
 
@@ -68,7 +68,6 @@ class AgfsCalculatorTestCase(CalculatorTestCase):
         """
         Insert test methods into the TestCase for each case in the spreadsheet
         """
-
         tested_scenarios = set()
         tested_fees = set()
         with open(cls.csv_path) as csvfile:
@@ -193,43 +192,64 @@ class EvidenceProvisionFeeTestMixin():
 
 
 class BaseWarrantFeeTestMixin():
-    default_warrant_offence_class = 'A'
-    default_warrant_advocate_type = 'QC'
 
     def _test_warrant_fee_matches_appropriate_base(
         self, base_scenario_id, warrant_scenario_id, fee_type_code
     ):
-        data = {
-            'scheme': self.scheme_id,
-            'scenario': base_scenario_id,
-            'fee_type_code': fee_type_code,
-            'offence_class': self.default_warrant_offence_class,
-            'advocate_type': self.default_warrant_advocate_type
-        }
-
-        unit_resp = self.client.get(
-            '/api/{version}/fee-schemes/{scheme_id}/units/'.format(
+        advocate_resp = self.client.get(
+            '/api/{version}/fee-schemes/{scheme_id}/advocate-types/'.format(
                 version=settings.API_VERSION, scheme_id=self.scheme_id),
-            data=data
         )
         self.assertEqual(
-            unit_resp.status_code, status.HTTP_200_OK, unit_resp.content
+            advocate_resp.status_code, status.HTTP_200_OK, advocate_resp.content
         )
-        unit = unit_resp.json()['results'][0]['id']
-        data[unit] = 1
+        advocate_types = [item['id'] for item in advocate_resp.json()['results']]
 
-        base_resp = self.client.get(self.endpoint(), data=data)
+        offence_class_resp = self.client.get(
+            '/api/{version}/fee-schemes/{scheme_id}/offence-classes/'.format(
+                version=settings.API_VERSION, scheme_id=self.scheme_id),
+        )
+        self.assertEqual(
+            offence_class_resp.status_code,
+            status.HTTP_200_OK,
+            offence_class_resp.content
+        )
+        offence_classes = [
+            item['id'] for item in offence_class_resp.json()['results']
+        ]
 
-        # check 0 returned without warrant_interval >= 3
-        data['scenario'] = warrant_scenario_id
-        self.check_result(data, Decimal(0))
+        for advocate_type in advocate_types:
+            for offence_class in offence_classes:
+                data = {
+                    'scheme': self.scheme_id,
+                    'scenario': base_scenario_id,
+                    'fee_type_code': fee_type_code,
+                    'offence_class': offence_class,
+                    'advocate_type': advocate_type
+                }
 
-        data['warrant_interval'] = 3
-        self.check_result(data, base_resp.data['amount'])
+                unit_resp = self.client.get(
+                    '/api/{version}/fee-schemes/{scheme_id}/units/'.format(
+                        version=settings.API_VERSION, scheme_id=self.scheme_id),
+                    data=data
+                )
+                self.assertEqual(
+                    unit_resp.status_code, status.HTTP_200_OK, unit_resp.content
+                )
+                unit = unit_resp.json()['results'][0]['id']
+                data[unit] = 1
+
+                base_resp = self.client.get(self.endpoint(), data=data)
+
+                # check 0 returned without warrant_interval >= 3
+                data['scenario'] = warrant_scenario_id
+                self.check_result(data, Decimal(0))
+
+                data['warrant_interval'] = 3
+                self.check_result(data, base_resp.data['amount'])
 
 
-class Agfs10WarrantFeeTestMixin(BaseWarrantFeeTestMixin):
-    default_warrant_offence_class = '1.1'
+class Agfs10PlusWarrantFeeTestMixin(BaseWarrantFeeTestMixin):
 
     def test_trial_warrant_fee_equals_guilty_plea_fee(self):
         self._test_warrant_fee_matches_appropriate_base(2, 47, 'AGFS_FEE')
@@ -275,3 +295,62 @@ class LgfsWarrantFeeTestMixin(BaseWarrantFeeTestMixin):
 
     def test_order_breach_warrant_fee(self):
         self._test_warrant_fee_matches_appropriate_base(9, 54, 'LIT_FEE')
+
+
+class Agfs10PlusCalculatorTestCase(AgfsCalculatorTestCase):
+
+    def assertRowValuesCorrect(self, row):
+        """
+        Assert row values equal calculated values
+        """
+        is_basic = row['BILL_SUB_TYPE'] == 'AGFS_FEE'
+
+        data = {
+            'scheme': self.scheme_id,
+            'fee_type_code': row['BILL_SUB_TYPE'],
+            'scenario': scenario_ccr_to_id(row['BILL_SCENARIO_ID'], scheme=10),
+            'advocate_type': row['PERSON_TYPE'],
+            'offence_class': row['OFFENCE_CATEGORY'],
+        }
+
+        if not is_basic:
+            # get unit for fee type
+            unit_resp = self.client.get(
+                '/api/{version}/fee-schemes/{scheme_id}/units/'.format(
+                    version=settings.API_VERSION, scheme_id=self.scheme_id),
+                data=data
+            )
+            self.assertEqual(
+                unit_resp.status_code, status.HTTP_200_OK, unit_resp.content
+            )
+            self.assertEqual(unit_resp.json()['count'], 1, data)
+            unit = unit_resp.json()['results'][0]['id']
+            data[unit] = (
+                Decimal(row['NUM_ATTENDANCE_DAYS'])
+                if row['BILL_TYPE'] == 'AGFS_FEE'
+                else Decimal(row['QUANTITY'])
+            ) or 1
+        else:
+            data['DAY'] = Decimal(row['NUM_ATTENDANCE_DAYS']) or 1
+
+        if row['NUM_OF_CASES']:
+            data['NUMBER_OF_CASES'] = int(row['NUM_OF_CASES'])
+        if row['NO_DEFENDANTS']:
+            data['NUMBER_OF_DEFENDANTS'] = int(row['NO_DEFENDANTS'])
+        if row['TRIAL_LENGTH']:
+            data['TRIAL_LENGTH'] = int(row['TRIAL_LENGTH'])
+        if row['MONTHS']:
+            data['RETRIAL_INTERVAL'] = math.floor(abs(Decimal(row['MONTHS'])))
+        if row['THIRD_CRACKED']:
+            data['THIRD_CRACKED'] = row['THIRD_CRACKED']
+        if row['PPE']:
+            data['PAGES_OF_PROSECUTING_EVIDENCE'] = int(row['PPE'])
+
+        resp = self.client.get(self.endpoint(), data=data)
+        self.assertEqual(resp.status_code, status.HTTP_200_OK, resp.content)
+
+        self.assertEqual(
+            resp.data['amount'],
+            Decimal(row['CALC_FEE_EXC_VAT']),
+            data
+        )
