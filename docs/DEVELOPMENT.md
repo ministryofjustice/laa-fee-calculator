@@ -86,3 +86,17 @@ By default bounds to port 8080
 ```
 DEBUG="True" venv/bin/python manage.py runserver 8000
 ```
+
+* Run test suite
+
+```
+cd laa-fee-calculator
+venv/bin/python manage.py test
+```
+
+or, using pyenv
+```
+cd laa-fee-calculator
+pyenv activate laa-fee-calculator
+./manage.py test
+```
