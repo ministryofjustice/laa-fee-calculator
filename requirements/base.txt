@@ -1,4 +1,4 @@
-Django==1.11.15
+Django>=1.11.15,<1.12
 dj-database-url==0.4.1
 django-moj-irat==0.3
 django-rest-swagger==2.1.2
