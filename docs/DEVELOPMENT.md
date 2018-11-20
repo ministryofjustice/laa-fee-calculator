@@ -4,6 +4,8 @@
 
 * Python 3
 
+**NOTE:** Python 3.7 is not currently compatible with Django version in use [see here for more info](https://stackoverflow.com/a/48822656).
+
 ### OS Dependencies
 
 * Postgresql
