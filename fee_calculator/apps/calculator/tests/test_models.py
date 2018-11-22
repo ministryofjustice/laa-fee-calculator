@@ -29,7 +29,7 @@ def create_test_price(
         limit_to=limit_to,
         strict_range=strict_range
     )
-    test_price.modifiers = modifiers
+    test_price.modifiers.set(modifiers)
     test_price.save()
     return test_price
 

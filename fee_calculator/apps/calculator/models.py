@@ -29,7 +29,7 @@ class Scenario(models.Model):
 
 
 class ScenarioCode(models.Model):
-    scenario = models.ForeignKey('Scenario', related_name='codes')
+    scenario = models.ForeignKey('Scenario', related_name='codes', on_delete=models.CASCADE)
     scheme_type = models.PositiveSmallIntegerField(choices=SCHEME_TYPE)
     code = models.CharField(max_length=64, db_index=True)
 
@@ -83,7 +83,7 @@ class Unit(models.Model):
 class ModifierType(models.Model):
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=255)
-    unit = models.ForeignKey(Unit)
+    unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -115,7 +115,7 @@ class Modifier(models.Model):
             'applicable.'
         )
     )
-    modifier_type = models.ForeignKey(ModifierType, related_name='values')
+    modifier_type = models.ForeignKey(ModifierType, related_name='values', on_delete=models.CASCADE)
     required = models.BooleanField(default=False, help_text=(
         'If `True`, prices with this modifier will not be applicable unless '
         'this modifier is applicable.'
@@ -170,14 +170,14 @@ class Modifier(models.Model):
 
 
 class Price(models.Model):
-    scenario = models.ForeignKey('Scenario', related_name='prices')
-    scheme = models.ForeignKey('Scheme', related_name='prices')
+    scenario = models.ForeignKey('Scenario', related_name='prices', on_delete=models.CASCADE)
+    scheme = models.ForeignKey('Scheme', related_name='prices', on_delete=models.CASCADE)
     advocate_type = models.ForeignKey(
-        'AdvocateType', related_name='prices', null=True)
+        'AdvocateType', related_name='prices', null=True, on_delete=models.CASCADE)
     offence_class = models.ForeignKey(
-        'OffenceClass', related_name='prices', null=True)
-    fee_type = models.ForeignKey('FeeType', related_name='prices')
-    unit = models.ForeignKey('Unit', related_name='prices')
+        'OffenceClass', related_name='prices', null=True, on_delete=models.CASCADE)
+    fee_type = models.ForeignKey('FeeType', related_name='prices', on_delete=models.CASCADE)
+    unit = models.ForeignKey('Unit', related_name='prices', on_delete=models.CASCADE)
     fixed_fee = models.DecimalField(
         max_digits=12, decimal_places=5, help_text=(
             'Adds this value to the fee if this price is applicable.'
