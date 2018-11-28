@@ -57,8 +57,8 @@ class ModelOrNoneChoiceFilter(django_filters.ModelChoiceFilter):
         if self.distinct:
             qs = qs.distinct()
         qs = self.get_method(qs)(
-            Q(**{'%s__isnull' % self.name: True}) |
-            Q(**{'%s__%s' % (self.name, lookup): value})
+            Q(**{'%s__isnull' % self.field_name: True}) |
+            Q(**{'%s__%s' % (self.field_name, lookup): value})
         )
         return qs
 
@@ -75,10 +75,10 @@ class FeeTypeFilter(django_filters.FilterSet):
 
 class PriceFilter(django_filters.FilterSet):
     fee_type_code = django_filters.CharFilter(
-        name='fee_type__code',
+        field_name='fee_type__code',
     )
     offence_class = ModelOrNoneChoiceFilter(
-        name='offence_class',
+        field_name='offence_class',
         queryset=calc_models.OffenceClass.objects.all(),
         help_text=(
             'Note the query will return prices '
@@ -86,7 +86,7 @@ class PriceFilter(django_filters.FilterSet):
         )
     )
     advocate_type = ModelOrNoneChoiceFilter(
-        name='advocate_type',
+        field_name='advocate_type',
         queryset=calc_models.AdvocateType.objects.all(),
         help_text=(
             'Note the query will return prices '
