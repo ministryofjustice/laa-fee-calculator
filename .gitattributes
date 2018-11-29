@@ -1,1 +1,2 @@
 django-secret.yaml filter=git-crypt diff=git-crypt
+sentry-dsn.yaml filter=git-crypt diff=git-crypt

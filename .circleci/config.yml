@@ -33,6 +33,7 @@ references:
         source $BASH_ENV
         docker build \
           --build-arg DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY} \
+          --build-arg SENTRY_DSN=${SENTRY_DSN} \
           --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
           --build-arg COMMIT_ID=${CIRCLE_SHA1} \
           --build-arg BUILD_DATE=${BUILD_DATE} \
@@ -89,7 +90,8 @@ jobs:
             kubectl apply \
                 -f kubernetes_deploy/staging/service.yaml \
                 -f kubernetes_deploy/staging/ingress.yaml \
-                -f kubernetes_deploy/staging/django-secret.yaml
+                -f kubernetes_deploy/staging/django-secret.yaml \
+                -f kubernetes_deploy/staging/sentry-dsn.yaml
 
   production_deploy:
     <<: *container_config
@@ -109,7 +111,8 @@ jobs:
             kubectl apply \
                 -f kubernetes_deploy/production/service.yaml \
                 -f kubernetes_deploy/production/ingress.yaml \
-                -f kubernetes_deploy/production/django-secret.yaml
+                -f kubernetes_deploy/production/django-secret.yaml \
+                -f kubernetes_deploy/production/sentry-dsn.yaml
 
 workflows:
   version: 2
