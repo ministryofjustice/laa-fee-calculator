@@ -160,7 +160,7 @@ LOGGING = {
 
 # sentry exception handling
 if os.environ.get('SENTRY_DSN'):
-    INSTALLED_APPS = ('raven.contrib.django.raven_compat',) + INSTALLED_APPS
+    INSTALLED_APPS = ['raven.contrib.django.raven_compat'] + INSTALLED_APPS
     RAVEN_CONFIG = {
         'dsn': os.environ['SENTRY_DSN'],
         'release': os.environ.get('APP_GIT_COMMIT') or 'unknown',
