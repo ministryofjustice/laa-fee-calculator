@@ -33,7 +33,6 @@ references:
         source $BASH_ENV
         docker build \
           --build-arg DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY} \
-          --build-arg SENTRY_DSN=${SENTRY_DSN} \
           --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
           --build-arg COMMIT_ID=${CIRCLE_SHA1} \
           --build-arg BUILD_DATE=${BUILD_DATE} \
