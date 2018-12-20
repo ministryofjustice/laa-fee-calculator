@@ -236,5 +236,19 @@
     "priority": 0,
     "strict_range": false
   }
+},
+{
+  "model": "calculator.modifier",
+  "pk": 19,
+  "fields": {
+    "limit_from": 10,
+    "limit_to": null,
+    "fixed_percent": "0.00",
+    "percent_per_unit": "0.00",
+    "modifier_type": 3,
+    "required": true,
+    "priority": 0,
+    "strict_range": false
+  }
 }
 ]

@@ -105,6 +105,8 @@ class LgfsCalculatorTestCase(CalculatorTestCase):
             'ppe': int(row['EVIDENCE_PAGES']) if row['EVIDENCE_PAGES'] else 0
         }
 
+        data['TRIAL_LENGTH'] = data['day']
+
         if row['NO_DEFENDANTS']:
             data['NUMBER_OF_DEFENDANTS'] = int(row['NO_DEFENDANTS'])
 
