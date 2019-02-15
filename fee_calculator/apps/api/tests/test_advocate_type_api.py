@@ -6,7 +6,7 @@ from rest_framework.test import APITestCase
 
 from calculator.constants import SCHEME_TYPE
 from calculator.models import Scheme
-
+from calculator.tests.lib.utils import prevent_request_warnings
 
 class AdvocateTypeApiTestCase(APITestCase):
     endpoint = '/api/{api}/fee-schemes/{{scheme}}/advocate-types/'.format(
@@ -33,6 +33,7 @@ class AdvocateTypeApiTestCase(APITestCase):
         response = self.client.get(self.endpoint.format(scheme=1) + 'JRALONE/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    @prevent_request_warnings
     def test_404_for_nonexistent_id(self):
         response = self.client.get(self.endpoint.format(scheme=1) + 'LAWMAN/')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

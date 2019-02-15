@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from calculator.models import Scheme
+from calculator.tests.lib.utils import prevent_request_warnings
 
 
 class ScenarioApiTestCase(APITestCase):
@@ -22,10 +23,12 @@ class ScenarioApiTestCase(APITestCase):
         response = self.client.get(self.endpoint.format(scheme=1) + '3/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    @prevent_request_warnings
     def test_404_for_invalid_id(self):
         response = self.client.get(self.endpoint.format(scheme=1) + 'AS00001/')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
+    @prevent_request_warnings
     def test_404_for_nonexistent_id(self):
         response = self.client.get(self.endpoint.format(scheme=1) + '999999/')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
