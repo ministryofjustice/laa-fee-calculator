@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import logging
 
 BASIC_FEES_MAP = {
@@ -241,7 +240,6 @@ def prevent_request_warnings(original_function):
     """
     def new_function(*args, **kwargs):
         # raise logging level to ERROR
-
         logger = logging.getLogger('django.request')
         previous_logging_level = logger.getEffectiveLevel()
         logger.setLevel(logging.ERROR)

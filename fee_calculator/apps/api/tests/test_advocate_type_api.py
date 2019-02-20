@@ -8,6 +8,7 @@ from calculator.constants import SCHEME_TYPE
 from calculator.models import Scheme
 from calculator.tests.lib.utils import prevent_request_warnings
 
+
 class AdvocateTypeApiTestCase(APITestCase):
     endpoint = '/api/{api}/fee-schemes/{{scheme}}/advocate-types/'.format(
         api=settings.API_VERSION
