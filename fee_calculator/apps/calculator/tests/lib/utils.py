@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import logging
+
 BASIC_FEES_MAP = {
     'FXACV': 'AGFS_APPEAL_CON',
     'FXASE': 'AGFS_APPEAL_SEN',
@@ -229,3 +231,23 @@ def scenario_id_to_clf(scenario_id):
     for key, value in CLF_SCENARIO_MAP.items():
         if value == scenario_id:
             return key
+
+
+def prevent_request_warnings(original_function):
+    """
+    If we need to test for 404s or 405s this decorator can prevent the
+    request class from throwing warnings.
+    """
+    def new_function(*args, **kwargs):
+        # raise logging level to ERROR
+        logger = logging.getLogger('django.request')
+        previous_logging_level = logger.getEffectiveLevel()
+        logger.setLevel(logging.ERROR)
+
+        # trigger original function that would throw warning
+        original_function(*args, **kwargs)
+
+        # lower logging level back to previous
+        logger.setLevel(previous_logging_level)
+
+    return new_function

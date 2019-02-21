@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from calculator.models import Scheme
+from calculator.tests.lib.utils import prevent_request_warnings
 
 
 class OffenceClassApiTestCase(APITestCase):
@@ -26,6 +27,7 @@ class OffenceClassApiTestCase(APITestCase):
         response = self.client.get(self.endpoint.format(scheme=3) + '1.2/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    @prevent_request_warnings
     def test_404_for_nonexistent_id(self):
         response = self.client.get(self.endpoint.format(scheme=1) + 'Z/')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
