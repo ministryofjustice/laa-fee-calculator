@@ -1,6 +1,6 @@
 Django>=2.1,<2.2
 dj-database-url==0.4.1
-django-moj-irat==0.3
+django-moj-irat==0.4
 django-rest-swagger==2.1.2
 djangorestframework>=3.9.0,<3.10.0
 django-extended-choices==1.1.2
