@@ -13,6 +13,10 @@ ARG BUILD_TAG
 # pre-create directories
 WORKDIR /app
 
+# add non-root user and group with xenial first available uid, 1000, see /etc/login.defs, UID_MIN
+RUN addgroup --gid 1000 --system appgroup \
+&& adduser --uid 1000 --system appuser --ingroup appgroup
+
 # setup environment
 RUN \
   set -ex \
@@ -55,4 +59,5 @@ RUN python3 manage.py migrate --no-input \
     && python3 manage.py loadalldata \
     && python3 manage.py collectstatic --no-input
 
+USER 1000
 CMD uwsgi --ini uwsgi.ini
