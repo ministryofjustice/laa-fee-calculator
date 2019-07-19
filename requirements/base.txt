@@ -1,12 +1,12 @@
 Django>=2.1,<2.2
 dj-database-url==0.4.1
-django-moj-irat==0.3
+django-moj-irat==0.4
 django-rest-swagger==2.1.2
 djangorestframework>=3.9.0,<3.10.0
 django-extended-choices==1.1.2
 django-cors-headers==2.1.0
 django-filter==2.2.0
-drf-nested-routers==0.90.0
+drf-nested-routers==0.91
 flake8==3.4.1
 pyyaml>=4.2b1
 six==1.11.0
