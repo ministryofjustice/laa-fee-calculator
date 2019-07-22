@@ -56,6 +56,7 @@ ENV APP_BUILD_DATE=${BUILD_DATE}
 ENV APP_BUILD_TAG=${BUILD_TAG}
 
 RUN python3 manage.py migrate --no-input \
+    && python3 manage.py cleardata \
     && python3 manage.py loadalldata \
     && python3 manage.py collectstatic --no-input
 
