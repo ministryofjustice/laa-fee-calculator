@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: laa-fee-calculator
+  namespace: laa-fee-calculator-staging
 spec:
   replicas: 3
   selector:
