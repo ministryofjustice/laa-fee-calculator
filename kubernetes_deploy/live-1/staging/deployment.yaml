@@ -14,8 +14,9 @@ spec:
         app: laa-fee-calculator-app
     spec:
       containers:
-      - image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/laa-get-paid/laa-fee-calculator:app-latest
-        name: app
+      - name: app
+        imagePullPolicy: Always
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/laa-get-paid/laa-fee-calculator:app-latest
         ports:
         - containerPort: 8080
           name: http
