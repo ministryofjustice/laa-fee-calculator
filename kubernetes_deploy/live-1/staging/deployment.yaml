@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: laa-fee-calculator
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: laa-fee-calculator-app
+  template:
+    metadata:
+      labels:
+        app: laa-fee-calculator-app
+    spec:
+      containers:
+      - image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/laa-get-paid/laa-fee-calculator:app-latest
+        name: app
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: DJANGO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: django-secret
+              key: key
+        - name: SENTRY_DSN
+          valueFrom:
+            secretKeyRef:
+              name: sentry-dsn
+              key: key
+        - name: ENV
+          value: staging
