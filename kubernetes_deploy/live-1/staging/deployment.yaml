@@ -5,6 +5,11 @@ metadata:
   namespace: laa-fee-calculator-staging
 spec:
   replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   selector:
     matchLabels:
       app: laa-fee-calculator-app
@@ -19,7 +24,24 @@ spec:
         image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/laa-get-paid/laa-fee-calculator:app-latest
         ports:
         - containerPort: 8080
-          name: http
+        readinessProbe:
+          httpGet:
+            path: /ping.json
+            port: 8080
+            httpHeaders:
+              - name: Host
+                value: localhost
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            port: 8080
+            path: /ping.json
+            httpHeaders:
+              - name: Host
+                value: localhost
+          initialDelaySeconds: 15
+          periodSeconds: 30
         env:
         - name: DJANGO_SECRET_KEY
           valueFrom:
