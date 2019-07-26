@@ -55,6 +55,7 @@ ENV APP_GIT_COMMIT=${COMMIT_ID}
 ENV APP_BUILD_DATE=${BUILD_DATE}
 ENV APP_BUILD_TAG=${BUILD_TAG}
 
+# clearing data to prevent UNIQUE constraint violations when rebuilding locally, at least
 RUN python3 manage.py migrate --no-input \
     && python3 manage.py cleardata \
     && python3 manage.py loadalldata \
