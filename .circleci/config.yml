@@ -7,7 +7,7 @@ references:
         environment:
           GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
-          DJANGO_SECRET_KEY: laa-fee-calculator
+          DJANGO_SECRET_KEY: real-secret-not-needed-here
 
   decrypt_secrets: &decrypt_secrets
     run:
@@ -43,7 +43,7 @@ references:
     run:
       name: Push laa-fee-calculator docker image
       command: |
-        login="$(aws ecr get-login --region eu-west-1 --no-include-email)"
+        login="$(aws ecr get-login --region eu-west-2 --no-include-email)"
         ${login}
 
         docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
@@ -84,13 +84,13 @@ jobs:
       - deploy:
           name: Deploy laa-fee-calculator docker image
           command: |
-            kubectl set image -f kubernetes_deploy/staging/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
+            kubectl set image -f kubernetes_deploy/live-1/staging/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
             | kubectl apply -f -
             kubectl apply \
-                -f kubernetes_deploy/staging/service.yaml \
-                -f kubernetes_deploy/staging/ingress.yaml \
-                -f kubernetes_deploy/staging/django-secret.yaml \
-                -f kubernetes_deploy/staging/sentry-dsn.yaml
+                -f kubernetes_deploy/live-1/staging/service.yaml \
+                -f kubernetes_deploy/live-1/staging/ingress.yaml \
+                -f kubernetes_deploy/live-1/staging/django-secret.yaml \
+                -f kubernetes_deploy/live-1/staging/sentry-dsn.yaml
 
   production_deploy:
     <<: *container_config
@@ -105,13 +105,13 @@ jobs:
       - deploy:
           name: Deploy laa-fee-calculator docker image
           command: |
-            kubectl set image -f kubernetes_deploy/production/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
+            kubectl set image -f kubernetes_deploy/live-1/production/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
             | kubectl apply -f -
             kubectl apply \
-                -f kubernetes_deploy/production/service.yaml \
-                -f kubernetes_deploy/production/ingress.yaml \
-                -f kubernetes_deploy/production/django-secret.yaml \
-                -f kubernetes_deploy/production/sentry-dsn.yaml
+                -f kubernetes_deploy/live-1/production/service.yaml \
+                -f kubernetes_deploy/live-1/production/ingress.yaml \
+                -f kubernetes_deploy/live-1/production/django-secret.yaml \
+                -f kubernetes_deploy/live-1/production/sentry-dsn.yaml
 
 workflows:
   version: 2
