@@ -5,7 +5,7 @@ references:
     docker:
       - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
         environment:
-          GITHUB_TEAM_NAME_SLUG: claim-for-crown-court-defence
+          GITHUB_TEAM_NAME_SLUG: laa-get-paid
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
           DJANGO_SECRET_KEY: real-secret-not-needed-here
 
@@ -43,7 +43,7 @@ references:
     run:
       name: Push laa-fee-calculator docker image
       command: |
-        login="$(aws ecr get-login --region eu-west-2 --no-include-email)"
+        login="$(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)"
         ${login}
 
         docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
