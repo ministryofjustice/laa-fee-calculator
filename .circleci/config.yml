@@ -84,13 +84,16 @@ jobs:
       - deploy:
           name: Deploy laa-fee-calculator docker image
           command: |
-            kubectl set image -f kubernetes_deploy/live-1/staging/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
+            docker_image_tag=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
+            kubectl set image -f kubernetes_deploy/live-1/staging/deployment.yaml app=${docker_image_tag} --local -o yaml \
             | kubectl apply -f -
             kubectl apply \
                 -f kubernetes_deploy/live-1/staging/service.yaml \
                 -f kubernetes_deploy/live-1/staging/ingress.yaml \
                 -f kubernetes_deploy/live-1/staging/django-secret.yaml \
                 -f kubernetes_deploy/live-1/staging/sentry-dsn.yaml
+
+            kubectl annotate deployments/laa-fee-calculator kubernetes.io/change-cause="$(date) - circleCI deploying: $docker_image_tag"
 
   production_deploy:
     <<: *container_config
@@ -105,13 +108,16 @@ jobs:
       - deploy:
           name: Deploy laa-fee-calculator docker image
           command: |
-            kubectl set image -f kubernetes_deploy/live-1/production/deployment.yaml app=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
+            docker_image_tag=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
+            kubectl set image -f kubernetes_deploy/live-1/production/deployment.yaml app=${docker_image_tag} --local -o yaml \
             | kubectl apply -f -
             kubectl apply \
                 -f kubernetes_deploy/live-1/production/service.yaml \
                 -f kubernetes_deploy/live-1/production/ingress.yaml \
                 -f kubernetes_deploy/live-1/production/django-secret.yaml \
                 -f kubernetes_deploy/live-1/production/sentry-dsn.yaml
+
+            kubectl annotate deployments/laa-fee-calculator kubernetes.io/change-cause="$(date) - circleCI deploying: $docker_image_tag"
 
 workflows:
   version: 2
