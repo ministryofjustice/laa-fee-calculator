@@ -57,6 +57,8 @@ class Agfs9CalculatorTestCase(AgfsCalculatorTestCase):
             data['NUMBER_OF_CASES'] = int(row['NUM_OF_CASES'])
         if row['NO_DEFENDANTS']:
             data['NUMBER_OF_DEFENDANTS'] = int(row['NO_DEFENDANTS'])
+        if row['NUM_OF_HEARINGS']:
+            data['NUMBER_OF_HEARINGS'] = int(row['NUM_OF_HEARINGS'])
         if row['TRIAL_LENGTH']:
             data['TRIAL_LENGTH'] = int(row['TRIAL_LENGTH'])
         if row['PPE']:

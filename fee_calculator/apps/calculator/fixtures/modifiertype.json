@@ -61,5 +61,14 @@
     "description": "Whole months between warrant issue and execution",
     "unit": "MONTH"
   }
+},
+{
+  "model": "calculator.modifiertype",
+  "pk": 8,
+  "fields": {
+    "name": "NUMBER_OF_HEARINGS",
+    "description": "Number of hearings",
+    "unit": "HEARING"
+  }
 }
 ]
