@@ -102,3 +102,8 @@ cd laa-fee-calculator
 pyenv activate laa-fee-calculator
 ./manage.py test
 ```
+
+run individual test
+```
+./manage.py test calculator.tests.test_calculation_agfs_12
+```
