@@ -57,10 +57,15 @@ references:
 jobs:
   test:
     <<: *container_config
+    parallelism: 2
     steps:
       - checkout
       - *setup_python_env
-      - run: python3 manage.py test
+      - run:
+          name: Split and run tests
+          command: |
+            TESTDOTPATHS=$(circleci tests glob "fee_calculator/apps/calculator/tests/**/test_*.py" | sed -e 's|\.py||g' -e 's|/|.|g' | circleci tests split)
+            python3 manage.py test $TESTDOTPATHS --verbosity=1 --noinput
 
   build:
     <<: *container_config
