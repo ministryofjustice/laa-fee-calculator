@@ -80,22 +80,14 @@ As well as the calculator endpoint, one can also get a list of prices directly f
 
 ## Deployment
 
-Currently a commit to master will kickoff the AWS pipeline and deploy to the only environment existent at the moment.
-
-* To check where the application is running:
-
-```
-kubectl get ingress --namespace laa-fee-calculator-dev
-NAME          HOSTS                                                               ADDRESS   PORTS     AGE
-laa-fee-dev   laa-fee-calculator-dev.apps.non-production.k8s.integration.dsd.io
-```
+Currently a commit to master will kickoff circle CI pipeline for deployment to available enviroments
 
 * To check what is the status of the application pods:
 
 ```
-kubectl get pods -n laa-fee-calculator-dev
-NAME                               READY     STATUS    RESTARTS   AGE
-laa-fee-dev-app-6644dfb5d6-znbmx   1/1       Running   0          4m
-laa-fee-dev-db-84bfb9d45c-68grw    1/1       Running   0          73d
-tiller-deploy-5cf7859b7c-xg86p     1/1       Running   0          19d
+kubectl get pods -n laa-fee-calculator-production
+NAME                                  READY   STATUS    RESTARTS   AGE
+laa-fee-calculator-554fb6595d-97979   1/1     Running   0          5h53m
+laa-fee-calculator-554fb6595d-kmxc8   1/1     Running   0          5h53m
+laa-fee-calculator-554fb6595d-xs2v9   1/1     Running   0          5h53m
 ```
