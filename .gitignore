@@ -99,4 +99,4 @@ fee_calculator/static
 
 example_client/node_modules
 
-db.sqlite3
+*db.sqlite3
