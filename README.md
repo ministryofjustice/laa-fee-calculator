@@ -97,43 +97,40 @@ laa-fee-calculator-554fb6595d-xs2v9   1/1     Running   0          5h53m
 
 To generate a new fee scheme:
 
-- add fee scheme fixture to `fee_calculator/apps/calculator/fixtures/scheme.json`.
+* add fee scheme fixture to `fee_calculator/apps/calculator/fixtures/scheme.json`.
 
   Set `end_date` of the previous fee scheme of the same `base_type` and the `start_date` of the new scheme, so that they are contiguous. increment the `pk` and set the other attributes of the new scheme.
 
   ```json
-    ...
-    ,
-    {
-      "model": "calculator.scheme",
-      "pk": 5,
-      "fields": {
-        "start_date": "2020-07-02",
-        "end_date": null,
-        "base_type": 1,
-        "description": "AGFS Fee Scheme 12"
-    }
+  {
+    "model": "calculator.scheme",
+    "pk": 5,
+    "fields": {
+      "start_date": "2020-07-02",
+      "end_date": null,
+      "base_type": 1,
+      "description": "AGFS Fee Scheme 12"
+  }
   ```
 
-- apply the new fee scheme
+* apply the new fee scheme
 
   ```bash
-  ./manage cleardata
-  ./manage loadalldata
+  ./manage.py cleardata
+  ./manage.py loadalldata
   ```
 
-- use management tools to copy previous scheme prices
+* use management tools to copy previous scheme prices
 
-```bash
-./manage.py copyscheme 4 5
-```
+  ```bash
+  ./manage.py copyscheme 4 5
+  ```
 
-- use standard django `dumpdata` to collect the all the prices as a fixture.
+* use standard django `dumpdata` to collect the all the prices as a fixture.
 
   You should pretty format the json output afterwards. You might want to dump to a separate file to do a diff first, to check changes made.
 
-
-```bash
-./manage.py dumpdata calculator.price > fee_calculator/apps/calculator/fixtures/price.json
-```
+  ```bash
+  ./manage.py dumpdata calculator.price > fee_calculator/apps/calculator/fixtures/price.json
+  ```
 
