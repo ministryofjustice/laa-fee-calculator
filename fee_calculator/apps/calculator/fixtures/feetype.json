@@ -1008,5 +1008,15 @@
       "is_basic": false,
       "aggregation": "sum"
     }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 229,
+    "fields": {
+      "name": "Paper heavy case",
+      "code": "AGFS_PAP_HEAVY",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
   }
 ]
