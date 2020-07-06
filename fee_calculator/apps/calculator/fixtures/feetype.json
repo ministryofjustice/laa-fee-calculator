@@ -1,1012 +1,1012 @@
 [
-{
-  "model": "calculator.feetype",
-  "pk": 3,
-  "fields": {
-    "name": "Redeterminations",
-    "code": "AGFS_REDET",
-    "is_basic": false,
-    "aggregation": "sum"
+  {
+    "model": "calculator.feetype",
+    "pk": 3,
+    "fields": {
+      "name": "Redeterminations",
+      "code": "AGFS_REDET",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 4,
+    "fields": {
+      "name": "Plea and case management hearing",
+      "code": "AGFS_PLEA",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 5,
+    "fields": {
+      "name": "Abuse of process hearing (half day)",
+      "code": "AGFS_ABS_PRC_HF",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 6,
+    "fields": {
+      "name": "Abuse of process hearing (full day)",
+      "code": "AGFS_ABS_PRC_WL",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 7,
+    "fields": {
+      "name": "Adjourned appeals",
+      "code": "AGFS_ADJOURNED",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 8,
+    "fields": {
+      "name": "Appeals to crown court against conviction",
+      "code": "AGFS_APPEAL_CON",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 9,
+    "fields": {
+      "name": "Appeals to the crown court against sentence",
+      "code": "AGFS_APPEAL_SEN",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 10,
+    "fields": {
+      "name": "Application to dismiss a charge day 2 onwards (half day)",
+      "code": "AGFS_DMS_DY2_HF",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 11,
+    "fields": {
+      "name": "Application to dismiss a charge day 2 onwards (full day)",
+      "code": "AGFS_DMS_DY2_WL",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 12,
+    "fields": {
+      "name": "Committal for sentence hearing",
+      "code": "AGFS_COMMITTAL",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 13,
+    "fields": {
+      "name": "Conferences and views (hours)",
+      "code": "AGFS_CONFERENCE",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 14,
+    "fields": {
+      "name": "Contempt hearings",
+      "code": "AGFS_CONTEMPT",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 15,
+    "fields": {
+      "name": "Contempt hearings (apportioned)",
+      "code": "AGFS_CNTMPT_APP",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 16,
+    "fields": {
+      "name": "Deferred sentence hearings",
+      "code": "AGFS_DEF_SEN_HR",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 17,
+    "fields": {
+      "name": "Hearings relating to admissibility of evidence (full day)",
+      "code": "AGFS_ADM_EVD_WL",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 18,
+    "fields": {
+      "name": "Hearings relating to disclosure (half day)",
+      "code": "AGFS_DISC_HALF",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 19,
+    "fields": {
+      "name": "Hearings relating to disclosure (full day)",
+      "code": "AGFS_DISC_FULL",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 20,
+    "fields": {
+      "name": "Noting brief",
+      "code": "AGFS_NOTING_BRF",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 21,
+    "fields": {
+      "name": "Paper plea and case management",
+      "code": "AGFS_PAPER_PLEA",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 22,
+    "fields": {
+      "name": "Proceeds relating to breach of an order of the crown court",
+      "code": "AGFS_ORDER_BRCH",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 23,
+    "fields": {
+      "name": "Public interest immunity hearing (half day)",
+      "code": "AGFS_PI_IMMN_HF",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 24,
+    "fields": {
+      "name": "Public interest immunity hearing (full day)",
+      "code": "AGFS_PI_IMMN_WL",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 25,
+    "fields": {
+      "name": "Research of very unusual or novel factual issue",
+      "code": "AGFS_NOVELISSUE",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 26,
+    "fields": {
+      "name": "Research of very unusual of novel point of law",
+      "code": "AGFS_NOVEL_LAW",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 27,
+    "fields": {
+      "name": "Standard appearance fee",
+      "code": "AGFS_STD_APPRNC",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 28,
+    "fields": {
+      "name": "Sentence hearing",
+      "code": "AGFS_SENTENCE",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 29,
+    "fields": {
+      "name": "Special preperation (hourly)",
+      "code": "AGFS_SPCL_PREP",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 30,
+    "fields": {
+      "name": "Trial not proceed",
+      "code": "AGFS_NOT_PRCD",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 31,
+    "fields": {
+      "name": "Unsuccesful application to vacate a guilty plea (half day)",
+      "code": "AGFS_UN_VAC_HF",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 32,
+    "fields": {
+      "name": "Unsuccesful application to vacate a guilty plea (full day)",
+      "code": "AGFS_UN_VAC_WL",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 33,
+    "fields": {
+      "name": "Written / oral advice",
+      "code": "AGFS_WRTN_ORAL",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 34,
+    "fields": {
+      "name": "Advocate fee",
+      "code": "AGFS_FEE",
+      "is_basic": true,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 35,
+    "fields": {
+      "name": "Hardship payment",
+      "code": "AGFS_HARDSHIP",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 36,
+    "fields": {
+      "name": "Staged payments",
+      "code": "AGFS_STAGED",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 37,
+    "fields": {
+      "name": "Other corrections",
+      "code": "AGFS_CORRCTNS",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 38,
+    "fields": {
+      "name": "Conferences & views - train",
+      "code": "AGFS_TCT_TRV_TR",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 39,
+    "fields": {
+      "name": "Conferences & views - hotel stay",
+      "code": "AGFS_TCT_HOT_ST",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 40,
+    "fields": {
+      "name": "Conferences & views - travel time",
+      "code": "AGFS_TCT_CNF_VW",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 41,
+    "fields": {
+      "name": "Evidence provision fee",
+      "code": "AGFS_EVIDPRVFEE",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 42,
+    "fields": {
+      "name": "Travel & hotel - car",
+      "code": "AGFS_THE_TRV_CR",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 43,
+    "fields": {
+      "name": "Travel & hotel - train",
+      "code": "AGFS_THE_TRV_TR",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 44,
+    "fields": {
+      "name": "Travel & hotel - hotel stay",
+      "code": "AGFS_THE_HOT_ST",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 45,
+    "fields": {
+      "name": "Travel & hotel - conference and view",
+      "code": "AGFS_THE_CNF_VW",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 46,
+    "fields": {
+      "name": "Conferences & views - car",
+      "code": "AGFS_TCT_TRV_CR",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 47,
+    "fields": {
+      "name": "Evidence provision fee",
+      "code": "EVID_PROV_FEE",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 48,
+    "fields": {
+      "name": "Medical expert",
+      "code": "MED EXPERT",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 49,
+    "fields": {
+      "name": "Translator",
+      "code": "TRANSLATOR",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 50,
+    "fields": {
+      "name": "Financial expert",
+      "code": "FIN EXPERT",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 51,
+    "fields": {
+      "name": "Other",
+      "code": "OTHER",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 52,
+    "fields": {
+      "name": "Travel costs",
+      "code": "TRAVEL COSTS",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 53,
+    "fields": {
+      "name": "Cost judge application fee",
+      "code": "AGFS_CJD_FEE",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 54,
+    "fields": {
+      "name": "Litigator fee",
+      "code": "LIT_FEE",
+      "is_basic": true,
+      "aggregation": "max"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 55,
+    "fields": {
+      "name": "Accident reconstruction report",
+      "code": "ACCIDENT",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 56,
+    "fields": {
+      "name": "Warrant - pages of prosecuting evidence",
+      "code": "WARRANT_PPE",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 57,
+    "fields": {
+      "name": "Accountants",
+      "code": "ACCOUNTANTS",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 58,
+    "fields": {
+      "name": "Surveyor / architects",
+      "code": "SURVEYOR",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 59,
+    "fields": {
+      "name": "Computer experts",
+      "code": "COMPUTER_EXPERT",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 60,
+    "fields": {
+      "name": "Consultant medical reports",
+      "code": "CONSULTANT_REP",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 61,
+    "fields": {
+      "name": "DNA testing",
+      "code": "DNA_TESTING",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 62,
+    "fields": {
+      "name": "Engineer",
+      "code": "ENGINEER",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 63,
+    "fields": {
+      "name": "Enquiry agents",
+      "code": "ENQUIRY_AGENTS",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 64,
+    "fields": {
+      "name": "Facial mapping experts",
+      "code": "FACIAL_MAPPING",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 65,
+    "fields": {
+      "name": "Fingerprint experts",
+      "code": "FINGERPRINT",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 66,
+    "fields": {
+      "name": "Fire assessor / explosives expert",
+      "code": "FIRE_EXPLOSIVES",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 67,
+    "fields": {
+      "name": "Forensic scientists",
+      "code": "FORENSICS",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 68,
+    "fields": {
+      "name": "Handwriting experts",
+      "code": "HANDWRITING",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 69,
+    "fields": {
+      "name": "Interpreters",
+      "code": "INTERPRETERS",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 70,
+    "fields": {
+      "name": "Lip readers",
+      "code": "LIP_READERS",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 71,
+    "fields": {
+      "name": "Meteorologist",
+      "code": "METEOROLOGIST",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 72,
+    "fields": {
+      "name": "Overnight expenses",
+      "code": "OVERNIGHT_EXP",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 73,
+    "fields": {
+      "name": "Pathologists",
+      "code": "PATHOLOGISTS",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 74,
+    "fields": {
+      "name": "Photocopying",
+      "code": "PHOTOCOPYING",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 75,
+    "fields": {
+      "name": "Psychiatric reports",
+      "code": "PSYCHIATRIC_REP",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 76,
+    "fields": {
+      "name": "Psychological reports",
+      "code": "PSYCHO_REPORTS",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 77,
+    "fields": {
+      "name": "Transcripts",
+      "code": "TRANSCRIPTS",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 78,
+    "fields": {
+      "name": "Vet report",
+      "code": "VET_REPORT",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 79,
+    "fields": {
+      "name": "Voice recognition",
+      "code": "VOICE_RECOG",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 80,
+    "fields": {
+      "name": "Special prep",
+      "code": "SPECIAL_PREP",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 81,
+    "fields": {
+      "name": "Warrant",
+      "code": "WARRANT",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 82,
+    "fields": {
+      "name": "Hardship payment",
+      "code": "HARDSHIP",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 83,
+    "fields": {
+      "name": "Confiscation (half day)",
+      "code": "AGFS_CONFISC_HF",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 84,
+    "fields": {
+      "name": "Warrant - number of defendants",
+      "code": "WARRANT_DEFS",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 85,
+    "fields": {
+      "name": "Confiscation (full day)",
+      "code": "AGFS_CONFISC_WL",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 86,
+    "fields": {
+      "name": "Confiscation",
+      "code": "AGFS_CONFISC",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 87,
+    "fields": {
+      "name": "Cost judge award",
+      "code": "COST_JUDGE",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 88,
+    "fields": {
+      "name": "Other corrections",
+      "code": "CORRECTIONS",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 89,
+    "fields": {
+      "name": "Advocate fee (legacy)",
+      "code": "ADV_FEE",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 90,
+    "fields": {
+      "name": "Hearings relating to admissibility of evidence (half day)",
+      "code": "AGFS_ADM_EVD_HF",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 91,
+    "fields": {
+      "name": "Wasted preparation fee",
+      "code": "AGFS_WSTD_PREP",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 92,
+    "fields": {
+      "name": "Cost judge award",
+      "code": "AGFS_COST_JUDGE",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 93,
+    "fields": {
+      "name": "Warrant - trial length",
+      "code": "WARRANT_TRLLEN",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 94,
+    "fields": {
+      "name": "Hardship - pages of prosecuting evidence",
+      "code": "HARDSHIP_PPE",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 95,
+    "fields": {
+      "name": "Hardship - number of defendants",
+      "code": "HARDSHIP_DEFS",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 96,
+    "fields": {
+      "name": "Hardship - trial length",
+      "code": "HARDSHIP_TRLLEN",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 97,
+    "fields": {
+      "name": "Committal for trial fee",
+      "code": "MAGSCOMMITTAL",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 98,
+    "fields": {
+      "name": "Adjustment",
+      "code": "ADJUSTMENT",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 99,
+    "fields": {
+      "name": "Cost judge preparation award",
+      "code": "AGFS_CJD_EXP",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 100,
+    "fields": {
+      "name": "Ground rules hearing (half day)",
+      "code": "AGFS_GRH_HALF",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 101,
+    "fields": {
+      "name": "Ground rules hearing (full day)",
+      "code": "AGFS_GRH_FULL",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 102,
+    "fields": {
+      "name": "Further case management hearing",
+      "code": "AGFS_FCMH",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 103,
+    "fields": {
+      "name": "Plea and trial preparation hearing",
+      "code": "AGFS_PLEA",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
   }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 4,
-  "fields": {
-    "name": "Plea and case management hearing",
-    "code": "AGFS_PLEA",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 5,
-  "fields": {
-    "name": "Abuse of process hearing (half day)",
-    "code": "AGFS_ABS_PRC_HF",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 6,
-  "fields": {
-    "name": "Abuse of process hearing (full day)",
-    "code": "AGFS_ABS_PRC_WL",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 7,
-  "fields": {
-    "name": "Adjourned appeals",
-    "code": "AGFS_ADJOURNED",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 8,
-  "fields": {
-    "name": "Appeals to crown court against conviction",
-    "code": "AGFS_APPEAL_CON",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 9,
-  "fields": {
-    "name": "Appeals to the crown court against sentence",
-    "code": "AGFS_APPEAL_SEN",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 10,
-  "fields": {
-    "name": "Application to dismiss a charge day 2 onwards (half day)",
-    "code": "AGFS_DMS_DY2_HF",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 11,
-  "fields": {
-    "name": "Application to dismiss a charge day 2 onwards (full day)",
-    "code": "AGFS_DMS_DY2_WL",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 12,
-  "fields": {
-    "name": "Committal for sentence hearing",
-    "code": "AGFS_COMMITTAL",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 13,
-  "fields": {
-    "name": "Conferences and views (hours)",
-    "code": "AGFS_CONFERENCE",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 14,
-  "fields": {
-    "name": "Contempt hearings",
-    "code": "AGFS_CONTEMPT",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 15,
-  "fields": {
-    "name": "Contempt hearings (apportioned)",
-    "code": "AGFS_CNTMPT_APP",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 16,
-  "fields": {
-    "name": "Deferred sentence hearings",
-    "code": "AGFS_DEF_SEN_HR",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 17,
-  "fields": {
-    "name": "Hearings relating to admissibility of evidence (full day)",
-    "code": "AGFS_ADM_EVD_WL",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 18,
-  "fields": {
-    "name": "Hearings relating to disclosure (half day)",
-    "code": "AGFS_DISC_HALF",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 19,
-  "fields": {
-    "name": "Hearings relating to disclosure (full day)",
-    "code": "AGFS_DISC_FULL",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 20,
-  "fields": {
-    "name": "Noting brief",
-    "code": "AGFS_NOTING_BRF",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 21,
-  "fields": {
-    "name": "Paper plea and case management",
-    "code": "AGFS_PAPER_PLEA",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 22,
-  "fields": {
-    "name": "Proceeds relating to breach of an order of the crown court",
-    "code": "AGFS_ORDER_BRCH",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 23,
-  "fields": {
-    "name": "Public interest immunity hearing (half day)",
-    "code": "AGFS_PI_IMMN_HF",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 24,
-  "fields": {
-    "name": "Public interest immunity hearing (full day)",
-    "code": "AGFS_PI_IMMN_WL",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 25,
-  "fields": {
-    "name": "Research of very unusual or novel factual issue",
-    "code": "AGFS_NOVELISSUE",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 26,
-  "fields": {
-    "name": "Research of very unusual of novel point of law",
-    "code": "AGFS_NOVEL_LAW",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 27,
-  "fields": {
-    "name": "Standard appearance fee",
-    "code": "AGFS_STD_APPRNC",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 28,
-  "fields": {
-    "name": "Sentence hearing",
-    "code": "AGFS_SENTENCE",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 29,
-  "fields": {
-    "name": "Special preperation (hourly)",
-    "code": "AGFS_SPCL_PREP",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 30,
-  "fields": {
-    "name": "Trial not proceed",
-    "code": "AGFS_NOT_PRCD",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 31,
-  "fields": {
-    "name": "Unsuccesful application to vacate a guilty plea (half day)",
-    "code": "AGFS_UN_VAC_HF",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 32,
-  "fields": {
-    "name": "Unsuccesful application to vacate a guilty plea (full day)",
-    "code": "AGFS_UN_VAC_WL",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 33,
-  "fields": {
-    "name": "Written / oral advice",
-    "code": "AGFS_WRTN_ORAL",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 34,
-  "fields": {
-    "name": "Advocate fee",
-    "code": "AGFS_FEE",
-    "is_basic": true,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 35,
-  "fields": {
-    "name": "Hardship payment",
-    "code": "AGFS_HARDSHIP",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 36,
-  "fields": {
-    "name": "Staged payments",
-    "code": "AGFS_STAGED",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 37,
-  "fields": {
-    "name": "Other corrections",
-    "code": "AGFS_CORRCTNS",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 38,
-  "fields": {
-    "name": "Conferences & views - train",
-    "code": "AGFS_TCT_TRV_TR",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 39,
-  "fields": {
-    "name": "Conferences & views - hotel stay",
-    "code": "AGFS_TCT_HOT_ST",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 40,
-  "fields": {
-    "name": "Conferences & views - travel time",
-    "code": "AGFS_TCT_CNF_VW",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 41,
-  "fields": {
-    "name": "Evidence provision fee",
-    "code": "AGFS_EVIDPRVFEE",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 42,
-  "fields": {
-    "name": "Travel & hotel - car",
-    "code": "AGFS_THE_TRV_CR",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 43,
-  "fields": {
-    "name": "Travel & hotel - train",
-    "code": "AGFS_THE_TRV_TR",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 44,
-  "fields": {
-    "name": "Travel & hotel - hotel stay",
-    "code": "AGFS_THE_HOT_ST",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 45,
-  "fields": {
-    "name": "Travel & hotel - conference and view",
-    "code": "AGFS_THE_CNF_VW",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 46,
-  "fields": {
-    "name": "Conferences & views - car",
-    "code": "AGFS_TCT_TRV_CR",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 47,
-  "fields": {
-    "name": "Evidence provision fee",
-    "code": "EVID_PROV_FEE",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 48,
-  "fields": {
-    "name": "Medical expert",
-    "code": "MED EXPERT",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 49,
-  "fields": {
-    "name": "Translator",
-    "code": "TRANSLATOR",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 50,
-  "fields": {
-    "name": "Financial expert",
-    "code": "FIN EXPERT",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 51,
-  "fields": {
-    "name": "Other",
-    "code": "OTHER",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 52,
-  "fields": {
-    "name": "Travel costs",
-    "code": "TRAVEL COSTS",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 53,
-  "fields": {
-    "name": "Cost judge application fee",
-    "code": "AGFS_CJD_FEE",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 54,
-  "fields": {
-    "name": "Litigator fee",
-    "code": "LIT_FEE",
-    "is_basic": true,
-    "aggregation": "max"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 55,
-  "fields": {
-    "name": "Accident reconstruction report",
-    "code": "ACCIDENT",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 56,
-  "fields": {
-    "name": "Warrant - pages of prosecuting evidence",
-    "code": "WARRANT_PPE",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 57,
-  "fields": {
-    "name": "Accountants",
-    "code": "ACCOUNTANTS",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 58,
-  "fields": {
-    "name": "Surveyor / architects",
-    "code": "SURVEYOR",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 59,
-  "fields": {
-    "name": "Computer experts",
-    "code": "COMPUTER_EXPERT",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 60,
-  "fields": {
-    "name": "Consultant medical reports",
-    "code": "CONSULTANT_REP",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 61,
-  "fields": {
-    "name": "DNA testing",
-    "code": "DNA_TESTING",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 62,
-  "fields": {
-    "name": "Engineer",
-    "code": "ENGINEER",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 63,
-  "fields": {
-    "name": "Enquiry agents",
-    "code": "ENQUIRY_AGENTS",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 64,
-  "fields": {
-    "name": "Facial mapping experts",
-    "code": "FACIAL_MAPPING",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 65,
-  "fields": {
-    "name": "Fingerprint experts",
-    "code": "FINGERPRINT",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 66,
-  "fields": {
-    "name": "Fire assessor / explosives expert",
-    "code": "FIRE_EXPLOSIVES",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 67,
-  "fields": {
-    "name": "Forensic scientists",
-    "code": "FORENSICS",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 68,
-  "fields": {
-    "name": "Handwriting experts",
-    "code": "HANDWRITING",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 69,
-  "fields": {
-    "name": "Interpreters",
-    "code": "INTERPRETERS",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 70,
-  "fields": {
-    "name": "Lip readers",
-    "code": "LIP_READERS",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 71,
-  "fields": {
-    "name": "Meteorologist",
-    "code": "METEOROLOGIST",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 72,
-  "fields": {
-    "name": "Overnight expenses",
-    "code": "OVERNIGHT_EXP",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 73,
-  "fields": {
-    "name": "Pathologists",
-    "code": "PATHOLOGISTS",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 74,
-  "fields": {
-    "name": "Photocopying",
-    "code": "PHOTOCOPYING",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 75,
-  "fields": {
-    "name": "Psychiatric reports",
-    "code": "PSYCHIATRIC_REP",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 76,
-  "fields": {
-    "name": "Psychological reports",
-    "code": "PSYCHO_REPORTS",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 77,
-  "fields": {
-    "name": "Transcripts",
-    "code": "TRANSCRIPTS",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 78,
-  "fields": {
-    "name": "Vet report",
-    "code": "VET_REPORT",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 79,
-  "fields": {
-    "name": "Voice recognition",
-    "code": "VOICE_RECOG",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 80,
-  "fields": {
-    "name": "Special prep",
-    "code": "SPECIAL_PREP",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 81,
-  "fields": {
-    "name": "Warrant",
-    "code": "WARRANT",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 82,
-  "fields": {
-    "name": "Hardship payment",
-    "code": "HARDSHIP",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 83,
-  "fields": {
-    "name": "Confiscation (half day)",
-    "code": "AGFS_CONFISC_HF",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 84,
-  "fields": {
-    "name": "Warrant - number of defendants",
-    "code": "WARRANT_DEFS",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 85,
-  "fields": {
-    "name": "Confiscation (full day)",
-    "code": "AGFS_CONFISC_WL",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 86,
-  "fields": {
-    "name": "Confiscation",
-    "code": "AGFS_CONFISC",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 87,
-  "fields": {
-    "name": "Cost judge award",
-    "code": "COST_JUDGE",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 88,
-  "fields": {
-    "name": "Other corrections",
-    "code": "CORRECTIONS",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 89,
-  "fields": {
-    "name": "Advocate fee (legacy)",
-    "code": "ADV_FEE",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 90,
-  "fields": {
-    "name": "Hearings relating to admissibility of evidence (half day)",
-    "code": "AGFS_ADM_EVD_HF",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 91,
-  "fields": {
-    "name": "Wasted preparation fee",
-    "code": "AGFS_WSTD_PREP",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 92,
-  "fields": {
-    "name": "Cost judge award",
-    "code": "AGFS_COST_JUDGE",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 93,
-  "fields": {
-    "name": "Warrant - trial length",
-    "code": "WARRANT_TRLLEN",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 94,
-  "fields": {
-    "name": "Hardship - pages of prosecuting evidence",
-    "code": "HARDSHIP_PPE",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 95,
-  "fields": {
-    "name": "Hardship - number of defendants",
-    "code": "HARDSHIP_DEFS",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 96,
-  "fields": {
-    "name": "Hardship - trial length",
-    "code": "HARDSHIP_TRLLEN",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 97,
-  "fields": {
-    "name": "Committal for trial fee",
-    "code": "MAGSCOMMITTAL",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 98,
-  "fields": {
-    "name": "Adjustment",
-    "code": "ADJUSTMENT",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 99,
-  "fields": {
-    "name": "Cost judge preparation award",
-    "code": "AGFS_CJD_EXP",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 100,
-  "fields": {
-    "name": "Ground rules hearing (half day)",
-    "code": "AGFS_GRH_HALF",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 101,
-  "fields": {
-    "name": "Ground rules hearing (full day)",
-    "code": "AGFS_GRH_FULL",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 102,
-  "fields": {
-    "name": "Further case management hearing",
-    "code": "AGFS_FCMH",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-},
-{
-  "model": "calculator.feetype",
-  "pk": 103,
-  "fields": {
-    "name": "Plea and trial preparation hearing",
-    "code": "AGFS_PLEA",
-    "is_basic": false,
-    "aggregation": "sum"
-  }
-}
 ]
