@@ -3,8 +3,7 @@ Fee calculator for LAA
 
 For development setup see instructions [here](./docs/DEVELOPMENT.md)
 
-Load data into calculator
-==========================
+## Load data into calculator
 
 ```
 ./manage.py migrate
@@ -12,8 +11,8 @@ Load data into calculator
 ./manage.py loadalldata
 ```
 
-Calculator
-==========
+## Calculator
+
 
 Swagger docs are accessible at `/api/v1/docs/`
 
@@ -68,15 +67,15 @@ to the calculate request.
 This should then return a response of the form:
 
 ```json
-{'amount': '134.00'}
+{"amount": "134.00"}
 ```
 
 which is the total price for that fee, taking into account differing prices for different counts and all modifiers.
 
 For example when calculating the basic advocate's fee, if the number of days attended is 45, under Scheme 9 the returned amount will include the fixed fee for the first 2 days, the daily fee for days 3-40 and the reduced daily fee for days 41-45.
 
-Prices
-======
+## Prices
+
 
 As well as the calculator endpoint, one can also get a list of prices directly from the endpoint `/api/v1/fee-schemes/<scheme_id>/prices/`. See swagger documentation for available filters.
 
@@ -100,7 +99,7 @@ To generate a new fee scheme:
 
 - add fee scheme fixture to `fee_calculator/apps/calculator/fixtures/scheme.json`.
 
-  Set `end_date` of the previous fee scheme of the same `base_type` and the `start_date` of the new scheme, so that they are contiguous. increment the `pk` and set the other attrobutes of the new scheme.
+  Set `end_date` of the previous fee scheme of the same `base_type` and the `start_date` of the new scheme, so that they are contiguous. increment the `pk` and set the other attributes of the new scheme.
 
   ```json
     ...
