@@ -131,6 +131,47 @@ To generate a new fee scheme:
   You should pretty format the json output afterwards. You might want to dump to a separate file to do a diff first, to check changes made.
 
   ```bash
-  ./manage.py dumpdata calculator.price > fee_calculator/apps/calculator/fixtures/price.json
+  ./manage.py dumpdata calculator.price --indent 2 > fee_calculator/apps/calculator/fixtures/price.json
   ```
 
+## New fee types
+
+To add a new fee type to a scheme:
+
+- amend `fee_calculator/apps/calculator/fixtures/feetype.json`
+
+  ```json
+    ...
+    },
+    {
+      "model": "calculator.feetype",
+      "pk": 229,
+      "fields": {
+        "name": "Paper heavy case",
+        "code": "AGFS_PAP_HEAVY",
+        "is_basic": false,
+        "aggregation": "sum"
+      }
+    }
+  ```
+
+- clear and load data
+
+  ```bash
+  ./manage.py cleardata
+  ./manage.py loadalldata
+  ```
+
+- create prices for the new fee type by copying another another fee type's, if appropriate
+
+  ```bash
+  ./manage.py copyfeetype 29 229 5
+  ```
+
+  call `./manage.py copyfeetype -h` for details on the command
+
+- recreate fixtures for the new prices
+
+  ```bash
+  ./manage.py dumpdata calculator.price --indent 2 > fee_calculator/apps/calculator/fixtures/price.json
+  ```
