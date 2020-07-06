@@ -7,6 +7,8 @@ Load data into calculator
 ==========================
 
 ```
+./manage.py migrate
+./manage.py cleardata
 ./manage.py loadalldata
 ```
 

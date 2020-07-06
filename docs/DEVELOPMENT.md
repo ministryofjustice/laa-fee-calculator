@@ -8,26 +8,6 @@
 
 ### OS Dependencies
 
-* Postgresql
-
-**NOTE:** Ensure after installation the `postgres` role exists
-
-```
-> psql postgres
-Type "help" for help.
-
-postgres=# \du
-                                     List of roles
-   Role name   |                         Attributes                         | Member of
----------------+------------------------------------------------------------+-----------
- postgres      | Superuser, Create role, Create DB                          | {}
-```
-
-If it doesn't exist you will need to create one.
-```
-# For Mac users (prepend sudo if necessary):
-createuser -s postgres
-```
 
 * libxml2
 
@@ -54,15 +34,7 @@ venv/bin/pip install -U setuptools pip wheel
 venv/bin/pip install -r requirements/base.txt
 ```
 
-* Create database
-
-```
-> psql postgres
-postgres=# CREATE DATABASE fee_calculator WITH OWNER postgres ENCODING 'utf-8';
-CREATE DATABASE
-```
-
-* Migrate database
+* Create/Migrate database
 
 ```
 venv/bin/python manage.py migrate --no-input
