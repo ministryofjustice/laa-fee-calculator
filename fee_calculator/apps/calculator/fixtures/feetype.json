@@ -1018,5 +1018,15 @@
       "is_basic": false,
       "aggregation": "sum"
     }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 230,
+    "fields": {
+      "name": "Unused material (upto 3 hours)",
+      "code": "AGFS_UNUSED_UP3",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
   }
 ]
