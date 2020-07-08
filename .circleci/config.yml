@@ -120,6 +120,12 @@ jobs:
       - *build_docker_image
       - *push_docker_image
 
+  dev_deploy:
+    executor: cloud-platform-executor
+    steps:
+      - deploy-to:
+          environment: dev
+
   staging_deploy:
     executor: cloud-platform-executor
     steps:
@@ -143,10 +149,17 @@ workflows:
       - build:
           requires:
             - test
-      - staging_deploy_approval:
+      - dev_deploy_approval:
           type: approval
           requires:
             - build
+      - dev_deploy:
+          requires:
+            - dev_deploy_approval
+      - staging_deploy_approval:
+          type: approval
+          requires:
+            - dev_deploy
       - staging_deploy:
           requires:
             - staging_deploy_approval
