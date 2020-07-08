@@ -1,14 +1,6 @@
 version: 2.1
 
 references:
-  container_config: &container_config
-    docker:
-      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
-        environment:
-          GITHUB_TEAM_NAME_SLUG: laa-get-paid
-          APPLICATION_DEPLOY_NAME: laa-fee-calculator
-          DJANGO_SECRET_KEY: real-secret-not-needed-here
-
   decrypt_secrets: &decrypt_secrets
     run:
       name: Decrypt secrets file
@@ -46,17 +38,69 @@ references:
         login="$(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)"
         ${login}
 
-        docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
-        docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
+        component=app
+        docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-${CIRCLE_SHA1}"
+        docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-${CIRCLE_SHA1}"
 
         if [ "${CIRCLE_BRANCH}" == "master" ]; then
-          docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:latest"
-          docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:latest"
+          docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-latest"
+          docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-latest"
         fi
 
+# ------------------
+# EXECUTORS
+# ------------------
+executors:
+  cloud-platform-executor:
+    docker:
+      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
+        environment:
+          GITHUB_TEAM_NAME_SLUG: laa-get-paid
+          APPLICATION_DEPLOY_NAME: laa-fee-calculator
+          DJANGO_SECRET_KEY: real-secret-not-needed-here
+
+# ------------------
+# COMMANDS
+# ------------------
+commands:
+  deploy-to:
+    description: >
+      Deploy laa-fee-calculator to the specified environment
+    parameters:
+      environment:
+        description: destination environment
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: Kubectl authentication
+          command: |
+            setup-kube-auth
+            kubectl config use-context << parameters.environment >>
+      - *decrypt_secrets
+      - run:
+          name: deploying to << parameters.environment >>
+          command: |
+            docker_image_tag=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:app-${CIRCLE_SHA1}
+            kubectl set image -f kubernetes_deploy/live-1/<< parameters.environment >>/deployment.yaml app=${docker_image_tag} --local -o yaml \
+            | kubectl apply -f -
+            kubectl apply \
+                -f kubernetes_deploy/live-1/<< parameters.environment >>/service.yaml \
+                -f kubernetes_deploy/live-1/<< parameters.environment >>/ingress.yaml \
+                -f kubernetes_deploy/live-1/<< parameters.environment >>/django-secret.yaml
+
+            sentry_dsn_secret=kubernetes_deploy/live-1/<< parameters.environment >>/sentry-dsn.yaml
+            [ -f "$sentry_dsn_secret" ] && kubectl apply -f $sentry_dsn_secret
+
+            kubectl annotate deployments/laa-fee-calculator kubernetes.io/change-cause="$(date) - circleCI deploying: $docker_image_tag"
+            kubectl rollout restart deployments/laa-fee-calculator
+
+# ------------------
+# JOBS
+# ------------------
 jobs:
   test:
-    <<: *container_config
+    executor: cloud-platform-executor
     parallelism: 2
     steps:
       - checkout
@@ -68,7 +112,7 @@ jobs:
             python3 manage.py test $TESTDOTPATHS --verbosity=1 --noinput
 
   build:
-    <<: *container_config
+    executor: cloud-platform-executor
     steps:
       - checkout
       - setup_remote_docker:
@@ -77,53 +121,20 @@ jobs:
       - *push_docker_image
 
   staging_deploy:
-    <<: *container_config
+    executor: cloud-platform-executor
     steps:
-      - checkout
-      - run:
-          name: Kubectl deployment
-          command: |
-            setup-kube-auth
-            kubectl config use-context staging
-      - *decrypt_secrets
-      - deploy:
-          name: Deploy laa-fee-calculator docker image
-          command: |
-            docker_image_tag=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
-            kubectl set image -f kubernetes_deploy/live-1/staging/deployment.yaml app=${docker_image_tag} --local -o yaml \
-            | kubectl apply -f -
-            kubectl apply \
-                -f kubernetes_deploy/live-1/staging/service.yaml \
-                -f kubernetes_deploy/live-1/staging/ingress.yaml \
-                -f kubernetes_deploy/live-1/staging/django-secret.yaml \
-                -f kubernetes_deploy/live-1/staging/sentry-dsn.yaml
-
-            kubectl annotate deployments/laa-fee-calculator kubernetes.io/change-cause="$(date) - circleCI deploying: $docker_image_tag"
+      - deploy-to:
+          environment: staging
 
   production_deploy:
-    <<: *container_config
+    executor: cloud-platform-executor
     steps:
-      - checkout
-      - run:
-          name: Kubectl deployment
-          command: |
-            setup-kube-auth
-            kubectl config use-context production
-      - *decrypt_secrets
-      - deploy:
-          name: Deploy laa-fee-calculator docker image
-          command: |
-            docker_image_tag=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
-            kubectl set image -f kubernetes_deploy/live-1/production/deployment.yaml app=${docker_image_tag} --local -o yaml \
-            | kubectl apply -f -
-            kubectl apply \
-                -f kubernetes_deploy/live-1/production/service.yaml \
-                -f kubernetes_deploy/live-1/production/ingress.yaml \
-                -f kubernetes_deploy/live-1/production/django-secret.yaml \
-                -f kubernetes_deploy/live-1/production/sentry-dsn.yaml
+      - deploy-to:
+          environment: production
 
-            kubectl annotate deployments/laa-fee-calculator kubernetes.io/change-cause="$(date) - circleCI deploying: $docker_image_tag"
-
+# ------------------
+# WORKFLOWS
+# ------------------
 workflows:
   version: 2
   build-test-and-approval-deploy:
