@@ -3,7 +3,7 @@ function _deploy() {
   usage="deploy -- deploy image from current commit to an environment
   Usage: kubernetes_deploy/live-1/scripts/deploy.sh environment [image-tag]
   Where:
-    environment [staging|production]
+    environment [dev|staging|production]
     [image_tag] any valid ECR image tag for app
   Example:
     # deploy image for current commit to staging
@@ -26,7 +26,7 @@ function _deploy() {
   fi
 
   case "$1" in
-    staging | production)
+    dev | staging | production)
       environment=$1
       ;;
     *)
@@ -66,8 +66,10 @@ function _deploy() {
   kubectl apply \
     -f kubernetes_deploy/live-1/${environment}/service.yaml \
     -f kubernetes_deploy/live-1/${environment}/ingress.yaml \
-    -f kubernetes_deploy/live-1/${environment}/django-secret.yaml \
-    -f kubernetes_deploy/live-1/${environment}/sentry-dsn.yaml
+    -f kubernetes_deploy/live-1/${environment}/django-secret.yaml
+
+  sentry_dsn_secret=kubernetes_deploy/live-1/${environment}/sentry-dsn.yaml
+  [ -f "$sentry_dsn_secret" ] && kubectl apply -f $sentry_dsn_secret
 
   # Forcibly restart the app regardless of whether
   # there are changes to apply new secrets, at least.
