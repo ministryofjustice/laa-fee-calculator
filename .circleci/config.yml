@@ -93,7 +93,6 @@ commands:
             [ -f "$sentry_dsn_secret" ] && kubectl apply -f $sentry_dsn_secret
 
             kubectl annotate deployments/laa-fee-calculator kubernetes.io/change-cause="$(date) - circleCI deploying: $docker_image_tag"
-            kubectl rollout restart deployments/laa-fee-calculator
 
 # ------------------
 # JOBS
