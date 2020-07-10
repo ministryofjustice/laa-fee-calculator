@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: laa-fee-calculator
+  namespace: laa-fee-calculator-dev
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: laa-fee-calculator-dev.apps.live-1.cloud-platform.service.justice.gov.uk
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: laa-fee-calculator
+            servicePort: 8080
+    - host: dev.laa-fee-calculator.service.justice.gov.uk
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: laa-fee-calculator
+            servicePort: 8080
+  tls:
+    - hosts:
+      - laa-fee-calculator-dev.apps.live-1.cloud-platform.service.justice.gov.uk
+    - hosts:
+      - dev.laa-fee-calculator.service.justice.gov.uk
+      secretName: laa-fee-calculator-dev-cert
