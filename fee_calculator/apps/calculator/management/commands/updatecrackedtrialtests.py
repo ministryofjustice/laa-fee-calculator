@@ -47,7 +47,7 @@ class Command(BaseCommand):
                           )
             print(f"bill test scenario id: {row['BILL_SCENARIO_ID']}, bill_sub_type: {row['BILL_SUB_TYPE']}, advocate_type_id: {row['PERSON_TYPE']}, offence_class_id: {row['OFFENCE_CATEGORY']}, fixed_fee: {row['CALC_FEE_EXC_VAT']} => {new_price.fixed_fee}")
 
-            row['REP_ORD_DATE'] = '01/07/2020'
+            row['REP_ORD_DATE'] = '17/09/2020'
             row['CALC_FEE_EXC_VAT'] = str(round(new_price.fixed_fee, 0))
             row['CALC_FEE_VAT'] = str(round(decimal.Decimal('0.2') * new_price.fixed_fee, 2))
 
