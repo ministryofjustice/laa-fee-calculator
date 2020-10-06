@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: laa-fee-calculator
   namespace: laa-fee-calculator-production
-  annotations:
-    kubernetes.io/ingress.class: laa-fee-calculator-production
 spec:
   rules:
     - host: laa-fee-calculator-production.apps.live-1.cloud-platform.service.justice.gov.uk
