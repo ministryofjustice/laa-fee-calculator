@@ -23,7 +23,7 @@ from fee_calculator.views import FailingPingJsonView
 
 urlpatterns = [
     url(r'^api/v1/', include('api.urls')),
-    url(r'^ping.json$', PingJsonView.as_view(**settings.PING_JSON_KEYS),
+    url(r'^ping.json$', FailingPingJsonView.as_view(**settings.PING_JSON_KEYS),
         name='ping_json'),
     url(r'^healthcheck.json$', HealthcheckView.as_view(),
         name='healthcheck_json'),

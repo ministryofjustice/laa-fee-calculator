@@ -1,9 +1,14 @@
 import os
+import datetime
 
 from django.core.exceptions import ImproperlyConfigured
 from django.http.response import JsonResponse
 from django.views.generic import View
 
+
+def current_utctime_in_range(start, end):
+    """Returns whether current is in the range [start, end]"""
+    return start <= datetime.datetime.utcnow().time() <= end
 
 class FailingPingJsonView(View):
     """
@@ -29,14 +34,18 @@ class FailingPingJsonView(View):
         super(FailingPingJsonView, self).__init__(**kwargs)
 
     def get(self, request):
-        # print("Hello World! Welcome to Python Examples.")
         response_data = {
             attr[:-4]: os.environ.get(getattr(self, attr))
             for attr in dir(self)
             if attr.endswith('_key') and getattr(self, attr)
         }
         response = JsonResponse(response_data)
-        if not response_data['build_date'] or not response_data['commit_id']:
+
+        utcstart = datetime.time(9, 10, 0)
+        utcend = datetime.time(9, 15, 0)
+        if current_utctime_in_range(utcstart, utcend):
+            response.status_code = 503
+        elif not response_data['build_date'] or not response_data['commit_id']:
             response.status_code = 501
 
         response['Access-Control-Allow-Origin'] = '*'
