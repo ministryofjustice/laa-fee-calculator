@@ -18,6 +18,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from moj_irat.views import PingJsonView, HealthcheckView
+from fee_calculator.views import FailingPingJsonView
 
 
 urlpatterns = [
