@@ -41,9 +41,9 @@ class FailingPingJsonView(View):
         }
         response = JsonResponse(response_data)
 
-        utcstart = datetime.time(9, 10, 0)
-        utcend = datetime.time(9, 15, 0)
-        if current_utctime_in_range(utcstart, utcend):
+        start = datetime.time(14, 00, 0)
+        end = datetime.time(14, 11, 0)
+        if current_utctime_in_range(start, end):
             response.status_code = 503
         elif not response_data['build_date'] or not response_data['commit_id']:
             response.status_code = 501
