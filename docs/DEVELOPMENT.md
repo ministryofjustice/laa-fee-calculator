@@ -1,12 +1,12 @@
 # Development
 
-### Requirements
+## Requirements
 
 * Python 3
 
 **NOTE:** Python 3.7 is not currently compatible with Django version in use [see here for more info](https://stackoverflow.com/a/48822656).
 
-### OS Dependencies
+## OS Dependencies
 
 
 * libxml2
@@ -79,3 +79,27 @@ run individual test
 ```
 ./manage.py test calculator.tests.test_calculation_agfs_12
 ```
+
+
+## Running locally using docker
+
+Tested using:
+```
+Docker Desktop version 3.5.2
+Docker version 20.10.7
+docker-compose version 1.29.2
+```
+
+### build
+```shell
+docker-compose build
+```
+
+### run locally
+```shell
+docker-compose up
+```
+
+### Open interactive API (swagger) documentation
+[localhost:8000/api/v1/docs](http://localhost:8000/api/v1/docs)
+
