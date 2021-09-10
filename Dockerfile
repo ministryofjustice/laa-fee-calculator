@@ -1,4 +1,4 @@
-FROM buildpack-deps:xenial
+FROM buildpack-deps:focal
 
 ENV \
   LANG=en_GB.UTF-8 \
