@@ -1,7 +1,7 @@
 #!/bin/sh
 function _deploy() {
   usage="deploy -- deploy image from current commit to an environment
-  Usage: kubernetes_deploy/live-1/scripts/deploy.sh environment [image-tag]
+  Usage: kubernetes_deploy/live/scripts/deploy.sh environment [image-tag]
   Where:
     environment [dev|staging|production]
     [image_tag] any valid ECR image tag for app
@@ -43,7 +43,7 @@ function _deploy() {
     current_version=$2
   fi
 
-  context='live-1'
+  context='live'
   component=app
   docker_registry=754256621582.dkr.ecr.eu-west-2.amazonaws.com/laa-get-paid/laa-fee-calculator
   docker_image_tag=${docker_registry}:${component}-${current_version}
@@ -60,15 +60,15 @@ function _deploy() {
   # TODO: check if image exists and if not offer to build or abort
 
   # apply image specific config
-  kubectl set image -f kubernetes_deploy/live-1/${environment}/deployment.yaml app=${docker_image_tag} --local --output yaml | kubectl apply -f -
+  kubectl set image -f kubernetes_deploy/${context}/${environment}/deployment.yaml app=${docker_image_tag} --local --output yaml | kubectl apply -f -
 
   # apply non-image specific config
   kubectl apply \
-    -f kubernetes_deploy/live-1/${environment}/service.yaml \
-    -f kubernetes_deploy/live-1/${environment}/ingress.yaml \
-    -f kubernetes_deploy/live-1/${environment}/django-secret.yaml
+    -f kubernetes_deploy/${context}/${environment}/service.yaml \
+    -f kubernetes_deploy/${context}/${environment}/ingress.yaml \
+    -f kubernetes_deploy/${context}/${environment}/django-secret.yaml
 
-  sentry_dsn_secret=kubernetes_deploy/live-1/${environment}/sentry-dsn.yaml
+  sentry_dsn_secret=kubernetes_deploy/${context}/${environment}/sentry-dsn.yaml
   [ -f "$sentry_dsn_secret" ] && kubectl apply -f $sentry_dsn_secret
 
   # Forcibly restart the app regardless of whether
