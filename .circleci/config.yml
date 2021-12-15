@@ -1,13 +1,6 @@
 version: 2.1
 
 references:
-  decrypt_secrets: &decrypt_secrets
-    run:
-      name: Decrypt secrets file
-      command: |
-        echo "${GIT_CRYPT_KEY}" | base64 -d > git-crypt.key
-        git-crypt unlock git-crypt.key
-
   setup_python_env: &setup_python_env
     run:
       name: Set up python dependencies
@@ -17,42 +10,13 @@ references:
         python3 -m venv venv
         pip3 install -r requirements/base.txt
 
-  build_docker_image: &build_docker_image
-    run:
-      name: Build laa-fee-calculator docker image
-      command: |
-        export BUILD_DATE=$(date -Is) >> $BASH_ENV
-        source $BASH_ENV
-        docker build \
-          --build-arg DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY} \
-          --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
-          --build-arg COMMIT_ID=${CIRCLE_SHA1} \
-          --build-arg BUILD_DATE=${BUILD_DATE} \
-          --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
-          -t app .
-
-  push_docker_image: &push_docker_image
-    run:
-      name: Push laa-fee-calculator docker image
-      command: |
-        aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${ECR_ENDPOINT}
-
-        component=app
-        docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-${CIRCLE_SHA1}"
-        docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-${CIRCLE_SHA1}"
-
-        if [ "${CIRCLE_BRANCH}" == "master" ]; then
-          docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-latest"
-          docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-latest"
-        fi
-
 # ------------------
 # EXECUTORS
 # ------------------
 executors:
   cloud-platform-executor:
     docker:
-      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
+      - image: ministryofjustice/cloud-platform-tools
         environment:
           GITHUB_TEAM_NAME_SLUG: laa-get-paid
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
@@ -62,6 +26,41 @@ executors:
 # COMMANDS
 # ------------------
 commands:
+  build-image:
+    description: >
+      Build laa-fee-calculator docker image
+    steps:
+      - run:
+          name: Build laa-fee-calculator docker image
+          command: |
+            export BUILD_DATE=$(date -Is) >> $BASH_ENV
+            source $BASH_ENV
+            docker build \
+              --build-arg DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY} \
+              --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
+              --build-arg COMMIT_ID=${CIRCLE_SHA1} \
+              --build-arg BUILD_DATE=${BUILD_DATE} \
+              --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
+              -t app .
+
+  push-image:
+    description: >
+      Push laa-fee-calculator docker image
+    steps:
+      - run:
+          name: Push laa-fee-calculator docker image
+          command: |
+            aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${ECR_ENDPOINT}
+
+            component=app
+            docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-${CIRCLE_SHA1}"
+            docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-${CIRCLE_SHA1}"
+
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-latest"
+              docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-latest"
+            fi
+
   deploy-to:
     description: >
       Deploy laa-fee-calculator to the specified environment
@@ -75,11 +74,19 @@ commands:
     steps:
       - checkout
       - run:
-          name: Kubectl authentication
+          name: Authenticate with cluster
           command: |
-            setup-kube-auth
-            kubectl config use-context << parameters.environment >>
-      - *decrypt_secrets
+            echo -n ${K8S_CLUSTER_CERT} | base64 -d > ./ca.crt
+            kubectl config set-cluster ${K8S_CLUSTER_NAME} --certificate-authority=./ca.crt --server=${K8S_CLUSTER_URL}
+            kubectl config set-credentials circleci --token=$(echo -n ${K8S_TOKEN} | base64 -d)
+            kubectl config set-context ${K8S_CLUSTER_NAME} --cluster=${K8S_CLUSTER_NAME} --user=circleci --namespace=${K8S_NAMESPACE}
+            kubectl config use-context ${K8S_CLUSTER_NAME}
+            kubectl --namespace=${K8S_NAMESPACE} get pods
+      - run:
+          name: Decrypt secrets file
+          command: |
+            echo "${GIT_CRYPT_KEY}" | base64 -d > git-crypt.key
+            git-crypt unlock git-crypt.key
       - run:
           name: deploying to << parameters.cluster >> cluster, << parameters.environment >> namespace
           command: |
@@ -112,14 +119,14 @@ jobs:
             TESTDOTPATHS=$(circleci tests glob "fee_calculator/apps/calculator/tests/**/test_*.py" | sed -e 's|\.py||g' -e 's|/|.|g' | circleci tests split)
             python3 manage.py test $TESTDOTPATHS --verbosity=1 --noinput
 
-  build:
+  build_and_push_image:
     executor: cloud-platform-executor
     steps:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-      - *build_docker_image
-      - *push_docker_image
+      - build-image
+      - push-image
 
   dev_live_1_deploy:
     executor: cloud-platform-executor
@@ -157,23 +164,31 @@ workflows:
   build-test-and-approval-deploy:
     jobs:
       - test
-      - build:
+      - build_and_push_image:
           requires:
             - test
+          context:
+            - laa-fee-calculator-base
       - dev_live_1_deploy_approval:
           type: approval
           requires:
-            - build
+            - build_and_push_image
       - dev_live_1_deploy:
           requires:
             - dev_live_1_deploy_approval
+          context:
+            - laa-fee-calculator-base
+            - laa-fee-calculator-live-1-dev
       - dev_live_deploy_approval:
           type: approval
           requires:
-            - build
+            - build_and_push_image
       - dev_live_deploy:
           requires:
             - dev_live_deploy_approval
+          context:
+            - laa-fee-calculator-base
+            - laa-fee-calculator-live-dev
       - staging_live_1_deploy_approval:
           type: approval
           requires:
@@ -181,6 +196,9 @@ workflows:
       - staging_live_1_deploy:
           requires:
             - staging_live_1_deploy_approval
+          context:
+            - laa-fee-calculator-base
+            - laa-fee-calculator-live-1-staging
       - production_live_1_deploy_approval:
           type: approval
           requires:
@@ -192,3 +210,7 @@ workflows:
       - production_live_1_deploy:
           requires:
             - production_live_1_deploy_approval
+          context:
+            - laa-fee-calculator-base
+            - laa-fee-calculator-live-1-production
+
