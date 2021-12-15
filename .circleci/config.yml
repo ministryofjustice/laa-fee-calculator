@@ -66,6 +66,9 @@ commands:
     description: >
       Deploy laa-fee-calculator to the specified environment
     parameters:
+      cluster:
+        description: destination clusters (live or live-1 only)
+        type: string
       environment:
         description: destination environment
         type: string
@@ -78,17 +81,17 @@ commands:
             kubectl config use-context << parameters.environment >>
       - *decrypt_secrets
       - run:
-          name: deploying to << parameters.environment >>
+          name: deploying to << parameters.cluster >> cluster, << parameters.environment >> namespace
           command: |
             docker_image_tag=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:app-${CIRCLE_SHA1}
-            kubectl set image -f kubernetes_deploy/live-1/<< parameters.environment >>/deployment.yaml app=${docker_image_tag} --local -o yaml \
+            kubectl set image -f kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/deployment.yaml app=${docker_image_tag} --local -o yaml \
             | kubectl apply -f -
             kubectl apply \
-                -f kubernetes_deploy/live-1/<< parameters.environment >>/service.yaml \
-                -f kubernetes_deploy/live-1/<< parameters.environment >>/ingress.yaml \
-                -f kubernetes_deploy/live-1/<< parameters.environment >>/django-secret.yaml
+                -f kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/service.yaml \
+                -f kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/ingress.yaml \
+                -f kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/django-secret.yaml
 
-            sentry_dsn_secret=kubernetes_deploy/live-1/<< parameters.environment >>/sentry-dsn.yaml
+            sentry_dsn_secret=kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/sentry-dsn.yaml
             [ -f "$sentry_dsn_secret" ] && kubectl apply -f $sentry_dsn_secret
 
             kubectl annotate deployments/laa-fee-calculator kubernetes.io/change-cause="$(date) - circleCI deploying: $docker_image_tag"
@@ -118,22 +121,32 @@ jobs:
       - *build_docker_image
       - *push_docker_image
 
-  dev_deploy:
+  dev_live_1_deploy:
     executor: cloud-platform-executor
     steps:
       - deploy-to:
+          cluster: live-1
           environment: dev
 
-  staging_deploy:
+  dev_live_deploy:
     executor: cloud-platform-executor
     steps:
       - deploy-to:
+          cluster: live
+          environment: dev
+
+  staging_live_1_deploy:
+    executor: cloud-platform-executor
+    steps:
+      - deploy-to:
+          cluster: live-1
           environment: staging
 
-  production_deploy:
+  production_live_1_deploy:
     executor: cloud-platform-executor
     steps:
       - deploy-to:
+          cluster: live-1
           environment: production
 
 # ------------------
@@ -147,28 +160,35 @@ workflows:
       - build:
           requires:
             - test
-      - dev_deploy_approval:
+      - dev_live_1_deploy_approval:
           type: approval
           requires:
             - build
-      - dev_deploy:
+      - dev_live_1_deploy:
           requires:
-            - dev_deploy_approval
-      - staging_deploy_approval:
+            - dev_live_1_deploy_approval
+      - dev_live_deploy_approval:
           type: approval
           requires:
-            - dev_deploy
-      - staging_deploy:
+            - build
+      - dev_live_deploy:
           requires:
-            - staging_deploy_approval
-      - production_deploy_approval:
+            - dev_live_deploy_approval
+      - staging_live_1_deploy_approval:
           type: approval
           requires:
-            - staging_deploy
+            - dev_live_1_deploy
+      - staging_live_1_deploy:
+          requires:
+            - staging_live_1_deploy_approval
+      - production_live_1_deploy_approval:
+          type: approval
+          requires:
+            - staging_live_1_deploy
           filters:
             branches:
                 only:
                   - master
-      - production_deploy:
+      - production_live_1_deploy:
           requires:
-            - production_deploy_approval
+            - production_live_1_deploy_approval
