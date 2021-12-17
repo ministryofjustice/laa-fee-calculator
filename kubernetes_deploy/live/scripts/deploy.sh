@@ -1,7 +1,7 @@
 #!/bin/sh
 function _deploy() {
   usage="deploy -- deploy image from current commit to an environment
-  Usage: kubernetes_deploy/live-1/scripts/deploy.sh environment [image-tag]
+  Usage: kubernetes_deploy/live/scripts/deploy.sh environment [image-tag]
   Where:
     environment [dev|staging|production]
     [image_tag] any valid ECR image tag for app
@@ -43,7 +43,7 @@ function _deploy() {
     current_version=$2
   fi
 
-  context='live-1'
+  context='live'
   component=app
   docker_registry=754256621582.dkr.ecr.eu-west-2.amazonaws.com/laa-get-paid/laa-fee-calculator
   docker_image_tag=${docker_registry}:${component}-${current_version}
