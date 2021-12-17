@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -12,16 +12,22 @@ spec:
       http:
         paths:
         - path: /
+          pathType: Prefix
           backend:
-            serviceName: laa-fee-calculator
-            servicePort: 8080
+            service:
+              name: laa-fee-calculator
+              port:
+                number: 8080
     - host: dev.laa-fee-calculator.service.justice.gov.uk
       http:
         paths:
         - path: /
+          pathType: Prefix
           backend:
-            serviceName: laa-fee-calculator
-            servicePort: 8080
+            service:
+              name: laa-fee-calculator
+              port:
+                number: 8080
   tls:
     - hosts:
       - laa-fee-calculator-dev.apps.live-1.cloud-platform.service.justice.gov.uk
