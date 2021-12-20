@@ -128,13 +128,6 @@ jobs:
       - build-image
       - push-image
 
-  dev_live_1_deploy:
-    executor: cloud-platform-executor
-    steps:
-      - deploy-to:
-          cluster: live-1
-          environment: dev
-
   dev_live_deploy:
     executor: cloud-platform-executor
     steps:
@@ -176,16 +169,6 @@ workflows:
             - test
           context:
             - laa-fee-calculator-base
-      - dev_live_1_deploy_approval:
-          type: approval
-          requires:
-            - build_and_push_image
-      - dev_live_1_deploy:
-          requires:
-            - dev_live_1_deploy_approval
-          context:
-            - laa-fee-calculator-base
-            - laa-fee-calculator-live-1-dev
       - dev_live_deploy_approval:
           type: approval
           requires:
@@ -199,7 +182,7 @@ workflows:
       - staging_live_1_deploy_approval:
           type: approval
           requires:
-            - dev_live_1_deploy
+            - dev_live_deploy
       - staging_live_1_deploy:
           requires:
             - staging_live_1_deploy_approval
