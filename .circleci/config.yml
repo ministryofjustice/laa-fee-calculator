@@ -135,13 +135,6 @@ jobs:
           cluster: live
           environment: dev
 
-  staging_live_1_deploy:
-    executor: cloud-platform-executor
-    steps:
-      - deploy-to:
-          cluster: live-1
-          environment: staging
-
   staging_live_deploy:
     executor: cloud-platform-executor
     steps:
@@ -179,16 +172,6 @@ workflows:
           context:
             - laa-fee-calculator-base
             - laa-fee-calculator-live-dev
-      - staging_live_1_deploy_approval:
-          type: approval
-          requires:
-            - dev_live_deploy
-      - staging_live_1_deploy:
-          requires:
-            - staging_live_1_deploy_approval
-          context:
-            - laa-fee-calculator-base
-            - laa-fee-calculator-live-1-staging
       - staging_live_deploy_approval:
           type: approval
           requires:
@@ -203,7 +186,6 @@ workflows:
           type: approval
           requires:
             - staging_live_deploy
-            - staging_live_1_deploy
           filters:
             branches:
                 only:
