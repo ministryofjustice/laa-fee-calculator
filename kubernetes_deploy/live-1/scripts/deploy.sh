@@ -3,7 +3,7 @@ function _deploy() {
   usage="deploy -- deploy image from current commit to an environment
   Usage: kubernetes_deploy/live-1/scripts/deploy.sh environment [image-tag]
   Where:
-    environment [dev|staging|production]
+    environment [staging|production]
     [image_tag] any valid ECR image tag for app
   Example:
     # deploy image for current commit to staging
@@ -26,7 +26,7 @@ function _deploy() {
   fi
 
   case "$1" in
-    dev | staging | production)
+    staging | production)
       environment=$1
       ;;
     *)
