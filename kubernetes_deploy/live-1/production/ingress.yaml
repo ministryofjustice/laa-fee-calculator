@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: laa-fee-calculator-laa-fee-calculator-production-blue
-    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    external-dns.alpha.kubernetes.io/aws-weight: "0"
   name: laa-fee-calculator
   namespace: laa-fee-calculator-production
 spec:
