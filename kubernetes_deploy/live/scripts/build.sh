@@ -1,7 +1,7 @@
 #!/bin/sh
 function _build() {
   usage="build -- build, tag and push image to ecr
-  Usage: kubernetes_deploy/live-1/scripts/build.sh"
+  Usage: kubernetes_deploy/live/scripts/build.sh"
 
   region='eu-west-2'
   aws_profile='ecr-live1'
