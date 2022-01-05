@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laa-fee-calculator
+  namespace: laa-fee-calculator-production
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 100%
+  selector:
+    matchLabels:
+      app: laa-fee-calculator-app
+  template:
+    metadata:
+      labels:
+        app: laa-fee-calculator-app
+    spec:
+      containers:
+      - name: app
+        imagePullPolicy: Always
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/laa-get-paid/laa-fee-calculator:set-me
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /ping.json
+            port: 8080
+            httpHeaders:
+              - name: Host
+                value: localhost
+          initialDelaySeconds: 15
+          periodSeconds: 15
+        livenessProbe:
+          httpGet:
+            port: 8080
+            path: /ping.json
+            httpHeaders:
+              - name: Host
+                value: localhost
+          initialDelaySeconds: 15
+          periodSeconds: 60
+        env:
+        - name: DJANGO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: django-secret
+              key: key
+        - name: SENTRY_DSN
+          valueFrom:
+            secretKeyRef:
+              name: sentry-dsn
+              key: key
+        - name: ENV
+          value: production
