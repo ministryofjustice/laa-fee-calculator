@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: laa-fee-calculator-laa-fee-calculator-production-blue
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+  name: laa-fee-calculator
+  namespace: laa-fee-calculator-production
+spec:
+  rules:
+    - host: laa-fee-calculator-production.apps.live-1.cloud-platform.service.justice.gov.uk
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: laa-fee-calculator
+            servicePort: 8080
+    - host: laa-fee-calculator.service.justice.gov.uk
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: laa-fee-calculator
+            servicePort: 8080
+  tls:
+    - hosts:
+      - laa-fee-calculator-production.apps.live-1.cloud-platform.service.justice.gov.uk
+    - hosts:
+      - laa-fee-calculator.service.justice.gov.uk
+      secretName: laa-fee-calculator-production-cert
