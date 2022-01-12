@@ -128,21 +128,21 @@ jobs:
       - build-image
       - push-image
 
-  dev_live_deploy:
+  dev_deploy:
     executor: cloud-platform-executor
     steps:
       - deploy-to:
           cluster: live
           environment: dev
 
-  staging_live_deploy:
+  staging_deploy:
     executor: cloud-platform-executor
     steps:
       - deploy-to:
           cluster: live
           environment: staging
 
-  production_live_deploy:
+  production_deploy:
     executor: cloud-platform-executor
     steps:
       - deploy-to:
@@ -162,37 +162,37 @@ workflows:
             - test
           context:
             - laa-fee-calculator-base
-      - dev_live_deploy_approval:
+      - dev_deploy_approval:
           type: approval
           requires:
             - build_and_push_image
-      - dev_live_deploy:
+      - dev_deploy:
           requires:
-            - dev_live_deploy_approval
+            - dev_deploy_approval
           context:
             - laa-fee-calculator-base
             - laa-fee-calculator-live-dev
-      - staging_live_deploy_approval:
+      - staging_deploy_approval:
           type: approval
           requires:
-            - dev_live_deploy
-      - staging_live_deploy:
+            - dev_deploy
+      - staging_deploy:
           requires:
-            - staging_live_deploy_approval
+            - staging_deploy_approval
           context:
             - laa-fee-calculator-base
             - laa-fee-calculator-live-staging
-      - production_live_deploy_approval:
+      - production_deploy_approval:
           type: approval
           requires:
-            - staging_live_deploy
+            - staging_deploy
           filters:
             branches:
                 only:
                   - master
-      - production_live_deploy:
+      - production_deploy:
           requires:
-            - production_live_deploy_approval
+            - production_deploy_approval
           context:
             - laa-fee-calculator-base
             - laa-fee-calculator-live-production
