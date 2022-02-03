@@ -2,6 +2,7 @@
 Fee calculator for LAA
 
 [![CircleCI](https://circleci.com/gh/ministryofjustice/laa-fee-calculator/tree/master.svg?style=svg)](https://circleci.com/gh/ministryofjustice/laa-fee-calculator/tree/master)
+[![Known Vulnerabilities](https://snyk.io/test/github/ministryofjustice/laa-fee-calculator/badge.svg)](https://snyk.io/test/github/ministryofjustice/laa-fee-calculator)
 
 For development setup see instructions [here](./docs/DEVELOPMENT.md)
 
