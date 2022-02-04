@@ -21,6 +21,16 @@ brew link libxml2 --force
 
 ## Setup
 
+---
+**Quick start**
+
+```
+make setup
+make reload
+make server
+```
+---
+
 * Install virtual environment
 
 ```
