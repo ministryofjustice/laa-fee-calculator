@@ -109,7 +109,7 @@ commands:
 jobs:
   test:
     executor: cloud-platform-executor
-    parallelism: 2
+    parallelism: 6
     steps:
       - checkout
       - *setup_python_env
