@@ -101,7 +101,11 @@ commands:
             sentry_dsn_secret=kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/sentry-dsn.yaml
             [ -f "$sentry_dsn_secret" ] && kubectl apply -f $sentry_dsn_secret
 
-            kubectl annotate deployments/laa-fee-calculator kubernetes.io/change-cause="$(date) - circleCI deploying: $docker_image_tag"
+            # annotate to provide rollback info
+            kubectl annotate deployments/laa-fee-calculator kubernetes.io/change-cause="$(date +%Y-%m-%dT%H:%M:%S%z) - deploying: $docker_image_tag via CircleCI"
+
+            # wait for rollout to succeed or fail/timeout
+            kubectl rollout status deployments/laa-fee-calculator
 
 # ------------------
 # JOBS
