@@ -12,19 +12,19 @@ from api.views import (
 
 
 router = routers.DefaultRouter()
-router.register(r'fee-schemes', SchemeViewSet, base_name='fee-schemes')
+router.register(r'fee-schemes', SchemeViewSet, basename='fee-schemes')
 
 schemes_router = routers.NestedSimpleRouter(router, r'fee-schemes', lookup='scheme')
-schemes_router.register(r'fee-types', FeeTypeViewSet, base_name='fee-types')
-schemes_router.register(r'scenarios', ScenarioViewSet, base_name='scenarios')
+schemes_router.register(r'fee-types', FeeTypeViewSet, basename='fee-types')
+schemes_router.register(r'scenarios', ScenarioViewSet, basename='scenarios')
 schemes_router.register(r'advocate-types', AdvocateTypeViewSet,
-                        base_name='advocate-types')
+                        basename='advocate-types')
 schemes_router.register(r'offence-classes', OffenceClassViewSet,
-                        base_name='offence-classes')
-schemes_router.register(r'units', UnitViewSet, base_name='units')
+                        basename='offence-classes')
+schemes_router.register(r'units', UnitViewSet, basename='units')
 schemes_router.register(r'modifier-types', ModifierTypeViewSet,
-                        base_name='modifier-types')
-schemes_router.register(r'prices', PriceViewSet, base_name='prices')
+                        basename='modifier-types')
+schemes_router.register(r'prices', PriceViewSet, basename='prices')
 
 schema_view = get_swagger_view(title='Calculator API')
 
