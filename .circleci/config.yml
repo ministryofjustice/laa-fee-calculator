@@ -7,8 +7,9 @@ references:
       command: |
         apk add linux-headers
         apk add python3-dev
-        python3 -m venv venv
-        pip3 install -r requirements/base.txt
+        `which python3` -m venv venv
+        venv/bin/pip install -U setuptools pip wheel
+        venv/bin/pip install -r requirements/base.txt
 
 # ------------------
 # EXECUTORS
@@ -121,7 +122,7 @@ jobs:
           name: Split and run tests
           command: |
             TESTDOTPATHS=$(circleci tests glob "fee_calculator/apps/calculator/tests/**/test_*.py" | sed -e 's|\.py||g' -e 's|/|.|g' | circleci tests split)
-            python3 manage.py test $TESTDOTPATHS --verbosity=1 --noinput
+            venv/bin/python manage.py test $TESTDOTPATHS --verbosity=1 --noinput
 
   build_and_push_image:
     executor: cloud-platform-executor
