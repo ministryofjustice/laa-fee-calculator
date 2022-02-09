@@ -16,3 +16,5 @@ reload: #: migrate, clear and load data
 	${pyman} loadalldata
 server:
 	DEBUG="True" ${pyman} runserver 8000
+test:
+	${pyman} test --verbosity=1 --noinput
