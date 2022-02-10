@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'rest_framework_swagger',
+    'drf_yasg',
     'moj_irat',
     'corsheaders',
     'django_filters',
@@ -181,11 +181,6 @@ REST_FRAMEWORK = {
 
 
 API_VERSION = 'v1'
-
-
-SWAGGER_SETTINGS = {
-    'APIS_SORTER': 'alpha'
-}
 
 
 # Internationalization
