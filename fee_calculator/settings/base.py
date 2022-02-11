@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import sys
-
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -160,17 +161,12 @@ LOGGING = {
 
 # sentry exception handling
 if os.environ.get('SENTRY_DSN'):
-    INSTALLED_APPS = ['raven.contrib.django.raven_compat'] + INSTALLED_APPS
-    RAVEN_CONFIG = {
-        'dsn': os.environ['SENTRY_DSN'],
-        'release': os.environ.get('APP_GIT_COMMIT') or 'unknown',
-    }
-    LOGGING['handlers']['sentry'] = {
-        'level': 'ERROR',
-        'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler'
-    }
-    LOGGING['root']['handlers'].append('sentry')
-    LOGGING['loggers']['laa-calc']['handlers'].append('sentry')
+    sentry_sdk.init(
+        dsn=os.environ.get("SENTRY_DSN"),
+        integrations=[DjangoIntegration()],
+        traces_sample_rate=0.1,
+        release=os.environ.get('APP_GIT_COMMIT') or 'unknown'
+    )
 
 
 REST_FRAMEWORK = {
