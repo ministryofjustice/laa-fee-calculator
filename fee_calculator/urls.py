@@ -20,7 +20,6 @@ from django.contrib import admin
 
 from moj_irat.views import PingJsonView, HealthcheckView
 
-
 urlpatterns = [
     url(r'^$', lambda req: redirect('/api/v1')),
     url(r'^api/v1/', include('api.urls')),
@@ -29,7 +28,6 @@ urlpatterns = [
     url(r'^healthcheck.json$', HealthcheckView.as_view(),
         name='healthcheck_json'),
 ]
-
 
 if settings.ADMIN_ENABLED:
     urlpatterns.append(url(r'^admin/', admin.site.urls))
