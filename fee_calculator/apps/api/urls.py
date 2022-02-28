@@ -7,25 +7,28 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from api.views import (
-    SchemeViewSet, FeeTypeViewSet, ScenarioViewSet,
-    OffenceClassViewSet, AdvocateTypeViewSet, PriceViewSet, CalculatorView,
-    UnitViewSet, ModifierTypeViewSet
+    SchemeViewSet
 )
+# from api.views import (
+#     SchemeViewSet, FeeTypeViewSet, ScenarioViewSet,
+#     OffenceClassViewSet, AdvocateTypeViewSet, PriceViewSet, CalculatorView,
+#     UnitViewSet, ModifierTypeViewSet
+# )
 
 router = routers.DefaultRouter()
 router.register(r'fee-schemes', SchemeViewSet, basename='fee-schemes')
 
 schemes_router = routers.NestedSimpleRouter(router, r'fee-schemes', lookup='scheme')
-schemes_router.register(r'fee-types', FeeTypeViewSet, basename='fee-types')
-schemes_router.register(r'scenarios', ScenarioViewSet, basename='scenarios')
-schemes_router.register(r'advocate-types', AdvocateTypeViewSet,
-                        basename='advocate-types')
-schemes_router.register(r'offence-classes', OffenceClassViewSet,
-                        basename='offence-classes')
-schemes_router.register(r'units', UnitViewSet, basename='units')
-schemes_router.register(r'modifier-types', ModifierTypeViewSet,
-                        basename='modifier-types')
-schemes_router.register(r'prices', PriceViewSet, basename='prices')
+# schemes_router.register(r'fee-types', FeeTypeViewSet, basename='fee-types')
+# schemes_router.register(r'scenarios', ScenarioViewSet, basename='scenarios')
+# schemes_router.register(r'advocate-types', AdvocateTypeViewSet,
+#                         basename='advocate-types')
+# schemes_router.register(r'offence-classes', OffenceClassViewSet,
+#                         basename='offence-classes')
+# schemes_router.register(r'units', UnitViewSet, basename='units')
+# schemes_router.register(r'modifier-types', ModifierTypeViewSet,
+#                         basename='modifier-types')
+# schemes_router.register(r'prices', PriceViewSet, basename='prices')
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -46,11 +49,12 @@ schema_view = get_schema_view(
 # ]
 
 urlpatterns = (
-    url(r'^fee-schemes/(?P<scheme_pk>[^/.]+)/calculate/$', CalculatorView.as_view(), name='calculator'),
+    # url(r'^fee-schemes/(?P<scheme_pk>[^/.]+)/calculate/$', CalculatorView.as_view(), name='calculator'),
     url(r'^', include(router.urls)),
-    url(r'^', include(schemes_router.urls)),
-    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    # url(r'^', include(schemes_router.urls)),
+    # re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    # re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    # re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     url(r'^docs/$', schema_view.with_ui('swagger', cache_timeout=0)),
+    url(r'^schema.yml$', schema_view.without_ui(cache_timeout=0)),
 )
