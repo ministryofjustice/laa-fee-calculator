@@ -31,7 +31,7 @@ logger = logging.getLogger('laa-calc')
 
 def get_param(request, param_name, required=False, default=None):
     value = request.query_params.get(param_name, default)
-    if value is None or value is '':
+    if value is None or value == '':
         if required:
             raise ValidationError('`%s` is a required field' % param_name)
     return value
@@ -43,7 +43,7 @@ def get_model_param(
 ):
     result = get_param(request, param_name, required, default)
     try:
-        if result is not None and result is not '':
+        if result is not None and result != '':
             if many:
                 candidates = model_class.objects.filter(**{lookup: result})
                 if len(candidates) == 0:
@@ -62,7 +62,7 @@ def get_model_param(
 def get_decimal_param(request, param_name, required=False, default=None):
     number = get_param(request, param_name, required, default)
     try:
-        if number is not None and number is not '':
+        if number is not None and number != '':
             number = Decimal(number)
     except InvalidOperation:
         raise ValidationError('`%s` must be a number' % param_name)
