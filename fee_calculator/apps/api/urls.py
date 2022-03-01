@@ -5,29 +5,32 @@ from django.urls import path
 from rest_framework_nested import routers
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
-
 from api.views import (
     SchemeViewSet,
-    # FeeTypeViewSet, ScenarioViewSet,
-    # OffenceClassViewSet, AdvocateTypeViewSet, PriceViewSet, CalculatorView,
-    # UnitViewSet, ModifierTypeViewSet
+    FeeTypeViewSet,
+    UnitViewSet,
+    ModifierTypeViewSet,
+    ScenarioViewSet,
+    OffenceClassViewSet,
+    AdvocateTypeViewSet,
+    PriceViewSet,
+    # CalculatorView,
 )
-
 
 router = routers.DefaultRouter()
 router.register(r'fee-schemes', SchemeViewSet, basename='fee-schemes')
 
 schemes_router = routers.NestedSimpleRouter(router, r'fee-schemes', lookup='scheme')
-# schemes_router.register(r'fee-types', FeeTypeViewSet, basename='fee-types')
-# schemes_router.register(r'scenarios', ScenarioViewSet, basename='scenarios')
-# schemes_router.register(r'advocate-types', AdvocateTypeViewSet,
-#                         basename='advocate-types')
-# schemes_router.register(r'offence-classes', OffenceClassViewSet,
-#                         basename='offence-classes')
-# schemes_router.register(r'units', UnitViewSet, basename='units')
-# schemes_router.register(r'modifier-types', ModifierTypeViewSet,
-#                         basename='modifier-types')
-# schemes_router.register(r'prices', PriceViewSet, basename='prices')
+schemes_router.register(r'fee-types', FeeTypeViewSet, basename='fee-types')
+schemes_router.register(r'scenarios', ScenarioViewSet, basename='scenarios')
+schemes_router.register(r'advocate-types', AdvocateTypeViewSet,
+                        basename='advocate-types')
+schemes_router.register(r'offence-classes', OffenceClassViewSet,
+                        basename='offence-classes')
+schemes_router.register(r'units', UnitViewSet, basename='units')
+schemes_router.register(r'modifier-types', ModifierTypeViewSet,
+                        basename='modifier-types')
+schemes_router.register(r'prices', PriceViewSet, basename='prices')
 
 urlpatterns = (
     # url(r'^fee-schemes/(?P<scheme_pk>[^/.]+)/calculate/$', CalculatorView.as_view(), name='calculator'),

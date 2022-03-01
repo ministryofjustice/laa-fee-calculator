@@ -14,6 +14,17 @@ class SchemeListQuerySerializer(serializers.Serializer):
     case_date = serializers.CharField(help_text="Date for which you would like a list of applicable fee schemes",
                                       required=False)
 
+class BasePriceFilteredQuerySerializer(serializers.Serializer):
+    scenario = serializers.IntegerField(help_text='',
+                                        required=False,)
+    advocate_type = serializers.CharField(help_text='Note the query will return prices with `advocate_type_id` either matching the value or null.',
+                                          required=False,)
+    offence_class = serializers.CharField(help_text='Note the query will return prices with `offence_class_id` either matching the value or null.',
+                                          required=False,)
+    fee_type_code = serializers.CharField(help_text='',
+                                          required=False,)
+
+
 class SchemeSerializer(serializers.ModelSerializer):
     class Meta():
         model = Scheme

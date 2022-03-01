@@ -10,7 +10,6 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.compat import coreapi
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
-# from rest_framework.schemas import AutoSchema
 
 from drf_spectacular.utils import extend_schema_view, extend_schema
 
@@ -23,10 +22,16 @@ from .filters import (
     PriceFilter, FeeTypeFilter, CalculatorSchema
 )
 from .serializers import (
-    SchemeListQuerySerializer, SchemeSerializer,
-    # FeeTypeSerializer, ScenarioSerializer,
-    # OffenceClassSerializer, AdvocateTypeSerializer, PriceSerializer,
-    # UnitSerializer, ModifierTypeSerializer
+    SchemeListQuerySerializer,
+    BasePriceFilteredQuerySerializer,
+    SchemeSerializer,
+    FeeTypeSerializer,
+    UnitSerializer,
+    ModifierTypeSerializer,
+    ScenarioSerializer,
+    OffenceClassSerializer,
+    AdvocateTypeSerializer,
+    PriceSerializer,
 )
 
 logger = logging.getLogger('laa-calc')
@@ -183,148 +188,174 @@ class NestedSchemeMixin():
         context['scheme_pk'] = self.kwargs.get('scheme_pk')
         return context
 
+@extend_schema_view(
+    list=extend_schema(
+        parameters=[BasePriceFilteredQuerySerializer],
+    ),
+    retrieve=extend_schema(
+        parameters=[BasePriceFilteredQuerySerializer],
+    )
+)
+class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
+    relation_name = NotImplemented
+    lookup_attr = 'pk'
 
-# class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
-#     schema = AutoSchema(manual_fields=[
-#         coreapi.Field('scenario', **{
-#             'required': False,
-#             'location': 'query',
-#             'type': 'integer',
-#             'description': '',
-#         }),
-#         coreapi.Field('advocate_type', **{
-#             'required': False,
-#             'location': 'query',
-#             'type': 'string',
-#             'description': (
-#                 'Note the query will return prices with `advocate_type_id` '
-#                 'either matching the value or null.'),
-#         }),
-#         coreapi.Field('offence_class', **{
-#             'required': False,
-#             'location': 'query',
-#             'type': 'string',
-#             'description': (
-#                 'Note the query will return prices with `offence_class_id` '
-#                 'either matching the value or null.'),
-#         }),
-#         coreapi.Field('fee_type_code', **{
-#             'required': False,
-#             'location': 'query',
-#             'type': 'string',
-#             'description': '',
-#         }),
-#     ])
-#     relation_name = NotImplemented
-#     lookup_attr = 'pk'
+    def filter_queryset(self, queryset):
+        queryset = super().filter_queryset(queryset)
 
-#     def filter_queryset(self, queryset):
-#         queryset = super().filter_queryset(queryset)
+        fee_types = get_model_param(
+            self.request, 'fee_type_code', FeeType, lookup='code', many=True
+        )
+        scenario = get_model_param(self.request, 'scenario', Scenario)
+        advocate_type = get_model_param(self.request, 'advocate_type', AdvocateType)
+        offence_class = get_model_param(self.request, 'offence_class', OffenceClass)
 
-#         fee_types = get_model_param(
-#             self.request, 'fee_type_code', FeeType, lookup='code', many=True
-#         )
-#         scenario = get_model_param(self.request, 'scenario', Scenario)
-#         advocate_type = get_model_param(self.request, 'advocate_type', AdvocateType)
-#         offence_class = get_model_param(self.request, 'offence_class', OffenceClass)
+        filters = []
+        if scenario:
+            filters.append(Q(scenario=scenario))
+        if advocate_type:
+            filters.append(
+                Q(advocate_type=advocate_type) |
+                Q(advocate_type__isnull=True)
+            )
+        if offence_class:
+            filters.append(
+                Q(offence_class=offence_class) |
+                Q(offence_class__isnull=True)
+            )
+        if fee_types:
+            filters.append(
+                Q(fee_type__in=fee_types)
+            )
 
-#         filters = []
-#         if scenario:
-#             filters.append(Q(scenario=scenario))
-#         if advocate_type:
-#             filters.append(
-#                 Q(advocate_type=advocate_type) |
-#                 Q(advocate_type__isnull=True)
-#             )
-#         if offence_class:
-#             filters.append(
-#                 Q(offence_class=offence_class) |
-#                 Q(offence_class__isnull=True)
-#             )
-#         if fee_types:
-#             filters.append(
-#                 Q(fee_type__in=fee_types)
-#             )
+        if filters:
+            filters.append(Q(scheme_id=self.kwargs['scheme_pk']))
+            applicable_prices = Price.objects.filter(*filters)
+            relevant_values = applicable_prices.values_list(
+                self.relation_name, flat=True
+            ).distinct()
+            queryset = queryset.filter(
+                **{'{lookup_attr}__in'.format(
+                    lookup_attr=self.lookup_attr
+                ): relevant_values}
+            )
+        return queryset
 
-#         if filters:
-#             filters.append(Q(scheme_id=self.kwargs['scheme_pk']))
-#             applicable_prices = Price.objects.filter(*filters)
-#             relevant_values = applicable_prices.values_list(
-#                 self.relation_name, flat=True
-#             ).distinct()
-#             queryset = queryset.filter(
-#                 **{'{lookup_attr}__in'.format(
-#                     lookup_attr=self.lookup_attr
-#                 ): relevant_values}
-#             )
-#         return queryset
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of fee types',
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single fee type',
+    )
+)
+class FeeTypeViewSet(BasePriceFilteredViewSet):
+    """
+    Viewing fee type(s).
+    """
+    queryset = FeeType.objects.all()
+    serializer_class = FeeTypeSerializer
+    filter_backends = (backends.DjangoFilterBackend,)
+    filter_class = FeeTypeFilter
+    relation_name = 'fee_type'
 
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of unit types',
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single unit type',
+    )
+)
+class UnitViewSet(BasePriceFilteredViewSet):
+    """
+    Viewing unit(s).
+    """
+    queryset = Unit.objects.all()
+    serializer_class = UnitSerializer
+    relation_name = 'unit'
 
-# class FeeTypeViewSet(BasePriceFilteredViewSet):
-#     """
-#     Viewing fee type(s).
-#     """
-#     queryset = FeeType.objects.all()
-#     serializer_class = FeeTypeSerializer
-#     filter_backends = (backends.DjangoFilterBackend,)
-#     filter_class = FeeTypeFilter
-#     relation_name = 'fee_type'
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of modifier types',
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single modifier type',
+    )
+)
+class ModifierTypeViewSet(BasePriceFilteredViewSet):
+    """
+    Viewing modifier type(s).
+    """
+    queryset = ModifierType.objects.all()
+    serializer_class = ModifierTypeSerializer
+    relation_name = 'modifiers'
+    lookup_attr = 'values__pk'
+    scheme_relation_name = 'values__prices__scheme'
 
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of scenarios',
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single scenario',
+    )
+)
+class ScenarioViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
+    """
+    Viewing scenario(s).
+    """
+    queryset = Scenario.objects.all()
+    serializer_class = ScenarioSerializer
 
-# class UnitViewSet(BasePriceFilteredViewSet):
-#     """
-#     Viewing unit(s).
-#     """
-#     queryset = Unit.objects.all()
-#     serializer_class = UnitSerializer
-#     relation_name = 'unit'
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of offence classes',
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single offence class',
+    )
+)
+class OffenceClassViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
+    """
+    Viewing offence class(es).
+    """
+    queryset = OffenceClass.objects.all()
+    serializer_class = OffenceClassSerializer
+    lookup_value_regex = '[^/]+'
 
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of advocate types',
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single advocate type',
+    )
+)
+class AdvocateTypeViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
+    """
+    Viewing advocate type(s).
+    """
+    queryset = AdvocateType.objects.all()
+    serializer_class = AdvocateTypeSerializer
 
-# class ModifierTypeViewSet(BasePriceFilteredViewSet):
-#     """
-#     Viewing modifier type(s).
-#     """
-#     queryset = ModifierType.objects.all()
-#     serializer_class = ModifierTypeSerializer
-#     relation_name = 'modifiers'
-#     lookup_attr = 'values__pk'
-#     scheme_relation_name = 'values__prices__scheme'
-
-
-# class ScenarioViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
-#     """
-#     Viewing scenario(s).
-#     """
-#     queryset = Scenario.objects.all()
-#     serializer_class = ScenarioSerializer
-
-
-# class OffenceClassViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
-#     """
-#     Viewing offence class(es).
-#     """
-#     queryset = OffenceClass.objects.all()
-#     serializer_class = OffenceClassSerializer
-#     lookup_value_regex = '[^/]+'
-
-
-# class AdvocateTypeViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
-#     """
-#     Viewing advocate type(s).
-#     """
-#     queryset = AdvocateType.objects.all()
-#     serializer_class = AdvocateTypeSerializer
-
-
-# class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
-#     """
-#     Viewing price(s).
-#     """
-#     queryset = Price.objects.all()
-#     serializer_class = PriceSerializer
-#     filter_backends = (backends.DjangoFilterBackend,)
-#     filter_class = PriceFilter
-#     scheme_relation_name = 'scheme'
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of prices',
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single price',
+    )
+)
+class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
+    """
+    Viewing price(s).
+    """
+    queryset = Price.objects.all()
+    serializer_class = PriceSerializer
+    filter_backends = (backends.DjangoFilterBackend,)
+    filter_class = PriceFilter
+    scheme_relation_name = 'scheme'
 
 
 # class cached_class_property:
