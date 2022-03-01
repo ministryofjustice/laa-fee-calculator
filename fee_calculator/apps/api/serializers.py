@@ -7,6 +7,12 @@ from calculator.models import (
     ModifierType, Modifier, ScenarioCode
 )
 
+class SchemeListQuerySerializer(serializers.Serializer):
+    type = serializers.ChoiceField(help_text="Graduated fee scheme type",
+                                   choices=('AGFS', 'LGFS'),
+                                   required=False)
+    case_date = serializers.CharField(help_text="Date for which you would like a list of applicable fee schemes",
+                                      required=False)
 
 class SchemeSerializer(serializers.ModelSerializer):
     class Meta():
