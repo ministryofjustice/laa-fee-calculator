@@ -10,20 +10,23 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.compat import coreapi
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
-
 from drf_spectacular.utils import extend_schema_view, extend_schema
-
 from calculator.constants import SCHEME_TYPE
+
 from calculator.models import (
     Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price, Unit,
     ModifierType, calculate_total
 )
+
 from .filters import (
-    PriceFilter, FeeTypeFilter, CalculatorSchema
+    PriceFilter,
+    FeeTypeFilter,
 )
+
 from .serializers import (
     SchemeListQuerySerializer,
     BasePriceFilteredQuerySerializer,
+    CalculatorQuerySerializer,
     SchemeSerializer,
     FeeTypeSerializer,
     UnitSerializer,
@@ -358,107 +361,62 @@ class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     scheme_relation_name = 'scheme'
 
 
-# class cached_class_property:
-#     def __init__(self, getter):
-#         self.getter = getter
-#         self.cached = None
+@extend_schema_view(
+    get=extend_schema(
+        parameters=[CalculatorQuerySerializer],
+    )
+)
+class CalculatorView(views.APIView):
+    """
+    Calculate total fee amount
+    """
+    allowed_methods = ['GET']
+    filter_backends = (backends.DjangoFilterBackend,)
 
-#     def __get__(self, instance, clazz):
-#         if self.cached is None:
-#             self.cached = self.getter(clazz)
-#         return self.cached
+    def get(self, *args, **kwargs):
+        scheme = get_object_or_404(Scheme, pk=kwargs['scheme_pk'])
+        fee_types = get_model_param(
+            self.request, 'fee_type_code', FeeType, required=True, lookup='code', many=True
+        )
+        scenario = get_model_param(self.request, 'scenario', Scenario, required=True)
+        advocate_type = get_model_param(self.request, 'advocate_type', AdvocateType)
+        offence_class = get_model_param(self.request, 'offence_class', OffenceClass)
 
+        units = Unit.objects.values_list('pk', flat=True)
+        modifiers = ModifierType.objects.values_list('name', flat=True)
+        unit_counts = []
+        modifier_counts = []
+        for param in self.request.query_params:
+            if param.upper() in units:
+                unit_counts.append((
+                    Unit.objects.get(pk=param.upper()),
+                    get_decimal_param(self.request, param),
+                ))
 
-# class CalculatorView(views.APIView):
-#     """
-#     Calculate total fee amount
-#     """
+            if param.upper() in modifiers:
+                modifier_counts.append((
+                    ModifierType.objects.get(name=param.upper()),
+                    get_decimal_param(self.request, param),
+                ))
 
-#     allowed_methods = ['GET']
-#     filter_backends = (backends.DjangoFilterBackend,)
+        matching_fee_types = Price.objects.filter(
+            scheme=scheme, fee_type__in=fee_types
+        ).values_list('fee_type', flat=True).distinct()
 
-#     @cached_class_property
-#     def schema(cls):
-#         return CalculatorSchema(fields=[
-#             coreapi.Field('scheme_pk', **{
-#                 'required': True,
-#                 'location': 'path',
-#                 'type': 'integer',
-#                 'description': '',
-#             }),
-#             coreapi.Field('fee_type_code', **{
-#                 'required': True,
-#                 'location': 'query',
-#                 'type': 'string',
-#                 'description': '',
-#             }),
-#             coreapi.Field('scenario', **{
-#                 'required': True,
-#                 'location': 'query',
-#                 'type': 'integer',
-#                 'description': '',
-#             }),
-#             coreapi.Field('advocate_type', **{
-#                 'required': False,
-#                 'location': 'query',
-#                 'type': 'string',
-#                 'description': (
-#                     'Note the query will return prices with `advocate_type_id` '
-#                     'either matching the value or null.'),
-#             }),
-#             coreapi.Field('offence_class', **{
-#                 'required': False,
-#                 'location': 'query',
-#                 'type': 'string',
-#                 'description': (
-#                     'Note the query will return prices with `offence_class_id` '
-#                     'either matching the value or null.'),
-#             })
-#         ])
+        if len(matching_fee_types) != 1:
+            raise ValidationError((
+                'fee_type_code must match a unique fee type for the scheme; '
+                '{} were found'
+            ).format(len(matching_fee_types)))
 
-#     def get(self, *args, **kwargs):
-#         scheme = get_object_or_404(Scheme, pk=kwargs['scheme_pk'])
-#         fee_types = get_model_param(
-#             self.request, 'fee_type_code', FeeType, required=True, lookup='code', many=True
-#         )
-#         scenario = get_model_param(self.request, 'scenario', Scenario, required=True)
-#         advocate_type = get_model_param(self.request, 'advocate_type', AdvocateType)
-#         offence_class = get_model_param(self.request, 'offence_class', OffenceClass)
+        unique_fee_type = FeeType.objects.get(pk=matching_fee_types[0])
 
-#         units = Unit.objects.values_list('pk', flat=True)
-#         modifiers = ModifierType.objects.values_list('name', flat=True)
-#         unit_counts = []
-#         modifier_counts = []
-#         for param in self.request.query_params:
-#             if param.upper() in units:
-#                 unit_counts.append((
-#                     Unit.objects.get(pk=param.upper()),
-#                     get_decimal_param(self.request, param),
-#                 ))
+        amount = calculate_total(
+            scheme, scenario, unique_fee_type, offence_class, advocate_type,
+            unit_counts, modifier_counts
+        )
 
-#             if param.upper() in modifiers:
-#                 modifier_counts.append((
-#                     ModifierType.objects.get(name=param.upper()),
-#                     get_decimal_param(self.request, param),
-#                 ))
+        return Response({
+            'amount': amount.quantize(Decimal('0.01'))
+        })
 
-#         matching_fee_types = Price.objects.filter(
-#             scheme=scheme, fee_type__in=fee_types
-#         ).values_list('fee_type', flat=True).distinct()
-
-#         if len(matching_fee_types) != 1:
-#             raise ValidationError((
-#                 'fee_type_code must match a unique fee type for the scheme; '
-#                 '{} were found'
-#             ).format(len(matching_fee_types)))
-
-#         unique_fee_type = FeeType.objects.get(pk=matching_fee_types[0])
-
-#         amount = calculate_total(
-#             scheme, scenario, unique_fee_type, offence_class, advocate_type,
-#             unit_counts, modifier_counts
-#         )
-
-#         return Response({
-#             'amount': amount.quantize(Decimal('0.01'))
-#         })

@@ -14,7 +14,7 @@ from api.views import (
     OffenceClassViewSet,
     AdvocateTypeViewSet,
     PriceViewSet,
-    # CalculatorView,
+    CalculatorView,
 )
 
 router = routers.DefaultRouter()
@@ -33,7 +33,7 @@ schemes_router.register(r'modifier-types', ModifierTypeViewSet,
 schemes_router.register(r'prices', PriceViewSet, basename='prices')
 
 urlpatterns = (
-    # url(r'^fee-schemes/(?P<scheme_pk>[^/.]+)/calculate/$', CalculatorView.as_view(), name='calculator'),
+    url(r'^fee-schemes/(?P<scheme_pk>[^/.]+)/calculate/$', CalculatorView.as_view(), name='calculator'),
     url(r'^', include(router.urls)),
     url(r'^', include(schemes_router.urls)),
 

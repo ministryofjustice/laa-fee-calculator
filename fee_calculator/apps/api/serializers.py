@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import get_object_or_404
+from django.db.utils import OperationalError
 from rest_framework import serializers
 
 from calculator.models import (
@@ -7,12 +8,15 @@ from calculator.models import (
     ModifierType, Modifier, ScenarioCode
 )
 
+from calculator import models as calc_models
+
 class SchemeListQuerySerializer(serializers.Serializer):
     type = serializers.ChoiceField(help_text="Graduated fee scheme type",
                                    choices=('AGFS', 'LGFS'),
                                    required=False)
     case_date = serializers.CharField(help_text="Date for which you would like a list of applicable fee schemes",
                                       required=False)
+
 
 class BasePriceFilteredQuerySerializer(serializers.Serializer):
     scenario = serializers.IntegerField(help_text='',
@@ -23,6 +27,27 @@ class BasePriceFilteredQuerySerializer(serializers.Serializer):
                                           required=False,)
     fee_type_code = serializers.CharField(help_text='',
                                           required=False,)
+
+
+class CalculatorQuerySerializer(serializers.Serializer):
+    scenario = serializers.IntegerField(help_text='',
+                                        required=True,)
+    fee_type_code = serializers.CharField(help_text='',
+                                          required=True,)
+    advocate_type = serializers.CharField(help_text='Note the query will return prices with `advocate_type_id` either matching the value or null.',
+                                          required=False,)
+    offence_class = serializers.CharField(help_text='Note the query will return prices with `offence_class_id` either matching the value or null.',
+                                          required=False,)
+
+    try:
+        for unit in Unit.objects.all():
+            exec(f"{unit.pk.lower()} = serializers.DecimalField(help_text='Quantity of the price unit: {unit.name}', required=False, max_digits=100, decimal_places=5)")
+
+        for modifier in ModifierType.objects.all():
+            exec(f"{modifier.name.lower()} = serializers.DecimalField(help_text='Price modifier: {modifier.description}', required=False, max_digits=100, decimal_places=5)")
+
+    except OperationalError as e:
+        print(e)
 
 
 class SchemeSerializer(serializers.ModelSerializer):
