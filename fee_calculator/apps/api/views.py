@@ -100,6 +100,7 @@ class OrderedReadOnlyModelViewSet(viewsets.ReadOnlyModelViewSet):
     ),
     retrieve=extend_schema(
         description='Retrieve a single graduated fee scheme',
+        parameters=[SchemeListQuerySerializer],
     )
 )
 class SchemeViewSet(OrderedReadOnlyModelViewSet):
