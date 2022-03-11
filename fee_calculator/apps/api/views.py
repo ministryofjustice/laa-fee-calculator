@@ -10,7 +10,11 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.compat import coreapi
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
-from drf_spectacular.utils import extend_schema_view, extend_schema
+
+from drf_spectacular.utils import (
+extend_schema_view, extend_schema, OpenApiParameter, OpenApiTypes
+)
+
 from calculator.constants import SCHEME_TYPE
 
 from calculator.models import (
@@ -250,6 +254,9 @@ class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     ),
     retrieve=extend_schema(
         description='Retrieve a single fee type',
+        parameters=[
+            OpenApiParameter("is_basic", OpenApiTypes.BOOL, OpenApiParameter.QUERY),
+        ],
     )
 )
 class FeeTypeViewSet(BasePriceFilteredViewSet):
