@@ -138,7 +138,7 @@ class SchemeViewSet(OrderedReadOnlyModelViewSet):
                 )
             queryset = queryset.filter(base_type=base_type)
 
-        return queryset
+        return queryset.order_by(self.default_ordering or 'pk')
 
     def retrieve(self, request, pk=None):
         """
