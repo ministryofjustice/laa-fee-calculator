@@ -3,7 +3,7 @@ from django.conf.urls import url, include
 from django.urls import path
 
 from rest_framework_nested import routers
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from api.views import (
     SchemeViewSet,

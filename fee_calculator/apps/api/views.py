@@ -12,7 +12,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
 from drf_spectacular.utils import (
-extend_schema_view, extend_schema, OpenApiParameter, OpenApiTypes
+    extend_schema_view, extend_schema, OpenApiParameter, OpenApiTypes
 )
 
 from calculator.constants import SCHEME_TYPE
