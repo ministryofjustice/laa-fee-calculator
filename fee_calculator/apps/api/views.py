@@ -31,6 +31,7 @@ from .serializers import (
     SchemeListQuerySerializer,
     BasePriceFilteredQuerySerializer,
     CalculatorQuerySerializer,
+    CalculatorResponseSerializer,
     SchemeSerializer,
     FeeTypeSerializer,
     UnitSerializer,
@@ -368,10 +369,11 @@ class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     filter_class = PriceFilter
     scheme_relation_name = 'scheme'
 
-
+# @extend_schema(responses=EmptyPayloadResponseSerializer)
 @extend_schema_view(
     get=extend_schema(
         parameters=[CalculatorQuerySerializer],
+        responses=CalculatorResponseSerializer
     )
 )
 class CalculatorView(views.APIView):

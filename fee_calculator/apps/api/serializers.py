@@ -50,6 +50,10 @@ class CalculatorQuerySerializer(serializers.Serializer):
         print(e)
 
 
+class CalculatorResponseSerializer(serializers.Serializer):
+    serializers.DecimalField(max_digits=None, decimal_places=2)
+
+
 class SchemeSerializer(serializers.ModelSerializer):
     class Meta():
         model = Scheme
