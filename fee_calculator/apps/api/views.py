@@ -44,6 +44,7 @@ from .serializers import (
 
 logger = logging.getLogger('laa-calc')
 
+scheme_pk_parameter = OpenApiParameter('scheme_pk', OpenApiTypes.INT, OpenApiParameter.PATH)
 
 def get_param(request, param_name, required=False, default=None):
     value = request.query_params.get(param_name, default)
@@ -92,7 +93,6 @@ class OrderedReadOnlyModelViewSet(viewsets.ReadOnlyModelViewSet):
         queryset = super().filter_queryset(queryset)
         queryset = queryset.order_by(self.default_ordering or 'pk')
         return queryset
-
 
 @extend_schema_view(
     list=extend_schema(
@@ -197,6 +197,7 @@ class NestedSchemeMixin():
         context['scheme_pk'] = self.kwargs.get('scheme_pk')
         return context
 
+
 @extend_schema_view(
     list=extend_schema(
         parameters=[BasePriceFilteredQuerySerializer],
@@ -250,6 +251,8 @@ class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
             )
         return queryset
 
+
+@extend_schema(parameters=[scheme_pk_parameter,],)
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of fee types',
@@ -271,6 +274,8 @@ class FeeTypeViewSet(BasePriceFilteredViewSet):
     filter_class = FeeTypeFilter
     relation_name = 'fee_type'
 
+
+@extend_schema(parameters=[scheme_pk_parameter,],)
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of unit types',
@@ -287,6 +292,8 @@ class UnitViewSet(BasePriceFilteredViewSet):
     serializer_class = UnitSerializer
     relation_name = 'unit'
 
+
+@extend_schema(parameters=[scheme_pk_parameter,],)
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of modifier types',
@@ -305,6 +312,8 @@ class ModifierTypeViewSet(BasePriceFilteredViewSet):
     lookup_attr = 'values__pk'
     scheme_relation_name = 'values__prices__scheme'
 
+
+@extend_schema(parameters=[scheme_pk_parameter,],)
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of scenarios',
@@ -320,6 +329,8 @@ class ScenarioViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     queryset = Scenario.objects.all()
     serializer_class = ScenarioSerializer
 
+
+@extend_schema(parameters=[scheme_pk_parameter,],)
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of offence classes',
@@ -336,13 +347,15 @@ class OffenceClassViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     serializer_class = OffenceClassSerializer
     lookup_value_regex = '[^/]+'
 
+
+@extend_schema(parameters=[scheme_pk_parameter,],)
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of advocate types',
     ),
     retrieve=extend_schema(
         description='Retrieve a single advocate type',
-    )
+    ),
 )
 class AdvocateTypeViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     """
@@ -351,6 +364,7 @@ class AdvocateTypeViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     queryset = AdvocateType.objects.all()
     serializer_class = AdvocateTypeSerializer
 
+@extend_schema(parameters=[scheme_pk_parameter,],)
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of prices',
@@ -369,7 +383,7 @@ class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     filter_class = PriceFilter
     scheme_relation_name = 'scheme'
 
-# @extend_schema(responses=EmptyPayloadResponseSerializer)
+@extend_schema(parameters=[scheme_pk_parameter,],)
 @extend_schema_view(
     get=extend_schema(
         parameters=[CalculatorQuerySerializer],
