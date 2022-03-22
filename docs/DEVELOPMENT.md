@@ -2,12 +2,10 @@
 
 ## Requirements
 
-* Python 3
-
-**NOTE:** Python 3.7 is not currently compatible with Django version in use [see here for more info](https://stackoverflow.com/a/48822656).
+* Python 3.10.0
+* Django 2.2.27
 
 ## OS Dependencies
-
 
 * libxml2
 
@@ -112,4 +110,3 @@ docker-compose up
 
 ### Open interactive API (swagger) documentation
 [localhost:8000/api/v1/docs](http://localhost:8000/api/v1/docs)
-
