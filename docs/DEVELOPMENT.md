@@ -86,11 +86,10 @@ venv/bin/python manage.py test calculator.tests.test_calculation_agfs_12
 ## Running locally using docker
 
 Tested using:
-```
-Docker Desktop version 3.5.2
-Docker version 20.10.7
-docker-compose version 1.29.2
-```
+* Docker Desktop version 4.4.2
+* Docker version 20.10.12
+* docker-compose version 1.29.2
+
 
 ### build
 ```shell
