@@ -24,10 +24,12 @@ brew link libxml2 --force
 
 ```
 make setup
-make reload
+make dbreload
 make server
 ```
 ---
+
+Alternatively, these commands can be run individually to set up the service step-by-step:
 
 * Install virtual environment
 
@@ -69,25 +71,17 @@ By default bounds to port 8080
 DEBUG="True" venv/bin/python manage.py runserver 8000
 ```
 
-* Run test suite
+* Run the test suite
 
 ```
-cd laa-fee-calculator
 venv/bin/python manage.py test
 ```
 
-or, using pyenv
-```
-cd laa-fee-calculator
-pyenv activate laa-fee-calculator
-./manage.py test
-```
+* Run an individual test
 
-run individual test
 ```
 venv/bin/python manage.py test calculator.tests.test_calculation_agfs_12
 ```
-
 
 ## Running locally using docker
 
