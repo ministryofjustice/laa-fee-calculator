@@ -94,7 +94,7 @@ class ScenarioSerializer(serializers.ModelSerializer):
             'code',
         )
 
-    def get_code(self, obj):
+    def get_code(self, obj) -> str:
         if hasattr(self, 'scheme'):
             try:
                 return obj.codes.get(scheme_type=self.scheme.base_type).code
