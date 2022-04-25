@@ -371,6 +371,7 @@ class AdvocateTypeViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     ),
     retrieve=extend_schema(
         description='Retrieve a single price',
+        parameters=[BasePriceFilteredQuerySerializer],
     )
 )
 class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
@@ -443,4 +444,3 @@ class CalculatorView(views.APIView):
         return Response({
             'amount': amount.quantize(Decimal('0.01'))
         })
-
