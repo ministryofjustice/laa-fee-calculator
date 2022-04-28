@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import get_object_or_404
-from django.db.utils import OperationalError
 from rest_framework import serializers
 
 from calculator.models import (
@@ -8,7 +7,6 @@ from calculator.models import (
     ModifierType, Modifier, ScenarioCode
 )
 
-from calculator import models as calc_models
 
 class SchemeListQuerySerializer(serializers.Serializer):
     type = serializers.ChoiceField(help_text="Graduated fee scheme type",
@@ -30,24 +28,44 @@ class BasePriceFilteredQuerySerializer(serializers.Serializer):
 
 
 class CalculatorQuerySerializer(serializers.Serializer):
-    scenario = serializers.IntegerField(help_text='',
-                                        required=True,)
-    fee_type_code = serializers.CharField(help_text='',
-                                          required=True,)
+    class UnitField(serializers.DecimalField):
+        def __init__(self, name):
+            super().__init__(help_text=f'Quantity of the price unit: {name}',
+                            required=False,
+                            max_digits=100,
+                            decimal_places=5)
+
+    class ModifierTypeField(serializers.DecimalField):
+        def __init__(self, description):
+            super().__init__(help_text=f'Price modifier: {description}',
+                            required=False,
+                            max_digits=100,
+                            decimal_places=5)
+
+    scenario = serializers.IntegerField(help_text='', required=True,)
+    fee_type_code = serializers.CharField(help_text='', required=True,)
     advocate_type = serializers.CharField(help_text='Note the query will return prices with `advocate_type_id` either matching the value or null.',
                                           required=False,)
     offence_class = serializers.CharField(help_text='Note the query will return prices with `offence_class_id` either matching the value or null.',
                                           required=False,)
-
-    try:
-        for unit in Unit.objects.all():
-            exec(f"{unit.pk.lower()} = serializers.DecimalField(help_text='Quantity of the price unit: {unit.name}', required=False, max_digits=100, decimal_places=5)")
-
-        for modifier in ModifierType.objects.all():
-            exec(f"{modifier.name.lower()} = serializers.DecimalField(help_text='Price modifier: {modifier.description}', required=False, max_digits=100, decimal_places=5)")
-
-    except OperationalError as e:
-        print(e)
+    case = UnitField('Case')
+    day = UnitField('Whole Days')
+    defendant = UnitField('Defendants')
+    fixed = UnitField('Fixed Amount')
+    halfday = UnitField('Half Days')
+    hour = UnitField('Hours')
+    month = UnitField('Months')
+    ppe = UnitField('Pages of Prosecuting Evidence')
+    pw = UnitField('Prosecution Witnesses')
+    third = UnitField('Third of a trial')
+    level = UnitField('Evidence provision fee level')
+    number_of_cases = ModifierTypeField('Number of cases')
+    number_of_defendants = ModifierTypeField('Number of defendants')
+    trial_length = ModifierTypeField('Trial length')
+    pages_of_prosecuting_evidence = ModifierTypeField('Pages of prosecuting evidence')
+    retrial_interval = ModifierTypeField('Whole months between trials')
+    third_cracked = ModifierTypeField('Third in which a trial cracked')
+    warrant_interval = ModifierTypeField('Whole months between warrant issue and execution')
 
 
 class CalculatorResponseSerializer(serializers.Serializer):
