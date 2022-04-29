@@ -29,18 +29,22 @@ class BasePriceFilteredQuerySerializer(serializers.Serializer):
 
 class CalculatorQuerySerializer(serializers.Serializer):
     class UnitField(serializers.DecimalField):
-        def __init__(self, name):
-            super().__init__(help_text=f'Quantity of the price unit: {name}',
-                            required=False,
-                            max_digits=100,
-                            decimal_places=5)
+        def __init__(self, name, **kwargs):
+            new_kwargs = {'help_text': f'Quantity of the price unit: {name}',
+                          'required': False,
+                          'max_digits': 100,
+                          'decimal_places': 5}
+            new_kwargs.update(kwargs)
+            super().__init__(**new_kwargs)
 
     class ModifierTypeField(serializers.DecimalField):
-        def __init__(self, description):
-            super().__init__(help_text=f'Price modifier: {description}',
-                            required=False,
-                            max_digits=100,
-                            decimal_places=5)
+        def __init__(self, description, **kwargs):
+            new_kwargs = {'help_text': f'Price modifier: {description}',
+                          'required': False,
+                          'max_digits': 100,
+                          'decimal_places': 5}
+            new_kwargs.update(kwargs)
+            super().__init__(**new_kwargs)
 
     scenario = serializers.IntegerField(help_text='', required=True,)
     fee_type_code = serializers.CharField(help_text='', required=True,)
