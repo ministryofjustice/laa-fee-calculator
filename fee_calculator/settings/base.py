@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'rest_framework_swagger',
+    'drf_spectacular',
     'moj_irat',
     'corsheaders',
     'django_filters',
@@ -100,6 +100,11 @@ DATABASES = {
         }
     }
 }
+
+# Auto-created primary keys default
+# https://docs.djangoproject.com/en/4.0/releases/3.2/#customizing-type-of-auto-created-primary-keys
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 
 # Password validation
@@ -170,7 +175,7 @@ if os.environ.get('SENTRY_DSN'):
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100
 }
@@ -178,6 +183,13 @@ REST_FRAMEWORK = {
 
 API_VERSION = 'v1'
 
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Fee calculator API',
+    'DESCRIPTION': 'For retrieval and calculation of fees subject to the advocate and litigator graduated fee schemes',
+    'VERSION': '1.0.0',
+    # OTHER SETTINGS
+}
 
 SWAGGER_SETTINGS = {
     'APIS_SORTER': 'alpha'

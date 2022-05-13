@@ -1,15 +1,21 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import url, include
+from django.urls import path
 
 from rest_framework_nested import routers
-from rest_framework_swagger.views import get_swagger_view
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from api.views import (
-    SchemeViewSet, FeeTypeViewSet, ScenarioViewSet,
-    OffenceClassViewSet, AdvocateTypeViewSet, PriceViewSet, CalculatorView,
-    UnitViewSet, ModifierTypeViewSet
+    SchemeViewSet,
+    FeeTypeViewSet,
+    UnitViewSet,
+    ModifierTypeViewSet,
+    ScenarioViewSet,
+    OffenceClassViewSet,
+    AdvocateTypeViewSet,
+    PriceViewSet,
+    CalculatorView,
 )
-
 
 router = routers.DefaultRouter()
 router.register(r'fee-schemes', SchemeViewSet, basename='fee-schemes')
@@ -26,11 +32,14 @@ schemes_router.register(r'modifier-types', ModifierTypeViewSet,
                         basename='modifier-types')
 schemes_router.register(r'prices', PriceViewSet, basename='prices')
 
-schema_view = get_swagger_view(title='Calculator API')
-
 urlpatterns = (
     url(r'^fee-schemes/(?P<scheme_pk>[^/.]+)/calculate/$', CalculatorView.as_view(), name='calculator'),
     url(r'^', include(router.urls)),
     url(r'^', include(schemes_router.urls)),
-    url(r'^docs/$', schema_view),
+
+    # drf-spectacular = OpenAPI3
+    path('oa3/schema/', SpectacularAPIView.as_view(), name='oa3_schema'),
+    path('oa3/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='oa3_schema'), name='oa3_swagger-ui'),
+    path('docs/', SpectacularSwaggerView.as_view(url_name='oa3_schema')),
 )
+

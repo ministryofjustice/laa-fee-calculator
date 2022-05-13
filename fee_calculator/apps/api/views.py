@@ -10,28 +10,45 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.compat import coreapi
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
-from rest_framework.schemas import AutoSchema
+
+from drf_spectacular.utils import (
+    extend_schema_view, extend_schema, OpenApiParameter, OpenApiTypes
+)
 
 from calculator.constants import SCHEME_TYPE
+
 from calculator.models import (
     Scheme, FeeType, Scenario, OffenceClass, AdvocateType, Price, Unit,
     ModifierType, calculate_total
 )
+
 from .filters import (
-    PriceFilter, FeeTypeFilter, CalculatorSchema
+    PriceFilter,
+    FeeTypeFilter,
 )
+
 from .serializers import (
-    SchemeSerializer, FeeTypeSerializer, ScenarioSerializer,
-    OffenceClassSerializer, AdvocateTypeSerializer, PriceSerializer,
-    UnitSerializer, ModifierTypeSerializer
+    SchemeListQuerySerializer,
+    BasePriceFilteredQuerySerializer,
+    CalculatorQuerySerializer,
+    CalculatorResponseSerializer,
+    SchemeSerializer,
+    FeeTypeSerializer,
+    UnitSerializer,
+    ModifierTypeSerializer,
+    ScenarioSerializer,
+    OffenceClassSerializer,
+    AdvocateTypeSerializer,
+    PriceSerializer,
 )
 
 logger = logging.getLogger('laa-calc')
 
+scheme_pk_parameter = OpenApiParameter('scheme_pk', OpenApiTypes.INT, OpenApiParameter.PATH)
 
 def get_param(request, param_name, required=False, default=None):
     value = request.query_params.get(param_name, default)
-    if value is None or value is '':
+    if value is None or value == '':
         if required:
             raise ValidationError('`%s` is a required field' % param_name)
     return value
@@ -43,7 +60,7 @@ def get_model_param(
 ):
     result = get_param(request, param_name, required, default)
     try:
-        if result is not None and result is not '':
+        if result is not None and result != '':
             if many:
                 candidates = model_class.objects.filter(**{lookup: result})
                 if len(candidates) == 0:
@@ -62,7 +79,7 @@ def get_model_param(
 def get_decimal_param(request, param_name, required=False, default=None):
     number = get_param(request, param_name, required, default)
     try:
-        if number is not None and number is not '':
+        if number is not None and number != '':
             number = Decimal(number)
     except InvalidOperation:
         raise ValidationError('`%s` must be a number' % param_name)
@@ -77,25 +94,20 @@ class OrderedReadOnlyModelViewSet(viewsets.ReadOnlyModelViewSet):
         queryset = queryset.order_by(self.default_ordering or 'pk')
         return queryset
 
-
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of graduated fee schemes',
+        parameters=[SchemeListQuerySerializer],
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single graduated fee scheme',
+        parameters=[SchemeListQuerySerializer],
+    )
+)
 class SchemeViewSet(OrderedReadOnlyModelViewSet):
     """
     Viewing fee scheme(s).
     """
-    schema = AutoSchema(manual_fields=[
-        coreapi.Field('type', **{
-            'required': False,
-            'location': 'query',
-            'type': 'string',
-            'description': '',
-        }),
-        coreapi.Field('case_date', **{
-            'required': False,
-            'location': 'query',
-            'type': 'string',
-            'description': '',
-        }),
-    ])
     queryset = Scheme.objects.all()
     serializer_class = SchemeSerializer
 
@@ -127,7 +139,27 @@ class SchemeViewSet(OrderedReadOnlyModelViewSet):
                 )
             queryset = queryset.filter(base_type=base_type)
 
-        return queryset
+        return queryset.order_by(self.default_ordering or 'pk')
+
+    def retrieve(self, request, pk=None):
+        """
+        GET:
+        Return a single graduated fee scheme serialized object.
+        """
+        queryset = self.get_queryset()
+        scheme = get_object_or_404(queryset, pk=pk)
+        serializer = self.serializer_class(scheme, many=False)
+        return Response(serializer.data)
+
+    def list(self, request, format=None):
+        """
+        GET:
+        Return a list of all the existing graduated fee schemes.
+        """
+        queryset = self.get_queryset()
+        page = self.paginate_queryset(queryset)
+        serializer = self.serializer_class(page, many=True)
+        return self.get_paginated_response(serializer.data)
 
 
 class NestedSchemeMixin():
@@ -166,37 +198,15 @@ class NestedSchemeMixin():
         return context
 
 
+@extend_schema_view(
+    list=extend_schema(
+        parameters=[BasePriceFilteredQuerySerializer],
+    ),
+    retrieve=extend_schema(
+        parameters=[BasePriceFilteredQuerySerializer],
+    )
+)
 class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
-    schema = AutoSchema(manual_fields=[
-        coreapi.Field('scenario', **{
-            'required': False,
-            'location': 'query',
-            'type': 'integer',
-            'description': '',
-        }),
-        coreapi.Field('advocate_type', **{
-            'required': False,
-            'location': 'query',
-            'type': 'string',
-            'description': (
-                'Note the query will return prices with `advocate_type_id` '
-                'either matching the value or null.'),
-        }),
-        coreapi.Field('offence_class', **{
-            'required': False,
-            'location': 'query',
-            'type': 'string',
-            'description': (
-                'Note the query will return prices with `offence_class_id` '
-                'either matching the value or null.'),
-        }),
-        coreapi.Field('fee_type_code', **{
-            'required': False,
-            'location': 'query',
-            'type': 'string',
-            'description': '',
-        }),
-    ])
     relation_name = NotImplemented
     lookup_attr = 'pk'
 
@@ -242,6 +252,18 @@ class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
         return queryset
 
 
+@extend_schema(parameters=[scheme_pk_parameter,],)
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of fee types',
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single fee type',
+        parameters=[
+            OpenApiParameter("is_basic", OpenApiTypes.BOOL, OpenApiParameter.QUERY),
+        ],
+    )
+)
 class FeeTypeViewSet(BasePriceFilteredViewSet):
     """
     Viewing fee type(s).
@@ -253,6 +275,15 @@ class FeeTypeViewSet(BasePriceFilteredViewSet):
     relation_name = 'fee_type'
 
 
+@extend_schema(parameters=[scheme_pk_parameter,],)
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of unit types',
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single unit type',
+    )
+)
 class UnitViewSet(BasePriceFilteredViewSet):
     """
     Viewing unit(s).
@@ -262,6 +293,15 @@ class UnitViewSet(BasePriceFilteredViewSet):
     relation_name = 'unit'
 
 
+@extend_schema(parameters=[scheme_pk_parameter,],)
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of modifier types',
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single modifier type',
+    )
+)
 class ModifierTypeViewSet(BasePriceFilteredViewSet):
     """
     Viewing modifier type(s).
@@ -273,6 +313,15 @@ class ModifierTypeViewSet(BasePriceFilteredViewSet):
     scheme_relation_name = 'values__prices__scheme'
 
 
+@extend_schema(parameters=[scheme_pk_parameter,],)
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of scenarios',
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single scenario',
+    )
+)
 class ScenarioViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     """
     Viewing scenario(s).
@@ -281,6 +330,15 @@ class ScenarioViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     serializer_class = ScenarioSerializer
 
 
+@extend_schema(parameters=[scheme_pk_parameter,],)
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of offence classes',
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single offence class',
+    )
+)
 class OffenceClassViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     """
     Viewing offence class(es).
@@ -290,6 +348,15 @@ class OffenceClassViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     lookup_value_regex = '[^/]+'
 
 
+@extend_schema(parameters=[scheme_pk_parameter,],)
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of advocate types',
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single advocate type',
+    ),
+)
 class AdvocateTypeViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     """
     Viewing advocate type(s).
@@ -297,7 +364,16 @@ class AdvocateTypeViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     queryset = AdvocateType.objects.all()
     serializer_class = AdvocateTypeSerializer
 
-
+@extend_schema(parameters=[scheme_pk_parameter,],)
+@extend_schema_view(
+    list=extend_schema(
+        description='Filterable list of prices',
+    ),
+    retrieve=extend_schema(
+        description='Retrieve a single price',
+        parameters=[BasePriceFilteredQuerySerializer],
+    )
+)
 class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     """
     Viewing price(s).
@@ -308,64 +384,19 @@ class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     filter_class = PriceFilter
     scheme_relation_name = 'scheme'
 
-
-class cached_class_property:
-    def __init__(self, getter):
-        self.getter = getter
-        self.cached = None
-
-    def __get__(self, instance, clazz):
-        if self.cached is None:
-            self.cached = self.getter(clazz)
-        return self.cached
-
-
+@extend_schema(parameters=[scheme_pk_parameter,],)
+@extend_schema_view(
+    get=extend_schema(
+        parameters=[CalculatorQuerySerializer],
+        responses=CalculatorResponseSerializer
+    )
+)
 class CalculatorView(views.APIView):
     """
     Calculate total fee amount
     """
-
     allowed_methods = ['GET']
     filter_backends = (backends.DjangoFilterBackend,)
-
-    @cached_class_property
-    def schema(cls):
-        return CalculatorSchema(fields=[
-            coreapi.Field('scheme_pk', **{
-                'required': True,
-                'location': 'path',
-                'type': 'integer',
-                'description': '',
-            }),
-            coreapi.Field('fee_type_code', **{
-                'required': True,
-                'location': 'query',
-                'type': 'string',
-                'description': '',
-            }),
-            coreapi.Field('scenario', **{
-                'required': True,
-                'location': 'query',
-                'type': 'integer',
-                'description': '',
-            }),
-            coreapi.Field('advocate_type', **{
-                'required': False,
-                'location': 'query',
-                'type': 'string',
-                'description': (
-                    'Note the query will return prices with `advocate_type_id` '
-                    'either matching the value or null.'),
-            }),
-            coreapi.Field('offence_class', **{
-                'required': False,
-                'location': 'query',
-                'type': 'string',
-                'description': (
-                    'Note the query will return prices with `offence_class_id` '
-                    'either matching the value or null.'),
-            })
-        ])
 
     def get(self, *args, **kwargs):
         scheme = get_object_or_404(Scheme, pk=kwargs['scheme_pk'])

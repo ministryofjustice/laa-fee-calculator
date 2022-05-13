@@ -6,42 +6,11 @@ import django_filters
 from django_filters.constants import EMPTY_VALUES
 from django_filters.fields import Lookup
 from django_filters.rest_framework import filters
-from rest_framework.compat import coreapi
-from rest_framework.schemas import ManualSchema
 import six
 
 from calculator import models as calc_models
 
 logger = logging.getLogger('laa-calc')
-
-
-class CalculatorSchema(ManualSchema):
-
-    def __init__(self, fields, *args, **kwargs):
-        for unit in calc_models.Unit.objects.all():
-            fields.append(
-                coreapi.Field(unit.pk.lower(), **{
-                    'required': False,
-                    'location': 'query',
-                    'type': 'number',
-                    'description': (
-                        'Quantity of the price unit: {}'.format(unit.name)
-                    ),
-                }),
-            )
-
-        for modifier in calc_models.ModifierType.objects.all():
-            fields.append(
-                coreapi.Field(modifier.name.lower(), **{
-                    'required': False,
-                    'location': 'query',
-                    'type': 'number',
-                    'description': (
-                        'Price modifier: {}'.format(modifier.description)
-                    )
-                }),
-            )
-        super().__init__(fields, *args, **kwargs)
 
 
 class ModelOrNoneChoiceFilter(django_filters.ModelChoiceFilter):

@@ -14,7 +14,7 @@ class Scheme(models.Model):
     base_type = models.PositiveSmallIntegerField(choices=SCHEME_TYPE)
     description = models.CharField(max_length=255)
 
-    def type(self):
+    def type(self) -> str:
         return SCHEME_TYPE.for_value(self.base_type).constant
 
     def __str__(self):
