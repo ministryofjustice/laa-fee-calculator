@@ -23,9 +23,10 @@ class PreloadDataDiscoverRunner(DiscoverRunner):
         Returns the number of tests that failed.
         """
         self.setup_test_environment()
-        old_config = self.setup_databases()
         suite = self.build_suite(test_labels, extra_tests)
-        self.run_checks(['default'])
+        databases = self.get_databases(suite)
+        old_config = self.setup_databases(aliases=databases)
+        self.run_checks()
         result = self.run_suite(suite)
         self.teardown_databases(old_config)
         self.teardown_test_environment()
