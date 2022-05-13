@@ -2,8 +2,8 @@
 
 ## Requirements
 
-* Python 3.10.0
-* Django 2.2.27
+* Python 3.10.x
+* Django 3.2.x
 
 ## OS Dependencies
 
