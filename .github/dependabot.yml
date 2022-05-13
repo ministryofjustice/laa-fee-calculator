@@ -10,6 +10,6 @@ updates:
   open-pull-requests-limit: 10
   rebase-strategy: "disabled"
   reviewers:
-  - "jsugarman"
+  - "mpw5"
   - "jrmhaig"
   - "naseberry"
