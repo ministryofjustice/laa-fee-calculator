@@ -5,6 +5,8 @@ import logging
 
 from django.db.models import Q
 from django_filters.rest_framework import backends
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_control
 from rest_framework import viewsets, views
 from rest_framework.generics import get_object_or_404
 from rest_framework.compat import coreapi
@@ -45,6 +47,7 @@ from .serializers import (
 logger = logging.getLogger('laa-calc')
 
 scheme_pk_parameter = OpenApiParameter('scheme_pk', OpenApiTypes.INT, OpenApiParameter.PATH)
+
 
 def get_param(request, param_name, required=False, default=None):
     value = request.query_params.get(param_name, default)
@@ -94,6 +97,8 @@ class OrderedReadOnlyModelViewSet(viewsets.ReadOnlyModelViewSet):
         queryset = queryset.order_by(self.default_ordering or 'pk')
         return queryset
 
+
+@method_decorator(cache_control(public=True, max_age=2*60*60), name='dispatch')
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of graduated fee schemes',
@@ -198,6 +203,7 @@ class NestedSchemeMixin():
         return context
 
 
+@method_decorator(cache_control(public=True, max_age=2*60*60), name='dispatch')
 @extend_schema_view(
     list=extend_schema(
         parameters=[BasePriceFilteredQuerySerializer],
@@ -252,7 +258,8 @@ class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
         return queryset
 
 
-@extend_schema(parameters=[scheme_pk_parameter,],)
+@method_decorator(cache_control(public=True, max_age=2*60*60), name='dispatch')
+@extend_schema(parameters=[scheme_pk_parameter, ],)
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of fee types',
@@ -275,7 +282,8 @@ class FeeTypeViewSet(BasePriceFilteredViewSet):
     relation_name = 'fee_type'
 
 
-@extend_schema(parameters=[scheme_pk_parameter,],)
+@method_decorator(cache_control(public=True, max_age=2*60*60), name='dispatch')
+@extend_schema(parameters=[scheme_pk_parameter, ],)
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of unit types',
@@ -293,7 +301,8 @@ class UnitViewSet(BasePriceFilteredViewSet):
     relation_name = 'unit'
 
 
-@extend_schema(parameters=[scheme_pk_parameter,],)
+@method_decorator(cache_control(public=True, max_age=2*60*60), name='dispatch')
+@extend_schema(parameters=[scheme_pk_parameter, ],)
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of modifier types',
@@ -313,7 +322,8 @@ class ModifierTypeViewSet(BasePriceFilteredViewSet):
     scheme_relation_name = 'values__prices__scheme'
 
 
-@extend_schema(parameters=[scheme_pk_parameter,],)
+@method_decorator(cache_control(public=True, max_age=2*60*60), name='dispatch')
+@extend_schema(parameters=[scheme_pk_parameter, ],)
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of scenarios',
@@ -330,7 +340,8 @@ class ScenarioViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     serializer_class = ScenarioSerializer
 
 
-@extend_schema(parameters=[scheme_pk_parameter,],)
+@method_decorator(cache_control(public=True, max_age=2*60*60), name='dispatch')
+@extend_schema(parameters=[scheme_pk_parameter, ],)
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of offence classes',
@@ -348,7 +359,8 @@ class OffenceClassViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     lookup_value_regex = '[^/]+'
 
 
-@extend_schema(parameters=[scheme_pk_parameter,],)
+@method_decorator(cache_control(public=True, max_age=2*60*60), name='dispatch')
+@extend_schema(parameters=[scheme_pk_parameter, ],)
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of advocate types',
@@ -364,7 +376,9 @@ class AdvocateTypeViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     queryset = AdvocateType.objects.all()
     serializer_class = AdvocateTypeSerializer
 
-@extend_schema(parameters=[scheme_pk_parameter,],)
+
+@method_decorator(cache_control(public=True, max_age=2*60*60), name='dispatch')
+@extend_schema(parameters=[scheme_pk_parameter, ],)
 @extend_schema_view(
     list=extend_schema(
         description='Filterable list of prices',
@@ -384,7 +398,9 @@ class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     filter_class = PriceFilter
     scheme_relation_name = 'scheme'
 
-@extend_schema(parameters=[scheme_pk_parameter,],)
+
+@method_decorator(cache_control(public=True, max_age=2*60*60), name='dispatch')
+@extend_schema(parameters=[scheme_pk_parameter, ],)
 @extend_schema_view(
     get=extend_schema(
         parameters=[CalculatorQuerySerializer],
