@@ -1,4 +1,4 @@
-FROM buildpack-deps:focal
+FROM python:3.10-alpine
 
 ENV \
   LANG=en_GB.UTF-8 \
@@ -38,6 +38,8 @@ RUN \
   && locale-gen \
   && timedatectl set-timezone Europe/London || true \
   && pip3 install -U setuptools pip wheel
+
+RUN apk add --no-cache gcc libc-dev linux-headers
 
 # cache python packages, unless requirements change
 ADD ./requirements requirements
