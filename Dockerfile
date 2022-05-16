@@ -20,26 +20,17 @@ RUN addgroup --gid 1000 --system appgroup \
 # setup environment
 RUN \
   set -ex \
-  && apt-get update \
-  && apt-get install \
-    -y \
-    --no-install-recommends \
-    locales \
+  && apk update \
+  && apk add \
+    --virtual \
     tzdata \
-    software-properties-common \
-    build-essential \
+    build-base \
     rsync \
     gettext \
-    python3-all-dev \
-    python3-pip \
     libpq-dev \
-    netcat \
-  && echo en_GB.UTF-8 UTF-8 > /etc/locale.gen \
-  && locale-gen \
-  && timedatectl set-timezone Europe/London || true \
+    netcat-openbsd \
+    linux-headers \
   && pip3 install -U setuptools pip wheel
-
-RUN apk add --no-cache gcc libc-dev linux-headers
 
 # cache python packages, unless requirements change
 ADD ./requirements requirements
@@ -56,6 +47,9 @@ ENV APPVERSION=${VERSION_NUMBER}
 ENV APP_GIT_COMMIT=${COMMIT_ID}
 ENV APP_BUILD_DATE=${BUILD_DATE}
 ENV APP_BUILD_TAG=${BUILD_TAG}
+
+ENV LC_ALL=en_GB.UTF-8
+ENV TZ=Europe/London
 
 # clearing data to prevent UNIQUE constraint violations when rebuilding locally, at least
 RUN python3 manage.py migrate --no-input \
