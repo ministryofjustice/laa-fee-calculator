@@ -6,6 +6,7 @@ from rest_framework.test import APITestCase
 
 from calculator.tests.lib.utils import prevent_request_warnings
 
+
 class PriceApiTestCase(APITestCase):
     endpoint = '/api/{api}/fee-schemes/{{scheme}}/prices/'.format(
         api=settings.API_VERSION

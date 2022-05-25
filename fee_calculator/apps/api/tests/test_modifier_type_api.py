@@ -7,6 +7,7 @@ from rest_framework.test import APITestCase
 from calculator.models import Scheme
 from calculator.tests.lib.utils import prevent_request_warnings
 
+
 class ModifierTypeApiTestCase(APITestCase):
     endpoint = '/api/{api}/fee-schemes/{{scheme}}/modifier-types/'.format(
         api=settings.API_VERSION
