@@ -27,7 +27,9 @@ class Command(BaseCommand):
 
         with open(filename, 'r') as csv_file, temp_file:
             reader = csv.DictReader(csv_file)
-            field_names = 'CASE_ID,PERSON_TYPE,BILL_TYPE,BILL_SUB_TYPE,REP_ORD_DATE,BILL_SCENARIO_ID,OFFENCE_CATEGORY,TRIAL_LENGTH,PPE,NO_DEFENDANTS,CALC_FEE_EXC_VAT,CALC_FEE_VAT,THIRD_CRACKED,NUM_OF_WITNESSES,NUM_OF_CASES,QUANTITY,NUM_ATTENDANCE_DAYS,RETRIAL,MONTHS'.split(',')
+            field_names = '''CASE_ID,PERSON_TYPE,BILL_TYPE,BILL_SUB_TYPE,REP_ORD_DATE,BILL_SCENARIO_ID,OFFENCE_CATEGORY,\
+                             TRIAL_LENGTH,PPE,NO_DEFENDANTS,CALC_FEE_EXC_VAT,CALC_FEE_VAT,THIRD_CRACKED,NUM_OF_WITNESSES,\
+                             NUM_OF_CASES,QUANTITY,NUM_ATTENDANCE_DAYS,RETRIAL,MONTHS'''.replace(" ", "").split(',')
             writer = csv.DictWriter(
                 temp_file, fieldnames=field_names, lineterminator='\n')
             writer.writeheader()
@@ -43,7 +45,12 @@ class Command(BaseCommand):
                              fixed_fee__gt=0
                              )
                     print(
-                        f"bill test scenario id: {row['BILL_SCENARIO_ID']}, bill_sub_type: {row['BILL_SUB_TYPE']}, advocate_type_id: {row['PERSON_TYPE']}, offence_class_id: {row['OFFENCE_CATEGORY']}, fixed_fee: {row['CALC_FEE_EXC_VAT']} => {new_price.fixed_fee}")
+                        f"bill test scenario id: {row['BILL_SCENARIO_ID']},"
+                        f"bill_sub_type: {row['BILL_SUB_TYPE']},"
+                        f"advocate_type_id: {row['PERSON_TYPE']},"
+                        f"offence_class_id: {row['OFFENCE_CATEGORY']},"
+                        f"fixed_fee: {row['CALC_FEE_EXC_VAT']} => {new_price.fixed_fee}"
+                    )
 
                     row['REP_ORD_DATE'] = '17/09/2020'
                     row['CALC_FEE_EXC_VAT'] = str(

@@ -33,7 +33,13 @@ class Command(BaseCommand):
                          offence_class_id=price.offence_class_id,
                          fixed_fee__gt=0
                          )
-
-                print(f'UPDATING: scheme: {price.scheme_id}, scenario: {price.scenario_id}, fee_type: {price.fee_type_id}, advocate: {price.advocate_type_id}, offence_class_id: {price.offence_class_id}, fixed_fee: {price.fixed_fee} => {new_price.fixed_fee}')
+                print(
+                    f'UPDATING: scheme: {price.scheme_id},'
+                    f'scenario: {price.scenario_id},'
+                    f'fee_type: {price.fee_type_id},'
+                    f'advocate: {price.advocate_type_id},'
+                    f'offence_class_id: {price.offence_class_id},'
+                    f'fixed_fee: {price.fixed_fee} => {new_price.fixed_fee}'
+                )
                 price.fixed_fee = new_price.fixed_fee
                 price.save()
