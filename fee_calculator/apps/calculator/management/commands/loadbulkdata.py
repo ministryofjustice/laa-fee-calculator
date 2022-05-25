@@ -15,7 +15,7 @@ from django.utils.encoding import force_text
 
 class Command(LoadDataCommand):
 
-    def load_label(self, fixture_label):
+    def load_label(self, fixture_label):  # noqa: C901 Ignore Flake8 complexity check
         """
         Loads fixtures files for a given label. This method is largely copied
         from django.core.management.commands.loaddata.Command but with the
