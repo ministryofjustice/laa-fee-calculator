@@ -91,12 +91,12 @@ class Command(LoadDataCommand):
                                 ending=''
                             )
                     except (DatabaseError, IntegrityError) as e:
-                            e.args = ("Could not load %(app_label)s.%(object_name)s: %(error_msg)s" % {
-                                'app_label': model._meta.app_label,
-                                'object_name': model._meta.object_name,
-                                'error_msg': force_text(e)
-                            },)
-                            raise
+                        e.args = ("Could not load %(app_label)s.%(object_name)s: %(error_msg)s" % {
+                            'app_label': model._meta.app_label,
+                            'object_name': model._meta.object_name,
+                            'error_msg': force_text(e)
+                        },)
+                        raise
                 else:
                     for obj in objects_to_create:
                         try:

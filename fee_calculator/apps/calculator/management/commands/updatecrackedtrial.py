@@ -13,26 +13,27 @@ class Command(BaseCommand):
     '''
 
     def handle(self, *args, **options):
-      with atomic():
-        for price in Price.objects \
-          .extra(
-            select={'offence_class_id_decimal': 'CAST(offence_class_id as DECIMAL)'}
-          ) \
-          .filter(scheme_id=5,
-            scenario_id=3,
-            fee_type_id=34
-          ) \
-          .order_by('offence_class_id_decimal'):
+        with atomic():
+            for price in Price.objects \
+                .extra(
+                    select={
+                        'offence_class_id_decimal': 'CAST(offence_class_id as DECIMAL)'}
+                ) \
+                .filter(scheme_id=5,
+                        scenario_id=3,
+                        fee_type_id=34
+                        ) \
+                    .order_by('offence_class_id_decimal'):
 
-          new_price = Price.objects \
-                        .get(scheme_id=5,
-                          scenario_id=4,
-                          fee_type_id=34,
-                          advocate_type_id=price.advocate_type_id,
-                          offence_class_id=price.offence_class_id,
-                          fixed_fee__gt=0
-                        )
+                new_price = Price.objects \
+                    .get(scheme_id=5,
+                         scenario_id=4,
+                         fee_type_id=34,
+                         advocate_type_id=price.advocate_type_id,
+                         offence_class_id=price.offence_class_id,
+                         fixed_fee__gt=0
+                         )
 
-          print(f'UPDATING: scheme: {price.scheme_id}, scenario: {price.scenario_id}, fee_type: {price.fee_type_id}, advocate: {price.advocate_type_id}, offence_class_id: {price.offence_class_id}, fixed_fee: {price.fixed_fee} => {new_price.fixed_fee}')
-          price.fixed_fee = new_price.fixed_fee
-          price.save()
+                print(f'UPDATING: scheme: {price.scheme_id}, scenario: {price.scenario_id}, fee_type: {price.fee_type_id}, advocate: {price.advocate_type_id}, offence_class_id: {price.offence_class_id}, fixed_fee: {price.fixed_fee} => {new_price.fixed_fee}')
+                price.fixed_fee = new_price.fixed_fee
+                price.save()
