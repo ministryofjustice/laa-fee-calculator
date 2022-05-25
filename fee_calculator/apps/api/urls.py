@@ -42,4 +42,3 @@ urlpatterns = (
     path('oa3/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='oa3_schema'), name='oa3_swagger-ui'),
     path('docs/', SpectacularSwaggerView.as_view(url_name='oa3_schema')),
 )
-
