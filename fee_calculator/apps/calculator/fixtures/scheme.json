@@ -1,52 +1,62 @@
 [
-{
-  "model": "calculator.scheme",
-  "pk": 1,
-  "fields": {
-    "start_date": "2012-04-01",
-    "end_date": "2018-03-31",
-    "base_type": 1,
-    "description": "AGFS Fee Scheme 9"
+  {
+    "model": "calculator.scheme",
+    "pk": 1,
+    "fields": {
+      "start_date": "2012-04-01",
+      "end_date": "2018-03-31",
+      "base_type": 1,
+      "description": "AGFS Fee Scheme 9"
+    }
+  },
+  {
+    "model": "calculator.scheme",
+    "pk": 2,
+    "fields": {
+      "start_date": "2016-04-01",
+      "end_date": null,
+      "base_type": 2,
+      "description": "LGFS Fee Scheme 2016-04"
+    }
+  },
+  {
+    "model": "calculator.scheme",
+    "pk": 3,
+    "fields": {
+      "start_date": "2018-04-01",
+      "end_date": "2018-12-30",
+      "base_type": 1,
+      "description": "AGFS Fee Scheme 10"
+    }
+  },
+  {
+    "model": "calculator.scheme",
+    "pk": 4,
+    "fields": {
+      "start_date": "2018-12-31",
+      "end_date": "2020-09-16",
+      "base_type": 1,
+      "description": "AGFS Fee Scheme 11"
+    }
+  },
+  {
+    "model": "calculator.scheme",
+    "pk": 5,
+    "fields": {
+      "start_date": "2020-09-17",
+      "end_date": "2022-04-30",
+      "base_type": 1,
+      "description": "AGFS Fee Scheme 12 - CLAR accelerated measures"
+    }
+  },
+  {
+    "model": "calculator.scheme",
+    "pk": 6,
+    "fields": {
+      "start_date": "2022-05-01",
+      "end_date": null,
+      "base_type": 1,
+      "description": "AGFS Fee Scheme 13 - CLAIR"
+    }
   }
-},
-{
-  "model": "calculator.scheme",
-  "pk": 2,
-  "fields": {
-    "start_date": "2016-04-01",
-    "end_date": null,
-    "base_type": 2,
-    "description": "LGFS Fee Scheme 2016-04"
-  }
-},
-{
-  "model": "calculator.scheme",
-  "pk": 3,
-  "fields": {
-    "start_date": "2018-04-01",
-    "end_date": "2018-12-30",
-    "base_type": 1,
-    "description": "AGFS Fee Scheme 10"
-  }
-},
-{
-  "model": "calculator.scheme",
-  "pk": 4,
-  "fields": {
-    "start_date": "2018-12-31",
-    "end_date": "2020-09-16",
-    "base_type": 1,
-    "description": "AGFS Fee Scheme 11"
-  }
-},
-{
-  "model": "calculator.scheme",
-  "pk": 5,
-  "fields": {
-    "start_date": "2020-09-17",
-    "end_date": null,
-    "base_type": 1,
-    "description": "AGFS Fee Scheme 12 - CLAR accelerated measures"
-}
-}
 ]
