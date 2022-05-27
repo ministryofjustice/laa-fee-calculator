@@ -22,7 +22,9 @@ Fee Schemes
   <tbody class="govuk-table__body">
     {% for scheme in schemes %}
     <tr class="govuk-table__row">
-      <td class="govuk-table__cell">{{ scheme.description }}</td>
+      <td class="govuk-table__cell">
+        <a href="{% url 'viewer:fee_scheme' pk=scheme.pk %}">{{ scheme.description }}</a>
+      </td>
       <td class="govuk-table__cell">
         {% if scheme.base_type == 1 %}
         AGFS
