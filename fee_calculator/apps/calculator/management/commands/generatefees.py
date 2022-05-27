@@ -112,7 +112,7 @@ class Command(BaseCommand):
             ''')
         )
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options):  # noqa: C901 Ignore Flake8 complexity check
         scheme_name = options['scheme']
 
         scheme_id = {'AGFS10': 3, 'LGFS2016': 2}[scheme_name]
@@ -166,7 +166,7 @@ class Command(BaseCommand):
 
 
 @atomic
-def generate_lgfs_fees(lgfs_scheme, ppe_fees_path, daily_fees_path):
+def generate_lgfs_fees(lgfs_scheme, ppe_fees_path, daily_fees_path):  # noqa: C901 Ignore Flake8 complexity check
     lit_fee_type = FeeType.objects.get(pk=54)
     day_unit = Unit.objects.get(pk='DAY')
     ppe_unit = Unit.objects.get(pk='PPE')
@@ -386,7 +386,7 @@ def generate_lgfs_warrant_fees(scheme_id):
 
 
 @atomic
-def generate_agfs10_fees(agfs_scheme, basic_fees_path, misc_fees_path):
+def generate_agfs10_fees(agfs_scheme, basic_fees_path, misc_fees_path):  # noqa: C901 Ignore Flake8 complexity check
     basic_agfs_fee = FeeType.objects.get(pk=34)
 
     day_unit = Unit.objects.get(pk='DAY')

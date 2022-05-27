@@ -15,7 +15,7 @@ from django.utils.encoding import force_text
 
 class Command(LoadDataCommand):
 
-    def load_label(self, fixture_label):
+    def load_label(self, fixture_label):  # noqa: C901 Ignore Flake8 complexity check
         """
         Loads fixtures files for a given label. This method is largely copied
         from django.core.management.commands.loaddata.Command but with the
@@ -91,12 +91,12 @@ class Command(LoadDataCommand):
                                 ending=''
                             )
                     except (DatabaseError, IntegrityError) as e:
-                            e.args = ("Could not load %(app_label)s.%(object_name)s: %(error_msg)s" % {
-                                'app_label': model._meta.app_label,
-                                'object_name': model._meta.object_name,
-                                'error_msg': force_text(e)
-                            },)
-                            raise
+                        e.args = ("Could not load %(app_label)s.%(object_name)s: %(error_msg)s" % {
+                            'app_label': model._meta.app_label,
+                            'object_name': model._meta.object_name,
+                            'error_msg': force_text(e)
+                        },)
+                        raise
                 else:
                     for obj in objects_to_create:
                         try:

@@ -9,7 +9,6 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
 from rest_framework import viewsets, views
 from rest_framework.generics import get_object_or_404
-from rest_framework.compat import coreapi
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 

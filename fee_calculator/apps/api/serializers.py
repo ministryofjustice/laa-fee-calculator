@@ -9,22 +9,34 @@ from calculator.models import (
 
 
 class SchemeListQuerySerializer(serializers.Serializer):
-    type = serializers.ChoiceField(help_text="Graduated fee scheme type",
-                                   choices=('AGFS', 'LGFS'),
-                                   required=False)
-    case_date = serializers.CharField(help_text="Date for which you would like a list of applicable fee schemes",
-                                      required=False)
+    type = serializers.ChoiceField(
+        help_text="Graduated fee scheme type",
+        choices=('AGFS', 'LGFS'),
+        required=False
+    )
+    case_date = serializers.CharField(
+        help_text="Date for which you would like a list of applicable fee schemes",
+        required=False
+    )
 
 
 class BasePriceFilteredQuerySerializer(serializers.Serializer):
-    scenario = serializers.IntegerField(help_text='',
-                                        required=False,)
-    advocate_type = serializers.CharField(help_text='Note the query will return prices with `advocate_type_id` either matching the value or null.',
-                                          required=False,)
-    offence_class = serializers.CharField(help_text='Note the query will return prices with `offence_class_id` either matching the value or null.',
-                                          required=False,)
-    fee_type_code = serializers.CharField(help_text='',
-                                          required=False,)
+    scenario = serializers.IntegerField(
+        help_text='',
+        required=False,
+    )
+    advocate_type = serializers.CharField(
+        help_text='Note the query will return prices with `advocate_type_id` either matching the value or null.',
+        required=False,
+    )
+    offence_class = serializers.CharField(
+        help_text='Note the query will return prices with `offence_class_id` either matching the value or null.',
+        required=False,
+    )
+    fee_type_code = serializers.CharField(
+        help_text='',
+        required=False,
+    )
 
 
 class CalculatorQuerySerializer(serializers.Serializer):
@@ -46,12 +58,22 @@ class CalculatorQuerySerializer(serializers.Serializer):
             new_kwargs.update(kwargs)
             super().__init__(**new_kwargs)
 
-    scenario = serializers.IntegerField(help_text='', required=True,)
-    fee_type_code = serializers.CharField(help_text='', required=True,)
-    advocate_type = serializers.CharField(help_text='Note the query will return prices with `advocate_type_id` either matching the value or null.',
-                                          required=False,)
-    offence_class = serializers.CharField(help_text='Note the query will return prices with `offence_class_id` either matching the value or null.',
-                                          required=False,)
+    scenario = serializers.IntegerField(
+        help_text='',
+        required=True,
+    )
+    fee_type_code = serializers.CharField(
+        help_text='',
+        required=True,
+    )
+    advocate_type = serializers.CharField(
+        help_text='Note the query will return prices with `advocate_type_id` either matching the value or null.',
+        required=False,
+    )
+    offence_class = serializers.CharField(
+        help_text='Note the query will return prices with `offence_class_id` either matching the value or null.',
+        required=False,
+    )
     case = UnitField('Case')
     day = UnitField('Whole Days')
     defendant = UnitField('Defendants')
