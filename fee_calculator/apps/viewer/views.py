@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
-from calculator.models import (OffenceClass, Scenario, Scheme)
+from calculator.models import (Scenario, Scheme)
+from .factories import OffenceClassPresenterFactory
 
 
 def index(request):
@@ -14,8 +15,13 @@ def fee_schemes(request):
 
 
 def fee_scheme(request, pk):
+    offence_class = request.GET.get('offence_class', '')
+
+    offence_class_factory = OffenceClassPresenterFactory()
+    selected_offence_class = offence_class_factory.build(offence_class)
+
     scheme = Scheme.objects.get(pk=pk)
-    prices = scheme.prices.all()
+    prices = selected_offence_class.filter(scheme.prices)
 
     scenario_tally = {}
     offence_class_tally = {}
@@ -29,7 +35,7 @@ def fee_scheme(request, pk):
     offence_classes = sorted(list(
         map(
             lambda pair: {
-                'offence_class': OffenceClass.objects.get(pk=pair[0]) if pair[0] is not None else None,
+                'offence_class': offence_class_factory.build(pair[0], count=pair[1]),
                 'count': pair[1]
             }, offence_class_tally.items()
         )
@@ -43,6 +49,7 @@ def fee_scheme(request, pk):
             'prices_count': prices.count(),
             'prices': prices,
             'scenarios': scenarios,
-            'offence_classes': offence_classes
+            'offence_classes': offence_classes,
+            'selected_offence_class': selected_offence_class
         }
     )
