@@ -39,6 +39,10 @@ Fee Calculator - {{ scheme.description }}
       <td class="govuk-table__cell">{{ selected_offence_class.display_name }}</td>
     </tr>
     <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Scenario</th>
+      <td class="govuk-table__cell">{{ selected_scenario.display_name }}</td>
+    </tr>
+    <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Prices count</th>
       <td class="govuk-table__cell">{{ prices_count }}</td>
     </tr>
@@ -60,6 +64,22 @@ Fee Calculator - {{ scheme.description }}
   </div>
   {% else %}
   <input type="hidden" name="offence_class" value="{{ selected_offence_class.label }}">
+  {% endif %}
+
+  {% if selected_scenario.isNull %}
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="scenario">
+      Scenario
+    </label>
+    <select class="govuk-select" id="scenario" name="scenario">
+      <option value=""></option>
+      {% for item in scenarios %}
+      <option value="{{ item.scenario.label }}">{{ item.scenario.display_name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% else %}
+  <input type="hidden" name="scenario" value="{{ selected_scenario.label }}">
   {% endif %}
 
   <button class="govuk-button" data-module="govuk-button">
@@ -170,25 +190,10 @@ Fee Calculator - {{ scheme.description }}
         </thead>
         <tbody class="govuk-table__body">
           {% for item in scenarios %}
-          {% if not item.scenario == None %}
           <tr class="govuk-table__row">
-            <td class="govuk-table__cell">
-              <a href="{% url 'viewer:fee_scheme' pk=scheme.pk %}?scenario={{item.scenario.pk}}">
-                {{ item.scenario.name }}
-              </a>
-            </td>
+            <td class="govuk-table__cell">{{ item.scenario.display_name }}</td>
             <td class="govuk-table__cell">{{ item.count }}</td>
           </tr>
-          {% else %}
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell">
-              <a href="{% url 'viewer:fee_scheme' pk=scheme.pk %}?scenario=None">
-                (Blank)
-              </a>
-            </td>
-            <td class="govuk-table__cell">{{ item.count }}</td>
-          </tr>
-          {% endif %}
           {% endfor %}
         </tbody>
       </table>

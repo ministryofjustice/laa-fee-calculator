@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
-from calculator.models import (Scenario, Scheme)
-from .factories import OffenceClassPresenterFactory
+from calculator.models import Scheme
+from .factories import OffenceClassPresenterFactory, ScenarioPresenterFactory
 
 
 def index(request):
@@ -16,12 +16,18 @@ def fee_schemes(request):
 
 def fee_scheme(request, pk):
     offence_class = request.GET.get('offence_class', '')
+    scenario = request.GET.get('scenario', '')
 
     offence_class_factory = OffenceClassPresenterFactory()
+    scenario_factory = ScenarioPresenterFactory()
+
     selected_offence_class = offence_class_factory.build(offence_class)
+    selected_scenario = scenario_factory.build(scenario)
 
     scheme = Scheme.objects.get(pk=pk)
-    prices = selected_offence_class.filter(scheme.prices)
+    prices = scheme.prices.prefetch_related('offence_class', 'scenario', 'advocate_type', 'fee_type', 'unit')
+    prices = selected_offence_class.filter(prices)
+    prices = selected_scenario.filter(prices)
 
     scenario_tally = {}
     offence_class_tally = {}
@@ -29,9 +35,14 @@ def fee_scheme(request, pk):
         scenario_tally[id['scenario']] = scenario_tally.get(id['scenario'], 0) + 1
         offence_class_tally[id['offence_class']] = offence_class_tally.get(id['offence_class'], 0) + 1
 
-    scenarios = sorted(list(
-        map(lambda pair: {'scenario': Scenario.objects.get(pk=pair[0]), 'count': pair[1]}, scenario_tally.items())
-    ), key=lambda item: item['scenario'].name)
+    scenarios = list(
+        map(
+            lambda pair: {
+                'scenario': scenario_factory.build(pair[0], count=pair[1]),
+                'count': pair[1]
+            }, scenario_tally.items()
+        )
+    )
     offence_classes = sorted(list(
         map(
             lambda pair: {
@@ -50,6 +61,7 @@ def fee_scheme(request, pk):
             'prices': prices,
             'scenarios': scenarios,
             'offence_classes': offence_classes,
+            'selected_scenario': selected_scenario,
             'selected_offence_class': selected_offence_class
         }
     )
