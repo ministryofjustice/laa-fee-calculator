@@ -55,6 +55,8 @@
 
   <div class="govuk-width-container ">
     <main class="govuk-main-wrapper " id="main-content" role="main">
+      {% block breadcrumbs %}{% endblock %}
+
       <h1 class="govuk-heading-xl">{% block main_heading %}Main Heading{% endblock %}</h1>
 
       {% block content %}

@@ -2,6 +2,10 @@
 
 {% load humanize %}
 
+{% block breadcrumbs %}
+{% include '_breadcrumbs.html' with breadcrumbs=breadcrumbs %}
+{% endblock breadcrumbs %}
+
 {% block title %}
 Fee Calculator - {{ scheme.description }}
 {% endblock title %}

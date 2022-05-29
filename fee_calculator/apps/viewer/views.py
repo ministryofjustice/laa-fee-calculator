@@ -9,12 +9,14 @@ def index(request):
 
 
 def fee_schemes(request):
+    breadcrumbs = [{'text': 'Home', 'route': 'viewer:index'}]
     schemes = Scheme.objects.all
 
-    return render(request, 'viewer/fee_schemes.html', {'schemes': schemes})
+    return render(request, 'viewer/fee_schemes.html', {'schemes': schemes, 'breadcrumbs': breadcrumbs})
 
 
 def fee_scheme(request, pk):
+    breadcrumbs = [{'text': 'Home', 'route': 'viewer:index'}, {'text': 'Fee Schemes', 'route': 'viewer:fee_schemes'}]
     offence_class = request.GET.get('offence_class', '')
     scenario = request.GET.get('scenario', '')
 
@@ -62,6 +64,7 @@ def fee_scheme(request, pk):
             'scenarios': scenarios,
             'offence_classes': offence_classes,
             'selected_scenario': selected_scenario,
-            'selected_offence_class': selected_offence_class
+            'selected_offence_class': selected_offence_class,
+            'breadcrumbs': breadcrumbs
         }
     )
