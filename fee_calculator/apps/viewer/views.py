@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from calculator.models import Scheme
+from calculator.models import Scheme, Scenario
 from .factories import OffenceClassPresenterFactory, ScenarioPresenterFactory
 
 
@@ -68,3 +68,11 @@ def fee_scheme(request, pk):
             'breadcrumbs': breadcrumbs
         }
     )
+
+
+def scenarios(request):
+    breadcrumbs = [{'text': 'Home', 'route': 'viewer:index'}]
+    scenario_factory = ScenarioPresenterFactory()
+    scenarios = list(map(lambda scenario: scenario_factory.build_from_scenario(scenario), Scenario.objects.all()))
+
+    return render(request, 'viewer/scenarios.html', {'scenarios': scenarios, 'breadcrumbs': breadcrumbs})

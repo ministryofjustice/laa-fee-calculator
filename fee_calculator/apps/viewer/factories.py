@@ -1,7 +1,8 @@
 from calculator.models import (OffenceClass, Scenario)
 from viewer.presenters.offence_class_presenters import (
     AlphaOffenceClassPresenter, NumericOffenceClassPresenter, NoneOffenceClassPresenter, NullOffenceClassPresenter)
-from viewer.presenters.scenario_presenters import (ScenarioPresenter, NoneScenarioPresenter, NullScenarioPresenter)
+from viewer.presenters.scenario_presenters import (
+    ScenarioPresenter, InterimScenarioPresenter, WarrantScenarioPresenter, NoneScenarioPresenter, NullScenarioPresenter)
 
 
 class OffenceClassPresenterFactory():
@@ -32,6 +33,14 @@ class ScenarioPresenterFactory():
             return NoneScenarioPresenter(count=count)
 
         try:
-            return ScenarioPresenter(Scenario.objects.get(pk=pk))
+            return self.build_from_scenario(Scenario.objects.get(pk=pk))
         except Scenario.DoesNotExist:
             return NoneScenarioPresenter(count=count)
+
+    def build_from_scenario(self, scenario):
+        if (scenario.name.startswith('Interim payment - ')):
+            return InterimScenarioPresenter(scenario)
+        if (scenario.name.startswith('Warrant issued - ')):
+            return WarrantScenarioPresenter(scenario)
+
+        return ScenarioPresenter(scenario)

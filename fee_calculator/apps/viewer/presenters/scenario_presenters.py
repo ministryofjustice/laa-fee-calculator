@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import re
 
 from viewer.presenters.helpers import DelegatorMixin
 
@@ -23,6 +24,11 @@ class AbstractScenarioPresenter(ABC):
     def isNull(self):
         pass
 
+    @property
+    @abstractmethod
+    def case_type(self):
+        pass
+
     @abstractmethod
     def filter(self, collection):
         pass
@@ -44,8 +50,26 @@ class ScenarioPresenter(AbstractScenarioPresenter, DelegatorMixin):
     def isNull(self):
         return False
 
+    @property
+    def case_type(self):
+        return self.scenario.name
+
     def filter(self, collection):
         return collection.filter(scenario=self.scenario)
+
+
+class InterimScenarioPresenter(ScenarioPresenter):
+    @property
+    def case_type(self):
+        match = re.search('(?<=- )[^\s]*', self.scenario.name)
+        return match.group(0).strip().capitalize()
+
+
+class WarrantScenarioPresenter(ScenarioPresenter):
+    @property
+    def case_type(self):
+        match = re.search('(?<=- )[^\(]*', self.scenario.name)
+        return match.group(0).strip().capitalize()
 
 
 class NoneScenarioPresenter(AbstractScenarioPresenter):
@@ -64,6 +88,10 @@ class NoneScenarioPresenter(AbstractScenarioPresenter):
     def isNull(self):
         return False
 
+    @property
+    def case_type(self):
+        return '[None]'
+
     def filter(self, collection):
         return collection.filter(scenario=None)
 
@@ -80,6 +108,10 @@ class NullScenarioPresenter(AbstractScenarioPresenter):
     @property
     def isNull(self):
         return True
+
+    @property
+    def case_type(self):
+        return '-'
 
     def filter(self, collection):
         return collection.all()

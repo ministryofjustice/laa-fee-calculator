@@ -4,7 +4,8 @@ from calculator.models import OffenceClass, Scenario
 from viewer.factories import OffenceClassPresenterFactory, ScenarioPresenterFactory
 from viewer.presenters.offence_class_presenters import (
     AlphaOffenceClassPresenter, NumericOffenceClassPresenter, NullOffenceClassPresenter, NoneOffenceClassPresenter)
-from viewer.presenters.scenario_presenters import (ScenarioPresenter, NullScenarioPresenter, NoneScenarioPresenter)
+from viewer.presenters.scenario_presenters import (
+    ScenarioPresenter, InterimScenarioPresenter, WarrantScenarioPresenter, NullScenarioPresenter, NoneScenarioPresenter)
 
 
 class OffenceClassPresenterFactoryTestCase(TestCase):
@@ -59,3 +60,17 @@ class ScenarioPresenterFactoryTestCase(TestCase):
         presenter = self.factory.build('99999')
         self.assertIsInstance(presenter, ScenarioPresenter)
         self.assertEqual(presenter.label, '99999')
+
+    def test_create_from_scenario_for_simple_name(self):
+        trial_scenario = Scenario.objects.get(name='Trial')
+        self.assertIsInstance(self.factory.build_from_scenario(trial_scenario), ScenarioPresenter)
+        retrial_scenario = Scenario.objects.get(name='Retrial')
+        self.assertIsInstance(self.factory.build_from_scenario(retrial_scenario), ScenarioPresenter)
+
+    def test_create_from_scenario_for_interim(self):
+        scenario = Scenario.objects.get(name='Interim payment - trial start')
+        self.assertIsInstance(self.factory.build_from_scenario(scenario), InterimScenarioPresenter)
+
+    def test_create_from_scenario_for_warrant(self):
+        scenario = Scenario.objects.get(name='Warrant issued - trial')
+        self.assertIsInstance(self.factory.build_from_scenario(scenario), WarrantScenarioPresenter)
