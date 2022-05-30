@@ -118,7 +118,7 @@ commands:
 # JOBS
 # ------------------
 jobs:
-  test:
+  test-calculator:
     executor: cloud-platform-executor
     parallelism: 2
     steps:
@@ -152,6 +152,18 @@ jobs:
           command: |
             venv/bin/python -m coverage combine tmp/coverage
             venv/bin/python -m coverage report
+
+  test-viewer:
+    executor: cloud-platform-executor
+    parallelism: 1
+    steps:
+      - checkout
+      - *setup_python_env
+      - run:
+          name: Split and run tests
+          command: |
+            TESTDOTPATHS=$(circleci tests glob "fee_calculator/apps/viewer/tests/**/test_*.py" | sed -e 's|\.py||g' -e 's|/|.|g' | circleci tests split)
+            venv/bin/python manage.py test $TESTDOTPATHS --verbosity=1 --noinput
 
   build_and_push_image:
     executor: cloud-platform-executor
@@ -190,10 +202,12 @@ workflows:
   version: 2
   build-test-and-approval-deploy:
     jobs:
-      - test
+      - test-calculator
+      - test-viewer
       - combine_test_coverage:
           requires:
-            - test
+            - test-calculator
+            - test-viewer
       - build_and_push_image:
           requires:
             - combine_test_coverage
