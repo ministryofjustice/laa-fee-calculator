@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from calculator.models import Scheme, Scenario
-from .factories import OffenceClassPresenterFactory, ScenarioPresenterFactory
+from viewer.factories import OffenceClassPresenterFactory, ScenarioPresenterFactory, SchemePresenterFactory
 
 
 def index(request):
@@ -22,11 +22,12 @@ def fee_scheme(request, pk):
 
     offence_class_factory = OffenceClassPresenterFactory()
     scenario_factory = ScenarioPresenterFactory()
+    scheme_factory = SchemePresenterFactory()
 
     selected_offence_class = offence_class_factory.build(offence_class)
     selected_scenario = scenario_factory.build(scenario)
 
-    scheme = Scheme.objects.get(pk=pk)
+    scheme = scheme_factory.build_from_pk(pk=pk)
     prices = scheme.prices.prefetch_related('offence_class', 'scenario', 'advocate_type', 'fee_type', 'unit')
     prices = selected_offence_class.filter(prices)
     prices = selected_scenario.filter(prices)

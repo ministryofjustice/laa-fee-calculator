@@ -1,8 +1,9 @@
-from calculator.models import (OffenceClass, Scenario)
+from calculator.models import (OffenceClass, Scenario, Scheme)
 from viewer.presenters.offence_class_presenters import (
     AlphaOffenceClassPresenter, NumericOffenceClassPresenter, NoneOffenceClassPresenter, NullOffenceClassPresenter)
 from viewer.presenters.scenario_presenters import (
     ScenarioPresenter, InterimScenarioPresenter, WarrantScenarioPresenter, NoneScenarioPresenter, NullScenarioPresenter)
+from viewer.presenters.scheme_presenters import SchemePresenter
 
 
 class OffenceClassPresenterFactory():
@@ -44,3 +45,8 @@ class ScenarioPresenterFactory():
             return WarrantScenarioPresenter(scenario)
 
         return ScenarioPresenter(scenario)
+
+
+class SchemePresenterFactory():
+    def build_from_pk(self, pk):
+        return SchemePresenter(Scheme.objects.get(pk=pk))

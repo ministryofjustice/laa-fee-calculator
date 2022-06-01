@@ -22,13 +22,7 @@ Fee Calculator - {{ scheme.description }}
   <tbody class="govuk-table__body">
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Base</th>
-      <td class="govuk-table__cell">
-        {% if scheme.base_type == 1 %}
-        AGFS
-        {% else %}
-        LGFS
-        {% endif %}
-      </td>
+      <td class="govuk-table__cell">{{ scheme.base_type }}</td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Start date</th>
