@@ -55,7 +55,7 @@ Fee Calculator - {{ scheme.description }}
     </label>
     <select class="govuk-select" id="offence_class" name="offence_class">
       <option value=""></option>
-      {% for item in offence_classes %}
+      {% for item in scheme.offence_classes %}
       <option value="{{ item.offence_class.label }}">{{ item.offence_class.display_name }}</option>
       {% endfor %}
     </select>
@@ -71,7 +71,7 @@ Fee Calculator - {{ scheme.description }}
     </label>
     <select class="govuk-select" id="scenario" name="scenario">
       <option value=""></option>
-      {% for item in scenarios %}
+      {% for item in scheme.scenarios %}
       <option value="{{ item.scenario.label }}">{{ item.scenario.display_name }}</option>
       {% endfor %}
     </select>
@@ -156,7 +156,7 @@ Fee Calculator - {{ scheme.description }}
           </tr>
         </thead>
         <tbody class="govuk-table__body">
-          {% for item in offence_classes %}
+          {% for item in scheme.offence_classes %}
           <tr class="govuk-table__row">
             <td class="govuk-table__cell">{{ item.offence_class.id }}</td>
             <td class="govuk-table__cell">{{ item.offence_class.name }}</td>
@@ -187,7 +187,7 @@ Fee Calculator - {{ scheme.description }}
           </tr>
         </thead>
         <tbody class="govuk-table__body">
-          {% for item in scenarios %}
+          {% for item in scheme.scenarios %}
           <tr class="govuk-table__row">
             <td class="govuk-table__cell">{{ item.scenario.display_name }}</td>
             <td class="govuk-table__cell">{{ item.count }}</td>

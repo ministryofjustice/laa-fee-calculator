@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from calculator.models import Scheme, OffenceClass, Scenario
+from calculator.models import OffenceClass, Scenario
 from viewer.factories import SchemePresenterFactory, OffenceClassPresenterFactory, ScenarioPresenterFactory
 from viewer.presenters.offence_class_presenters import (
     AlphaOffenceClassPresenter, NumericOffenceClassPresenter, NullOffenceClassPresenter, NoneOffenceClassPresenter)

@@ -36,3 +36,35 @@ class SchemePresenter(DelegatorMixin):
     @lru_cache(maxsize=None)
     def prices_count(self):
         return self.prices.count()
+
+    @property
+    @lru_cache(maxsize=None)
+    def offence_classes(self):
+        return sorted(list(
+            map(
+                lambda pair: {
+                    'offence_class': self.factories['offence_class'].build(pair[0], count=pair[1]),
+                    'count': pair[1]
+                }, self._tally('offence_class').items()
+            )
+        ), key=lambda item: item['offence_class'])
+
+    @property
+    @lru_cache(maxsize=None)
+    def scenarios(self):
+        return list(
+            map(
+                lambda pair: {
+                    'scenario': self.factories['scenario'].build(pair[0], count=pair[1]),
+                    'count': pair[1]
+                }, self._tally('scenario').items()
+            )
+        )
+
+    @lru_cache(maxsize=None)
+    def _tally(self, field):
+        tally = {}
+        for id in self.prices.values(field):
+            tally[id[field]] = tally.get(id[field], 0) + 1
+
+        return tally
