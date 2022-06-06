@@ -34,21 +34,21 @@ Fee Calculator - {{ scheme.description }}
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Offence class</th>
-      <td class="govuk-table__cell">{{ selected_offence_class.display_name }}</td>
+      <td class="govuk-table__cell">{{ scheme.selected_offence_class.display_name }}</td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Scenario</th>
-      <td class="govuk-table__cell">{{ selected_scenario.display_name }}</td>
+      <td class="govuk-table__cell">{{ scheme.selected_scenario.display_name }}</td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Prices count</th>
-      <td class="govuk-table__cell">{{ prices_count }}</td>
+      <td class="govuk-table__cell">{{ scheme.prices_count }}</td>
     </tr>
   </tbody>
 </table>
 
 <form action="{% url 'viewer:fee_scheme' pk=scheme.pk %}" method="get">
-  {% if selected_offence_class.isNull %}
+  {% if scheme.selected_offence_class.isNull %}
   <div class="govuk-form-group">
     <label class="govuk-label" for="offence_class">
       Offence class
@@ -61,10 +61,10 @@ Fee Calculator - {{ scheme.description }}
     </select>
   </div>
   {% else %}
-  <input type="hidden" name="offence_class" value="{{ selected_offence_class.label }}">
+  <input type="hidden" name="offence_class" value="{{ scheme.selected_offence_class.label }}">
   {% endif %}
 
-  {% if selected_scenario.isNull %}
+  {% if scheme.selected_scenario.isNull %}
   <div class="govuk-form-group">
     <label class="govuk-label" for="scenario">
       Scenario
@@ -77,7 +77,7 @@ Fee Calculator - {{ scheme.description }}
     </select>
   </div>
   {% else %}
-  <input type="hidden" name="scenario" value="{{ selected_scenario.label }}">
+  <input type="hidden" name="scenario" value="{{ scheme.selected_scenario.label }}">
   {% endif %}
 
   <button class="govuk-button" data-module="govuk-button">
@@ -117,7 +117,7 @@ Fee Calculator - {{ scheme.description }}
           </tr>
         </thead>
         <tbody class="govuk-table__body">
-          {% for price in prices %}
+          {% for price in scheme.prices %}
           <tr class="govuk-table__row">
             <td class="govuk-table__cell">{{ price.scenario }}</td>
             <td class="govuk-table__cell">{{ price.advocate_type }}</td>

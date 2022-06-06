@@ -17,24 +17,16 @@ def fee_schemes(request):
 
 def fee_scheme(request, pk):
     breadcrumbs = [{'text': 'Home', 'route': 'viewer:index'}, {'text': 'Fee Schemes', 'route': 'viewer:fee_schemes'}]
-    offence_class = request.GET.get('offence_class', '')
-    scenario = request.GET.get('scenario', '')
 
     offence_class_factory = OffenceClassPresenterFactory()
     scenario_factory = ScenarioPresenterFactory()
     scheme_factory = SchemePresenterFactory()
 
-    selected_offence_class = offence_class_factory.build(offence_class)
-    selected_scenario = scenario_factory.build(scenario)
-
-    scheme = scheme_factory.build_from_pk(pk=pk)
-    prices = scheme.prices.prefetch_related('offence_class', 'scenario', 'advocate_type', 'fee_type', 'unit')
-    prices = selected_offence_class.filter(prices)
-    prices = selected_scenario.filter(prices)
+    scheme = scheme_factory.build_from_pk(pk=pk, params=request.GET)
 
     scenario_tally = {}
     offence_class_tally = {}
-    for id in prices.values('scenario', 'offence_class'):
+    for id in scheme.prices.values('scenario', 'offence_class'):
         scenario_tally[id['scenario']] = scenario_tally.get(id['scenario'], 0) + 1
         offence_class_tally[id['offence_class']] = offence_class_tally.get(id['offence_class'], 0) + 1
 
@@ -60,12 +52,8 @@ def fee_scheme(request, pk):
         'viewer/fee_scheme.html',
         {
             'scheme': scheme,
-            'prices_count': prices.count(),
-            'prices': prices,
             'scenarios': scenarios,
             'offence_classes': offence_classes,
-            'selected_scenario': selected_scenario,
-            'selected_offence_class': selected_offence_class,
             'breadcrumbs': breadcrumbs
         }
     )

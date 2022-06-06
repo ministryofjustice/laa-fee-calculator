@@ -1,11 +1,42 @@
 from django.test import TestCase
 
-from calculator.models import OffenceClass, Scenario
-from viewer.factories import OffenceClassPresenterFactory, ScenarioPresenterFactory
+from calculator.models import Scheme, OffenceClass, Scenario
+from viewer.factories import SchemePresenterFactory, OffenceClassPresenterFactory, ScenarioPresenterFactory
 from viewer.presenters.offence_class_presenters import (
     AlphaOffenceClassPresenter, NumericOffenceClassPresenter, NullOffenceClassPresenter, NoneOffenceClassPresenter)
 from viewer.presenters.scenario_presenters import (
     ScenarioPresenter, InterimScenarioPresenter, WarrantScenarioPresenter, NullScenarioPresenter, NoneScenarioPresenter)
+from viewer.presenters.scheme_presenters import SchemePresenter
+
+
+class SchemePresenterFactoryTestCase(TestCase):
+    @classmethod
+    def setUp(self):
+        self.factory = SchemePresenterFactory()
+        self.options = {}
+
+    def test_creates_scheme_presenter_from_pk(self):
+        self.assertIsInstance(self.factory.build_from_pk(1, params=self.options), SchemePresenter)
+
+    def test_with_no_selected_offence_class(self):
+        presenter = self.factory.build_from_pk(1, params=self.options)
+        self.assertIsInstance(presenter.selected_offence_class, NullOffenceClassPresenter)
+
+    def test_with_selected_offence_class(self):
+        self.options['offence_class'] = 'A'
+        presenter = self.factory.build_from_pk(1, params=self.options)
+        self.assertIsInstance(presenter.selected_offence_class, AlphaOffenceClassPresenter)
+        self.assertEqual(presenter.selected_offence_class.label, 'A')
+
+    def test_with_no_selected_scenario(self):
+        presenter = self.factory.build_from_pk(1, params=self.options)
+        self.assertIsInstance(presenter.selected_scenario, NullScenarioPresenter)
+
+    def test_with_selected_scenario(self):
+        self.options['scenario'] = '1'
+        presenter = self.factory.build_from_pk(1, params=self.options)
+        self.assertIsInstance(presenter.selected_scenario, ScenarioPresenter)
+        self.assertEqual(presenter.selected_scenario.label, '1')
 
 
 class OffenceClassPresenterFactoryTestCase(TestCase):

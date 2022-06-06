@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from calculator.models import (OffenceClass, Scenario, Scheme)
 from viewer.presenters.offence_class_presenters import (
     AlphaOffenceClassPresenter, NumericOffenceClassPresenter, NoneOffenceClassPresenter, NullOffenceClassPresenter)
@@ -48,5 +50,20 @@ class ScenarioPresenterFactory():
 
 
 class SchemePresenterFactory():
-    def build_from_pk(self, pk):
-        return SchemePresenter(Scheme.objects.get(pk=pk))
+    def build_from_pk(self, pk, params={}):
+        return SchemePresenter(
+            Scheme.objects.get(pk=pk),
+            factories={'offence_class': self._offence_class_factory, 'scenario': self._scenario_factory},
+            selected_offence_class=params.get('offence_class', ''),
+            selected_scenario=params.get('scenario', '')
+        )
+
+    @property
+    @lru_cache(maxsize=None)
+    def _offence_class_factory(self):
+        return OffenceClassPresenterFactory()
+
+    @property
+    @lru_cache(maxsize=None)
+    def _scenario_factory(self):
+        return ScenarioPresenterFactory()
