@@ -1,0 +1,59 @@
+<div id="accordion-default-content-1" class="govuk-accordion__section-content"
+  aria-labelledby="accordion-default-heading-0">
+  {% for price in prices %}
+  <section class="app-summary-card govuk-!-margin-bottom-6">
+    <header class="app-summary-card__header">
+      <h2 class="app-summary-card__title">
+        {{ price.title }}
+      </h2>
+    </header>
+
+    <div class="app-summary-card__body">
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Scenario
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ price.scenario }}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Advocate type
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ price.advocate_type }}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Fixed fee
+          </dt>
+          <dd class="govuk-summary-list__value">
+            £{{ price.fixed_fee|floatformat:2 }}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Fee per unit
+          </dt>
+          <dd class="govuk-summary-list__value">
+            £{{ price.fee_per_unit|floatformat:2 }}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Range
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ price.limit_from }} to {{ price.limit_to }} {{ price.unit }}
+            ({{ price.strict_range|yesno:"Strict,Not Strict,None" }})
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+  </section>
+  {% endfor %}
+</div>

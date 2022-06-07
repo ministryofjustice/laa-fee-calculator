@@ -3,6 +3,7 @@ from calculator.models import Scheme
 from viewer.presenters.helpers import DelegatorMixin
 from viewer.presenters.offence_class_presenters import offence_class_presenter_factory_from_pk
 from viewer.presenters.scenario_presenters import scenario_presenter_factory_from_pk
+from viewer.presenters.price_presenters import price_presenter_factory
 
 
 def scheme_presenter_factory_from_pk(pk, params={}):
@@ -34,6 +35,11 @@ class SchemePresenter(DelegatorMixin):
     @property
     @lru_cache(maxsize=None)
     def prices(self):
+        return list(map(lambda price: price_presenter_factory(price), list(self._raw_prices)))
+
+    @property
+    @lru_cache(maxsize=None)
+    def _raw_prices(self):
         prices = self.object.prices.prefetch_related(
             'offence_class', 'scenario', 'advocate_type', 'fee_type', 'unit').all()
         if self.selected_offence_class is not None:
@@ -46,7 +52,7 @@ class SchemePresenter(DelegatorMixin):
     @property
     @lru_cache(maxsize=None)
     def prices_count(self):
-        return self.prices.count()
+        return len(self._raw_prices)
 
     @property
     @lru_cache(maxsize=None)
@@ -75,7 +81,7 @@ class SchemePresenter(DelegatorMixin):
     @lru_cache(maxsize=None)
     def _tally(self, field):
         tally = {}
-        for id in self.prices.values(field):
+        for id in self._raw_prices.values(field):
             tally[id[field]] = tally.get(id[field], 0) + 1
 
         return tally

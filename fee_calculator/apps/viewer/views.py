@@ -20,11 +20,15 @@ def fee_scheme(request, pk):
     breadcrumbs = [{'text': 'Home', 'route': 'viewer:index'}, {'text': 'Fee Schemes', 'route': 'viewer:fee_schemes'}]
     scheme = scheme_presenter_factory_from_pk(pk=pk, params=request.GET)
 
+    prices_view = {'table': '', 'cards': ''}
+    prices_view[request.GET.get('prices_view', 'table')] = 'checked'
+
     return render(
         request,
         'viewer/fee_scheme.html',
         {
             'scheme': scheme,
+            'prices_view': prices_view,
             'breadcrumbs': breadcrumbs
         }
     )
