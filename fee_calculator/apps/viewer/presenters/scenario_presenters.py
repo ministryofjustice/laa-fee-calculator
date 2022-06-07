@@ -2,6 +2,28 @@ from abc import ABC, abstractmethod
 import re
 
 from viewer.presenters.helpers import DelegatorMixin
+from calculator.models import Scenario
+
+
+def scenario_presenter_factory_from_pk(pk, count=None):
+    if pk == '':
+        return NullScenarioPresenter(count=count)
+    if pk is None or pk == 'None':
+        return NoneScenarioPresenter(count=count)
+
+    try:
+        return scenario_presenter_factory(Scenario.objects.get(pk=pk))
+    except Scenario.DoesNotExist:
+        return NoneScenarioPresenter(count=count)
+
+
+def scenario_presenter_factory(scenario):
+    if (scenario.name.startswith('Interim payment - ')):
+        return InterimScenarioPresenter(scenario)
+    if (scenario.name.startswith('Warrant issued - ')):
+        return WarrantScenarioPresenter(scenario)
+
+    return ScenarioPresenter(scenario)
 
 
 class AbstractScenarioPresenter(ABC):

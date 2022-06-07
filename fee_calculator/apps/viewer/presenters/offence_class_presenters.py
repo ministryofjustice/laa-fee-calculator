@@ -1,7 +1,27 @@
 from abc import ABC, abstractmethod
 from functools import total_ordering
+from calculator.models import OffenceClass
 
 from viewer.presenters.helpers import DelegatorMixin
+
+
+def offence_class_presenter_factory_from_pk(pk, count=None):
+    if pk == '':
+        return NullOffenceClassPresenter(count=count)
+    if pk is None or pk == 'None':
+        return NoneOffenceClassPresenter(count=count)
+    try:
+        return _presenter_class(pk)(OffenceClass.objects.get(pk=pk), count=count)
+    except OffenceClass.DoesNotExist:
+        return NoneOffenceClassPresenter(count=count)
+
+
+def _presenter_class(pk):
+    try:
+        float(pk)
+        return NumericOffenceClassPresenter
+    except ValueError:
+        return AlphaOffenceClassPresenter
 
 
 class AbstractOffenceClassPresenter(ABC):

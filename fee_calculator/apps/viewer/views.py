@@ -1,7 +1,8 @@
 from django.shortcuts import render
 
 from calculator.models import Scheme, Scenario
-from viewer.factories import ScenarioPresenterFactory, SchemePresenterFactory
+from viewer.presenters.scheme_presenters import scheme_presenter_factory_from_pk
+from viewer.presenters.scenario_presenters import scenario_presenter_factory
 
 
 def index(request):
@@ -17,7 +18,7 @@ def fee_schemes(request):
 
 def fee_scheme(request, pk):
     breadcrumbs = [{'text': 'Home', 'route': 'viewer:index'}, {'text': 'Fee Schemes', 'route': 'viewer:fee_schemes'}]
-    scheme = SchemePresenterFactory().build_from_pk(pk=pk, params=request.GET)
+    scheme = scheme_presenter_factory_from_pk(pk=pk, params=request.GET)
 
     return render(
         request,
@@ -31,7 +32,6 @@ def fee_scheme(request, pk):
 
 def scenarios(request):
     breadcrumbs = [{'text': 'Home', 'route': 'viewer:index'}]
-    scenario_factory = ScenarioPresenterFactory()
-    scenarios = list(map(lambda scenario: scenario_factory.build_from_scenario(scenario), Scenario.objects.all()))
+    scenarios = list(map(lambda scenario: scenario_presenter_factory(scenario), Scenario.objects.all()))
 
     return render(request, 'viewer/scenarios.html', {'scenarios': scenarios, 'breadcrumbs': breadcrumbs})

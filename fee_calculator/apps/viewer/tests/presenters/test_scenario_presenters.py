@@ -2,7 +2,52 @@ from django.test import TestCase
 
 from calculator.models import Scenario
 from viewer.presenters.scenario_presenters import (
-    ScenarioPresenter, InterimScenarioPresenter, WarrantScenarioPresenter, NoneScenarioPresenter, NullScenarioPresenter)
+    scenario_presenter_factory,
+    scenario_presenter_factory_from_pk,
+    ScenarioPresenter,
+    InterimScenarioPresenter,
+    WarrantScenarioPresenter,
+    NoneScenarioPresenter,
+    NullScenarioPresenter
+)
+
+
+class ScenarioPresenterFactoryTestCase(TestCase):
+    def test_creates_none_presenter_for_id_none_as_string(self):
+        self.assertIsInstance(scenario_presenter_factory_from_pk('None'),
+                              NoneScenarioPresenter)
+
+    def test_creates_none_presenter_for_id_none(self):
+        self.assertIsInstance(scenario_presenter_factory_from_pk(None), NoneScenarioPresenter)
+
+    def test_creates_null_presenter_for_blank_id_string(self):
+        self.assertIsInstance(scenario_presenter_factory_from_pk(''), NullScenarioPresenter)
+
+    def test_creates_presenter_for_known_scenario(self):
+        Scenario.objects.create(pk=99999)
+        presenter = scenario_presenter_factory_from_pk(99999)
+        self.assertIsInstance(presenter, ScenarioPresenter)
+        self.assertEqual(presenter.label, '99999')
+
+    def test_creates_presenter_for_known_scenario_with_a_string(self):
+        Scenario.objects.create(pk=99999)
+        presenter = scenario_presenter_factory_from_pk('99999')
+        self.assertIsInstance(presenter, ScenarioPresenter)
+        self.assertEqual(presenter.label, '99999')
+
+    def test_create_from_scenario_for_simple_name(self):
+        trial_scenario = Scenario.objects.get(name='Trial')
+        self.assertIsInstance(scenario_presenter_factory(trial_scenario), ScenarioPresenter)
+        retrial_scenario = Scenario.objects.get(name='Retrial')
+        self.assertIsInstance(scenario_presenter_factory(retrial_scenario), ScenarioPresenter)
+
+    def test_create_from_scenario_for_interim(self):
+        scenario = Scenario.objects.get(name='Interim payment - trial start')
+        self.assertIsInstance(scenario_presenter_factory(scenario), InterimScenarioPresenter)
+
+    def test_create_from_scenario_for_warrant(self):
+        scenario = Scenario.objects.get(name='Warrant issued - trial')
+        self.assertIsInstance(scenario_presenter_factory(scenario), WarrantScenarioPresenter)
 
 
 class ScenarioPresenterTestCase(TestCase):

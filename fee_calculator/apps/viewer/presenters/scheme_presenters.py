@@ -1,13 +1,24 @@
 from functools import lru_cache
+from calculator.models import Scheme
 from viewer.presenters.helpers import DelegatorMixin
+from viewer.presenters.offence_class_presenters import offence_class_presenter_factory_from_pk
+from viewer.presenters.scenario_presenters import scenario_presenter_factory_from_pk
+
+
+def scheme_presenter_factory_from_pk(pk, params={}):
+    return SchemePresenter(
+        Scheme.objects.get(pk=pk),
+        selected_offence_class=params.get('offence_class', ''),
+        selected_scenario=params.get('scenario', '')
+    )
 
 
 class SchemePresenter(DelegatorMixin):
     def __init__(self, scheme, factories={}, selected_offence_class=None, selected_scenario=None):
         self.object = scheme
         self.factories = factories
-        self.selected_offence_class = self._build_with_factory('offence_class', selected_offence_class)
-        self.selected_scenario = self._build_with_factory('scenario', selected_scenario)
+        self.selected_offence_class = offence_class_presenter_factory_from_pk(selected_offence_class)
+        self.selected_scenario = scenario_presenter_factory_from_pk(selected_scenario)
 
     @property
     def base_type(self):
@@ -43,7 +54,7 @@ class SchemePresenter(DelegatorMixin):
         return sorted(list(
             map(
                 lambda pair: {
-                    'offence_class': self.factories['offence_class'].build(pair[0], count=pair[1]),
+                    'offence_class': offence_class_presenter_factory_from_pk(pair[0], count=pair[1]),
                     'count': pair[1]
                 }, self._tally('offence_class').items()
             )
@@ -55,7 +66,7 @@ class SchemePresenter(DelegatorMixin):
         return list(
             map(
                 lambda pair: {
-                    'scenario': self.factories['scenario'].build(pair[0], count=pair[1]),
+                    'scenario': scenario_presenter_factory_from_pk(pair[0], count=pair[1]),
                     'count': pair[1]
                 }, self._tally('scenario').items()
             )
