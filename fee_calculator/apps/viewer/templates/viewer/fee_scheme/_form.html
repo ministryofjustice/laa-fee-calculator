@@ -1,0 +1,40 @@
+<form action="{% url 'viewer:fee_scheme' pk=scheme.pk %}" method="get">
+  {% if scheme.selected_offence_class.isNull %}
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="offence_class">
+      Offence class
+    </label>
+    <select class="govuk-select" id="offence_class" name="offence_class">
+      <option value=""></option>
+      {% for item in scheme.offence_classes %}
+      <option value="{{ item.offence_class.label }}">{{ item.offence_class.display_name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% else %}
+  <input type="hidden" name="offence_class" value="{{ scheme.selected_offence_class.label }}">
+  {% endif %}
+
+  {% if scheme.selected_scenario.isNull %}
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="scenario">
+      Scenario
+    </label>
+    <select class="govuk-select" id="scenario" name="scenario">
+      <option value=""></option>
+      {% for item in scheme.scenarios %}
+      <option value="{{ item.scenario.label }}">{{ item.scenario.display_name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% else %}
+  <input type="hidden" name="scenario" value="{{ scheme.selected_scenario.label }}">
+  {% endif %}
+
+  <button class="govuk-button" data-module="govuk-button">
+    Filter
+  </button>
+  <a href="{% url 'viewer:fee_scheme' pk=scheme.pk %}" role="button" class="govuk-button govuk-button--warning">
+    Reset
+  </a>
+</form>

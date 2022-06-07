@@ -15,78 +15,9 @@ Fee Calculator - {{ scheme.description }}
 {% endblock main_heading %}
 
 {% block content %}
-<table class="govuk-table">
-  <caption class="govuk-table__caption govuk-table__caption--m">Details</caption>
-  <thead class="govuk-table__head">
-  </thead>
-  <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Base</th>
-      <td class="govuk-table__cell">{{ scheme.base_type }}</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Start date</th>
-      <td class="govuk-table__cell">{{ scheme.start_date }}</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">End date</th>
-      <td class="govuk-table__cell">{{ scheme.end_date|default_if_none:"Present" }}</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Offence class</th>
-      <td class="govuk-table__cell">{{ scheme.selected_offence_class.display_name }}</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Scenario</th>
-      <td class="govuk-table__cell">{{ scheme.selected_scenario.display_name }}</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Prices count</th>
-      <td class="govuk-table__cell">{{ scheme.prices_count }}</td>
-    </tr>
-  </tbody>
-</table>
 
-<form action="{% url 'viewer:fee_scheme' pk=scheme.pk %}" method="get">
-  {% if scheme.selected_offence_class.isNull %}
-  <div class="govuk-form-group">
-    <label class="govuk-label" for="offence_class">
-      Offence class
-    </label>
-    <select class="govuk-select" id="offence_class" name="offence_class">
-      <option value=""></option>
-      {% for item in scheme.offence_classes %}
-      <option value="{{ item.offence_class.label }}">{{ item.offence_class.display_name }}</option>
-      {% endfor %}
-    </select>
-  </div>
-  {% else %}
-  <input type="hidden" name="offence_class" value="{{ scheme.selected_offence_class.label }}">
-  {% endif %}
-
-  {% if scheme.selected_scenario.isNull %}
-  <div class="govuk-form-group">
-    <label class="govuk-label" for="scenario">
-      Scenario
-    </label>
-    <select class="govuk-select" id="scenario" name="scenario">
-      <option value=""></option>
-      {% for item in scheme.scenarios %}
-      <option value="{{ item.scenario.label }}">{{ item.scenario.display_name }}</option>
-      {% endfor %}
-    </select>
-  </div>
-  {% else %}
-  <input type="hidden" name="scenario" value="{{ scheme.selected_scenario.label }}">
-  {% endif %}
-
-  <button class="govuk-button" data-module="govuk-button">
-    Filter
-  </button>
-  <a href="{% url 'viewer:fee_scheme' pk=scheme.pk %}" role="button" class="govuk-button govuk-button--warning">
-    Reset
-  </a>
-</form>
+{% include 'viewer/fee_scheme/_summary.html' with scheme=scheme %}
+{% include 'viewer/fee_scheme/_form.html' with scheme=scheme %}
 
 <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
   <div class="govuk-accordion__section ">
@@ -99,40 +30,7 @@ Fee Calculator - {{ scheme.description }}
     </div>
     <div id="accordion-default-content-1" class="govuk-accordion__section-content"
       aria-labelledby="accordion-default-heading-1">
-
-      <table class="govuk-table">
-        <caption class="govuk-table__caption govuk-table__caption--m">Prices</caption>
-        <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-            <th scope="row" class="govuk-table__header">Scenario</th>
-            <th scope="row" class="govuk-table__header">Advocate Type</th>
-            <th scope="row" class="govuk-table__header">Offence Class</th>
-            <th scope="row" class="govuk-table__header">Fee Type</th>
-            <th scope="row" class="govuk-table__header">Unit</th>
-            <th scope="row" class="govuk-table__header">Fixed Fee</th>
-            <th scope="row" class="govuk-table__header">Fee/Unit</th>
-            <th scope="row" class="govuk-table__header">Limit from</th>
-            <th scope="row" class="govuk-table__header">Limit to</th>
-            <th scope="row" class="govuk-table__header">Strict range</th>
-          </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-          {% for price in scheme.prices %}
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell">{{ price.scenario }}</td>
-            <td class="govuk-table__cell">{{ price.advocate_type }}</td>
-            <td class="govuk-table__cell">{{ price.offence_class }}</td>
-            <td class="govuk-table__cell">{{ price.fee_type }}</td>
-            <td class="govuk-table__cell">{{ price.unit }}</td>
-            <td class="govuk-table__cell">{{ price.fixed_fee|floatformat:2 }}</td>
-            <td class="govuk-table__cell">{{ price.fee_per_unit|floatformat:2 }}</td>
-            <td class="govuk-table__cell">{{ price.limit_from }}</td>
-            <td class="govuk-table__cell">{{ price.limit_to }}</td>
-            <td class="govuk-table__cell">{{ price.strict_range }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      {% include 'viewer/fee_scheme/_prices_table.html' with prices=scheme.prices %}
     </div>
   </div>
   <div class="govuk-accordion__section ">
@@ -145,27 +43,7 @@ Fee Calculator - {{ scheme.description }}
     </div>
     <div id="accordion-default-content-2" class="govuk-accordion__section-content"
       aria-labelledby="accordion-default-heading-2">
-      <table class="govuk-table">
-        <caption class="govuk-table__caption govuk-table__caption--m">Offence Classes</caption>
-        <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-            <th scope="row" class="govuk-table__header">Id</th>
-            <th scope="row" class="govuk-table__header">Name</th>
-            <th scope="row" class="govuk-table__header">Description</th>
-            <th scope="row" class="govuk-table__header">Prices count</th>
-          </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-          {% for item in scheme.offence_classes %}
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell">{{ item.offence_class.id }}</td>
-            <td class="govuk-table__cell">{{ item.offence_class.name }}</td>
-            <td class="govuk-table__cell">{{ item.offence_class.description }}</td>
-            <td class="govuk-table__cell">{{ item.count }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      {% include 'viewer/fee_scheme/_offence_classes_table.html' with offence_classes=scheme.offence_classes %}
     </div>
   </div>
   <div class="govuk-accordion__section ">
@@ -178,23 +56,7 @@ Fee Calculator - {{ scheme.description }}
     </div>
     <div id="accordion-default-content-3" class="govuk-accordion__section-content"
       aria-labelledby="accordion-default-heading-3">
-      <table class="govuk-table">
-        <caption class="govuk-table__caption govuk-table__caption--m">Scenarios</caption>
-        <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-            <th scope="row" class="govuk-table__header">Name</th>
-            <th scope="row" class="govuk-table__header">Prices count</th>
-          </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-          {% for item in scheme.scenarios %}
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell">{{ item.scenario.display_name }}</td>
-            <td class="govuk-table__cell">{{ item.count }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      {% include 'viewer/fee_scheme/_scenarios_table.html' with scenarios=scheme.scenarios %}
     </div>
   </div>
 </div>

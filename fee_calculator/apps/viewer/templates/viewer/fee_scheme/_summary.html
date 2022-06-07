@@ -1,0 +1,31 @@
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Details</caption>
+  <thead class="govuk-table__head">
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Base</th>
+      <td class="govuk-table__cell">{{ scheme.base_type }}</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Start date</th>
+      <td class="govuk-table__cell">{{ scheme.start_date }}</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">End date</th>
+      <td class="govuk-table__cell">{{ scheme.end_date|default_if_none:"Present" }}</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Offence class</th>
+      <td class="govuk-table__cell">{{ scheme.selected_offence_class.display_name }}</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Scenario</th>
+      <td class="govuk-table__cell">{{ scheme.selected_scenario.display_name }}</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Prices count</th>
+      <td class="govuk-table__cell">{{ scheme.prices_count }}</td>
+    </tr>
+  </tbody>
+</table>
