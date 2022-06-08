@@ -6,6 +6,18 @@ from viewer.presenters.helpers import DelegatorMixin
 
 
 def offence_class_presenter_factory_from_pk(pk, count=None):
+    """Create an instance of an offence class presenter from a pk
+
+    Given the pk of an instance of OffenceClass return the correct presenter;
+
+    * For ''; return NullOffenceClassPresenter
+      This is for when no offence class has been chosen from the web interface
+    * For None or 'None'; return an instance of NoneOffenceClassPresenter
+      This is for when a price has no offence class
+    * For an unknown value of pk; return a NoneOffenceClassPresenter
+    * For a fee scheme 9 style pk (single letter frm A to K); return an AlphaOffenceClassPresenter
+    * for a fee scheme 10+ style pk (eg, 3.4); return a NumericOffenceClassPresenter
+    """
     if pk == '':
         return NullOffenceClassPresenter(count=count)
     if pk is None or pk == 'None':
@@ -32,20 +44,32 @@ class AbstractOffenceClassPresenter(ABC):
     @property
     @abstractmethod
     def label(self):
+        """
+        The label to be used in a form
+        """
         pass
 
     @property
     @abstractmethod
     def display_name(self):
+        """
+        The name as it should be displayed
+        """
         pass
 
     @property
     @abstractmethod
     def isNull(self):
+        """
+        Is the null class?
+        """
         pass
 
     @abstractmethod
     def filter(self, collection):
+        """
+        Filter collection for prices with this offence class
+        """
         pass
 
 

@@ -23,6 +23,10 @@ class SchemePresenter(DelegatorMixin):
 
     @property
     def base_type(self):
+        """Base type of the scheme - AGFS or LGFS
+
+        The base type of a scheme in the database is 1 (AGFS) or 2 (LGFS)
+        """
         if self.object.base_type == 1:
             return 'AGFS'
 
@@ -57,6 +61,10 @@ class SchemePresenter(DelegatorMixin):
     @property
     @lru_cache(maxsize=None)
     def prices_count(self):
+        """Total number of prices for scheme
+
+        This count is after the prices list has been filtered
+        """
         return len(self._raw_prices)
 
     @property

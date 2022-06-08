@@ -4,6 +4,9 @@ from viewer.presenters.helpers import DelegatorMixin
 
 
 def price_presenter_factory(price):
+    """
+    Generate a presenter for the price
+    """
     return PricePresenter(price)
 
 
@@ -13,6 +16,9 @@ class AbstractPricePresenter(ABC):
 
     @abstractmethod
     def title(self):
+        """
+        The display title of the price
+        """
         pass
 
 

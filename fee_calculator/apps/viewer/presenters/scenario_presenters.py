@@ -6,6 +6,20 @@ from calculator.models import Scenario
 
 
 def scenario_presenter_factory_from_pk(pk, count=None):
+    """Create an instance of a scenario presenter from a pk
+
+    Given the pk of an instance of Scenario return the correct presenter;
+
+    * For ''; return NullScenarioPresenter
+        This is for when no scenario has been chosen from the web interface
+    * For None or 'None'; return an instance of NoneScenarioPresenter
+        This is for when a price has no offence class
+    * For an unknown value of pk; return a NoneScenarioPresenter
+    * For a known value of pk; return a ScenarioPresenter or a child class of this
+
+    The name field of an scenario is a combination of multiple pieces of information.
+    (TODO) The presenter may be able to display the information separated out.
+    """
     if pk == '':
         return NullScenarioPresenter(count=count)
     if pk is None or pk == 'None':
@@ -49,10 +63,17 @@ class AbstractScenarioPresenter(ABC):
     @property
     @abstractmethod
     def case_type(self):
+        """Case type of the scenario
+
+        This can be, for example, Trial, Retrial, Cracked trial, etc
+        """
         pass
 
     @abstractmethod
     def filter(self, collection):
+        """
+        Filter collection for prices with this offence class
+        """
         pass
 
 
