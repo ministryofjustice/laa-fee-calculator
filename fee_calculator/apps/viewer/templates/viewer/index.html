@@ -17,8 +17,9 @@ Fee Calculator
   <div class="govuk-grid-column-full">
     <nav aria-label="Sub navigation" class="breadcrumbs">
       <ul class="govuk-list">
-        <li><a href="{% url 'viewer:fee_schemes' %}">Fee Schemes</a></li>
-        <li><a href="{% url 'viewer:scenarios' %}">Scenarios</a></li>
+        {% for section in sections %}
+        <li><a href="{% url section.page %}">{{ section.title }}</a></li>
+        {% endfor %}
       </ul>
     </nav>
   </div>
