@@ -12,18 +12,18 @@ def scenario_presenter_factory_from_pk(pk, count=None):
         return NoneScenarioPresenter(count=count)
 
     try:
-        return scenario_presenter_factory(Scenario.objects.get(pk=pk))
+        return scenario_presenter_factory(Scenario.objects.get(pk=pk), count=count)
     except Scenario.DoesNotExist:
         return NoneScenarioPresenter(count=count)
 
 
-def scenario_presenter_factory(scenario):
+def scenario_presenter_factory(scenario, count=None):
     if (scenario.name.startswith('Interim payment - ')):
-        return InterimScenarioPresenter(scenario)
+        return InterimScenarioPresenter(scenario=scenario, count=count)
     if (scenario.name.startswith('Warrant issued - ')):
-        return WarrantScenarioPresenter(scenario)
+        return WarrantScenarioPresenter(scenario=scenario, count=count)
 
-    return ScenarioPresenter(scenario)
+    return ScenarioPresenter(scenario, count=count)
 
 
 class AbstractScenarioPresenter(ABC):

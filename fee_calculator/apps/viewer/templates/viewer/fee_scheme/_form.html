@@ -6,8 +6,8 @@
     </label>
     <select class="govuk-select" id="offence_class" name="offence_class">
       <option value=""></option>
-      {% for item in scheme.offence_classes %}
-      <option value="{{ item.offence_class.label }}">{{ item.offence_class.display_name }}</option>
+      {% for offence_class in scheme.offence_classes %}
+      <option value="{{ offence_class.label }}">{{ offence_class.display_name }}</option>
       {% endfor %}
     </select>
   </div>
@@ -22,8 +22,8 @@
     </label>
     <select class="govuk-select" id="scenario" name="scenario">
       <option value=""></option>
-      {% for item in scheme.scenarios %}
-      <option value="{{ item.scenario.label }}">{{ item.scenario.display_name }}</option>
+      {% for scenario in scheme.scenarios %}
+      <option value="{{ scenario.label }}">{{ scenario.display_name }}</option>
       {% endfor %}
     </select>
   </div>

@@ -64,42 +64,34 @@ class SchemePresenter(DelegatorMixin):
     def offence_classes(self):
         """Fetch list of offence classes related to the scheme
 
-        For each offence class a presenter for the offence class together with a count of the number of prices for this
-        class is returned.
-
         Returns: [
-            { 'offence_class': presenter_for_offence_class, 'count': number_of_prices_for_offence_class },
+            presenter_for_offence_class_1,
+            presenter_for_offence_class_2,
             ...
         ]
         """
         return sorted(list(
             map(
-                lambda pair: {
-                    'offence_class': offence_class_presenter_factory_from_pk(pair[0], count=pair[1]),
-                    'count': pair[1]
-                }, self._tally('offence_class').items()
+                lambda pair: offence_class_presenter_factory_from_pk(pair[0], count=pair[1]),
+                self._tally('offence_class').items()
             )
-        ), key=lambda item: item['offence_class'])
+        ))
 
     @property
     @lru_cache(maxsize=None)
     def scenarios(self):
         """Fetch list of scenarios related to the scheme
 
-        For each scenario a presenter for the scenario together with a count of the number of prices for this scenario
-        is returned.
-
         Returns: [
-            { 'scenario': presenter_for_scenario, 'count': number_of_prices_for_scenario },
+            presenter_for_scenario_1,
+            presenter_for_scenario_2,
             ...
         ]
         """
         return list(
             map(
-                lambda pair: {
-                    'scenario': scenario_presenter_factory_from_pk(pair[0], count=pair[1]),
-                    'count': pair[1]
-                }, self._tally('scenario').items()
+                lambda pair: scenario_presenter_factory_from_pk(pair[0], count=pair[1]),
+                self._tally('scenario').items()
             )
         )
 

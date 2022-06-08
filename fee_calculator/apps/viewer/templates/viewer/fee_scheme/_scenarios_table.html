@@ -7,10 +7,10 @@
     </tr>
   </thead>
   <tbody class="govuk-table__body">
-    {% for item in scenarios %}
+    {% for scenario in scenarios %}
     <tr class="govuk-table__row">
-      <td class="govuk-table__cell">{{ item.scenario.display_name }}</td>
-      <td class="govuk-table__cell">{{ item.count }}</td>
+      <td class="govuk-table__cell">{{ scenario.display_name }}</td>
+      <td class="govuk-table__cell">{{ scenario.count }}</td>
     </tr>
     {% endfor %}
   </tbody>
