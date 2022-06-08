@@ -35,6 +35,11 @@ class SchemePresenter(DelegatorMixin):
     @property
     @lru_cache(maxsize=None)
     def prices(self):
+        """Fetch list of prices for the scheme
+
+        The prices are filtered based on the selected offence class and scenario, if present. The returned value is an
+        array of presenters for the prices.
+        """
         return list(map(lambda price: price_presenter_factory(price), list(self._raw_prices)))
 
     @property
@@ -57,6 +62,16 @@ class SchemePresenter(DelegatorMixin):
     @property
     @lru_cache(maxsize=None)
     def offence_classes(self):
+        """Fetch list of offence classes related to the scheme
+
+        For each offence class a presenter for the offence class together with a count of the number of prices for this
+        class is returned.
+
+        Returns: [
+            { 'offence_class': presenter_for_offence_class, 'count': number_of_prices_for_offence_class },
+            ...
+        ]
+        """
         return sorted(list(
             map(
                 lambda pair: {
@@ -69,6 +84,16 @@ class SchemePresenter(DelegatorMixin):
     @property
     @lru_cache(maxsize=None)
     def scenarios(self):
+        """Fetch list of scenarios related to the scheme
+
+        For each scenario a presenter for the scenario together with a count of the number of prices for this scenario
+        is returned.
+
+        Returns: [
+            { 'scenario': presenter_for_scenario, 'count': number_of_prices_for_scenario },
+            ...
+        ]
+        """
         return list(
             map(
                 lambda pair: {
@@ -80,6 +105,11 @@ class SchemePresenter(DelegatorMixin):
 
     @lru_cache(maxsize=None)
     def _tally(self, field):
+        """Tally prices bases on a field
+
+        Count the number of prices for each value of a field.
+        Returns: { 'field_value_1': count, ... }
+        """
         tally = {}
         for id in self._raw_prices.values(field):
             tally[id[field]] = tally.get(id[field], 0) + 1
