@@ -15,11 +15,11 @@ def scheme_presenter_factory_from_pk(pk, params={}):
 
 
 class SchemePresenter(DelegatorMixin):
-    def __init__(self, scheme, factories={}, selected_offence_class=None, selected_scenario=None):
+    def __init__(self, scheme=None, selected_offence_class=None, selected_scenario=None):
         self.object = scheme
-        self.factories = factories
         self.selected_offence_class = offence_class_presenter_factory_from_pk(selected_offence_class)
         self.selected_scenario = scenario_presenter_factory_from_pk(selected_scenario)
+        super().__init__(scheme)
 
     @property
     def base_type(self):
@@ -31,10 +31,6 @@ class SchemePresenter(DelegatorMixin):
             return 'AGFS'
 
         return 'LGFS'
-
-    def _build_with_factory(self, factory, key):
-        if factory in self.factories is not None:
-            return self.factories[factory].build(key)
 
     @property
     @lru_cache(maxsize=None)

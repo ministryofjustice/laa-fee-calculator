@@ -13,6 +13,10 @@ x.boo()
 """
 
 
-class DelegatorMixin():
+class DelegatorMixin:
+    def __init__(self, object):
+        self._delegator_object = object
+        super().__init__()
+
     def __getattr__(self, name):
-        return getattr(self.object, name)
+        return getattr(self._delegator_object, name)

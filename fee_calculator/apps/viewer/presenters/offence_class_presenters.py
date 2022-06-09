@@ -36,10 +36,11 @@ def _presenter_class(pk):
         return AlphaOffenceClassPresenter
 
 
-class AbstractOffenceClassPresenter(ABC):
+class AbstractOffenceClassPresenter(DelegatorMixin, ABC):
     def __init__(self, offence_class=None, count=None):
-        self.object = offence_class
+        self.offence_class = offence_class
         self.count = count
+        super().__init__(offence_class)
 
     @property
     @abstractmethod
@@ -73,20 +74,20 @@ class AbstractOffenceClassPresenter(ABC):
         pass
 
 
-class OffenceClassPresenter(AbstractOffenceClassPresenter, DelegatorMixin):
+class OffenceClassPresenter(AbstractOffenceClassPresenter):
     @property
     def label(self):
-        return self.object.id
+        return self.offence_class.id
 
     @property
     def isNull(self):
         return False
 
     def filter(self, collection):
-        return collection.filter(offence_class=self.object)
+        return collection.filter(offence_class=self.offence_class)
 
     def __eq__(self, other):
-        return self.object == other.object
+        return self.offence_class == other.offence_class
 
 
 @total_ordering
@@ -94,9 +95,9 @@ class AlphaOffenceClassPresenter(OffenceClassPresenter):
     @property
     def display_name(self):
         if self.count is None:
-            return '[%s] %s' % (self.object.id, self.object.description)
+            return '[%s] %s' % (self.offence_class.id, self.offence_class.description)
 
-        return '[%s] %s (%i)' % (self.object.id, self.object.description, self.count)
+        return '[%s] %s (%i)' % (self.offence_class.id, self.offence_class.description, self.count)
 
     def __lt__(self, other):
         if isinstance(other, (NoneOffenceClassPresenter, NullOffenceClassPresenter)):
@@ -116,9 +117,9 @@ class NumericOffenceClassPresenter(OffenceClassPresenter):
     @property
     def display_name(self):
         if self.count is None:
-            return '%s' % (self.object.name)
+            return '%s' % (self.offence_class.name)
 
-        return '%s (%i)' % (self.object.name, self.count)
+        return '%s (%i)' % (self.offence_class.name, self.count)
 
     def __lt__(self, other):
         if isinstance(other, (AlphaOffenceClassPresenter, NoneOffenceClassPresenter, NullOffenceClassPresenter)):

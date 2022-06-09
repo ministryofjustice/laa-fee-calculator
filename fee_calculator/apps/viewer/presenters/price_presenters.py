@@ -10,9 +10,10 @@ def price_presenter_factory(price):
     return PricePresenter(price)
 
 
-class AbstractPricePresenter(ABC):
+class AbstractPricePresenter(DelegatorMixin, ABC):
     def __init__(self, price=None):
-        self.object = price
+        self.price = price
+        super().__init__(price)
 
     @abstractmethod
     def title(self):
@@ -22,6 +23,6 @@ class AbstractPricePresenter(ABC):
         pass
 
 
-class PricePresenter(AbstractPricePresenter, DelegatorMixin):
+class PricePresenter(AbstractPricePresenter):
     def title(self):
-        return '%s | %s | %s' % (self.object.advocate_type, self.object.offence_class, self.object.fee_type)
+        return '%s | %s | %s' % (self.price.advocate_type, self.price.offence_class, self.price.fee_type)

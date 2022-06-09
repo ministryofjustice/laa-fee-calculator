@@ -40,10 +40,11 @@ def scenario_presenter_factory(scenario, count=None):
     return ScenarioPresenter(scenario, count=count)
 
 
-class AbstractScenarioPresenter(ABC):
+class AbstractScenarioPresenter(DelegatorMixin, ABC):
     def __init__(self, scenario=None, count=None):
-        self.object = scenario
+        self.scenario = scenario
         self.count = count
+        super().__init__(scenario)
 
     @property
     @abstractmethod
@@ -77,17 +78,17 @@ class AbstractScenarioPresenter(ABC):
         pass
 
 
-class ScenarioPresenter(AbstractScenarioPresenter, DelegatorMixin):
+class ScenarioPresenter(AbstractScenarioPresenter):
     @property
     def label(self):
-        return str(self.object.pk)
+        return str(self.scenario.pk)
 
     @property
     def display_name(self):
         if self.count is None:
-            return self.object.name
+            return self.scenario.name
 
-        return '%s (%i)' % (self.object.name, self.count)
+        return '%s (%i)' % (self.scenario.name, self.count)
 
     @property
     def isNull(self):
@@ -95,23 +96,23 @@ class ScenarioPresenter(AbstractScenarioPresenter, DelegatorMixin):
 
     @property
     def case_type(self):
-        return self.object.name
+        return self.scenario.name
 
     def filter(self, collection):
-        return collection.filter(scenario=self.object)
+        return collection.filter(scenario=self.scenario)
 
 
 class InterimScenarioPresenter(ScenarioPresenter):
     @property
     def case_type(self):
-        match = re.search('(?<=- )[^\s]*', self.object.name)
+        match = re.search('(?<=- )[^\s]*', self.scenario.name)
         return match.group(0).strip().capitalize()
 
 
 class WarrantScenarioPresenter(ScenarioPresenter):
     @property
     def case_type(self):
-        match = re.search('(?<=- )[^\(]*', self.object.name)
+        match = re.search('(?<=- )[^\(]*', self.scenario.name)
         return match.group(0).strip().capitalize()
 
 
