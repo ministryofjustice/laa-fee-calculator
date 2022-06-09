@@ -31,9 +31,10 @@ def offence_class_presenter_factory_from_pk(pk, count=None):
 def _presenter_class(pk):
     try:
         float(pk)
-        return NumericOffenceClassPresenter
     except ValueError:
         return AlphaOffenceClassPresenter
+    else:
+        return NumericOffenceClassPresenter
 
 
 class AbstractOffenceClassPresenter(DelegatorMixin, ABC):
