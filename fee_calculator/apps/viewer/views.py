@@ -1,10 +1,12 @@
 from django.shortcuts import render
+from django.views.decorators.http import require_GET
 
 from calculator.models import Scheme, Scenario
 from viewer.presenters.scheme_presenters import scheme_presenter_factory_from_pk
 from viewer.presenters.scenario_presenters import scenario_presenter_factory
 
 
+@require_GET
 def index(request):
     sections = [
         {'page': 'viewer:fee_schemes', 'title': 'Fee Schemes'},
@@ -15,6 +17,7 @@ def index(request):
     return render(request, 'viewer/index.html', {'sections': sections})
 
 
+@require_GET
 def fee_schemes(request):
     breadcrumbs = [{'text': 'Home', 'route': 'viewer:index'}]
     schemes = Scheme.objects.all
@@ -22,6 +25,7 @@ def fee_schemes(request):
     return render(request, 'viewer/fee_schemes.html', {'schemes': schemes, 'breadcrumbs': breadcrumbs})
 
 
+@require_GET
 def fee_scheme(request, pk):
     breadcrumbs = [{'text': 'Home', 'route': 'viewer:index'}, {'text': 'Fee Schemes', 'route': 'viewer:fee_schemes'}]
     scheme = scheme_presenter_factory_from_pk(pk=pk, params=request.GET)
@@ -40,6 +44,7 @@ def fee_scheme(request, pk):
     )
 
 
+@require_GET
 def scenarios(request):
     breadcrumbs = [{'text': 'Home', 'route': 'viewer:index'}]
     scenarios = list(map(lambda scenario: scenario_presenter_factory(scenario), Scenario.objects.all()))
