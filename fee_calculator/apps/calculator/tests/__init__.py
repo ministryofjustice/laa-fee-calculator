@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.core.management import call_command
-from django.test.runner import DiscoverRunner
+from xmlrunner.extra.djangotestrunner import XMLTestRunner
 
 
-class PreloadDataDiscoverRunner(DiscoverRunner):
+class PreloadDataDiscoverRunner(XMLTestRunner):
 
     def setup_databases(self, **kwargs):
         config = super().setup_databases(**kwargs)

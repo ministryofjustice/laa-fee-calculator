@@ -232,6 +232,7 @@ AUTODISCOVER_HEALTHCHECKS = True
 CORS_ALLOW_ALL_ORIGINS = True
 
 TEST_RUNNER = 'calculator.tests.PreloadDataDiscoverRunner'
+TEST_OUTPUT_DIR = 'tmp/test-reports'
 
 ADMIN_ENABLED = False
 
