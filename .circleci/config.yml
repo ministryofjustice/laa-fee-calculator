@@ -133,7 +133,7 @@ jobs:
       - run:
           name: Split and run tests
           command: |
-            TESTDOTPATHS=$(circleci tests glob "fee_calculator/apps/calculator/tests/**/test_*.py" | sed -e 's|\.py||g' -e 's|/|.|g' | circleci tests split)
+            TESTDOTPATHS=$(circleci tests glob "fee_calculator/apps/calculator/tests/**/test_*.py" "fee_calculator/apps/api/tests/**/test_*.py" | sed -e 's|\.py||g' -e 's|/|.|g' | circleci tests split)
             venv/bin/python -m coverage run --parallel-mode manage.py test $TESTDOTPATHS --verbosity=1 --noinput
             mv .coverage* tmp/coverage
       - persist_to_workspace:
