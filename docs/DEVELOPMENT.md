@@ -77,6 +77,13 @@ DEBUG="True" venv/bin/python manage.py runserver 8000
 venv/bin/python manage.py test
 ```
 
+* Run the test suite and report on code coverage metrics
+
+```
+venv/bin/python -m coverage run manage.py test
+venv/bin/python -m coverage report
+```
+
 * Run an individual test
 
 ```

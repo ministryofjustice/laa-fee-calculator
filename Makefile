@@ -1,5 +1,7 @@
 px=venv/bin/pip
-pyman=venv/bin/python manage.py
+py=venv/bin/python
+man=manage.py
+pyman=${py} ${man}
 
 default: help
 
@@ -22,4 +24,5 @@ dbreset: #: clear data and drop app tables
 	${pyman} flush --no-input
 	${pyman} migrate calculator zero
 test: #: run test suite
-	${pyman} test --verbosity=1 --noinput
+	${py} -m coverage run ${man} test --verbosity=1 --noinput
+	${py} -m coverage report
