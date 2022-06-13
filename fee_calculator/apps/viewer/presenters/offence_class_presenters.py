@@ -159,7 +159,7 @@ class NoneOffenceClassPresenter(AbstractOffenceClassPresenter):
 
     @property
     def isNull(self):
-        False
+        return False
 
     def filter(self, collection):
         return collection.filter(offence_class=None)
