@@ -9,7 +9,13 @@ references:
         apk add python3-dev
         `which python3` -m venv venv
         venv/bin/pip install -U setuptools pip wheel
-        venv/bin/pip install -r requirements/base.txt
+        venv/bin/pip install -r requirements/circleci.txt
+
+  create-tmp-dir: &create-tmp-dir
+    run:
+      name: Create workspace temporary directories
+      command: |
+        mkdir -p tmp/coverage/
 
 # ------------------
 # EXECUTORS
@@ -118,11 +124,34 @@ jobs:
     steps:
       - checkout
       - *setup_python_env
+      - *create-tmp-dir
+      - save_cache:
+          key: laa-fee-calculator-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/project
       - run:
           name: Split and run tests
           command: |
-            TESTDOTPATHS=$(circleci tests glob "fee_calculator/apps/calculator/tests/**/test_*.py" | sed -e 's|\.py||g' -e 's|/|.|g' | circleci tests split)
-            venv/bin/python manage.py test $TESTDOTPATHS --verbosity=1 --noinput
+            TESTDOTPATHS=$(circleci tests glob "fee_calculator/apps/calculator/tests/**/test_*.py" "fee_calculator/apps/api/tests/**/test_*.py" | sed -e 's|\.py||g' -e 's|/|.|g' | circleci tests split)
+            venv/bin/python -m coverage run --parallel-mode manage.py test $TESTDOTPATHS --verbosity=1 --noinput
+            mv .coverage* tmp/coverage
+      - persist_to_workspace:
+          root: tmp
+          paths:
+            - coverage
+
+  combine_test_coverage:
+    executor: cloud-platform-executor
+    steps:
+      - attach_workspace:
+          at: tmp
+      - restore_cache:
+          key: laa-fee-calculator-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: Combine and report on test coverage
+          command: |
+            venv/bin/python -m coverage combine tmp/coverage
+            venv/bin/python -m coverage report
 
   build_and_push_image:
     executor: cloud-platform-executor
@@ -162,9 +191,12 @@ workflows:
   build-test-and-approval-deploy:
     jobs:
       - test
-      - build_and_push_image:
+      - combine_test_coverage:
           requires:
             - test
+      - build_and_push_image:
+          requires:
+            - combine_test_coverage
           context:
             - laa-fee-calculator-base
       - dev_deploy_approval:

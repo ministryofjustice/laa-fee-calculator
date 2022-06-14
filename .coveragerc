@@ -1,0 +1,11 @@
+[run]
+source = fee_calculator/apps
+omit =
+    */tests/*
+    */management/*
+    */migrations/*
+
+[report]
+fail_under = 95
+show_missing = True
+skip_covered = True
