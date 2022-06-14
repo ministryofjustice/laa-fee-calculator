@@ -9,8 +9,7 @@ references:
         apk add python3-dev
         `which python3` -m venv venv
         venv/bin/pip install -U setuptools pip wheel
-        venv/bin/pip install -r requirements/base.txt
-        venv/bin/pip install -U coverage
+        venv/bin/pip install -r requirements/circleci.txt
 
   create-tmp-dir: &create-tmp-dir
     run:
