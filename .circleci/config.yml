@@ -1,16 +1,6 @@
 version: 2.1
 
 references:
-  setup_python_env: &setup_python_env
-    run:
-      name: Set up python dependencies
-      command: |
-        apk add linux-headers
-        apk add python3-dev
-        `which python3` -m venv venv
-        venv/bin/pip install -U setuptools pip wheel
-        venv/bin/pip install -r requirements/circleci.txt
-
   create-tmp-dir: &create-tmp-dir
     run:
       name: Create workspace temporary directories
@@ -33,6 +23,26 @@ executors:
 # COMMANDS
 # ------------------
 commands:
+  setup_python_env:
+    description: >
+      Install, or restore from cache, python dependencies
+    steps:
+      - restore_cache:
+          keys:
+            - laa-fee-calculator-v1-{{ checksum "requirements/circleci.txt" }}
+      - run:
+          name: Set up python dependencies
+          command: |
+            apk add linux-headers
+            apk add python3-dev
+            `which python3` -m venv venv
+            venv/bin/pip install -U setuptools pip wheel
+            venv/bin/pip install -r requirements/circleci.txt
+      - save_cache:
+          key: laa-fee-calculator-v1-{{ checksum "requirements/circleci.txt" }}
+          paths:
+            - "~/.cache/pip"
+
   build-image:
     description: >
       Build laa-fee-calculator docker image
@@ -122,7 +132,7 @@ jobs:
     executor: cloud-platform-executor
     steps:
       - checkout
-      - *setup_python_env
+      - setup_python_env
       - run:
           name: Run flake8
           command: venv/bin/python -m flake8
@@ -132,12 +142,8 @@ jobs:
     parallelism: 2
     steps:
       - checkout
-      - *setup_python_env
+      - setup_python_env
       - *create-tmp-dir
-      - save_cache:
-          key: laa-fee-calculator-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-            - ~/project
       - run:
           name: Split and run tests
           command: |
@@ -159,12 +165,8 @@ jobs:
     parallelism: 1
     steps:
       - checkout
-      - *setup_python_env
+      - setup_python_env
       - *create-tmp-dir
-      - save_cache:
-          key: laa-fee-calculator-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-            - ~/project
       - run:
           name: Split and run tests
           command: |
@@ -179,10 +181,10 @@ jobs:
   combine_test_coverage:
     executor: cloud-platform-executor
     steps:
+      - checkout
+      - setup_python_env
       - attach_workspace:
           at: tmp
-      - restore_cache:
-          key: laa-fee-calculator-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Combine and report on test coverage
           command: |
