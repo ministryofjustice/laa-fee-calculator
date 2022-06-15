@@ -4,15 +4,16 @@ from decimal import Decimal
 import math
 
 from django.conf import settings
-from django.test import TestCase
+from django.test import SimpleTestCase
 from rest_framework import status
 
 from calculator.tests.lib.utils import scenario_clf_to_id, scenario_ccr_to_id
 from calculator.models import Price, FeeType
 
 
-class CalculatorTestCase(TestCase):
+class CalculatorTestCase(SimpleTestCase):
     scheme_id = NotImplemented
+    databases = ['default']
 
     def endpoint(self):
         return '/api/{version}/fee-schemes/{scheme_id}/calculate/'.format(

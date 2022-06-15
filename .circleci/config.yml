@@ -132,7 +132,10 @@ jobs:
       - run:
           name: Split and run tests
           command: |
-            TESTDOTPATHS=$(circleci tests glob "fee_calculator/apps/calculator/tests/**/test_*.py" "fee_calculator/apps/api/tests/**/test_*.py" | sed -e 's|\.py||g' -e 's|/|.|g' | circleci tests split)
+            TESTDOTPATHS=$(circleci tests glob "fee_calculator/apps/calculator/tests/**/test_*.py" "fee_calculator/apps/api/tests/**/test_*.py" | sed 's/\S\+__init__.py//g')
+            echo $TESTDOTPATHS | tr ' ' '\n' | sort | uniq > circleci_test_files.txt
+            TESTDOTPATHS=$(circleci tests split --split-by=timings circleci_test_files.txt)
+            TESTDOTPATHS=$(echo $TESTDOTPATHS | tr "/" "." | sed 's/.py//g')
             venv/bin/python -m coverage run --parallel-mode manage.py test $TESTDOTPATHS --verbosity=1 --noinput
             mv .coverage.* tmp/coverage
       - persist_to_workspace:
@@ -162,6 +165,8 @@ jobs:
           root: tmp
           paths:
             - coverage
+      - store_test_results:
+          path: tmp/test-reports
 
   combine_test_coverage:
     executor: cloud-platform-executor
