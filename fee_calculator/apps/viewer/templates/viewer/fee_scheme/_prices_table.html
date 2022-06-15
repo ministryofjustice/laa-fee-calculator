@@ -1,0 +1,33 @@
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Prices</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Scenario</th>
+      <th scope="row" class="govuk-table__header">Advocate Type</th>
+      <th scope="row" class="govuk-table__header">Offence Class</th>
+      <th scope="row" class="govuk-table__header">Fee Type</th>
+      <th scope="row" class="govuk-table__header">Unit</th>
+      <th scope="row" class="govuk-table__header">Fixed Fee</th>
+      <th scope="row" class="govuk-table__header">Fee/Unit</th>
+      <th scope="row" class="govuk-table__header">Limit from</th>
+      <th scope="row" class="govuk-table__header">Limit to</th>
+      <th scope="row" class="govuk-table__header">Strict range</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    {% for price in prices %}
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">{{ price.scenario }}</td>
+      <td class="govuk-table__cell">{{ price.advocate_type }}</td>
+      <td class="govuk-table__cell">{{ price.offence_class }}</td>
+      <td class="govuk-table__cell">{{ price.fee_type }}</td>
+      <td class="govuk-table__cell">{{ price.unit }}</td>
+      <td class="govuk-table__cell">{{ price.fixed_fee|floatformat:2 }}</td>
+      <td class="govuk-table__cell">{{ price.fee_per_unit|floatformat:2 }}</td>
+      <td class="govuk-table__cell">{{ price.limit_from }}</td>
+      <td class="govuk-table__cell">{{ price.limit_to }}</td>
+      <td class="govuk-table__cell">{{ price.strict_range }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

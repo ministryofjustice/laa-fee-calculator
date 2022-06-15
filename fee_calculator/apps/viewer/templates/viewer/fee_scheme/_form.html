@@ -1,0 +1,64 @@
+<form action="{% url 'viewer:fee_scheme' pk=scheme.pk %}" method="get">
+  {% if scheme.selected_offence_class.isNull %}
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="offence_class">
+      Offence class
+    </label>
+    <select class="govuk-select" id="offence_class" name="offence_class">
+      <option value=""></option>
+      {% for offence_class in scheme.offence_classes %}
+      <option value="{{ offence_class.label }}">{{ offence_class.display_name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% else %}
+  <input type="hidden" name="offence_class" value="{{ scheme.selected_offence_class.label }}">
+  {% endif %}
+
+  {% if scheme.selected_scenario.isNull %}
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="scenario">
+      Scenario
+    </label>
+    <select class="govuk-select" id="scenario" name="scenario">
+      <option value=""></option>
+      {% for scenario in scheme.scenarios %}
+      <option value="{{ scenario.label }}">{{ scenario.display_name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% else %}
+  <input type="hidden" name="scenario" value="{{ scheme.selected_scenario.label }}">
+  {% endif %}
+
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend">
+        <p>View prices as ...</p>
+      </legend>
+      <div class="govuk-radios" data-module="govuk-radios">
+        <div class="govuk-radios__item">
+          <input {{ prices_view.table }} class="govuk-radios__input" id="view-prices-as-table" name="prices_view"
+            type="radio" value="table">
+          <label class="govuk-label govuk-radios__label" for="view-prices-as-table">
+            Table
+          </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input {{ prices_view.cards }} class="govuk-radios__input" id="view-prices-as-cards" name="prices_view"
+            type="radio" value="cards">
+          <label class="govuk-label govuk-radios__label" for="view-prices-as-cards">
+            Cards
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <button class="govuk-button" data-module="govuk-button">
+    Filter
+  </button>
+  <a href="{% url 'viewer:fee_scheme' pk=scheme.pk %}" role="button" class="govuk-button govuk-button--warning">
+    Reset
+  </a>
+</form>

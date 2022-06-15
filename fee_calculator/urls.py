@@ -28,6 +28,7 @@ urlpatterns = [
         name='ping_json'),
     url(r'^healthcheck.json$', HealthcheckView.as_view(),
         name='healthcheck_json'),
+    url(r'^viewer/', include('viewer.urls'))
 ]
 
 

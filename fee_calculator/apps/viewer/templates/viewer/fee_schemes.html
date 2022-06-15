@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block breadcrumbs %}
+{% include '_breadcrumbs.html' with breadcrumbs=breadcrumbs %}
+{% endblock breadcrumbs %}
+
+{% block title %}
+Fee Calculator - Fee Schemes
+{% endblock title %}
+
+{% block main_heading %}
+Fee Schemes
+{% endblock main_heading %}
+
+{% block content %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">All fee schemes</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Description</th>
+      <th scope="col" class="govuk-table__header">Base</th>
+      <th scope="col" class="govuk-table__header">Start Date</th>
+      <th scope="col" class="govuk-table__header">End Date</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    {% for scheme in schemes %}
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">
+        <a href="{% url 'viewer:fee_scheme' pk=scheme.pk %}">{{ scheme.description }}</a>
+      </td>
+      <td class="govuk-table__cell">
+        {% if scheme.base_type == 1 %}
+        AGFS
+        {% else %}
+        LGFS
+        {% endif %}
+      </td>
+      <td class="govuk-table__cell">{{ scheme.start_date }}</td>
+      <td class="govuk-table__cell">{{ scheme.end_date|default_if_none:"Present" }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}

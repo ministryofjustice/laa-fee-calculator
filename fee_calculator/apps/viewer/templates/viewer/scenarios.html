@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block breadcrumbs %}
+{% include '_breadcrumbs.html' with breadcrumbs=breadcrumbs %}
+{% endblock breadcrumbs %}
+
+{% block title %}
+Fee Calculator - Scenarios
+{% endblock title %}
+
+{% block main_heading %}
+Scenarios
+{% endblock main_heading %}
+
+{% block content %}
+<table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">All scenarios</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Name</th>
+      <th scope="col" class="govuk-table__header">Case type</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    {% for scenario in scenarios %}
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">{{ scenario.display_name }}</td>
+      <td class="govuk-table__cell">{{ scenario.case_type }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block breadcrumbs %}
+{% include '_breadcrumbs.html' with breadcrumbs=breadcrumbs %}
+{% endblock breadcrumbs %}
+
+{% block title %}
+Fee Calculator
+{% endblock title %}
+
+{% block main_heading %}
+Fee Calculator
+{% endblock main_heading %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <nav aria-label="Sub navigation" class="breadcrumbs">
+      <ul class="govuk-list">
+        {% for section in sections %}
+        <li><a href="{% url section.page %}">{{ section.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</div>
+{% endblock content %}
