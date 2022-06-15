@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.decorators.http import require_GET
+from django.http import Http404
 
 from calculator.models import Scheme, Scenario
 from viewer.presenters.scheme_presenters import scheme_presenter_factory_from_pk
@@ -28,7 +29,10 @@ def fee_schemes(request):
 @require_GET
 def fee_scheme(request, pk):
     breadcrumbs = [{'text': 'Home', 'route': 'viewer:index'}, {'text': 'Fee Schemes', 'route': 'viewer:fee_schemes'}]
-    scheme = scheme_presenter_factory_from_pk(pk=pk, params=request.GET)
+    try:
+        scheme = scheme_presenter_factory_from_pk(pk=pk, params=request.GET)
+    except Scheme.DoesNotExist:
+        raise Http404
 
     prices_view = {'table': '', 'cards': ''}
     prices_view[request.GET.get('prices_view', 'table')] = 'checked'
