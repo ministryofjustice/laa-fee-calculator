@@ -130,11 +130,34 @@ jobs:
           paths:
             - ~/project
       - run:
-          name: Split and run calculator tests
+          name: Split and run tests
           command: |
             TESTDOTPATHS=$(circleci tests glob "fee_calculator/apps/calculator/tests/**/test_*.py" "fee_calculator/apps/api/tests/**/test_*.py" | sed -e 's|\.py||g' -e 's|/|.|g' | circleci tests split)
             venv/bin/python -m coverage run --parallel-mode manage.py test $TESTDOTPATHS --verbosity=1 --noinput
-            mv .coverage* tmp/coverage
+            mv .coverage.* tmp/coverage
+      - persist_to_workspace:
+          root: tmp
+          paths:
+            - coverage
+
+  test-viewer:
+    executor: cloud-platform-executor
+    parallelism: 1
+    steps:
+      - checkout
+      - *setup_python_env
+      - *create-tmp-dir
+      - save_cache:
+          key: laa-fee-calculator-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/project
+      - run:
+          name: Split and run tests
+          command: |
+            TESTDOTPATHS=$(circleci tests glob "fee_calculator/apps/viewer/tests/**/test_*.py" | sed -e 's|\.py||g' -e 's|/|.|g' | circleci tests split)
+            venv/bin/python -m coverage run --parallel-mode manage.py test $TESTDOTPATHS --verbosity=1 --noinput
+            ls .coverage*
+            mv .coverage.* tmp/coverage
       - persist_to_workspace:
           root: tmp
           paths:
@@ -152,15 +175,6 @@ jobs:
           command: |
             venv/bin/python -m coverage combine tmp/coverage
             venv/bin/python -m coverage report
-
-  test-viewer:
-    executor: cloud-platform-executor
-    steps:
-      - checkout
-      - *setup_python_env
-      - run:
-          name: Run viewer tests
-          command: venv/bin/python manage.py test fee_calculator/apps/viewer/tests --verbosity=3 --noinput
 
   build_and_push_image:
     executor: cloud-platform-executor
