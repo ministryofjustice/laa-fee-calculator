@@ -164,9 +164,9 @@ class Command(BaseCommand):
                     options['agfs_10_misc_fees']
                 )
 
-
+# flake8: noqa: C901 Ignore Flake8 complexity check
 @atomic
-def generate_lgfs_fees(lgfs_scheme, ppe_fees_path, daily_fees_path):  # noqa: C901 Ignore Flake8 complexity check
+def generate_lgfs_fees(lgfs_scheme, ppe_fees_path, daily_fees_path):
     lit_fee_type = FeeType.objects.get(pk=54)
     day_unit = Unit.objects.get(pk='DAY')
     ppe_unit = Unit.objects.get(pk='PPE')
@@ -384,9 +384,9 @@ def generate_lgfs_warrant_fees(scheme_id):
     ]:
         clone_prices(base_scenario_id, new_scenario)
 
-
+# flake8: noqa: C901 Ignore Flake8 complexity check
 @atomic
-def generate_agfs10_fees(agfs_scheme, basic_fees_path, misc_fees_path):  # noqa: C901 Ignore Flake8 complexity check
+def generate_agfs10_fees(agfs_scheme, basic_fees_path, misc_fees_path):
     basic_agfs_fee = FeeType.objects.get(pk=34)
 
     day_unit = Unit.objects.get(pk='DAY')

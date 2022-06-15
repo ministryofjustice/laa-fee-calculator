@@ -118,6 +118,15 @@ commands:
 # JOBS
 # ------------------
 jobs:
+  linting:
+    executor: cloud-platform-executor
+    steps:
+      - checkout
+      - *setup_python_env
+      - run:
+          name: Run flake8
+          command: venv/bin/python -m flake8
+
   test-calculator:
     executor: cloud-platform-executor
     parallelism: 2
@@ -220,12 +229,14 @@ workflows:
     jobs:
       - test-calculator
       - test-viewer
+      - linting
       - combine_test_coverage:
           requires:
             - test-calculator
             - test-viewer
       - build_and_push_image:
           requires:
+            - linting
             - combine_test_coverage
           context:
             - laa-fee-calculator-base
