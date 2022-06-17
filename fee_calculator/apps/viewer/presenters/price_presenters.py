@@ -1,5 +1,3 @@
-from abc import ABC, abstractmethod
-
 from viewer.presenters.helpers import DelegatorMixin
 
 

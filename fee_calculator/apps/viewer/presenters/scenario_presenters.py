@@ -105,14 +105,14 @@ class ScenarioPresenter(AbstractScenarioPresenter):
 class InterimScenarioPresenter(ScenarioPresenter):
     @property
     def case_type(self):
-        match = re.search('(?<=- )[^\s]*', self.scenario.name)
+        match = re.search(r'(?<=- )[^\s]*', self.scenario.name)
         return match.group(0).strip().capitalize()
 
 
 class WarrantScenarioPresenter(ScenarioPresenter):
     @property
     def case_type(self):
-        match = re.search('(?<=- )[^\(]*', self.scenario.name)
+        match = re.search(r'(?<=- )[^\(]*', self.scenario.name)
         return match.group(0).strip().capitalize()
 
 
