@@ -12,16 +12,6 @@ metadata:
   namespace: laa-fee-calculator-staging
 spec:
   rules:
-    - host: laa-fee-calculator-staging.apps.live-1.cloud-platform.service.justice.gov.uk
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: laa-fee-calculator
-              port:
-                number: 8080
     - host: staging.laa-fee-calculator.service.justice.gov.uk
       http:
         paths:
@@ -33,8 +23,6 @@ spec:
               port:
                 number: 8080
   tls:
-    - hosts:
-      - laa-fee-calculator-staging.apps.live-1.cloud-platform.service.justice.gov.uk
     - hosts:
       - staging.laa-fee-calculator.service.justice.gov.uk
       secretName: laa-fee-calculator-staging-cert
