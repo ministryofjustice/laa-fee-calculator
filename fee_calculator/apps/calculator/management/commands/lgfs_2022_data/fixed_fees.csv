@@ -1,0 +1,11 @@
+﻿scenario,scenario_name,fee
+5,Appeal against conviction,401.89
+6,Appeal against sentence,178.62
+7,Committal for sentence,267.93
+8,Contempt,133.96
+9,Breach of crown court order,89.31
+32,Hearing subsequent to sentence,178.62
+51,Warrant issued - appeal against conviction,401.89
+52,Warrant issued - appeal against sentence,178.62
+53,Warrant issued - committal for sentence,267.93
+54,Warrant issued - breach of crown court order,89.31
