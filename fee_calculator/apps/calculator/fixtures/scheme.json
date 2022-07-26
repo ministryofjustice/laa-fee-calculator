@@ -14,7 +14,7 @@
     "pk": 2,
     "fields": {
       "start_date": "2016-04-01",
-      "end_date": "2022-09-29",
+      "end_date": "2022-05-31",
       "base_type": 2,
       "description": "LGFS Fee Scheme 2016-04"
     }
@@ -53,7 +53,7 @@
     "model": "calculator.scheme",
     "pk": 6,
     "fields": {
-      "start_date": "2022-09-30",
+      "start_date": "2022-06-01",
       "end_date": null,
       "base_type": 2,
       "description": "LGFS Fee Scheme 10 (2022-09 - CLAIR)"
