@@ -44,7 +44,7 @@
     "pk": 5,
     "fields": {
       "start_date": "2020-09-17",
-      "end_date": null,
+      "end_date": "2022-09-29",
       "base_type": 1,
       "description": "AGFS Fee Scheme 12 - CLAR accelerated measures"
     }
@@ -57,6 +57,16 @@
       "end_date": null,
       "base_type": 2,
       "description": "LGFS Fee Scheme 10 (2022-09 - CLAIR)"
+    }
+  },
+  {
+    "model": "calculator.scheme",
+    "pk": 7,
+    "fields": {
+      "start_date": "2022-09-30",
+      "end_date": null,
+      "base_type": 1,
+      "description": "AGFS Fee Scheme 13 (2022-09 - CLAIR)"
     }
   }
 ]
