@@ -27,9 +27,10 @@ class Command(BaseCommand):
 
         with open(filename, 'r') as csv_file, temp_file:
             reader = csv.DictReader(csv_file)
-            field_names = '''CASE_ID,PERSON_TYPE,BILL_TYPE,BILL_SUB_TYPE,REP_ORD_DATE,BILL_SCENARIO_ID,OFFENCE_CATEGORY,\
-                             TRIAL_LENGTH,PPE,NO_DEFENDANTS,CALC_FEE_EXC_VAT,CALC_FEE_VAT,THIRD_CRACKED,NUM_OF_WITNESSES,\
-                             NUM_OF_CASES,QUANTITY,NUM_ATTENDANCE_DAYS,RETRIAL,MONTHS'''.replace(" ", "").split(',')
+            field_names = '''CASE_ID,PERSON_TYPE,BILL_TYPE,BILL_SUB_TYPE,REP_ORD_DATE,BILL_SCENARIO_ID,\
+                             OFFENCE_CATEGORY,TRIAL_LENGTH,PPE,NO_DEFENDANTS,CALC_FEE_EXC_VAT,\
+                             CALC_FEE_VAT,THIRD_CRACKED,NUM_OF_WITNESSES,NUM_OF_CASES,QUANTITY,\
+                             NUM_ATTENDANCE_DAYS,RETRIAL,MONTHS'''.replace(" ", "").split(',')
             writer = csv.DictWriter(
                 temp_file, fieldnames=field_names, lineterminator='\n')
             writer.writeheader()
