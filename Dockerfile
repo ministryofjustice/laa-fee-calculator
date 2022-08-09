@@ -20,7 +20,7 @@ RUN addgroup --gid 1000 --system appgroup \
 # setup environment
 RUN \
   set -ex \
-  && apk update \
+  && apk --update-cache upgrade \
   && apk add \
     --virtual \
     tzdata \
