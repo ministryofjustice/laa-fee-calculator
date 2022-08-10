@@ -24,9 +24,11 @@ scenario_codes = {
     'Cracked trial': 'C',
     'Trial': 'T',
     # TODO: Check the correct codes for these scenarios
-    'Retrial': 'T',
-    'Cracked before retrial': 'C',
+    'Retrial': 'T',  # Percentage of basic fee
+    'Cracked before retrial': 'C',  # Percentage of basic fee
     'Discontinuance': 'P',
+    # Mapping for 'warrant issued' depends on when the warrant was issued
+    # Not clear where 'trial' is the only scenario
     'Warrant issued - trial': 'P'
 }
 
@@ -77,8 +79,36 @@ class Command(BaseCommand):
                 elected_case_count += 1
                 continue
 
+            # fixed and misc fees
+            if price.offence_class is None:
+                print('Offence Class: NONE')
+                print(f'  Advocate: {price.advocate_type.name}')
+                print(f'  Fee type: {price.fee_type.name}')
+                print(f'  Fee per unit: {price.fee_per_unit}')
+
+                if price.fee_per_unit == 0:
+                    fixed_and_misc_fee_zero_count += 1
+                    continue
+
+                new_price = fixed_and_misc_fee_for(price.fee_type.name, price.advocate_type)
+                print(f'  New fee: {new_price}')
+
+                if float(price.fee_per_unit) == float(new_price):
+                    fixed_and_misc_fee_count += 1
+                    continue
+
+                if (abs(float(price.fee_per_unit)*1.15 - new_price) > 1):
+                    fixed_and_misc_fee_skip_count += 1
+                    print('  MORE THAN £1 DIFFERENCT FROM 15% UPLIFT - NOT CHANGING')
+                    continue
+                else:
+                    price.fee_per_unit = new_price
+                    price.save()
+                    fixed_and_misc_fee_count += 1
+                    continue
+
             # basic fees. updated based on values held in agfs_2022_data/basic_fees.csv
-            if price.offence_class is not None:
+            else:
                 if price.scenario.name == 'Cracked before retrial':
                     new_price = basic_fixed_fee_for(price.offence_class, price.advocate_type, price.scenario)
                     print(f'Offence Class: {price.offence_class.id} - {price.offence_class.name}')
@@ -108,78 +138,34 @@ class Command(BaseCommand):
                         print('  FAILED TO SET NEW PRICE')
                         continue
 
-                if price.fixed_fee > 0:
-                    new_price = basic_fixed_fee_for(price.offence_class, price.advocate_type, price.scenario)
-                    print(f'Offence Class: {price.offence_class.id} - {price.offence_class.name}')
-                    print(f'               {price.offence_class.description}')
-                    print(f'  {price.id}')
-                    print(f'  Advocate type: {price.advocate_type.name}')
-                    print(f'  Scenario: {price.scenario.name}')
-                    print('  Fixed fee:     £{:.2f}'.format(price.fixed_fee))
-                    print('  New basic fee: £{:.2f}'.format(new_price))
-                    if price.fixed_fee == new_price:
-                        basic_fee_count += 1
-                        continue
+                new_price = basic_fixed_fee_for(price.offence_class, price.advocate_type,
+                                                price.scenario, price.fixed_fee == 0)
+                print(f'Offence Class: {price.offence_class.id} - {price.offence_class.name}')
+                print(f'               {price.offence_class.description}')
+                print(f'  {price.id}')
+                print(f'  Advocate type: {price.advocate_type.name}')
+                print(f'  Scenario: {price.scenario.name}')
+                print('  Fixed fee:     £{:.2f}'.format(price.fixed_fee))
+                print('  Fee per unit:  £{:.2f}'.format(price.fee_per_unit))
+                print('  New basic fee: £{:.2f}'.format(new_price))
 
-                    if (abs(float(price.fixed_fee)*1.15 - new_price) > 1):
-                        print('  MORE THAN £1 DIFFERENCT FROM 15% UPLIFT - NOT CHANGING')
-                        basic_fee_skip_count += 1
-                        continue
-                    else:
-                        price.fixed_fee = new_price
-                        price.save()
-                        basic_fee_count += 1
-                        continue
+                if price.fixed_fee == new_price or price.fee_per_unit == new_price:
+                    basic_fee_count += 1
+                    continue
+
+                old_price = price.fixed_fee if price.fixed_fee > 0 else price.fee_per_unit
+
+                if (abs(float(old_price)*1.15 - new_price) > 1):
+                    print('  MORE THAN £1 DIFFERENCT FROM 15% UPLIFT - NOT CHANGING')
+                    basic_fee_skip_count += 1
+                    continue
                 else:
-                    new_price = basic_fixed_fee_for(price.offence_class, price.advocate_type, price.scenario, True)
-                    print(f'Offence Class: {price.offence_class.id} - {price.offence_class.name}')
-                    print(f'               {price.offence_class.description}')
-                    print(f'  {price.id}')
-                    print(f'  Advocate type: {price.advocate_type.name}')
-                    print(f'  Scenario: {price.scenario.name}')
-                    print(f'  Fee per unit: {price.fee_per_unit}')
-                    print(f'  Unit: {price.unit}')
-
-                    if price.fee_per_unit == new_price:
-                        basic_fee_count += 1
-                        continue
-
-                    if (abs(float(price.fee_per_unit)*1.15 - new_price) > 1):
-                        print('  MORE THAN £1 DIFFERENCT FROM 15% UPLIFT - NOT CHANGING')
-                        basic_fee_skip_count += 1
-                        continue
+                    if price.fixed_fee > 0:
+                        price.fixed_fee = new_price
                     else:
                         price.fee_per_unit = new_price
-                        price.save()
-                        basic_fee_count += 1
-                        continue
-
-            # if price.fee_type.name not in ['Paper heavy case']:
-            if True:
-                print('Offence Class: NONE')
-                print(f'  Advocate: {price.advocate_type.name}')
-                print(f'  Fee type: {price.fee_type.name}')
-                print(f'  Fee per unit: {price.fee_per_unit}')
-
-                if price.fee_per_unit == 0:
-                    fixed_and_misc_fee_zero_count += 1
-                    continue
-
-                new_price = fixed_and_misc_fee_for(price.fee_type.name, price.advocate_type)
-                print(f'  New fee: {new_price}')
-
-                if float(price.fee_per_unit) == float(new_price):
-                    fixed_and_misc_fee_count += 1
-                    continue
-
-                if (abs(float(price.fee_per_unit)*1.15 - new_price) > 1):
-                    fixed_and_misc_fee_skip_count += 1
-                    print('  MORE THAN £1 DIFFERENCT FROM 15% UPLIFT - NOT CHANGING')
-                    continue
-                else:
-                    price.fee_per_unit = new_price
                     price.save()
-                    fixed_and_misc_fee_count += 1
+                    basic_fee_count += 1
                     continue
 
         print(f'{elected_case_count} elected case fees were deleted')
