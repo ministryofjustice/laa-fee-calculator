@@ -63,12 +63,8 @@ class Command(BaseCommand):
         Uplift fees in the 2022 LGFS Fee Scheme
     '''
 
-    def handle(self, *args, **options):
-        scheme = Scheme.objects.get(pk=7)
-        prices = Price.objects.filter(scheme=scheme)
-
-        fees_to_be_processed = prices.count()
-        counters = {
+    def __init__(self):
+        self.counters = {
             'elected_case_count': 0,
             'basic_fee_count': 0,
             'basic_fee_skip_count': 0,
@@ -77,115 +73,103 @@ class Command(BaseCommand):
             'fixed_and_misc_fee_skip_count': 0
         }
 
+    def handle(self, *args, **options):
+        scheme = Scheme.objects.get(pk=7)
+        prices = Price.objects.filter(scheme=scheme)
+
+        fees_to_be_processed = prices.count()
+
         for price in prices:
-            # elected cases not proceeded. these are no longer included in the fee scheme and so are deleted
             if price.scenario.id in [12]:
+                # elected cases not proceeded. these are no longer included in the fee scheme and so are deleted
                 print(f'Deleting elected case fee {price.pk}')
                 price.delete()
-                counters['elected_case_count'] += 1
-                continue
-
-            # fixed and misc fees
-            if price.offence_class is None:
-                print('Offence Class: NONE')
-                print(f'  Advocate: {price.advocate_type.name}')
-                print(f'  Fee type: {price.fee_type.name}')
-                print(f'  Fee per unit: {price.fee_per_unit}')
-
-                if price.fee_per_unit == 0:
-                    counters['fixed_and_misc_fee_zero_count'] += 1
-                    continue
-
-                new_price = fixed_and_misc_fee_for(price.fee_type.name, price.advocate_type)
-                print(f'  New fee: {new_price}')
-
-                if float(price.fee_per_unit) == float(new_price):
-                    counters['fixed_and_misc_fee_count'] += 1
-                    continue
-
-                if check_uplift(price.fee_per_unit, new_price):
-                    price.fee_per_unit = new_price
-                    price.save()
-                    counters['fixed_and_misc_fee_count'] += 1
-                    continue
-                else:
-                    counters['fixed_and_misc_fee_skip_count'] += 1
-                    print('  MORE THAN £1 DIFFERENCT FROM 15% UPLIFT - NOT CHANGING')
-                    continue
-
-            # basic fees. updated based on values held in agfs_2022_data/basic_fees.csv
+                self.counters['elected_case_count'] += 1
+            elif price.offence_class is None:
+                # fixed and misc fees
+                self.update_fixed_and_misc_fee(price)
             else:
-                if price.scenario.name == 'Cracked before retrial':
-                    new_price = basic_fixed_fee_for(price.offence_class, price.advocate_type, price.scenario)
-                    print(f'Offence Class: {price.offence_class.id} - {price.offence_class.name}')
-                    print(f'               {price.offence_class.description}')
-                    print(f'  {price.id}')
-                    print(f'  Advocate type: {price.advocate_type.name}')
-                    print(f'  Scenario: {price.scenario.name}')
-                    print('  Fixed fee:     £{:.2f}'.format(price.fixed_fee))
-                    print('  New basic fee: £{:.2f}'.format(new_price))
-                    if price.fixed_fee == new_price * 0.5 or price.fixed_fee == new_price * 0.85:
-                        counters['basic_fee_count'] += 1
-                        continue
+                # basic fees. updated based on values held in agfs_2022_data/basic_fees.csv
+                self.update_basic_fee(price)
 
-                    if check_uplift(price.fixed_fee, new_price * 0.5, 10):
-                        print('  Setting to 50%% of new basic fee')
-                        price.fixed_fee = new_price * 0.5
-                        price.save()
-                        counters['basic_fee_count'] += 1
-                        continue
-                    if check_uplift(price.fixed_fee, new_price * 0.85, 10):
-                        print('  Setting to 50%% of new basic fee')
-                        price.fixed_fee = new_price * 0.85
-                        price.save()
-                        counters['basic_fee_count'] += 1
-                        continue
-                    else:
-                        print('  FAILED TO SET NEW PRICE')
-                        continue
+        print(f"{self.counters['elected_case_count']} elected case fees were deleted")
+        print(f"{self.counters['basic_fee_count']} basic fees were updated")
+        print(f"{self.counters['basic_fee_skip_count']} basic fees were SKIPPED")
+        print(f"{self.counters['fixed_and_misc_fee_count']} fixed and misc fees were updated")
+        print(f"{self.counters['fixed_and_misc_fee_zero_count']} fixed and misc fees were not changed (£0)")
+        print(f"{self.counters['fixed_and_misc_fee_skip_count']} fixed and misc fees were SKIPPED")
 
-                new_price = basic_fixed_fee_for(price.offence_class, price.advocate_type,
-                                                price.scenario, price.fixed_fee == 0)
-                print(f'Offence Class: {price.offence_class.id} - {price.offence_class.name}')
-                print(f'               {price.offence_class.description}')
-                print(f'  {price.id}')
-                print(f'  Advocate type: {price.advocate_type.name}')
-                print(f'  Scenario: {price.scenario.name}')
-                print('  Fixed fee:     £{:.2f}'.format(price.fixed_fee))
-                print('  Fee per unit:  £{:.2f}'.format(price.fee_per_unit))
-                print('  New basic fee: £{:.2f}'.format(new_price))
-
-                fee_field = 'fixed_fee' if price.fixed_fee > 0 else 'fee_per_unit'
-                old_price = getattr(price, fee_field)
-
-                if old_price == new_price:
-                    counters['basic_fee_count'] += 1
-                    continue
-
-                # if price.fixed_fee == new_price or price.fee_per_unit == new_price:
-                #     counters['basic_fee_count'] += 1
-                #     continue
-
-                # old_price = price.fixed_fee if price.fixed_fee > 0 else price.fee_per_unit
-
-                if check_uplift(old_price, new_price):
-                    setattr(price, fee_field, new_price)
-                    price.save()
-                    counters['basic_fee_count'] += 1
-                    continue
-                else:
-                    print('  MORE THAN £1 DIFFERENCT FROM 15% UPLIFT - NOT CHANGING')
-                    counters['basic_fee_skip_count'] += 1
-                    continue
-
-        print(f"{counters['elected_case_count']} elected case fees were deleted")
-        print(f"{counters['basic_fee_count']} basic fees were updated")
-        print(f"{counters['basic_fee_skip_count']} basic fees were SKIPPED")
-        print(f"{counters['fixed_and_misc_fee_count']} fixed and misc fees were updated")
-        print(f"{counters['fixed_and_misc_fee_zero_count']} fixed and misc fees were not changed (£0)")
-        print(f"{counters['fixed_and_misc_fee_skip_count']} fixed and misc fees were SKIPPED")
-
-        total = counters['elected_case_count'] + counters['basic_fee_count'] + \
-            counters['fixed_and_misc_fee_count'] + counters['fixed_and_misc_fee_zero_count']
+        total = self.counters['elected_case_count'] + self.counters['basic_fee_count'] + \
+            self.counters['fixed_and_misc_fee_count'] + self.counters['fixed_and_misc_fee_zero_count']
 
         print(f'{total} out of {fees_to_be_processed} fees were processed')
+
+    def update_price(self, price, field, value, counter, skip_counter, skip_limit=1):
+        if check_uplift(getattr(price, field), value, skip_limit):
+            setattr(price, field, value)
+            price.save()
+            self.counters[counter] += 1
+        else:
+            self.counters[skip_counter] += 1
+            print('  MORE THAN £1 DIFFERENCT FROM 15% UPLIFT - NOT CHANGING')
+
+    def update_fixed_and_misc_fee(self, price):
+        print('Offence Class: NONE')
+        print(f'  Advocate: {price.advocate_type.name}')
+        print(f'  Fee type: {price.fee_type.name}')
+        print(f'  Fee per unit: {price.fee_per_unit}')
+
+        if price.fee_per_unit == 0:
+            self.counters['fixed_and_misc_fee_zero_count'] += 1
+
+        new_price = fixed_and_misc_fee_for(price.fee_type.name, price.advocate_type)
+        print(f'  New fee: {new_price}')
+
+        if float(price.fee_per_unit) == float(new_price):
+            self.counters['fixed_and_misc_fee_count'] += 1
+
+        else:
+            self.update_price(price, 'fee_per_unit', new_price,
+                              'fixed_and_misc_fee_count', 'fixed_and_misc_fee_skip_count')
+
+    def update_basic_fee(self, price):
+        if price.scenario.name == 'Cracked before retrial':
+            new_price = basic_fixed_fee_for(price.offence_class, price.advocate_type, price.scenario)
+            print(f'Offence Class: {price.offence_class.id} - {price.offence_class.name}')
+            print(f'               {price.offence_class.description}')
+            print(f'  {price.id}')
+            print(f'  Advocate type: {price.advocate_type.name}')
+            print(f'  Scenario: {price.scenario.name}')
+            print('  Fixed fee:     £{:.2f}'.format(price.fixed_fee))
+            print('  New basic fee: £{:.2f}'.format(new_price))
+            if price.fixed_fee == new_price * 0.5 or price.fixed_fee == new_price * 0.85:
+                self.counters['basic_fee_count'] += 1
+            elif check_uplift(price.fixed_fee, new_price * 0.5, 10):
+                print('  Setting to 50%% of new basic fee')
+                self.update_price(price, 'fixed_fee', new_price * 0.5,
+                                  'basic_fee_count', 'basic_fee_skip_count', 10)
+            elif check_uplift(price.fixed_fee, new_price * 0.85, 10):
+                print('  Setting to 85%% of new basic fee')
+                self.update_price(price, 'fixed_fee', new_price * 0.85,
+                                  'basic_fee_count', 'basic_fee_skip_count', 10)
+            else:
+                print('  FAILED TO SET NEW PRICE')
+        else:
+            new_price = basic_fixed_fee_for(price.offence_class, price.advocate_type,
+                                            price.scenario, price.fixed_fee == 0)
+            print(f'Offence Class: {price.offence_class.id} - {price.offence_class.name}')
+            print(f'               {price.offence_class.description}')
+            print(f'  {price.id}')
+            print(f'  Advocate type: {price.advocate_type.name}')
+            print(f'  Scenario: {price.scenario.name}')
+            print('  Fixed fee:     £{:.2f}'.format(price.fixed_fee))
+            print('  Fee per unit:  £{:.2f}'.format(price.fee_per_unit))
+            print('  New basic fee: £{:.2f}'.format(new_price))
+
+            fee_field = 'fixed_fee' if price.fixed_fee > 0 else 'fee_per_unit'
+            old_price = getattr(price, fee_field)
+
+            if old_price == new_price:
+                self.counters['basic_fee_count'] += 1
+            else:
+                self.update_price(price, fee_field, new_price, 'basic_fee_count', 'basic_fee_skip_count')
