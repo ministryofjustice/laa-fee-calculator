@@ -54,6 +54,10 @@ def fixed_and_misc_fee_for(fee_name, advocate_type):
     raise KeyError(f'Failed to find: {fee_name}')
 
 
+def check_uplift(old_price, new_price, limit=1):
+    return abs(float(old_price)*1.15 - float(new_price)) < limit
+
+
 class Command(BaseCommand):
     help = '''
         Uplift fees in the 2022 LGFS Fee Scheme
@@ -64,19 +68,21 @@ class Command(BaseCommand):
         prices = Price.objects.filter(scheme=scheme)
 
         fees_to_be_processed = prices.count()
-        elected_case_count = 0
-        basic_fee_count = 0
-        basic_fee_skip_count = 0
-        fixed_and_misc_fee_count = 0
-        fixed_and_misc_fee_zero_count = 0
-        fixed_and_misc_fee_skip_count = 0
+        counters = {
+            'elected_case_count': 0,
+            'basic_fee_count': 0,
+            'basic_fee_skip_count': 0,
+            'fixed_and_misc_fee_count': 0,
+            'fixed_and_misc_fee_zero_count': 0,
+            'fixed_and_misc_fee_skip_count': 0
+        }
 
         for price in prices:
             # elected cases not proceeded. these are no longer included in the fee scheme and so are deleted
             if price.scenario.id in [12]:
                 print(f'Deleting elected case fee {price.pk}')
                 price.delete()
-                elected_case_count += 1
+                counters['elected_case_count'] += 1
                 continue
 
             # fixed and misc fees
@@ -87,24 +93,24 @@ class Command(BaseCommand):
                 print(f'  Fee per unit: {price.fee_per_unit}')
 
                 if price.fee_per_unit == 0:
-                    fixed_and_misc_fee_zero_count += 1
+                    counters['fixed_and_misc_fee_zero_count'] += 1
                     continue
 
                 new_price = fixed_and_misc_fee_for(price.fee_type.name, price.advocate_type)
                 print(f'  New fee: {new_price}')
 
                 if float(price.fee_per_unit) == float(new_price):
-                    fixed_and_misc_fee_count += 1
+                    counters['fixed_and_misc_fee_count'] += 1
                     continue
 
-                if (abs(float(price.fee_per_unit)*1.15 - new_price) > 1):
-                    fixed_and_misc_fee_skip_count += 1
-                    print('  MORE THAN £1 DIFFERENCT FROM 15% UPLIFT - NOT CHANGING')
-                    continue
-                else:
+                if check_uplift(price.fee_per_unit, new_price):
                     price.fee_per_unit = new_price
                     price.save()
-                    fixed_and_misc_fee_count += 1
+                    counters['fixed_and_misc_fee_count'] += 1
+                    continue
+                else:
+                    counters['fixed_and_misc_fee_skip_count'] += 1
+                    print('  MORE THAN £1 DIFFERENCT FROM 15% UPLIFT - NOT CHANGING')
                     continue
 
             # basic fees. updated based on values held in agfs_2022_data/basic_fees.csv
@@ -119,20 +125,20 @@ class Command(BaseCommand):
                     print('  Fixed fee:     £{:.2f}'.format(price.fixed_fee))
                     print('  New basic fee: £{:.2f}'.format(new_price))
                     if price.fixed_fee == new_price * 0.5 or price.fixed_fee == new_price * 0.85:
-                        basic_fee_count += 1
+                        counters['basic_fee_count'] += 1
                         continue
 
-                    if (abs(float(price.fixed_fee)*1.15 - new_price * 0.5) < 10):
+                    if check_uplift(price.fixed_fee, new_price * 0.5, 10):
                         print('  Setting to 50%% of new basic fee')
                         price.fixed_fee = new_price * 0.5
                         price.save()
-                        basic_fee_count += 1
+                        counters['basic_fee_count'] += 1
                         continue
-                    elif (abs(float(price.fixed_fee)*1.15 - new_price * 0.85) < 10):
+                    if check_uplift(price.fixed_fee, new_price * 0.85, 10):
                         print('  Setting to 50%% of new basic fee')
                         price.fixed_fee = new_price * 0.85
                         price.save()
-                        basic_fee_count += 1
+                        counters['basic_fee_count'] += 1
                         continue
                     else:
                         print('  FAILED TO SET NEW PRICE')
@@ -149,32 +155,37 @@ class Command(BaseCommand):
                 print('  Fee per unit:  £{:.2f}'.format(price.fee_per_unit))
                 print('  New basic fee: £{:.2f}'.format(new_price))
 
-                if price.fixed_fee == new_price or price.fee_per_unit == new_price:
-                    basic_fee_count += 1
+                fee_field = 'fixed_fee' if price.fixed_fee > 0 else 'fee_per_unit'
+                old_price = getattr(price, fee_field)
+
+                if old_price == new_price:
+                    counters['basic_fee_count'] += 1
                     continue
 
-                old_price = price.fixed_fee if price.fixed_fee > 0 else price.fee_per_unit
+                # if price.fixed_fee == new_price or price.fee_per_unit == new_price:
+                #     counters['basic_fee_count'] += 1
+                #     continue
 
-                if (abs(float(old_price)*1.15 - new_price) > 1):
-                    print('  MORE THAN £1 DIFFERENCT FROM 15% UPLIFT - NOT CHANGING')
-                    basic_fee_skip_count += 1
+                # old_price = price.fixed_fee if price.fixed_fee > 0 else price.fee_per_unit
+
+                if check_uplift(old_price, new_price):
+                    setattr(price, fee_field, new_price)
+                    price.save()
+                    counters['basic_fee_count'] += 1
                     continue
                 else:
-                    if price.fixed_fee > 0:
-                        price.fixed_fee = new_price
-                    else:
-                        price.fee_per_unit = new_price
-                    price.save()
-                    basic_fee_count += 1
+                    print('  MORE THAN £1 DIFFERENCT FROM 15% UPLIFT - NOT CHANGING')
+                    counters['basic_fee_skip_count'] += 1
                     continue
 
-        print(f'{elected_case_count} elected case fees were deleted')
-        print(f'{basic_fee_count} basic fees were updated')
-        print(f'{basic_fee_skip_count} basic fees were SKIPPED')
-        print(f'{fixed_and_misc_fee_count} fixed and misc fees were updated')
-        print(f'{fixed_and_misc_fee_zero_count} fixed and misc fees were not changed (£0)')
-        print(f'{fixed_and_misc_fee_skip_count} fixed and misc fees were SKIPPED')
+        print(f"{counters['elected_case_count']} elected case fees were deleted")
+        print(f"{counters['basic_fee_count']} basic fees were updated")
+        print(f"{counters['basic_fee_skip_count']} basic fees were SKIPPED")
+        print(f"{counters['fixed_and_misc_fee_count']} fixed and misc fees were updated")
+        print(f"{counters['fixed_and_misc_fee_zero_count']} fixed and misc fees were not changed (£0)")
+        print(f"{counters['fixed_and_misc_fee_skip_count']} fixed and misc fees were SKIPPED")
 
-        total = elected_case_count + basic_fee_count + fixed_and_misc_fee_count + fixed_and_misc_fee_zero_count
+        total = counters['elected_case_count'] + counters['basic_fee_count'] + \
+            counters['fixed_and_misc_fee_count'] + counters['fixed_and_misc_fee_zero_count']
 
         print(f'{total} out of {fees_to_be_processed} fees were processed')
