@@ -9,17 +9,11 @@ Appeals to crown court against conviction,380,570,760,20,,Y,Y,Fixed Fee page,"Fi
 Proceeds relating to breach of an order of the crown court,125,176,251,20(1),,Y,Y,Fixed Fee page,"Final, Hardship"
 Committal for sentence hearing,175,261,348,20(1) and (2),,Y,Y,Fixed Fee page,"Final, Hardship"
 Noting brief,125,125,125,23,,N,N,Misc fee page,"Final,  Hardship"
-Hearing for mitigation of sentence,125,201,302,34,NOT in CCR (or CCCD) - we really ought to add it I guess but weirdly no-one has ever asked about it - guess there's a secret workaround or it's just such a rare thing that it hasn't been claimed in years ?!!,N,N,,NOT in CCCD
 Further case management hearing,116,175,232,19A,,N,N,Misc fee page,"Final, Hardship"
 Adjourned appeals,101,151,201,20(2),,N,N,Fixed Fee page,"Final, Hardship (should also be in supplementary journey but the ticket for this hasn't been actioned yet)"
-"Bail applications, mentions and other applications in appeals, committals for sentence and breach hearings",101,151,201,20(3),"not in CCCD -  can use Adjorned appeals 
-
-In CCR - these were historically paid under SAF's (As they were the same value as a standard appearance fee under scheme 9 so in CCR they were just treated as such.  As the fees have been different from SAFs since scheme 10, we need to resolve this in CCR - if it hasn't been already?)",N,N,,NOT in CCCD
-Elected cases not proceeded,,,,,CLAIR regulation 2(3) abolishes this fee,Y,Y,Fixed Fee page,"Final,  Hardship"
 Contempt hearings,175,261,348,21(1),,N,N,Fixed Fee page,"Final, Hardship"
 Contempt hearings (apportioned),116,145,204,21(2),"In CCCD we dont have apportioned contempt because we took it out, caseworkers advised us that they'd never seen anyone bill it. ",N,N,,NOT in CCCD
 Unused material (upto 3 hours),67.95,97.57,128.93,17A(2),not a fee like the others as this can only be claimed once on a bill,N,N,Misc Fee page,"Final, Supplementary, Hardship"
-Day and half day fees ,,,,,,,,,
 Abuse of process hearing (full day),276,401,577,13(1)(a) and (3),,N,Y,Misc Fee page,"Final, Hardship"
 Abuse of process hearing (half day),151,227,302,,,N,Y,Misc Fee page,"Final, Hardship"
 Ground rules hearing (full day),276,401,577,13(1)(da) and (3),,N,Y,Misc Fee page,"Final, Hardship"
@@ -34,7 +28,6 @@ Application to dismiss a charge day 2 onwards (full day),276,401,577,22(6),,N,Y,
 Application to dismiss a charge day 2 onwards (half day),151,227,302,,,N,Y,Misc Fee page,"Final, Hardship"
 Confiscation (full day),276,401,577,14(2),confiscation and POCA hearings appear as different options in CCCD misc fees but are exactly the same thing - we just duplicated them (i dont know why I suspect it happened at some point because no-one realised its the exact same fee) - Confiscation is the correct name as it also encompassess POCA cases. ,N,Y,Misc Fee page,"Final, Supplementary, Hardship"
 Confiscation (half day),151,227,302,,,N,Y,Misc Fee page,"Final, Supplementary, Hardship"
-Hourly rates ,,,,,,,,,
 Special preperation (hourly),45.30,65.04,85.95,17,,N,N,Misc Fee page,"Final, Supplementary, Hardship"
 Wasted preparation fee,45.30,65.04,85.95,18,,N,N,Misc Fee page,"Final, Hardship"
 Conferences and views (hours),46.46,69.69,92.92,19,,N,N,Grad Fee page,"Final, Hardship"
