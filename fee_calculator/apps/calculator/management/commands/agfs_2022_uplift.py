@@ -58,7 +58,7 @@ def check_uplift(old_price, new_price, limit=1):
 
 class Command(BaseCommand):
     help = '''
-        Uplift fees in the 2022 LGFS Fee Scheme
+        Uplift fees in the 2022 AGFS Fee Scheme
     '''
 
     def __init__(self):
@@ -143,7 +143,10 @@ class Command(BaseCommand):
         print('  Fee per unit:  £{:.2f}'.format(price.fee_per_unit))
 
         if price.scenario.name == 'Cracked before retrial':
-            # elected cases not proceeded. these are no longer included in the fee scheme and so are deleted
+            # It is unclear how best to record 'cracked before retrial' fees.
+            # They are a percentage of the cracked trial fee but the
+            # information stored in Fee Calculator is not sufficient to
+            # differenciate between different percentages.
             print(f"Deleting 'cracked before retrial' fee {price.pk}")
             price.delete()
             self.counters['cracked_before_retrial_count'] += 1
