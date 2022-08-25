@@ -2,9 +2,7 @@
 from django.core.management import BaseCommand
 from django.db.transaction import atomic
 
-from calculator.models import (
-    Scheme, FeeType, Price, Unit
-)
+from calculator.models import Price
 
 
 class Command(BaseCommand):

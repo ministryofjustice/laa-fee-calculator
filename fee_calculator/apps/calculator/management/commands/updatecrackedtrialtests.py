@@ -3,16 +3,12 @@ import csv
 import shutil
 import os
 import decimal
-from collections import defaultdict
 from tempfile import NamedTemporaryFile
 
 from django.conf import settings
 from django.core.management import BaseCommand
-from django.db.transaction import atomic
 
-from calculator.models import (
-    Scheme, FeeType, Price, Unit
-)
+from calculator.models import Price
 
 
 class Command(BaseCommand):
