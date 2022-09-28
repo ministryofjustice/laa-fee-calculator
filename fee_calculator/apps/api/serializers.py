@@ -87,6 +87,7 @@ class CalculatorQuerySerializer(serializers.Serializer):
     level = UnitField('Evidence provision fee level')
     number_of_cases = ModifierTypeField('Number of cases')
     number_of_defendants = ModifierTypeField('Number of defendants')
+    number_of_hearings = ModifierTypeField('Number of hearings')
     trial_length = ModifierTypeField('Trial length')
     pages_of_prosecuting_evidence = ModifierTypeField('Pages of prosecuting evidence')
     retrial_interval = ModifierTypeField('Whole months between trials')
