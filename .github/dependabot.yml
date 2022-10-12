@@ -10,5 +10,15 @@ updates:
   open-pull-requests-limit: 10
   rebase-strategy: "disabled"
   reviewers:
-  - "mpw5"
-  - "jrmhaig"
+  - "ministryofjustice/laa-claim-for-payment"
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: thursday
+    time: "03:00"
+    timezone: Europe/London
+  open-pull-requests-limit: 10
+  rebase-strategy: "disabled"
+  reviewers:
+  - "ministryofjustice/laa-claim-for-payment"
