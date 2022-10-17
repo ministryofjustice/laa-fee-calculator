@@ -32,6 +32,7 @@ class SchemeApiTestCase(APITestCase):
     def test_get_by_date_available(self):
         response = self.client.get('%s?type=AGFS&case_date=2012-04-02' % self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['results']), 1)
         self.assertEqual(response.data['results'][0]['id'], 1)
 
     @prevent_request_warnings
