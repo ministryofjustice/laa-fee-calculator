@@ -8,12 +8,20 @@
       <td class="govuk-table__cell">{{ scheme.base_type }}</td>
     </tr>
     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">Start date</th>
+      <th scope="row" class="govuk-table__header">Rep order start date</th>
       <td class="govuk-table__cell">{{ scheme.start_date }}</td>
     </tr>
     <tr class="govuk-table__row">
-      <th scope="row" class="govuk-table__header">End date</th>
+      <th scope="row" class="govuk-table__header">Rep order end date</th>
       <td class="govuk-table__cell">{{ scheme.end_date|default_if_none:"Present" }}</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Main hearing start date</th>
+      <td class="govuk-table__cell">{{ scheme.hearing_start_date|default_if_none:"-" }}</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Main hearing end date</th>
+      <td class="govuk-table__cell">{{ scheme.hearing_end_date|default_if_none:"-" }}</td>
     </tr>
     <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Offence class</th>

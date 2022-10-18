@@ -21,7 +21,7 @@ def index(request):
 @require_GET
 def fee_schemes(request):
     breadcrumbs = [{'text': 'Home', 'route': 'viewer:index'}]
-    schemes = Scheme.objects.all
+    schemes = Scheme.objects.all().order_by('start_date')
 
     return render(request, 'viewer/fee_schemes.html', {'schemes': schemes, 'breadcrumbs': breadcrumbs})
 

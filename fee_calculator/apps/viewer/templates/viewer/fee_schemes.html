@@ -17,10 +17,17 @@ Fee Schemes
   <caption class="govuk-table__caption govuk-table__caption--m">All fee schemes</caption>
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header" colspan=2></th>
+      <th scope="col" class="govuk-table__header" colspan=2>Rep order date</th>
+      <th scope="col" class="govuk-table__header" colspan=2>Main hearing date</th>
+    </tr>
+    <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">Description</th>
       <th scope="col" class="govuk-table__header">Base</th>
-      <th scope="col" class="govuk-table__header">Start Date</th>
-      <th scope="col" class="govuk-table__header">End Date</th>
+      <th scope="col" class="govuk-table__header">Start</th>
+      <th scope="col" class="govuk-table__header">End</th>
+      <th scope="col" class="govuk-table__header">Start</th>
+      <th scope="col" class="govuk-table__header">End</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
@@ -38,6 +45,8 @@ Fee Schemes
       </td>
       <td class="govuk-table__cell">{{ scheme.start_date }}</td>
       <td class="govuk-table__cell">{{ scheme.end_date|default_if_none:"Present" }}</td>
+      <td class="govuk-table__cell">{{ scheme.hearing_start_date|default_if_none:"-" }}</td>
+      <td class="govuk-table__cell">{{ scheme.hearing_end_date|default_if_none:"-" }}</td>
     </tr>
     {% endfor %}
   </tbody>
