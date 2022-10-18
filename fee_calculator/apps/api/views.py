@@ -115,6 +115,75 @@ class SchemeViewSet(OrderedReadOnlyModelViewSet):
     filter_backends = (backends.DjangoFilterBackend,)
     filterset_class = SchemeFilter
 
+# def get_queryset(self):
+#     queryset = super().get_queryset()
+
+#     base_type = self.request.query_params.get('type')
+#     case_date = self.request.query_params.get('case_date')
+#     main_hearing_date = self.request.query_params.get('main_hearing_date')
+
+#     if base_type:
+#         try:
+#             base_type = SCHEME_TYPE.for_constant(base_type.upper()).value
+#         except KeyError:
+#             raise ValidationError(
+#                 '`base_type` should be one of: [%s]'
+#                 % ', '.join(SCHEME_TYPE.constants)
+#             )
+#         queryset = queryset.filter(base_type=base_type)
+
+#     if case_date:
+#         try:
+#             case_date = datetime.strptime(case_date, '%Y-%m-%d')
+#         except ValueError:
+#             raise ValidationError(
+#                 '`case_date` should be in the format YYYY-MM-DD'
+#             )
+#         queryset = queryset.filter(
+#             Q(end_date__isnull=True) | Q(end_date__gte=case_date),
+#             start_date__lte=case_date
+#         )
+
+#         if main_hearing_date:
+#             try:
+#                 main_hearing_date = datetime.strptime(main_hearing_date, '%Y-%m-%d')
+#             except ValueError:
+#                 raise ValidationError(
+#                     '`main_hearing_date` should be in the format YYYY-MM-DD'
+#                 )
+#             new_queryset = queryset.filter(
+#                 Q(hearing_end_date__isnull=True) | Q(hearing_end_date__gte=main_hearing_date),
+#                 hearing_start_date__lte=main_hearing_date
+#             )
+#             if len(new_queryset) == 0:
+#                 queryset = queryset.filter(hearing_start_date=None)
+#             else:
+#                 queryset = new_queryset
+#         else:
+#             queryset = queryset.filter(hearing_start_date=None)
+
+#     return queryset.order_by(self.default_ordering or 'pk')
+
+# def retrieve(self, request, pk=None):
+#     """
+#     GET:
+#     Return a single graduated fee scheme serialized object.
+#     """
+#     queryset = self.get_queryset()
+#     scheme = get_object_or_404(queryset, pk=pk)
+#     serializer = self.serializer_class(scheme, many=False)
+#     return Response(serializer.data)
+
+# def list(self, request, format=None):
+#     """
+#     GET:
+#     Return a list of all the existing graduated fee schemes.
+#     """
+#     queryset = self.get_queryset()
+#     page = self.paginate_queryset(queryset)
+#     serializer = self.serializer_class(page, many=True)
+#     return self.get_paginated_response(serializer.data)
+
 
 class NestedSchemeMixin():
     scheme_relation_name = 'prices__scheme'
