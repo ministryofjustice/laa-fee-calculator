@@ -226,11 +226,71 @@ jobs:
 # ------------------
 workflows:
   version: 2
+  build-and-test:
+    jobs:
+      - test-calculator:
+          filters:
+            branches:
+              ignore:
+                - master
+      - test-viewer:
+          filters:
+            branches:
+              ignore:
+                - master
+      - linting:
+          filters:
+            branches:
+              ignore:
+                - master
+      - combine_test_coverage:
+          requires:
+            - test-calculator
+            - test-viewer
+      - build_and_push_approval:
+          type: approval
+      - build_and_push_image:
+          context:
+            - laa-fee-calculator-base
+          requires:
+            - build_and_push_approval
+      - dev_deploy_approval:
+          type: approval
+          requires:
+            - build_and_push_image
+      - dev_deploy:
+          requires:
+            - dev_deploy_approval
+          context:
+            - laa-fee-calculator-base
+            - laa-fee-calculator-live-dev
+      - staging_deploy_approval:
+          type: approval
+          requires:
+            - build_and_push_image
+      - staging_deploy:
+          requires:
+            - staging_deploy_approval
+          context:
+            - laa-fee-calculator-base
+            - laa-fee-calculator-live-staging
   build-test-and-approval-deploy:
     jobs:
-      - test-calculator
-      - test-viewer
-      - linting
+      - test-calculator:
+          filters:
+            branches:
+              only:
+                - master
+      - test-viewer:
+          filters:
+            branches:
+              only:
+                - master
+      - linting:
+          filters:
+            branches:
+              only:
+                - master
       - combine_test_coverage:
           requires:
             - test-calculator
