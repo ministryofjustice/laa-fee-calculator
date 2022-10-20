@@ -79,10 +79,14 @@ class PriceFilter(django_filters.FilterSet):
 class SchemeFilter(django_filters.FilterSet):
     type = django_filters.ChoiceFilter(
         field_name='base_type',
+        # Ideally this should just be `choices=SCHEME_TYPE` but the issue is
+        # that the parameter value is 'AGFS' or 'LGFS' but the field requires
+        # an integer
         choices=tuple(map(lambda st: (st[0], st[1].value), SCHEME_TYPE.constants.items())),
         method='type_filter'
     )
     case_date = django_filters.DateFilter(method='case_date_filter')
+    main_hearing_date = django_filters.DateFilter(method='main_hearing_date_filter')
 
     def type_filter(self, queryset, name, value):
         type_code = SCHEME_TYPE.for_constant(value.upper()).value
@@ -90,7 +94,25 @@ class SchemeFilter(django_filters.FilterSet):
         return queryset.filter(**{name: type_code})
 
     def case_date_filter(self, queryset, name, value):
-        return queryset.filter(
+        new_queryset = queryset.filter(
             Q(end_date__isnull=True) | Q(end_date__gte=value),
             start_date__lte=value
         )
+
+        if self.request.query_params.get('main_hearing_date') is None:
+            return new_queryset.filter(hearing_start_date=None)
+        else:
+            return new_queryset
+
+    def main_hearing_date_filter(self, queryset, name, value):
+        if self.request.query_params.get('case_date') is None:
+            return queryset
+
+        new_queryset = queryset.filter(
+            Q(hearing_end_date__isnull=True) | Q(hearing_end_date__gte=value),
+            hearing_start_date__lte=value
+        )
+        if len(new_queryset) == 0:
+            return queryset.filter(hearing_start_date=None)
+        else:
+            return new_queryset
