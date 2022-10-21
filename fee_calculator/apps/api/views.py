@@ -277,7 +277,7 @@ class FeeTypeViewSet(BasePriceFilteredViewSet):
     queryset = FeeType.objects.all()
     serializer_class = FeeTypeSerializer
     filter_backends = (backends.DjangoFilterBackend,)
-    filter_class = FeeTypeFilter
+    filterset_class = FeeTypeFilter
     relation_name = 'fee_type'
 
 
@@ -394,7 +394,7 @@ class PriceViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     queryset = Price.objects.all()
     serializer_class = PriceSerializer
     filter_backends = (backends.DjangoFilterBackend,)
-    filter_class = PriceFilter
+    filterset_class = PriceFilter
     scheme_relation_name = 'scheme'
 
 
