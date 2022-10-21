@@ -9,6 +9,7 @@ from django_filters.rest_framework import filters
 import six
 
 from calculator import models as calc_models
+from calculator.constants import SCHEME_TYPE
 
 logger = logging.getLogger('laa-calc')
 
@@ -73,3 +74,23 @@ class PriceFilter(django_filters.FilterSet):
             'fixed_fee': ['lte', 'gte'],
             'fee_per_unit': ['lte', 'gte'],
         }
+
+
+class SchemeFilter(django_filters.FilterSet):
+    type = django_filters.ChoiceFilter(
+        field_name='base_type',
+        choices=tuple(map(lambda st: (st[0], st[1].value), SCHEME_TYPE.constants.items())),
+        method='type_filter'
+    )
+    case_date = django_filters.DateFilter(method='case_date_filter')
+
+    def type_filter(self, queryset, name, value):
+        type_code = SCHEME_TYPE.for_constant(value.upper()).value
+
+        return queryset.filter(**{name: type_code})
+
+    def case_date_filter(self, queryset, name, value):
+        return queryset.filter(
+            Q(end_date__isnull=True) | Q(end_date__gte=value),
+            start_date__lte=value
+        )
