@@ -99,13 +99,13 @@ class SchemeFilter(django_filters.FilterSet):
             start_date__lte=value
         )
 
-        if self.request.query_params.get('main_hearing_date') is None:
+        if self.form.cleaned_data['main_hearing_date'] is None:
             return new_queryset.filter(hearing_start_date=None)
         else:
             return new_queryset
 
     def main_hearing_date_filter(self, queryset, name, value):
-        if self.request.query_params.get('case_date') is None:
+        if self.form.cleaned_data['case_date'] is None:
             return queryset
 
         new_queryset = queryset.filter(

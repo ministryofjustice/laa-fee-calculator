@@ -89,7 +89,7 @@
     "fields": {
       "start_date": "2020-09-17",
       "end_date": "2022-09-29",
-      "hearing_start_date": "2022-09-30",
+      "hearing_start_date": "2022-10-31",
       "hearing_end_date": null,
       "base_type": 2,
       "description": "LGFS Fee Scheme 9a - CLAIR contingency"
@@ -101,7 +101,7 @@
     "fields": {
       "start_date": "2020-09-17",
       "end_date": "2022-09-29",
-      "hearing_start_date": "2022-09-30",
+      "hearing_start_date": "2022-10-31",
       "hearing_end_date": null,
       "base_type": 1,
       "description": "AGFS Fee Scheme 12a - CLAIR contingency"
