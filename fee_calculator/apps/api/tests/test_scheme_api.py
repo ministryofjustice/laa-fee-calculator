@@ -39,3 +39,15 @@ class SchemeApiTestCase(APITestCase):
     def test_400_on_invalid_date(self):
         response = self.client.get('%s?type=AGFS&case_date=4thJanuary2015' % self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_get_by_case_date_and_main_hearing_date(self):
+        response = self.client.get('%s?type=AGFS&case_date=2012-04-02&main_hearing_date=2012-04-02' % self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['results']), 1)
+        self.assertEqual(response.data['results'][0]['id'], 1)
+
+    def test_get_by_case_date_and_null_main_hearing_date(self):
+        response = self.client.get('%s?type=AGFS&case_date=2012-04-02&main_hearing_date=' % self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['results']), 1)
+        self.assertEqual(response.data['results'][0]['id'], 1)

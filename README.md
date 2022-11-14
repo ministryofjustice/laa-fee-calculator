@@ -19,7 +19,7 @@ For development setup see instructions [here](./docs/DEVELOPMENT.md)
 
 Swagger docs are accessible at `/api/v1/docs/`
 
-First request `/api/v1/fee-schemes/?type=<type>&case_date=<case_date>` to get the appropriate scheme.
+First request `/api/v1/fee-schemes/?type=<type>&case_date=<representation_order_date>&main_hearing_date=<main_hearing_date>` to get the appropriate scheme.
 
 Then request:
 
