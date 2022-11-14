@@ -15,7 +15,11 @@ class SchemeListQuerySerializer(serializers.Serializer):
         required=False
     )
     case_date = serializers.CharField(
-        help_text="Date for which you would like a list of applicable fee schemes",
+        help_text="Representation order date for which you would like a list of applicable fee schemes",
+        required=False
+    )
+    main_hearing_date = serializers.CharField(
+        help_text="Main hearing date for which you would like a list of applicable fee schemes",
         required=False
     )
 
