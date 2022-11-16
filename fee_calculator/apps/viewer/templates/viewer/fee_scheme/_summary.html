@@ -16,6 +16,14 @@
       <td class="govuk-table__cell">{{ scheme.end_date|default_if_none:"Present" }}</td>
     </tr>
     <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Main hearing start date</th>
+      <td class="govuk-table__cell">{{ scheme.main_hearing_start_date|default_if_none:"Present" }}</td>
+    </tr>
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Main hearing end date</th>
+      <td class="govuk-table__cell">{{ scheme.main_hearing_end_date|default_if_none:"Present" }}</td>
+    </tr>
+    <tr class="govuk-table__row">
       <th scope="row" class="govuk-table__header">Offence class</th>
       <td class="govuk-table__cell">{{ scheme.selected_offence_class.display_name }}</td>
     </tr>
