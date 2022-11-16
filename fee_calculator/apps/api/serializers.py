@@ -110,8 +110,7 @@ class SchemeSerializer(serializers.ModelSerializer):
             'id',
             'start_date',
             'end_date',
-            'main_hearing_start_date',
-            'main_hearing_end_date',
+            'earliest_main_hearing_date',
             'type',
             'description',
         )

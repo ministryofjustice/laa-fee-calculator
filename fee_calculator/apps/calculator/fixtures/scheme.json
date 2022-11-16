@@ -5,8 +5,7 @@
     "fields": {
       "start_date": "2012-04-01",
       "end_date": "2018-03-31",
-      "main_hearing_start_date": null,
-      "main_hearing_end_date": null,
+      "earliest_main_hearing_date": null,
       "base_type": 1,
       "description": "AGFS Fee Scheme 9"
     }
@@ -17,8 +16,7 @@
     "fields": {
       "start_date": "2016-04-01",
       "end_date": "2022-09-29",
-      "main_hearing_start_date": null,
-      "main_hearing_end_date": null,
+      "earliest_main_hearing_date": null,
       "base_type": 2,
       "description": "LGFS Fee Scheme 2016-04"
     }
@@ -29,8 +27,7 @@
     "fields": {
       "start_date": "2018-04-01",
       "end_date": "2018-12-30",
-      "main_hearing_start_date": null,
-      "main_hearing_end_date": null,
+      "earliest_main_hearing_date": null,
       "base_type": 1,
       "description": "AGFS Fee Scheme 10"
     }
@@ -41,8 +38,7 @@
     "fields": {
       "start_date": "2018-12-31",
       "end_date": "2020-09-16",
-      "main_hearing_start_date": null,
-      "main_hearing_end_date": null,
+      "earliest_main_hearing_date": null,
       "base_type": 1,
       "description": "AGFS Fee Scheme 11"
     }
@@ -53,8 +49,7 @@
     "fields": {
       "start_date": "2020-09-17",
       "end_date": "2022-09-29",
-      "main_hearing_start_date": null,
-      "main_hearing_end_date": null,
+      "earliest_main_hearing_date": null,
       "base_type": 1,
       "description": "AGFS Fee Scheme 12 - CLAR accelerated measures"
     }
@@ -65,8 +60,7 @@
     "fields": {
       "start_date": "2022-09-30",
       "end_date": null,
-      "main_hearing_start_date": null,
-      "main_hearing_end_date": null,
+      "earliest_main_hearing_date": null,
       "base_type": 2,
       "description": "LGFS Fee Scheme 10 (2022-09 - CLAIR)"
     }
@@ -77,8 +71,7 @@
     "fields": {
       "start_date": "2022-09-30",
       "end_date": null,
-      "main_hearing_start_date": null,
-      "main_hearing_end_date": null,
+      "earliest_main_hearing_date": null,
       "base_type": 1,
       "description": "AGFS Fee Scheme 13 (2022-09 - CLAIR)"
     }
