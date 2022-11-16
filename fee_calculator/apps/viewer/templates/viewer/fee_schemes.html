@@ -21,6 +21,8 @@ Fee Schemes
       <th scope="col" class="govuk-table__header">Base</th>
       <th scope="col" class="govuk-table__header">Start Date</th>
       <th scope="col" class="govuk-table__header">End Date</th>
+      <th scope="col" class="govuk-table__header">Main Hearing Start Date</th>
+      <th scope="col" class="govuk-table__header">Main Hearing End Date</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
@@ -38,6 +40,8 @@ Fee Schemes
       </td>
       <td class="govuk-table__cell">{{ scheme.start_date }}</td>
       <td class="govuk-table__cell">{{ scheme.end_date|default_if_none:"Present" }}</td>
+      <td class="govuk-table__cell">{{ scheme.main_hearing_start_date|default_if_none:"Present" }}</td>
+      <td class="govuk-table__cell">{{ scheme.main_hearing_end_date|default_if_none:"Present" }}</td>
     </tr>
     {% endfor %}
   </tbody>

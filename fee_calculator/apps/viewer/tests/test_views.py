@@ -23,6 +23,14 @@ class FeeSchemeTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'viewer/fee_scheme.html')
 
+    def test_display_main_hearing_date(self):
+        Scheme.objects.create(id=9999, start_date='2022-06-15', base_type=1,
+                              main_hearing_start_date='2022-11-01', main_hearing_end_date='2022-12-01')
+        response = self.client.get('/viewer/fee_schemes/9999')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<td class="govuk-table__cell">Nov. 1, 2022</td>', html=True)
+        self.assertContains(response, '<td class="govuk-table__cell">Dec. 1, 2022</td>', html=True)
+
     def test_404_for_an_unkonwn_fee_scheme(self):
         response = self.client.get('/viewer/fee_schemes/9999')
         self.assertEqual(response.status_code, 404)
