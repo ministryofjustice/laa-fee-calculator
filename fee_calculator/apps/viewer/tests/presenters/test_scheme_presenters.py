@@ -39,7 +39,7 @@ class SchemePresenterTestCase(TestCase):
     @classmethod
     def setUp(self):
         self.default_kwargs = {'base_type': 1, 'start_date': '2022-03-05',
-                               'main_hearing_start_date': '2022-03-05', 'main_hearing_end_date': None}
+                               'earliest_main_hearing_date': '2022-03-05'}
         self.presenter_options = {}
 
     def test_base_type_agfs(self):
@@ -58,5 +58,4 @@ class SchemePresenterTestCase(TestCase):
         self.default_kwargs['base_type'] = 1
         scenario = Scheme.objects.create(**self.default_kwargs)
         presenter = SchemePresenter(scenario, **self.presenter_options)
-        self.assertEqual(presenter.main_hearing_start_date, '2022-03-05')
-        self.assertEqual(presenter.main_hearing_end_date, None)
+        self.assertEqual(presenter.earliest_main_hearing_date, '2022-03-05')
