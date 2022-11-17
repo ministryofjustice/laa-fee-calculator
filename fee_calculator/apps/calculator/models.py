@@ -11,6 +11,7 @@ from .exceptions import RequiredModifierMissingException
 class Scheme(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
+    earliest_main_hearing_date = models.DateField(null=True, blank=True)
     base_type = models.PositiveSmallIntegerField(choices=SCHEME_TYPE)
     description = models.CharField(max_length=255)
 
