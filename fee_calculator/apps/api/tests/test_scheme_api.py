@@ -6,6 +6,10 @@ from rest_framework.test import APITestCase
 
 from calculator.tests.lib.utils import prevent_request_warnings
 
+AGFS_SCHEME_NINE_ID = 1
+LGFS_SCHEME_NINE_ID = 2
+AGFS_SCHEME_TWELVE_ID = 5
+
 
 class SchemeApiTestCase(APITestCase):
     endpoint = '/api/{api}/fee-schemes/'.format(api=settings.API_VERSION)
@@ -33,7 +37,19 @@ class SchemeApiTestCase(APITestCase):
         response = self.client.get('%s?type=AGFS&case_date=2012-04-02' % self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
-        self.assertEqual(response.data['results'][0]['id'], 1)
+        self.assertEqual(response.data['results'][0]['id'], AGFS_SCHEME_NINE_ID)
+
+    def test_get_by_date_available_agfs_12(self):
+        response = self.client.get('%s?type=AGFS&case_date=2020-09-17' % self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['results']), 1)
+        self.assertEqual(response.data['results'][0]['id'], AGFS_SCHEME_TWELVE_ID)
+
+    def test_get_by_date_available_lgfs_9(self):
+        response = self.client.get('%s?type=LGFS&case_date=2020-09-17' % self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['results']), 1)
+        self.assertEqual(response.data['results'][0]['id'], LGFS_SCHEME_NINE_ID)
 
     @prevent_request_warnings
     def test_400_on_invalid_date(self):
@@ -44,10 +60,10 @@ class SchemeApiTestCase(APITestCase):
         response = self.client.get('%s?type=AGFS&case_date=2012-04-02&main_hearing_date=2012-04-02' % self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
-        self.assertEqual(response.data['results'][0]['id'], 1)
+        self.assertEqual(response.data['results'][0]['id'], AGFS_SCHEME_NINE_ID)
 
     def test_get_by_case_date_and_null_main_hearing_date(self):
         response = self.client.get('%s?type=AGFS&case_date=2012-04-02&main_hearing_date=' % self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
-        self.assertEqual(response.data['results'][0]['id'], 1)
+        self.assertEqual(response.data['results'][0]['id'], AGFS_SCHEME_NINE_ID)
