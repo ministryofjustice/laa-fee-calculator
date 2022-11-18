@@ -75,5 +75,27 @@
       "base_type": 1,
       "description": "AGFS Fee Scheme 13 (2022-09 - CLAIR)"
     }
+  },
+  {
+    "model": "calculator.scheme",
+    "pk": 8,
+    "fields": {
+      "start_date": "2020-09-17",
+      "end_date": "2022-09-29",
+      "earliest_main_hearing_date": "2022-10-31",
+      "base_type": 2,
+      "description": "LGFS CLAIR contingency"
+    }
+  },
+  {
+    "model": "calculator.scheme",
+    "pk": 9,
+    "fields": {
+      "start_date": "2020-09-17",
+      "end_date": "2022-09-29",
+      "earliest_main_hearing_date": "2022-10-31",
+      "base_type": 1,
+      "description": "AGFS CLAIR contingency"
+    }
   }
 ]

@@ -92,5 +92,6 @@ class SchemeFilter(django_filters.FilterSet):
     def case_date_filter(self, queryset, name, value):
         return queryset.filter(
             Q(end_date__isnull=True) | Q(end_date__gte=value),
-            start_date__lte=value
+            start_date__lte=value,
+            earliest_main_hearing_date=None
         )
