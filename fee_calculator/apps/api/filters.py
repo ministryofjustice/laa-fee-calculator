@@ -83,6 +83,7 @@ class SchemeFilter(django_filters.FilterSet):
         method='type_filter'
     )
     case_date = django_filters.DateFilter(method='case_date_filter')
+    main_hearing_date = django_filters.DateFilter(method='main_hearing_date_filter')
 
     def type_filter(self, queryset, name, value):
         type_code = SCHEME_TYPE.for_constant(value.upper()).value
@@ -90,7 +91,23 @@ class SchemeFilter(django_filters.FilterSet):
         return queryset.filter(**{name: type_code})
 
     def case_date_filter(self, queryset, name, value):
-        return queryset.filter(
+        new_queryset = queryset.filter(
             Q(end_date__isnull=True) | Q(end_date__gte=value),
             start_date__lte=value
         )
+
+        if self.form.cleaned_data['main_hearing_date'] is None:
+            return new_queryset.filter(earliest_main_hearing_date=None)
+        else:
+            return new_queryset
+
+    def main_hearing_date_filter(self, queryset, name, value):
+        if self.form.cleaned_data['case_date'] is None:
+            return queryset
+
+        new_queryset = queryset.filter(earliest_main_hearing_date__lte=value)
+
+        if len(new_queryset) == 0:
+            return queryset.filter(earliest_main_hearing_date=None)
+        else:
+            return new_queryset
