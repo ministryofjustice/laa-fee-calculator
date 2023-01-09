@@ -110,3 +110,28 @@ docker-compose up
 
 ### Open interactive API (swagger) documentation
 [localhost:8000/api/v1/docs](http://localhost:8000/api/v1/docs)
+
+
+### Secret management
+
+Secrets should _not_ be kept in this repository. In the past `git-crypt` has been used to encrypt secrets within the repo however due to the difficulty of rotating the symmetric key used for encryption following a security breach, this approach has now been deprecated.
+
+Secrets are held as Kubernetes Secret objects in the cluster. These can be accessed by executing 
+
+```bash
+kubectl -n laa-fee-calculator-<env> get secrets
+```
+
+when authenticated to the cluster to view a list of all secrets.
+
+To view the contents of a Secret, execute:
+
+```bash
+kubectl -n laa-fee-calculator-<env> get secrets <secret-name> -o json
+```
+
+For more details on how to add or update Kubernetes Secrets, see the [Cloud Platform documentation](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/deploying-an-app/add-secrets-to-deployment.html#adding-a-secret-to-an-application).
+
+Secrets are also held as secure notes in [LastPass](https://www.google.com/aclk?sa=l&ai=DChcSEwjAyMfAkLv8AhUTuu0KHZxaBOgYABAAGgJkZw&sig=AOD64_2tmUeW60VxPzOvaRIGmoGGukhGZg&q&adurl&ved=2ahUKEwiOssLAkLv8AhWUWcAKHRZtCk0Q0Qx6BAgJEAE), in the `Shared-LAA Assess a Claim/laa-fee-calculator` folder. This provides redundancy in the event that a Kubernetes Secret is deleted from the cluster; it can be recreated using the data held in LastPass.
+
+There is no automatic syncing of secrets between LastPass and Kubernetes. If secret data is added or changed in one, it must be manually reflected in the other.
