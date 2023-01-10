@@ -65,11 +65,7 @@ function _deploy() {
   # apply non-image specific config
   kubectl apply \
     -f kubernetes_deploy/${context}/${environment}/service.yaml \
-    -f kubernetes_deploy/${context}/${environment}/ingress.yaml \
-    -f kubernetes_deploy/${context}/${environment}/django-secret.yaml
-
-  sentry_dsn_secret=kubernetes_deploy/${context}/${environment}/sentry-dsn.yaml
-  [ -f "$sentry_dsn_secret" ] && kubectl apply -f $sentry_dsn_secret
+    -f kubernetes_deploy/${context}/${environment}/ingress.yaml
 
   # Forcibly restart the app regardless of whether
   # there are changes to apply new secrets, at least.
