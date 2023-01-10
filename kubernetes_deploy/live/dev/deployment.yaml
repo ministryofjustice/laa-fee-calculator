@@ -50,3 +50,9 @@ spec:
               key: key
         - name: ENV
           value: dev
+        securityContext:
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
