@@ -107,11 +107,7 @@ commands:
             | kubectl apply -f -
             kubectl apply \
                 -f kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/service.yaml \
-                -f kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/ingress.yaml \
-                -f kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/django-secret.yaml
-
-            sentry_dsn_secret=kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/sentry-dsn.yaml
-            [ -f "$sentry_dsn_secret" ] && kubectl apply -f $sentry_dsn_secret
+                -f kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/ingress.yaml
 
             # annotate to provide rollback info
             kubectl annotate deployments/laa-fee-calculator kubernetes.io/change-cause="$(date +%Y-%m-%dT%H:%M:%S%z) - deploying: $docker_image_tag via CircleCI"
