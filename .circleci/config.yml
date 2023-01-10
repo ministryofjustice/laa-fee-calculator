@@ -100,11 +100,6 @@ commands:
             kubectl config use-context ${K8S_CLUSTER_NAME}
             kubectl --namespace=${K8S_NAMESPACE} get pods
       - run:
-          name: Decrypt secrets file
-          command: |
-            echo "${GIT_CRYPT_KEY}" | base64 -d > git-crypt.key
-            git-crypt unlock git-crypt.key
-      - run:
           name: deploying to << parameters.cluster >> cluster, << parameters.environment >> namespace
           command: |
             docker_image_tag=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:app-${CIRCLE_SHA1}
