@@ -70,7 +70,7 @@
     "pk": 7,
     "fields": {
       "start_date": "2022-09-30",
-      "end_date": null,
+      "end_date": "2023-01-31",
       "earliest_main_hearing_date": null,
       "base_type": 1,
       "description": "AGFS Fee Scheme 13 (2022-09 - CLAIR)"
@@ -96,6 +96,17 @@
       "earliest_main_hearing_date": "2022-10-31",
       "base_type": 1,
       "description": "AGFS CLAIR contingency"
+    }
+  },
+  {
+    "model": "calculator.scheme",
+    "pk": 10,
+    "fields": {
+      "start_date": "2023-02-01",
+      "end_date": null,
+      "earliest_main_hearing_date": null,
+      "base_type": 1,
+      "description": "AGFS Fee Scheme 14 (2023-02 - Section 28)"
     }
   }
 ]
