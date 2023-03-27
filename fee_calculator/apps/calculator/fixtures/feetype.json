@@ -1038,5 +1038,15 @@
       "is_basic": false,
       "aggregation": "sum"
     }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 232,
+    "fields": {
+      "name": "Section 28",
+      "code": "AGFS_SECTION_28",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
   }
 ]
