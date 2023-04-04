@@ -87,7 +87,7 @@ venv/bin/python -m coverage report
 * Run an individual test
 
 ```
-venv/bin/python manage.py test calculator.tests.test_calculation_agfs_12
+venv/bin/python manage.py test calculator.tests.test_calculation_05_agfs_12
 ```
 
 ## Running locally using docker
