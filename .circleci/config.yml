@@ -130,7 +130,7 @@ jobs:
 
   test-calculator:
     executor: cloud-platform-executor
-    parallelism: 2
+    parallelism: 3
     steps:
       - checkout
       - setup_python_env
