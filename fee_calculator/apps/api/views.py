@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from decimal import Decimal, InvalidOperation
+from api.utils import fix_advocate_category
 import logging
 
 from django.db.models import Q
@@ -46,6 +47,7 @@ logger = logging.getLogger('laa-calc')
 scheme_pk_parameter = OpenApiParameter('scheme_pk', OpenApiTypes.INT, OpenApiParameter.PATH)
 
 
+@fix_advocate_category
 def get_param(request, param_name, required=False, default=None):
     value = request.query_params.get(param_name, default)
     if value is None or value == '':
