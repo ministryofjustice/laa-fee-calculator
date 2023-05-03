@@ -10,6 +10,7 @@ import six
 
 from calculator import models as calc_models
 from calculator.constants import SCHEME_TYPE
+from calculator.models import AdvocateType
 
 logger = logging.getLogger('laa-calc')
 
@@ -58,11 +59,21 @@ class PriceFilter(django_filters.FilterSet):
     advocate_type = ModelOrNoneChoiceFilter(
         field_name='advocate_type',
         queryset=calc_models.AdvocateType.objects.all(),
+        method='field_filter',
         help_text=(
             'Note the query will return prices '
             'with `advocate_type` either matching the value or null.'
         )
     )
+
+    def field_filter(self, queryset, name, value):
+        return queryset.filter(**self.clean_param(self.request, name, value))
+
+    def clean_param(self, request, name, value):
+        if name == 'advocate_type' and value.pk == 'KC':
+            value = AdvocateType.objects.get(pk='QC')
+
+        return {name: value}
 
     class Meta:
         model = calc_models.Price
