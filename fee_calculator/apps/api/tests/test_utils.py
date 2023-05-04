@@ -1,52 +1,54 @@
 from django.test import TestCase
-from api.utils import fix_advocate_category
+from api.utils import ModelParamFetcher
 from rest_framework.test import APIRequestFactory
-from calculator.models import Scheme
+from rest_framework.exceptions import ValidationError
+from calculator.models import AdvocateType, Scheme
 
 
-class FixAdvocateCategoryTestCase(TestCase):
+class ModelParamFetcherTestCase(TestCase):
     @classmethod
     def setUp(cls):
         cls.factory = APIRequestFactory()
 
-    def dummy_function(self, return_value):
-        def dummy(request, param_name, scheme, required=False, default=None):
-            return return_value
-
-        return dummy
-
-    def test_does_not_alter_QC_advodate_type(self):
-        request = self.factory.get('/api/v1/fee-schemes/10/prices/?advocate_type=QC')
-        fac = fix_advocate_category(self.dummy_function('QC'))
+    def test_gets_none_for_missing_parameter(self):
+        request = self.factory.get('/api')
+        request.query_params = {}
         scheme = Scheme.objects.get(pk=10)
-        self.assertEqual(fac(request, 'advocate_type', scheme), 'QC')
+        fetcher = ModelParamFetcher(request, 'advocate_type', AdvocateType, scheme)
 
-    def test_changes_KC_advodate_type_to_QC(self):
-        request = self.factory.get('/api/v1/fee-schemes/10/prices/?advocate_type=KC')
-        fac = fix_advocate_category(self.dummy_function('KC'))
+        self.assertIsNone(fetcher.call())
+
+    def test_fetches_an_advocate_type(self):
+        request = self.factory.get('/api')
+        request.query_params = {'advocate_type': 'QC'}
         scheme = Scheme.objects.get(pk=10)
-        self.assertEqual(fac(request, 'advocate_type', scheme), 'QC')
+        qc = AdvocateType.objects.get(pk='QC')
+        fetcher = ModelParamFetcher(request, 'advocate_type', AdvocateType, scheme)
 
-    def test_does_not_alter_a_parameter_other_than_advocate_type(self):
-        request = self.factory.get('/api/v1/fee-schemes/10/prices/?other_param=KC')
-        fac = fix_advocate_category(self.dummy_function('KC'))
+        self.assertEqual(fetcher.call(), qc)
+
+    def test_fetches_the_qc_advocate_type_for_kc_with_fee_scheme_14(self):
+        request = self.factory.get('/api')
+        request.query_params = {'advocate_type': 'KC'}
         scheme = Scheme.objects.get(pk=10)
-        self.assertEqual(fac(request, 'other_param', scheme), 'KC')
+        qc = AdvocateType.objects.get(pk='QC')
+        fetcher = ModelParamFetcher(request, 'advocate_type', AdvocateType, scheme)
 
-    def test_does_not_alter_KC_advodate_type_in_AGFS_fee_scheme_15(self):
-        request = self.factory.get('/api/v1/fee-schemes/11/prices/?advocate_type=QC')
-        fac = fix_advocate_category(self.dummy_function('KC'))
-        scheme = Scheme.objects.get(pk=11)
-        self.assertEqual(fac(request, 'advocate_type', scheme), 'KC')
+        self.assertEqual(fetcher.call(), qc)
 
-    def test_changes_QC_advodate_type_to_KC_in_AGFS_fee_scheme_15(self):
-        request = self.factory.get('/api/v1/fee-schemes/11/prices/?advocate_type=KC')
-        fac = fix_advocate_category(self.dummy_function('QC'))
+    def test_fetches_the_kc_advocate_type_for_qc_with_fee_scheme_15(self):
+        request = self.factory.get('/api')
+        request.query_params = {'advocate_type': 'QC'}
         scheme = Scheme.objects.get(pk=11)
-        self.assertEqual(fac(request, 'advocate_type', scheme), 'KC')
+        kc = AdvocateType.objects.get(pk='KC')
+        fetcher = ModelParamFetcher(request, 'advocate_type', AdvocateType, scheme)
 
-    def test_does_not_alter_a_parameter_other_than_advocate_type_in_AGFS_fee_scheme_15(self):
-        request = self.factory.get('/api/v1/fee-schemes/11/prices/?other_param=QC')
-        fac = fix_advocate_category(self.dummy_function('QC'))
-        scheme = Scheme.objects.get(pk=11)
-        self.assertEqual(fac(request, 'other_param', scheme), 'QC')
+        self.assertEqual(fetcher.call(), kc)
+
+    def test_raises_exception_for_unknown_advocate_type(self):
+        request = self.factory.get('/api')
+        request.query_params = {'advocate_type': 'Unknown'}
+        scheme = Scheme.objects.get(pk=10)
+        fetcher = ModelParamFetcher(request, 'advocate_type', AdvocateType, scheme)
+
+        self.assertRaises(ValidationError, fetcher.call)

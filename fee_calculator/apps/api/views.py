@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from decimal import Decimal, InvalidOperation
-from api.utils import fix_advocate_category
+from decimal import Decimal
+from api.utils import ModelParamFetcher, DecimalParamFetcher
 import logging
 
 from django.db.models import Q
@@ -45,47 +45,6 @@ from .serializers import (
 logger = logging.getLogger('laa-calc')
 
 scheme_pk_parameter = OpenApiParameter('scheme_pk', OpenApiTypes.INT, OpenApiParameter.PATH)
-
-
-@fix_advocate_category
-def get_param(request, param_name, scheme, required=False, default=None):
-    value = request.query_params.get(param_name, default)
-    if value is None or value == '':
-        if required:
-            raise ValidationError('`%s` is a required field' % param_name)
-    return value
-
-
-def get_model_param(
-    request, param_name, model_class, scheme, required=False, lookup='pk', many=False,
-    default=None
-):
-    result = get_param(request, param_name, scheme, required, default)
-    try:
-        if result is not None and result != '':
-            if many:
-                candidates = model_class.objects.filter(**{lookup: result})
-                if len(candidates) == 0:
-                    raise model_class.DoesNotExist
-                else:
-                    result = candidates
-            else:
-                result = model_class.objects.get(**{lookup: result})
-    except (model_class.DoesNotExist, ValueError):
-        raise ValidationError(
-            '\'%s\' is not a valid `%s`' % (result, param_name)
-        )
-    return result
-
-
-def get_decimal_param(request, param_name, required=False, default=None):
-    number = get_param(request, param_name, required, default)
-    try:
-        if number is not None and number != '':
-            number = Decimal(number)
-    except InvalidOperation:
-        raise ValidationError('`%s` must be a number' % param_name)
-    return number
 
 
 class OrderedReadOnlyModelViewSet(viewsets.ReadOnlyModelViewSet):
@@ -176,12 +135,12 @@ class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
         scheme = get_object_or_404(Scheme, pk=self.kwargs['scheme_pk'])
         queryset = super().filter_queryset(queryset)
 
-        fee_types = get_model_param(
+        fee_types = ModelParamFetcher(
             self.request, 'fee_type_code', FeeType, scheme, lookup='code', many=True
-        )
-        scenario = get_model_param(self.request, 'scenario', Scenario, scheme)
-        advocate_type = get_model_param(self.request, 'advocate_type', AdvocateType, scheme)
-        offence_class = get_model_param(self.request, 'offence_class', OffenceClass, scheme)
+        ).call()
+        scenario = ModelParamFetcher(self.request, 'scenario', Scenario, scheme).call()
+        advocate_type = ModelParamFetcher(self.request, 'advocate_type', AdvocateType, scheme).call()
+        offence_class = ModelParamFetcher(self.request, 'offence_class', OffenceClass, scheme).call()
 
         filters = []
         if scenario:
@@ -373,12 +332,12 @@ class CalculatorView(views.APIView):
 
     def get(self, *args, **kwargs):
         scheme = get_object_or_404(Scheme, pk=kwargs['scheme_pk'])
-        fee_types = get_model_param(
+        fee_types = ModelParamFetcher(
             self.request, 'fee_type_code', FeeType, scheme, required=True, lookup='code', many=True
-        )
-        scenario = get_model_param(self.request, 'scenario', Scenario, scheme, required=True)
-        advocate_type = get_model_param(self.request, 'advocate_type', AdvocateType, scheme)
-        offence_class = get_model_param(self.request, 'offence_class', OffenceClass, scheme)
+        ).call()
+        scenario = ModelParamFetcher(self.request, 'scenario', Scenario, scheme, required=True).call()
+        advocate_type = ModelParamFetcher(self.request, 'advocate_type', AdvocateType, scheme).call()
+        offence_class = ModelParamFetcher(self.request, 'offence_class', OffenceClass, scheme).call()
 
         units = Unit.objects.values_list('pk', flat=True)
         modifiers = ModifierType.objects.values_list('name', flat=True)
@@ -388,13 +347,13 @@ class CalculatorView(views.APIView):
             if param.upper() in units:
                 unit_counts.append((
                     Unit.objects.get(pk=param.upper()),
-                    get_decimal_param(self.request, param),
+                    DecimalParamFetcher(self.request, param).call(),
                 ))
 
             if param.upper() in modifiers:
                 modifier_counts.append((
                     ModifierType.objects.get(name=param.upper()),
-                    get_decimal_param(self.request, param),
+                    DecimalParamFetcher(self.request, param).call(),
                 ))
 
         matching_fee_types = Price.objects.filter(
