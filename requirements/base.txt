@@ -1,4 +1,4 @@
-Django==3.2.18
+Django==3.2.19
 django-moj-irat==0.8
 drf-spectacular==0.26.2
 djangorestframework==3.14.0
