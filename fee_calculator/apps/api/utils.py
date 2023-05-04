@@ -1,5 +1,5 @@
 from functools import wraps
-import datetime
+from django.conf import settings
 
 
 def fix_advocate_category(f):
@@ -8,7 +8,7 @@ def fix_advocate_category(f):
         value = f(request, param_name, scheme, *args, **kwargs)
 
         if param_name == 'advocate_type' and value in ['QC', 'KC']:
-            value = 'KC' if scheme.start_date >= datetime.date(2023, 4, 17) else 'QC'
+            value = 'KC' if scheme.start_date >= settings.QC_KC_CHANGE_DATE else 'QC'
 
         return value
 
