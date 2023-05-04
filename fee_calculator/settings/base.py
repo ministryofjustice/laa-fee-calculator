@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 import sys
 import sentry_sdk
+import datetime
 from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -237,6 +238,8 @@ TEST_RUNNER = 'calculator.tests.PreloadDataDiscoverRunner'
 TEST_OUTPUT_DIR = 'tmp/test-reports'
 
 ADMIN_ENABLED = False
+
+QC_KC_CHANGE_DATE = datetime.date(2023, 4, 17)
 
 try:
     from .local import *
