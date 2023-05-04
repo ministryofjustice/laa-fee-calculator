@@ -153,6 +153,11 @@ class NestedSchemeMixin():
         context['scheme_pk'] = self.kwargs.get('scheme_pk')
         return context
 
+    def dispatch(self, request, *args, **kwargs):
+        request.fee_scheme = get_object_or_404(Scheme, pk=kwargs['scheme_pk'])
+
+        return super().dispatch(request, *args, **kwargs)
+
 
 @method_decorator(cache_control(public=True, max_age=2*60*60), name='dispatch')
 @extend_schema_view(

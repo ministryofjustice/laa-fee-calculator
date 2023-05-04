@@ -7,6 +7,7 @@ from django_filters.constants import EMPTY_VALUES
 from django_filters.fields import Lookup
 from django_filters.rest_framework import filters
 import six
+import datetime
 
 from calculator import models as calc_models
 from calculator.constants import SCHEME_TYPE
@@ -70,8 +71,9 @@ class PriceFilter(django_filters.FilterSet):
         return queryset.filter(**self.clean_param(self.request, name, value))
 
     def clean_param(self, request, name, value):
-        if name == 'advocate_type' and value.pk == 'KC':
-            value = AdvocateType.objects.get(pk='QC')
+        if name == 'advocate_type' and value.pk in ['QC', 'KC']:
+            pk = 'KC' if request.fee_scheme.start_date >= datetime.date(2023, 4, 17) else 'QC'
+            value = AdvocateType.objects.get(pk=pk)
 
         return {name: value}
 
