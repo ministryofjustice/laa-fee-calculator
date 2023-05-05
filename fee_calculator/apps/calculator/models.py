@@ -277,12 +277,13 @@ def calculate_total(
 ):
     amounts = []
     for unit, unit_count in unit_counts:
-        prices = Price.objects.filter(
-            Q(advocate_type=advocate_type) | Q(advocate_type__isnull=True),
-            Q(offence_class=offence_class) | Q(offence_class__isnull=True),
+        filters = filter(lambda f: f is not None, [
+            advocate_type.as_q,
+            offence_class.as_q,
             scenario.as_q,
-            scheme=scheme, fee_type=fee_type, unit=unit,
-        ).prefetch_related('modifiers')
+            Q(scheme=scheme), Q(fee_type=fee_type), Q(unit=unit)
+        ])
+        prices = Price.objects.filter(*filters).prefetch_related('modifiers')
 
         if len(prices) > 0:
             # sum total from all prices whose range is covered by the unit_count

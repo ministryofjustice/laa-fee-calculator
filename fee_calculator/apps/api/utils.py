@@ -9,6 +9,10 @@ def basic_q_builder(param, value):
     return Q(**{param: value})
 
 
+def q_builder_with_null(param, value):
+    return Q(**{param: value}) | Q(**{param + '__isnull': True})
+
+
 class ParamFetcher():
     def __init__(self, request, param_name, required=False, default=None, q_builder=basic_q_builder):
         self.request = request

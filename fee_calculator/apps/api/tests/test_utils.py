@@ -1,6 +1,6 @@
 from django.db.models import Q
 from django.test import TestCase
-from api.utils import ModelParamFetcher
+from api.utils import ModelParamFetcher, q_builder_with_null
 from rest_framework.test import APIRequestFactory
 from rest_framework.exceptions import ValidationError
 from calculator.models import AdvocateType, Scheme, Scenario
@@ -97,3 +97,8 @@ class ModelParamFetcherTestCase(TestCase):
         fetcher = ModelParamFetcher(request, 'advocate_type', AdvocateType, scheme)
 
         self.assertFalse(fetcher.present)
+
+
+class QBuilderWithNullTestCase(TestCase):
+    def test_includes_an_isnull_option(self):
+        self.assertEqual(q_builder_with_null('key', 'value'), Q(key='value') | Q(key__isnull=True))

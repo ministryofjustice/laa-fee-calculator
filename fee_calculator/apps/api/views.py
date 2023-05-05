@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from decimal import Decimal
-from api.utils import ModelParamFetcher, DecimalParamFetcher
+from api.utils import ModelParamFetcher, DecimalParamFetcher, q_builder_with_null
 import logging
 
 from django.db.models import Q
@@ -139,22 +139,18 @@ class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
             self.request, 'fee_type_code', FeeType, scheme, lookup='code', many=True
         ).call()
         scenario = ModelParamFetcher(self.request, 'scenario', Scenario, scheme)
-        advocate_type = ModelParamFetcher(self.request, 'advocate_type', AdvocateType, scheme).call()
-        offence_class = ModelParamFetcher(self.request, 'offence_class', OffenceClass, scheme).call()
+        advocate_type = ModelParamFetcher(self.request, 'advocate_type', AdvocateType,
+                                          scheme, q_builder=q_builder_with_null)
+        offence_class = ModelParamFetcher(self.request, 'offence_class', OffenceClass,
+                                          scheme, q_builder=q_builder_with_null)
 
         filters = []
         if scenario.present:
             filters.append(scenario.as_q)
-        if advocate_type:
-            filters.append(
-                Q(advocate_type=advocate_type) |
-                Q(advocate_type__isnull=True)
-            )
-        if offence_class:
-            filters.append(
-                Q(offence_class=offence_class) |
-                Q(offence_class__isnull=True)
-            )
+        if advocate_type.present:
+            filters.append(advocate_type.as_q)
+        if offence_class.present:
+            filters.append(offence_class.as_q)
         if fee_types:
             filters.append(
                 Q(fee_type__in=fee_types)
@@ -336,8 +332,10 @@ class CalculatorView(views.APIView):
             self.request, 'fee_type_code', FeeType, scheme, required=True, lookup='code', many=True
         ).call()
         scenario = ModelParamFetcher(self.request, 'scenario', Scenario, scheme, required=True)
-        advocate_type = ModelParamFetcher(self.request, 'advocate_type', AdvocateType, scheme).call()
-        offence_class = ModelParamFetcher(self.request, 'offence_class', OffenceClass, scheme).call()
+        advocate_type = ModelParamFetcher(self.request, 'advocate_type', AdvocateType,
+                                          scheme, q_builder=q_builder_with_null)
+        offence_class = ModelParamFetcher(self.request, 'offence_class', OffenceClass,
+                                          scheme, q_builder=q_builder_with_null)
 
         units = Unit.objects.values_list('pk', flat=True)
         modifiers = ModifierType.objects.values_list('name', flat=True)
