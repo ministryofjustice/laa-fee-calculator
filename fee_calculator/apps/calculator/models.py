@@ -280,8 +280,8 @@ def calculate_total(
         prices = Price.objects.filter(
             Q(advocate_type=advocate_type) | Q(advocate_type__isnull=True),
             Q(offence_class=offence_class) | Q(offence_class__isnull=True),
+            scenario.as_q,
             scheme=scheme, fee_type=fee_type, unit=unit,
-            scenario=scenario
         ).prefetch_related('modifiers')
 
         if len(prices) > 0:

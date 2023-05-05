@@ -138,13 +138,13 @@ class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
         fee_types = ModelParamFetcher(
             self.request, 'fee_type_code', FeeType, scheme, lookup='code', many=True
         ).call()
-        scenario = ModelParamFetcher(self.request, 'scenario', Scenario, scheme).call()
+        scenario = ModelParamFetcher(self.request, 'scenario', Scenario, scheme)
         advocate_type = ModelParamFetcher(self.request, 'advocate_type', AdvocateType, scheme).call()
         offence_class = ModelParamFetcher(self.request, 'offence_class', OffenceClass, scheme).call()
 
         filters = []
-        if scenario:
-            filters.append(Q(scenario=scenario))
+        if scenario.present:
+            filters.append(scenario.as_q)
         if advocate_type:
             filters.append(
                 Q(advocate_type=advocate_type) |
@@ -335,7 +335,7 @@ class CalculatorView(views.APIView):
         fee_types = ModelParamFetcher(
             self.request, 'fee_type_code', FeeType, scheme, required=True, lookup='code', many=True
         ).call()
-        scenario = ModelParamFetcher(self.request, 'scenario', Scenario, scheme, required=True).call()
+        scenario = ModelParamFetcher(self.request, 'scenario', Scenario, scheme, required=True)
         advocate_type = ModelParamFetcher(self.request, 'advocate_type', AdvocateType, scheme).call()
         offence_class = ModelParamFetcher(self.request, 'offence_class', OffenceClass, scheme).call()
 

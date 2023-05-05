@@ -2,14 +2,20 @@ from decimal import Decimal, InvalidOperation
 from django.conf import settings
 from functools import lru_cache
 from rest_framework.exceptions import ValidationError
+from django.db.models import Q
+
+
+def basic_q_builder(param, value):
+    return Q(**{param: value})
 
 
 class ParamFetcher():
-    def __init__(self, request, param_name, required=False, default=None):
+    def __init__(self, request, param_name, required=False, default=None, q_builder=basic_q_builder):
         self.request = request
         self.param_name = param_name
         self.required = required
         self.default = default
+        self.q_builder = q_builder
 
     @property
     @lru_cache
@@ -19,15 +25,27 @@ class ParamFetcher():
             raise ValidationError('`%s` is a required field' % self.param_name)
         return value
 
+    @property
+    def as_q(self):
+        if self.present:
+            return self.q_builder(self.param_name, self.call())
+
+    @property
+    def present(self):
+        return self._result is not None
+
 
 class ModelParamFetcher(ParamFetcher):
-    def __init__(self, request, param_name, model_class, scheme, required=False, lookup='pk', many=False, default=None):
+    def __init__(
+        self, request, param_name, model_class, scheme,
+        required=False, lookup='pk', many=False, default=None, q_builder=basic_q_builder
+    ):
         self.scheme = scheme
         self.model_class = model_class
         self.lookup = lookup
         self.many = many
 
-        super().__init__(request, param_name, required=required, default=default)
+        super().__init__(request, param_name, required=required, default=default, q_builder=q_builder)
 
     def call(self):
         try:
