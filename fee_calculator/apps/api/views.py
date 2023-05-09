@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from decimal import Decimal, InvalidOperation
+from api.utils import fix_advocate_category
 import logging
 
 from django.db.models import Q
@@ -46,7 +47,8 @@ logger = logging.getLogger('laa-calc')
 scheme_pk_parameter = OpenApiParameter('scheme_pk', OpenApiTypes.INT, OpenApiParameter.PATH)
 
 
-def get_param(request, param_name, required=False, default=None):
+@fix_advocate_category
+def get_param(request, param_name, scheme, required=False, default=None):
     value = request.query_params.get(param_name, default)
     if value is None or value == '':
         if required:
@@ -55,10 +57,10 @@ def get_param(request, param_name, required=False, default=None):
 
 
 def get_model_param(
-    request, param_name, model_class, required=False, lookup='pk', many=False,
+    request, param_name, model_class, scheme, required=False, lookup='pk', many=False,
     default=None
 ):
-    result = get_param(request, param_name, required, default)
+    result = get_param(request, param_name, scheme, required, default)
     try:
         if result is not None and result != '':
             if many:
@@ -151,6 +153,11 @@ class NestedSchemeMixin():
         context['scheme_pk'] = self.kwargs.get('scheme_pk')
         return context
 
+    def dispatch(self, request, *args, **kwargs):
+        request.fee_scheme = get_object_or_404(Scheme, pk=kwargs['scheme_pk'])
+
+        return super().dispatch(request, *args, **kwargs)
+
 
 @method_decorator(cache_control(public=True, max_age=2*60*60), name='dispatch')
 @extend_schema_view(
@@ -166,14 +173,15 @@ class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
     lookup_attr = 'pk'
 
     def filter_queryset(self, queryset):
+        scheme = get_object_or_404(Scheme, pk=self.kwargs['scheme_pk'])
         queryset = super().filter_queryset(queryset)
 
         fee_types = get_model_param(
-            self.request, 'fee_type_code', FeeType, lookup='code', many=True
+            self.request, 'fee_type_code', FeeType, scheme, lookup='code', many=True
         )
-        scenario = get_model_param(self.request, 'scenario', Scenario)
-        advocate_type = get_model_param(self.request, 'advocate_type', AdvocateType)
-        offence_class = get_model_param(self.request, 'offence_class', OffenceClass)
+        scenario = get_model_param(self.request, 'scenario', Scenario, scheme)
+        advocate_type = get_model_param(self.request, 'advocate_type', AdvocateType, scheme)
+        offence_class = get_model_param(self.request, 'offence_class', OffenceClass, scheme)
 
         filters = []
         if scenario:
@@ -366,11 +374,11 @@ class CalculatorView(views.APIView):
     def get(self, *args, **kwargs):
         scheme = get_object_or_404(Scheme, pk=kwargs['scheme_pk'])
         fee_types = get_model_param(
-            self.request, 'fee_type_code', FeeType, required=True, lookup='code', many=True
+            self.request, 'fee_type_code', FeeType, scheme, required=True, lookup='code', many=True
         )
-        scenario = get_model_param(self.request, 'scenario', Scenario, required=True)
-        advocate_type = get_model_param(self.request, 'advocate_type', AdvocateType)
-        offence_class = get_model_param(self.request, 'offence_class', OffenceClass)
+        scenario = get_model_param(self.request, 'scenario', Scenario, scheme, required=True)
+        advocate_type = get_model_param(self.request, 'advocate_type', AdvocateType, scheme)
+        offence_class = get_model_param(self.request, 'offence_class', OffenceClass, scheme)
 
         units = Unit.objects.values_list('pk', flat=True)
         modifiers = ModifierType.objects.values_list('name', flat=True)
