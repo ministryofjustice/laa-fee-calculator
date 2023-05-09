@@ -13,6 +13,12 @@ def q_builder_with_null(param, value):
     return Q(**{param: value}) | Q(**{param + '__isnull': True})
 
 
+def q_builder_with_list(param, values):
+    import pdb
+    pdb.set_trace()
+    return Q(**{param + '__in': values})
+
+
 class ParamFetcher():
     def __init__(self, request, param_name, required=False, default=None, q_builder=basic_q_builder):
         self.request = request
@@ -36,7 +42,7 @@ class ParamFetcher():
 
     @property
     def present(self):
-        return self._result is not None
+        return bool(self._result)
 
 
 class ModelParamFetcher(ParamFetcher):

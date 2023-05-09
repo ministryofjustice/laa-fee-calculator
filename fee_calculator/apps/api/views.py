@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from decimal import Decimal
-from api.utils import ModelParamFetcher, DecimalParamFetcher, q_builder_with_null
+from api.utils import ModelParamFetcher, DecimalParamFetcher, q_builder_with_null, q_builder_with_list
 import logging
 
 from django.db.models import Q
@@ -135,9 +135,8 @@ class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
         scheme = get_object_or_404(Scheme, pk=self.kwargs['scheme_pk'])
         queryset = super().filter_queryset(queryset)
 
-        fee_types = ModelParamFetcher(
-            self.request, 'fee_type_code', FeeType, scheme, lookup='code', many=True
-        ).call()
+        fee_types = ModelParamFetcher(self.request, 'fee_type_code', FeeType, scheme,
+                                      lookup='code', many=True, q_builder=q_builder_with_list)
         scenario = ModelParamFetcher(self.request, 'scenario', Scenario, scheme)
         advocate_type = ModelParamFetcher(self.request, 'advocate_type', AdvocateType,
                                           scheme, q_builder=q_builder_with_null)
@@ -151,10 +150,8 @@ class BasePriceFilteredViewSet(NestedSchemeMixin, OrderedReadOnlyModelViewSet):
             filters.append(advocate_type.as_q)
         if offence_class.present:
             filters.append(offence_class.as_q)
-        if fee_types:
-            filters.append(
-                Q(fee_type__in=fee_types)
-            )
+        if fee_types.present:
+            filters.append(fee_types.as_q)
 
         if filters:
             filters.append(Q(scheme_id=self.kwargs['scheme_pk']))
@@ -328,9 +325,8 @@ class CalculatorView(views.APIView):
 
     def get(self, *args, **kwargs):
         scheme = get_object_or_404(Scheme, pk=kwargs['scheme_pk'])
-        fee_types = ModelParamFetcher(
-            self.request, 'fee_type_code', FeeType, scheme, required=True, lookup='code', many=True
-        ).call()
+        fee_types = ModelParamFetcher(self.request, 'fee_type_code', FeeType, scheme,
+                                      required=True, lookup='code', many=True, q_builder=q_builder_with_list)
         scenario = ModelParamFetcher(self.request, 'scenario', Scenario, scheme, required=True)
         advocate_type = ModelParamFetcher(self.request, 'advocate_type', AdvocateType,
                                           scheme, q_builder=q_builder_with_null)
@@ -355,7 +351,7 @@ class CalculatorView(views.APIView):
                 ))
 
         matching_fee_types = Price.objects.filter(
-            scheme=scheme, fee_type__in=fee_types
+            scheme=scheme, fee_type__in=fee_types.call()
         ).values_list('fee_type', flat=True).distinct()
 
         if len(matching_fee_types) != 1:
