@@ -1048,5 +1048,15 @@
       "is_basic": false,
       "aggregation": "sum"
     }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 233,
+    "fields": {
+      "name": "Additional preparation fee",
+      "code": "AGFS_PREP_FEE",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
   }
 ]
