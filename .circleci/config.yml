@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  aws-cli: circleci/aws-cli@4.0.0
+
 references:
   create-tmp-dir: &create-tmp-dir
     run:
@@ -64,6 +67,9 @@ commands:
     description: >
       Push laa-fee-calculator docker image
     steps:
+      - aws-cli/setup:
+          role_arn: $ECR_ROLE_TO_ASSUME
+          region: $ECR_REGION
       - run:
           name: Push laa-fee-calculator docker image
           command: |
