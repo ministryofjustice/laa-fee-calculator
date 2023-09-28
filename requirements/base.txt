@@ -1,6 +1,6 @@
 Django==3.2.21
 django-moj-irat==0.8
-drf-spectacular==0.26.4
+drf-spectacular==0.26.5
 djangorestframework==3.14.0
 django-extended-choices==1.3.3
 django-cors-headers==4.2.0
