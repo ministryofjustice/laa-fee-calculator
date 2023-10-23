@@ -114,10 +114,21 @@
     "pk": 11,
     "fields": {
       "start_date": "2023-04-17",
-      "end_date": null,
+      "end_date": "2023-11-15",
       "earliest_main_hearing_date": null,
       "base_type": 1,
       "description": "AGFS Fee Scheme 15 (2023-04 - Additional Preparation Fee)"
+    }
+  },
+  {
+    "model": "calculator.scheme",
+    "pk": 12,
+    "fields": {
+      "start_date": "2023-11-16",
+      "end_date": null,
+      "earliest_main_hearing_date": null,
+      "base_type": 1,
+      "description": "AGFS Fee Scheme 16 (2023-11 - Increase section 28)"
     }
   }
 ]
