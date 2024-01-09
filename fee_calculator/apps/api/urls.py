@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls import url, include
-from django.urls import path
+from django.urls import include, path, re_path
 
 from rest_framework_nested import routers
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
@@ -33,9 +32,9 @@ schemes_router.register(r'modifier-types', ModifierTypeViewSet,
 schemes_router.register(r'prices', PriceViewSet, basename='prices')
 
 urlpatterns = (
-    url(r'^fee-schemes/(?P<scheme_pk>[^/.]+)/calculate/$', CalculatorView.as_view(), name='calculator'),
-    url(r'^', include(router.urls)),
-    url(r'^', include(schemes_router.urls)),
+    re_path(r'^fee-schemes/(?P<scheme_pk>[^/.]+)/calculate/$', CalculatorView.as_view(), name='calculator'),
+    re_path(r'^', include(router.urls)),
+    re_path(r'^', include(schemes_router.urls)),
 
     # drf-spectacular = OpenAPI3
     path('oa3/schema/', SpectacularAPIView.as_view(), name='oa3_schema'),
