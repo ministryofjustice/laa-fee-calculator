@@ -10,7 +10,7 @@ from django.core.management.commands.loaddata import (
 from django.db import (
     DatabaseError, IntegrityError, router
 )
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 
 class Command(LoadDataCommand):
@@ -94,7 +94,7 @@ class Command(LoadDataCommand):
                         e.args = ("Could not load %(app_label)s.%(object_name)s: %(error_msg)s" % {
                             'app_label': model._meta.app_label,
                             'object_name': model._meta.object_name,
-                            'error_msg': force_text(e)
+                            'error_msg': force_str(e)
                         },)
                         raise
                 else:
@@ -112,7 +112,7 @@ class Command(LoadDataCommand):
                                 'app_label': obj.object._meta.app_label,
                                 'object_name': obj.object._meta.object_name,
                                 'pk': obj.object.pk,
-                                'error_msg': force_text(e)
+                                'error_msg': force_str(e)
                             },)
                             raise
                 if objects and show_progress:
