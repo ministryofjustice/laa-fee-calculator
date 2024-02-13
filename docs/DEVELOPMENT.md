@@ -23,7 +23,7 @@ brew link libxml2 --force
 **Quick start**
 
 ```
-make setup
+make setup-local
 make dbreload
 make server
 ```
@@ -41,7 +41,7 @@ venv/bin/pip install -U setuptools pip wheel
 * Install application dependencies
 
 ```
-venv/bin/pip install -r requirements/base.txt
+venv/bin/pip install -r requirements/local.txt
 ```
 
 * Create/Migrate database
@@ -116,7 +116,7 @@ docker-compose up
 
 Secrets should _not_ be kept in this repository. In the past `git-crypt` has been used to encrypt secrets within the repo however due to the difficulty of rotating the symmetric key used for encryption following a security breach, this approach has now been deprecated.
 
-Secrets are held as Kubernetes Secret objects in the cluster. These can be accessed by executing 
+Secrets are held as Kubernetes Secret objects in the cluster. These can be accessed by executing
 
 ```bash
 kubectl -n laa-fee-calculator-<env> get secrets

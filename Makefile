@@ -12,6 +12,10 @@ setup: #: Install virtual environment and requirements
 	`which python3` -m venv venv
 	${px} install -U setuptools pip wheel
 	${px} install -r requirements/base.txt
+setup-local: #: Install virtual environment and requirements for local development environment
+	`which python3` -m venv venv
+	${px} install -U setuptools pip wheel
+	${px} install -r requirements/local.txt
 server: # run app server
 	DEBUG="True" ${pyman} runserver 8000
 db: #: open db console
