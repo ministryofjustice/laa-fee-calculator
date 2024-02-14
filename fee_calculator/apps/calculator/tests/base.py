@@ -90,6 +90,29 @@ class AgfsCalculatorTestCase(CalculatorTestCase):
         ))
 
 
+class FeeTypeUnitMixin:
+    def get_fee_type_unit(self, data, row):
+        """
+        Commmon code shared between AGFS 9 Calculator and AGFS 10+ Calculators to retrieve the unit for non-basic
+        fee types.
+        """
+        unit_resp = self.client.get(
+            '/api/{version}/fee-schemes/{scheme_id}/units/'.format(
+                version=settings.API_VERSION, scheme_id=self.scheme_id),
+            data=data
+        )
+        self.assertEqual(
+            unit_resp.status_code, status.HTTP_200_OK, unit_resp.content
+        )
+        self.assertEqual(unit_resp.json()['count'], 1, data)
+        unit = unit_resp.json()['results'][0]['id']
+        data[unit] = (
+                         Decimal(row['NUM_ATTENDANCE_DAYS'])
+                         if row['BILL_TYPE'] == 'AGFS_FEE'
+                         else Decimal(row['QUANTITY'])
+                     ) or 1
+
+
 class LgfsCalculatorTestCase(CalculatorTestCase):
     csv_path = NotImplemented
 
@@ -300,7 +323,7 @@ class LgfsWarrantFeeTestMixin(BaseWarrantFeeTestMixin):
         self._test_warrant_fee_matches_appropriate_base(9, 54, 'LIT_FEE')
 
 
-class Agfs10PlusCalculatorTestCase(AgfsCalculatorTestCase):
+class Agfs10PlusCalculatorTestCase(AgfsCalculatorTestCase, FeeTypeUnitMixin):
 
     def assertRowValuesCorrect(self, row):
         """
@@ -317,22 +340,7 @@ class Agfs10PlusCalculatorTestCase(AgfsCalculatorTestCase):
         }
 
         if not is_basic:
-            # get unit for fee type
-            unit_resp = self.client.get(
-                '/api/{version}/fee-schemes/{scheme_id}/units/'.format(
-                    version=settings.API_VERSION, scheme_id=self.scheme_id),
-                data=data
-            )
-            self.assertEqual(
-                unit_resp.status_code, status.HTTP_200_OK, unit_resp.content
-            )
-            self.assertEqual(unit_resp.json()['count'], 1, data)
-            unit = unit_resp.json()['results'][0]['id']
-            data[unit] = (
-                Decimal(row['NUM_ATTENDANCE_DAYS'])
-                if row['BILL_TYPE'] == 'AGFS_FEE'
-                else Decimal(row['QUANTITY'])
-            ) or 1
+            self.get_fee_type_unit(data, row)
         else:
             data['DAY'] = Decimal(row['NUM_ATTENDANCE_DAYS']) or 1
 

@@ -3,14 +3,13 @@ from decimal import Decimal
 from math import floor
 import os
 
-from django.conf import settings
 from rest_framework import status
 
 from calculator.tests.lib.utils import scenario_ccr_to_id
-from calculator.tests.base import AgfsCalculatorTestCase
+from calculator.tests.base import AgfsCalculatorTestCase, FeeTypeUnitMixin
 
 
-class Agfs9CalculatorTestCase(AgfsCalculatorTestCase):
+class Agfs9CalculatorTestCase(AgfsCalculatorTestCase, FeeTypeUnitMixin):
     scheme_id = 1
     csv_path = os.path.join(
         os.path.dirname(__file__),
@@ -33,21 +32,7 @@ class Agfs9CalculatorTestCase(AgfsCalculatorTestCase):
 
         if not is_basic:
             # get unit for fee type
-            unit_resp = self.client.get(
-                '/api/{version}/fee-schemes/{scheme_id}/units/'.format(
-                    version=settings.API_VERSION, scheme_id=self.scheme_id),
-                data=data
-            )
-            self.assertEqual(
-                unit_resp.status_code, status.HTTP_200_OK, unit_resp.content
-            )
-            self.assertEqual(unit_resp.json()['count'], 1, data)
-            unit = unit_resp.json()['results'][0]['id']
-            data[unit] = (
-                Decimal(row['NUM_ATTENDANCE_DAYS'])
-                if row['BILL_TYPE'] == 'AGFS_FEE'
-                else Decimal(row['QUANTITY'])
-            ) or 1
+            self.get_fee_type_unit(data, row)
         else:
             data['DAY'] = Decimal(row['NUM_ATTENDANCE_DAYS']) or 1
             data['PPE'] = int(row['PPE'])
