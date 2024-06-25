@@ -3,7 +3,7 @@
 ## Requirements
 
 * Python 3.10.x
-* Django 3.2.x
+* Django 4.2.x
 
 ## OS Dependencies
 
@@ -18,6 +18,10 @@ brew link libxml2 --force
 ```
 
 ## Setup
+
+Ensure the correct version of Python is installed locally before running these commands. To manage Python versions locally on your device, you may want to use `pyenv`.
+
+Installation instructions for `pyenv` can be found [here](https://realpython.com/intro-to-pyenv/#installing-pyenv).
 
 ---
 **Quick start**
@@ -34,33 +38,33 @@ Alternatively, these commands can be run individually to set up the service step
 * Install virtual environment
 
 ```
-`which python3` -m venv venv
-venv/bin/pip install -U setuptools pip wheel
+pip3 install pipenv
+pipenv shell
 ```
 
 * Install application dependencies
 
 ```
-venv/bin/pip install -r requirements/local.txt
+pipenv install -d
 ```
 
 * Create/Migrate database
 
 ```
-venv/bin/python manage.py migrate --no-input
+pipenv run python3 manage.py migrate --no-input
 ```
 
 * Seed database
 
 ```
-venv/bin/python manage.py loadalldata
+pipenv run python3 manage.py loadalldata
 ```
 
 * reseed database
 ```
-venv/bin/python manage.py migrate
-venv/bin/python manage.py cleardata
-venv/bin/python manage.py loadalldata
+pipenv run python3 manage.py migrate
+pipenv run python3 manage.py cleardata
+pipenv run python3 manage.py loadalldata
 ```
 
 * Run the server
@@ -68,26 +72,26 @@ venv/bin/python manage.py loadalldata
 By default bounds to port 8080
 
 ```
-DEBUG="True" venv/bin/python manage.py runserver 8000
+DEBUG="True" pipenv run python3 manage.py runserver 8000
 ```
 
 * Run the test suite
 
 ```
-venv/bin/python manage.py test
+pipenv run python3 manage.py test
 ```
 
 * Run the test suite and report on code coverage metrics
 
 ```
-venv/bin/python -m coverage run manage.py test
-venv/bin/python -m coverage report
+pipenv run python3 -m coverage run manage.py test
+pipenv run python3 -m coverage report
 ```
 
 * Run an individual test
 
 ```
-venv/bin/python manage.py test calculator.tests.test_calculation_05_agfs_12
+pipenv run python3 manage.py test calculator.tests.test_calculation_05_agfs_12
 ```
 
 ## Running locally using docker
