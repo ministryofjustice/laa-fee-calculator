@@ -30,11 +30,12 @@ RUN \
     libpq-dev \
     netcat-openbsd \
     linux-headers \
-  && pip3 install -U setuptools pip wheel
+  && pip3 install -U setuptools pipenv wheel
 
-# cache python packages, unless requirements change
-ADD ./requirements requirements
-RUN pip3 install -r requirements/base.txt
+COPY ./Pipfile /app/Pipfile
+COPY ./Pipfile.lock /app/Pipfile.lock
+
+RUN PIPENV_PIPFILE="/app/Pipfile" pipenv install --system --deploy
 
 # add app
 ADD . /app
