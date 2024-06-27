@@ -10,4 +10,4 @@ flake8==7.1.0
 pyyaml==6.0.1
 six==1.16.0
 uWSGI==2.0.26
-sentry-sdk==2.6.0
+sentry-sdk==2.7.0
