@@ -226,11 +226,12 @@
         },
         "jsonschema": {
             "hashes": [
-                "sha256:5b22d434a45935119af990552c862e5d6d564e8f6601206b305a61fdf661a2b7",
-                "sha256:ff4cfd6b1367a40e7bc6411caec72effadd3db0bbe5017de188f2d6108335802"
+                "sha256:d71497fef26351a33265337fa77ffeb82423f3ea21283cd9467bb03999266bc4",
+                "sha256:fbadb6f8b144a8f8cf9f0b89ba94501d143e50411a1278633f56a7acf7fd5566"
             ],
+            "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==4.22.0"
+            "version": "==4.23.0"
         },
         "jsonschema-specifications": {
             "hashes": [
@@ -416,7 +417,6 @@
                 "sha256:f757f359f30ec7dcebca662a6bd46d1098f8b9fb1fcd661a9e13f2e8ce343ba1",
                 "sha256:fb37bd599f031f1a6fb9e58ec62864ccf3ad549cf14bac527dbfa97123edcca4"
             ],
-            "index": "pypi",
             "markers": "python_version >= '3.8'",
             "version": "==0.19.0"
         },
