@@ -263,7 +263,7 @@
     "model": "calculator.feetype",
     "pk": 29,
     "fields": {
-      "name": "Special preperation (hourly)",
+      "name": "Special preparation (hourly)",
       "code": "AGFS_SPCL_PREP",
       "is_basic": false,
       "aggregation": "sum"
