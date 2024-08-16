@@ -20,6 +20,22 @@ class PriceApiTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertGreater(len(response.data['results']), 0)
 
+    def test_get_list_available_with_london_rates_apply_true(self):
+        response = self.client.get(
+            self.endpoint.format(scheme=2) +
+            '?london_rates_apply=true'
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertGreater(len(response.data['results']), 0)
+
+    def test_get_list_available_with_london_rates_apply_false(self):
+        response = self.client.get(
+            self.endpoint.format(scheme=2) +
+            '?london_rates_apply=false'
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertGreater(len(response.data['results']), 0)
+
     @prevent_request_warnings
     def test_get_list_400_with_invalid_scenario(self):
         response = self.client.get(
