@@ -2,12 +2,12 @@
 import os
 
 from calculator.tests.base import (
-    LgfsCalculatorTestCase, EvidenceProvisionFeeTestMixin, LgfsWarrantFeeTestMixin
+    LgfsCalculatorTestCase, EvidenceProvisionFeeTestMixin, LgfsWarrantFeeTestMixin, LgfsSpecialPreparationFeeTestMixin
 )
 
 
 class LgfsClairContingencyCalculatorTestCase(
-    LgfsCalculatorTestCase, EvidenceProvisionFeeTestMixin, LgfsWarrantFeeTestMixin
+    LgfsCalculatorTestCase, EvidenceProvisionFeeTestMixin, LgfsWarrantFeeTestMixin, LgfsSpecialPreparationFeeTestMixin
 ):
     scheme_id = 8
     csv_path = os.path.join(
@@ -17,3 +17,4 @@ class LgfsClairContingencyCalculatorTestCase(
 
 
 LgfsClairContingencyCalculatorTestCase.create_tests()
+LgfsClairContingencyCalculatorTestCase.create_special_prep_tests()

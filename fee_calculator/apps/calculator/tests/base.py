@@ -166,8 +166,8 @@ class LgfsCalculatorTestCase(CalculatorTestCase):
                 tested_scenarios.add(row['SCENARIO'])
                 setattr(
                     cls,
-                    cls.get_test_name('lgfs', row, i+2),
-                    cls.make_test(row, i+2)
+                    cls.get_test_name('lgfs', row, i + 2),
+                    cls.make_test(row, i + 2)
                 )
         print('{0}: Testing {1} scenarios'.format(
             cls.__name__, len(tested_scenarios)
@@ -321,6 +321,106 @@ class LgfsWarrantFeeTestMixin(BaseWarrantFeeTestMixin):
 
     def test_order_breach_warrant_fee(self):
         self._test_warrant_fee_matches_appropriate_base(9, 54, 'LIT_FEE')
+
+
+class BaseLondonRatesTestMixin:
+
+    def make_london_rates_test(scenario_id, fee_type_code, london_rates_apply,
+                               unit_code, amount, expected_amount):
+        """
+        Generate a test method
+        """
+        def lr_test(self):
+            self._test_fee_with_london_rates(scenario_id, fee_type_code, london_rates_apply,
+                                             unit_code, amount, expected_amount)
+
+        return lr_test
+
+    def _test_fee_with_london_rates(
+        self, scenario_id, fee_type_code, london_rates_apply, unit_code, amount, expected_amount
+    ):
+        """
+        Run API call and check the response matches expectations
+        """
+        response = self.client.get(
+            '/api/{version}/fee-schemes/{scheme_id}/calculate/?fee_type_code={fee_type_code}&'
+            '{unit}={amount}&london_rates_apply={london_rates_apply}&scenario={scenario}'.format(
+                version=settings.API_VERSION, scheme_id=self.scheme_id,
+                fee_type_code=fee_type_code, unit=unit_code, amount=amount,
+                london_rates_apply=london_rates_apply, scenario=scenario_id),
+        )
+        self.assertEqual(
+            response.status_code, status.HTTP_200_OK, response.content
+        )
+
+        returned = response.data['amount']
+        close_enough = math.isclose(returned, expected_amount, abs_tol=0.011)
+        self.assertTrue(
+            close_enough,
+            msg='{returned} != {expected} within £0.01 tolerance'.format(
+                returned=returned,
+                expected=expected_amount,
+            )
+        )
+
+
+class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
+
+    @classmethod
+    def create_special_prep_tests(cls):
+        """
+        Define valid scenarios, and trigger different batches of test generation
+        """
+        valid_scenarios = list(range(2, 13)) + list(range(19, 37)) + list(range(38, 43))
+        cls._test_special_preparation_fee_inside_london(valid_scenarios)
+        cls._test_special_preparation_fee_outside_london(valid_scenarios)
+        cls._test_special_preparation_fee_edge_cases(valid_scenarios)
+
+    @classmethod
+    def _test_special_preparation_fee_inside_london(cls, scenarios):
+        """
+        Generate test scenarios with london rates
+        """
+        for scenario_id in scenarios:
+            test_name = "test_special_preparation_fee_inside_london_{scenario}".format(scenario=scenario_id)
+
+            setattr(cls,
+                    test_name,
+                    cls.make_london_rates_test(scenario_id, 'LGFS_SPCL_PREP', 'true', 'HOUR', 2, 86.24))
+
+    @classmethod
+    def _test_special_preparation_fee_outside_london(cls, scenarios):
+        """
+        Generate test scenarios without london rates
+        """
+        for scenario_id in scenarios:
+            test_name = "test_special_preparation_fee_outside_london_{scenario}".format(scenario=scenario_id)
+
+            setattr(cls,
+                    test_name,
+                    cls.make_london_rates_test(scenario_id, 'LGFS_SPCL_PREP', 'false', 'HOUR', 2, 82.12))
+
+    @classmethod
+    def _test_special_preparation_fee_edge_cases(cls, scenarios):
+        """
+        Generate test scenarios for edge cases
+        """
+
+        # Zero amounts
+        for scenario_id in scenarios:
+            test_name = "test_special_preparation_fee_zero_amounts_{scenario}".format(scenario=scenario_id)
+
+            setattr(cls,
+                    test_name,
+                    cls.make_london_rates_test(scenario_id, 'LGFS_SPCL_PREP', 'true', 'HOUR', 0, 0))
+
+        # london_rates_apply not provided
+        for scenario_id in scenarios:
+            test_name = "test_special_preparation_fee_null_london_{scenario}".format(scenario=scenario_id)
+
+            setattr(cls,
+                    test_name,
+                    cls.make_london_rates_test(scenario_id, 'LGFS_SPCL_PREP', '', 'HOUR', 2, 0))
 
 
 class Agfs10PlusCalculatorTestCase(AgfsCalculatorTestCase, FeeTypeUnitMixin):
