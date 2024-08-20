@@ -166,8 +166,8 @@ class LgfsCalculatorTestCase(CalculatorTestCase):
                 tested_scenarios.add(row['SCENARIO'])
                 setattr(
                     cls,
-                    cls.get_test_name('lgfs', row, i + 2),
-                    cls.make_test(row, i + 2)
+                    cls.get_test_name('lgfs', row, i+2),
+                    cls.make_test(row, i+2)
                 )
         print('{0}: Testing {1} scenarios'.format(
             cls.__name__, len(tested_scenarios)
