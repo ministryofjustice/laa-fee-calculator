@@ -43,7 +43,8 @@ def fee_scheme(request, pk):
         {
             'scheme': scheme,
             'prices_view': prices_view,
-            'breadcrumbs': breadcrumbs
+            'breadcrumbs': breadcrumbs,
+            'bool_values': ['true', 'false']
         }
     )
 
