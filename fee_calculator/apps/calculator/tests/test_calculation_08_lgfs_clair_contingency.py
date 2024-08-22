@@ -18,5 +18,4 @@ class LgfsClairContingencyCalculatorTestCase(
 
 LgfsClairContingencyCalculatorTestCase.create_tests()
 
-valid_special_prep_scenarios = list(range(2, 13)) + list(range(19, 37)) + list(range(38, 43))
-LgfsClairContingencyCalculatorTestCase.create_special_prep_tests(valid_special_prep_scenarios, [43.12, 41.06])
+LgfsClairContingencyCalculatorTestCase.create_special_prep_tests([43.12, 41.06])

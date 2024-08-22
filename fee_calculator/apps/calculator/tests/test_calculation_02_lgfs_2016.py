@@ -6,6 +6,8 @@ from calculator.tests.base import (
 )
 
 
+
+
 class Lgfs2016CalculatorTestCase(
     LgfsCalculatorTestCase, EvidenceProvisionFeeTestMixin, LgfsWarrantFeeTestMixin, LgfsSpecialPreparationFeeTestMixin
 ):
@@ -18,5 +20,4 @@ class Lgfs2016CalculatorTestCase(
 
 Lgfs2016CalculatorTestCase.create_tests()
 
-valid_special_prep_scenarios = list(range(2, 13)) + list(range(19, 37)) + list(range(38, 43))
-Lgfs2016CalculatorTestCase.create_special_prep_tests(valid_special_prep_scenarios, [43.12, 41.06])
+Lgfs2016CalculatorTestCase.create_special_prep_tests([43.12, 41.06])

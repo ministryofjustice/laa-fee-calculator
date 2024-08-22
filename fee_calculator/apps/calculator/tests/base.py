@@ -51,8 +51,10 @@ class CalculatorTestCase(SimpleTestCase):
         """
         Generate a test method
         """
+
         def row_test(self):
             self.assertRowValuesCorrect(row)
+
         row_test.__doc__ = str(line_number) + ': ' + str(row.get('CASE_ID'))
         return row_test
 
@@ -82,8 +84,8 @@ class AgfsCalculatorTestCase(CalculatorTestCase):
                     tested_fees.add(row['BILL_SUB_TYPE'])
                     setattr(
                         cls,
-                        cls.get_test_name('agfs', row, i+2),
-                        cls.make_test(row, i+2)
+                        cls.get_test_name('agfs', row, i + 2),
+                        cls.make_test(row, i + 2)
                     )
         print('{0}: Testing {1} scenarios and {2} fees'.format(
             cls.__name__, len(tested_scenarios), len(tested_fees)
@@ -166,8 +168,8 @@ class LgfsCalculatorTestCase(CalculatorTestCase):
                 tested_scenarios.add(row['SCENARIO'])
                 setattr(
                     cls,
-                    cls.get_test_name('lgfs', row, i+2),
-                    cls.make_test(row, i+2)
+                    cls.get_test_name('lgfs', row, i + 2),
+                    cls.make_test(row, i + 2)
                 )
         print('{0}: Testing {1} scenarios'.format(
             cls.__name__, len(tested_scenarios)
@@ -330,6 +332,7 @@ class BaseLondonRatesTestMixin:
         """
         Generate a test method
         """
+
         def lr_test(self):
             self._test_fee_with_london_rates(scenario_id, fee_type_code, london_rates_apply,
                                              unit_code, amount, expected_amount)
@@ -367,46 +370,90 @@ class BaseLondonRatesTestMixin:
 class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
 
     @classmethod
-    def create_special_prep_tests(cls, valid_scenarios, expected_prices):
+    def valid_special_prep_scenarios(self):
+        scenarios = {
+            "Guilty Plea": 2,
+            "Cracked Trial": 3,
+            "Trial": 4,
+            "Retrial": 11,
+            "Cracked before retrial": 10,
+            "Appeal against Conviction": 5,
+            "Appeal against Sentence": 6,
+            "Committal for Sentence": 7,
+            "Contempt": 8,
+            "Breach of Crown Court Order": 9,
+            "Hearing Subsequent to Sentence": 32,
+            "Elected Case Not Proceeded": 12,
+            "before trial transfer (new) - cracked": 22,
+            "before trial transfer (new) - trial": 23,
+            "before trial transfer (org)": 21,
+            "during trial transfer (new) - retrial": 26,
+            "during trial transfer (new) - trial": 25,
+            "during trial transfer (org) - trial": 24,
+            "elected case - before trial transfer (new)": 40,
+            "elected case - before trial transfer (org)": 39,
+            "elected case - transfer before retrial (new)": 42,
+            "elected case - transfer before retrial (org)": 41,
+            "elected case - up to and including PCMH transfer (new)": 38,
+            "transfer after retrial and before sentence hearing (new)": 34,
+            "transfer after retrial and before sentence hearing (org)": 33,
+            "transfer after trial and before sentence hearing (new)": 36,
+            "transfer after trial and before sentence hearing (org)": 35,
+            "transfer before retrial (new) cracked retrial": 28,
+            "transfer before retrial (org) - retrial": 27,
+            "transfer before retrial (new) retrial": 29,
+            "transfer during retrial (new) retrial": 31,
+            "transfer during retrial (org) retrial": 30,
+            "up to and including PCMH transfer (new)  -trial": 20,
+            "up to and including PCMH transfer (new) - cracked": 19
+        }
+
+        if self.scheme_id == 6:
+            del scenarios['Elected Case Not Proceeded']
+
+        return scenarios
+
+    @classmethod
+    def create_special_prep_tests(cls, expected_prices):
         """
         Trigger different batches of test generation
         """
-        cls._test_special_preparation_fee_inside_london(valid_scenarios, expected_prices[0] * 2)
-        cls._test_special_preparation_fee_outside_london(valid_scenarios, expected_prices[1] * 2)
-        cls._test_special_preparation_fee_edge_cases(valid_scenarios)
+        cls._generate_test_scenarios_with_london_rates(expected_prices[0] * 2)
+        cls._generate_test_scenarios_with_nonlondon_rates(expected_prices[1] * 2)
+        cls._generate_test_scenarios_with_edge_cases()
 
     @classmethod
-    def _test_special_preparation_fee_inside_london(cls, scenarios, expected):
+    def _generate_test_scenarios_with_london_rates(cls, expected_price):
         """
         Generate test scenarios with london rates
         """
-        for scenario_id in scenarios:
+        for scenario_id in cls.valid_special_prep_scenarios().values():
             test_name = "test_special_preparation_fee_inside_london_{scenario}".format(scenario=scenario_id)
 
             setattr(cls,
                     test_name,
-                    cls.make_london_rates_test(scenario_id, 'LGFS_SPCL_PREP', 'true', 'HOUR', 2, expected))
+                    cls.make_london_rates_test(scenario_id, 'LGFS_SPCL_PREP', 'true', 'HOUR', 2, expected_price))
 
     @classmethod
-    def _test_special_preparation_fee_outside_london(cls, scenarios, expected):
+    def _generate_test_scenarios_with_nonlondon_rates(cls, expected_price):
         """
         Generate test scenarios without london rates
         """
-        for scenario_id in scenarios:
+        for scenario_id in cls.valid_special_prep_scenarios().values():
             test_name = "test_special_preparation_fee_outside_london_{scenario}".format(scenario=scenario_id)
 
             setattr(cls,
                     test_name,
-                    cls.make_london_rates_test(scenario_id, 'LGFS_SPCL_PREP', 'false', 'HOUR', 2, expected))
+                    cls.make_london_rates_test(scenario_id, 'LGFS_SPCL_PREP', 'false', 'HOUR', 2, expected_price))
 
     @classmethod
-    def _test_special_preparation_fee_edge_cases(cls, scenarios):
+    def _generate_test_scenarios_with_edge_cases(cls):
         """
         Generate test scenarios for edge cases
         """
 
         # Zero amounts
-        for scenario_id in scenarios:
+        for scenario_id in cls.valid_special_prep_scenarios().values():
             test_name = "test_special_preparation_fee_zero_amounts_{scenario}".format(scenario=scenario_id)
 
             setattr(cls,
@@ -414,7 +461,7 @@ class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
                     cls.make_london_rates_test(scenario_id, 'LGFS_SPCL_PREP', 'true', 'HOUR', 0, 0))
 
         # london_rates_apply not provided
-        for scenario_id in scenarios:
+        for scenario_id in cls.valid_special_prep_scenarios().values():
             test_name = "test_special_preparation_fee_null_london_{scenario}".format(scenario=scenario_id)
 
             setattr(cls,

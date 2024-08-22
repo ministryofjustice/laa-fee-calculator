@@ -18,5 +18,4 @@ class Lgfs2022CalculatorTestCase(
 
 Lgfs2022CalculatorTestCase.create_tests()
 
-valid_special_prep_scenarios = list(range(2, 12)) + list(range(19, 37)) + list(range(38, 43))
-Lgfs2022CalculatorTestCase.create_special_prep_tests(valid_special_prep_scenarios, [49.59, 47.22])
+Lgfs2022CalculatorTestCase.create_special_prep_tests([49.59, 47.22])
