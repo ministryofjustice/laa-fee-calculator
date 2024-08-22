@@ -6,8 +6,6 @@ from calculator.tests.base import (
 )
 
 
-
-
 class Lgfs2016CalculatorTestCase(
     LgfsCalculatorTestCase, EvidenceProvisionFeeTestMixin, LgfsWarrantFeeTestMixin, LgfsSpecialPreparationFeeTestMixin
 ):

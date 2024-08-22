@@ -334,37 +334,29 @@ class BaseLondonRatesTestMixin:
         """
 
         def lr_test(self):
-            self._test_fee_with_london_rates(scenario_id, fee_type_code, london_rates_apply,
-                                             unit_code, amount, expected_amount)
+            response = self.client.get(
+                '/api/{version}/fee-schemes/{scheme_id}/calculate/?fee_type_code={fee_type_code}&'
+                '{unit}={amount}&london_rates_apply={london_rates_apply}&scenario={scenario}'.format(
+                    version=settings.API_VERSION, scheme_id=self.scheme_id,
+                    fee_type_code=fee_type_code, unit=unit_code, amount=amount,
+                    london_rates_apply=london_rates_apply, scenario=scenario_id),
+            )
+
+            self.assertEqual(
+                response.status_code, status.HTTP_200_OK, response.content
+            )
+
+            returned = response.data['amount']
+            close_enough = math.isclose(returned, expected_amount, abs_tol=0.011)
+            self.assertTrue(
+                close_enough,
+                msg='{returned} != {expected} within £0.01 tolerance'.format(
+                    returned=returned,
+                    expected=expected_amount,
+                )
+            )
 
         return lr_test
-
-    def _test_fee_with_london_rates(
-        self, scenario_id, fee_type_code, london_rates_apply, unit_code, amount, expected_amount
-    ):
-        """
-        Run API call and check the response matches expectations
-        """
-        response = self.client.get(
-            '/api/{version}/fee-schemes/{scheme_id}/calculate/?fee_type_code={fee_type_code}&'
-            '{unit}={amount}&london_rates_apply={london_rates_apply}&scenario={scenario}'.format(
-                version=settings.API_VERSION, scheme_id=self.scheme_id,
-                fee_type_code=fee_type_code, unit=unit_code, amount=amount,
-                london_rates_apply=london_rates_apply, scenario=scenario_id),
-        )
-        self.assertEqual(
-            response.status_code, status.HTTP_200_OK, response.content
-        )
-
-        returned = response.data['amount']
-        close_enough = math.isclose(returned, expected_amount, abs_tol=0.011)
-        self.assertTrue(
-            close_enough,
-            msg='{returned} != {expected} within £0.01 tolerance'.format(
-                returned=returned,
-                expected=expected_amount,
-            )
-        )
 
 
 class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
@@ -418,12 +410,12 @@ class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
         """
         Trigger different batches of test generation
         """
-        cls._generate_test_scenarios_with_london_rates(expected_prices[0] * 2)
-        cls._generate_test_scenarios_with_nonlondon_rates(expected_prices[1] * 2)
-        cls._generate_test_scenarios_with_edge_cases()
+        cls.generate_test_scenarios_with_london_rates(expected_prices[0] * 2)
+        cls.generate_test_scenarios_with_nonlondon_rates(expected_prices[1] * 2)
+        cls.generate_test_scenarios_with_edge_cases()
 
     @classmethod
-    def _generate_test_scenarios_with_london_rates(cls, expected_price):
+    def generate_test_scenarios_with_london_rates(cls, expected_price):
         """
         Generate test scenarios with london rates
         """
@@ -435,7 +427,7 @@ class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
                     cls.make_london_rates_test(scenario_id, 'LGFS_SPCL_PREP', 'true', 'HOUR', 2, expected_price))
 
     @classmethod
-    def _generate_test_scenarios_with_nonlondon_rates(cls, expected_price):
+    def generate_test_scenarios_with_nonlondon_rates(cls, expected_price):
         """
         Generate test scenarios without london rates
         """
@@ -447,7 +439,7 @@ class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
                     cls.make_london_rates_test(scenario_id, 'LGFS_SPCL_PREP', 'false', 'HOUR', 2, expected_price))
 
     @classmethod
-    def _generate_test_scenarios_with_edge_cases(cls):
+    def generate_test_scenarios_with_edge_cases(cls):
         """
         Generate test scenarios for edge cases
         """
