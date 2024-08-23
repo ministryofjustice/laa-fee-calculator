@@ -327,6 +327,7 @@ class LgfsWarrantFeeTestMixin(BaseWarrantFeeTestMixin):
 
 class BaseLondonRatesTestMixin:
 
+    @staticmethod
     def make_london_rates_test(scenario_id, fee_type_code, london_rates_apply,
                                unit_code, amount, expected_amount):
         """
@@ -362,7 +363,7 @@ class BaseLondonRatesTestMixin:
 class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
 
     @classmethod
-    def valid_special_prep_scenarios(self):
+    def valid_special_prep_scenarios(cls):
         scenarios = {
             "Guilty Plea": 2,
             "Cracked Trial": 3,
@@ -400,7 +401,7 @@ class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
             "up to and including PCMH transfer (new) - cracked": 19
         }
 
-        if self.scheme_id == 6:
+        if cls.scheme_id == 6:
             del scenarios['Elected Case Not Proceeded']
 
         return scenarios
@@ -416,9 +417,6 @@ class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
 
     @classmethod
     def generate_test_scenarios_with_london_rates(cls, expected_price):
-        """
-        Generate test scenarios with london rates
-        """
         for scenario_id in cls.valid_special_prep_scenarios().values():
             test_name = "test_special_preparation_fee_inside_london_{scenario}".format(scenario=scenario_id)
 
@@ -428,9 +426,6 @@ class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
 
     @classmethod
     def generate_test_scenarios_with_nonlondon_rates(cls, expected_price):
-        """
-        Generate test scenarios without london rates
-        """
         for scenario_id in cls.valid_special_prep_scenarios().values():
             test_name = "test_special_preparation_fee_outside_london_{scenario}".format(scenario=scenario_id)
 
@@ -440,10 +435,6 @@ class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
 
     @classmethod
     def generate_test_scenarios_with_edge_cases(cls):
-        """
-        Generate test scenarios for edge cases
-        """
-
         # Zero amounts
         for scenario_id in cls.valid_special_prep_scenarios().values():
             test_name = "test_special_preparation_fee_zero_amounts_{scenario}".format(scenario=scenario_id)
