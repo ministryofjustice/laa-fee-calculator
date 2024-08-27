@@ -1058,15 +1058,5 @@
       "is_basic": false,
       "aggregation": "sum"
     }
-  },
-  {
-    "model": "calculator.feetype",
-    "pk": 234,
-    "fields": {
-      "name": "Special preparation (hourly)",
-      "code": "LGFS_SPCL_PREP",
-      "is_basic": false,
-      "aggregation": "sum"
-    }
   }
 ]
