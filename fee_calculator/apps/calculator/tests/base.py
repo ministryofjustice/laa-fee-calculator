@@ -422,7 +422,7 @@ class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
 
             setattr(cls,
                     test_name,
-                    cls.make_london_rates_test(scenario_id, 'SPECIAL_PREP', 'true', 'HOUR', 2, expected_price))
+                    cls.make_london_rates_test(scenario_id, 'AGFS_SPCL_PREP', 'true', 'HOUR', 2, expected_price))
 
     @classmethod
     def generate_test_scenarios_with_nonlondon_rates(cls, expected_price):
@@ -431,7 +431,7 @@ class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
 
             setattr(cls,
                     test_name,
-                    cls.make_london_rates_test(scenario_id, 'SPECIAL_PREP', 'false', 'HOUR', 2, expected_price))
+                    cls.make_london_rates_test(scenario_id, 'AGFS_SPCL_PREP', 'false', 'HOUR', 2, expected_price))
 
     @classmethod
     def generate_test_scenarios_with_edge_cases(cls):
@@ -441,7 +441,7 @@ class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
 
             setattr(cls,
                     test_name,
-                    cls.make_london_rates_test(scenario_id, 'SPECIAL_PREP', 'true', 'HOUR', 0, 0))
+                    cls.make_london_rates_test(scenario_id, 'AGFS_SPCL_PREP', 'true', 'HOUR', 0, 0))
 
         # london_rates_apply not provided
         for scenario_id in cls.valid_special_prep_scenarios().values():
@@ -449,7 +449,7 @@ class LgfsSpecialPreparationFeeTestMixin(BaseLondonRatesTestMixin):
 
             setattr(cls,
                     test_name,
-                    cls.make_london_rates_test(scenario_id, 'SPECIAL_PREP', '', 'HOUR', 2, 0))
+                    cls.make_london_rates_test(scenario_id, 'AGFS_SPCL_PREP', '', 'HOUR', 2, 0))
 
 
 class Agfs10PlusCalculatorTestCase(AgfsCalculatorTestCase, FeeTypeUnitMixin):
