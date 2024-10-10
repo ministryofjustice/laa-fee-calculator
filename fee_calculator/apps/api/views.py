@@ -380,6 +380,11 @@ class CalculatorView(views.APIView):
         advocate_type = get_model_param(self.request, 'advocate_type', AdvocateType, scheme)
         offence_class = get_model_param(self.request, 'offence_class', OffenceClass, scheme)
 
+        if 'london_rates_apply' in self.request.query_params:
+            london_rates_apply = self.request.query_params['london_rates_apply'].capitalize()
+        else:
+            london_rates_apply = None
+
         units = Unit.objects.values_list('pk', flat=True)
         modifiers = ModifierType.objects.values_list('name', flat=True)
         unit_counts = []
@@ -411,7 +416,7 @@ class CalculatorView(views.APIView):
 
         amount = calculate_total(
             scheme, scenario, unique_fee_type, offence_class, advocate_type,
-            unit_counts, modifier_counts
+            unit_counts, modifier_counts, london_rates_apply
         )
 
         return Response({
