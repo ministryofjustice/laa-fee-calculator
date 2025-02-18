@@ -51,6 +51,14 @@
             ({{ price.strict_range|yesno:"Strict,Not Strict,None" }})
           </dd>
         </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            London Rates Apply
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{ price.london_rates_apply }}
+          </dd>
+        </div>
       </dl>
     </div>
 
