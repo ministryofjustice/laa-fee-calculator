@@ -80,7 +80,7 @@ commands:
             docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-${CIRCLE_SHA1}"
             docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-${CIRCLE_SHA1}"
 
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "main" ]; then
               docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-latest"
               docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-latest"
             fi
@@ -230,17 +230,17 @@ workflows:
           filters:
             branches:
               ignore:
-                - master
+                - main
       - test-viewer-and-api:
           filters:
             branches:
               ignore:
-                - master
+                - main
       - linting:
           filters:
             branches:
               ignore:
-                - master
+                - main
       - combine_test_coverage:
           requires:
             - test-calculator
@@ -278,17 +278,17 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
       - test-viewer-and-api:
           filters:
             branches:
               only:
-                - master
+                - main
       - linting:
           filters:
             branches:
               only:
-                - master
+                - main
       - combine_test_coverage:
           requires:
             - test-calculator
@@ -326,7 +326,7 @@ workflows:
           filters:
             branches:
                 only:
-                  - master
+                  - main
       - production_deploy:
           requires:
             - production_deploy_approval
