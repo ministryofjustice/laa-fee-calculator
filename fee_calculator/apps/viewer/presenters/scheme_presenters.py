@@ -4,21 +4,25 @@ from viewer.presenters.helpers import DelegatorMixin
 from viewer.presenters.offence_class_presenters import offence_class_presenter_factory_from_pk
 from viewer.presenters.scenario_presenters import scenario_presenter_factory_from_pk
 from viewer.presenters.price_presenters import price_presenter_factory
+from viewer.presenters.london_rates_apply_presenter import london_rates_apply_from_bool
 
 
 def scheme_presenter_factory_from_pk(pk, params={}):
     return SchemePresenter(
         Scheme.objects.get(pk=pk),
         selected_offence_class=params.get('offence_class', ''),
-        selected_scenario=params.get('scenario', '')
+        selected_scenario=params.get('scenario', ''),
+        selected_london_rates_apply=params.get('london_rates_apply', ''),
     )
 
 
 class SchemePresenter(DelegatorMixin):
-    def __init__(self, scheme=None, selected_offence_class=None, selected_scenario=None):
+    def __init__(self, scheme=None, selected_offence_class=None,
+                 selected_scenario=None, selected_london_rates_apply=None):
         self.object = scheme
         self.selected_offence_class = offence_class_presenter_factory_from_pk(selected_offence_class)
         self.selected_scenario = scenario_presenter_factory_from_pk(selected_scenario)
+        self.selected_london_rates_apply = london_rates_apply_from_bool(selected_london_rates_apply)
         super().__init__(scheme)
 
     @property
@@ -51,6 +55,8 @@ class SchemePresenter(DelegatorMixin):
             prices = self.selected_offence_class.filter(prices)
         if self.selected_scenario is not None:
             prices = self.selected_scenario.filter(prices)
+        if self.selected_london_rates_apply is not None:
+            prices = self.selected_london_rates_apply.filter(prices)
 
         return prices
 
