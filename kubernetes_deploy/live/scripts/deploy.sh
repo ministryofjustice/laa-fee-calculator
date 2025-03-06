@@ -9,7 +9,7 @@ function _deploy() {
     # deploy image for current commit to staging
     deploy.sh staging
 
-    # deploy latest image of master to staging
+    # deploy latest image of main to staging
     deploy.sh staging latest
 
     # deploy latest branch image to staging

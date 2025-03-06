@@ -1,7 +1,7 @@
 # laa-fee-calculator
 Fee calculator for LAA
 
-[![CircleCI](https://circleci.com/gh/ministryofjustice/laa-fee-calculator/tree/master.svg?style=svg)](https://circleci.com/gh/ministryofjustice/laa-fee-calculator/tree/master)
+[![CircleCI](https://circleci.com/gh/ministryofjustice/laa-fee-calculator/tree/main.svg?style=svg)](https://circleci.com/gh/ministryofjustice/laa-fee-calculator/tree/main)
 [![Known Vulnerabilities](https://snyk.io/test/github/ministryofjustice/laa-fee-calculator/badge.svg)](https://snyk.io/test/github/ministryofjustice/laa-fee-calculator)
 
 For development setup see instructions [here](./docs/DEVELOPMENT.md)
@@ -84,7 +84,7 @@ As well as the calculator endpoint, one can also get a list of prices directly f
 
 ## Deployment
 
-Currently a commit to master will kickoff circle CI pipeline for deployment to available enviroments
+Currently a commit to main will kickoff circle CI pipeline for deployment to available enviroments
 
 * To check what is the status of the application pods:
 
