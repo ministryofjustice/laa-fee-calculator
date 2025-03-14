@@ -31,6 +31,22 @@
   <input type="hidden" name="scenario" value="{{ scheme.selected_scenario.label }}">
   {% endif %}
 
+{% if scheme.selected_london_rates_apply.isNull %}
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="london_rates_apply">
+      London Rates Apply
+    </label>
+    <select class="govuk-select" id="london_rates_apply" name="london_rates_apply">
+      <option value=""></option>
+      {% for value in bool_values %}
+      <option value="{{ value }}">{{ value }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% else %}
+  <input type="hidden" name='london_rates_apply' value="{{ scheme.selected_london_rates_apply.label }}">
+  {% endif %}
+
   <div class="govuk-form-group">
     <fieldset class="govuk-fieldset">
       <legend class="govuk-fieldset__legend govuk-fieldset__legend">
