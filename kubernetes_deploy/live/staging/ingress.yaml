@@ -11,7 +11,7 @@ metadata:
   name: laa-fee-calculator-v1
   namespace: laa-fee-calculator-staging
 spec:
-  ingressClassName: modsec
+  ingressClassName: modsec-non-prod
   rules:
     - host: staging.laa-fee-calculator.service.justice.gov.uk
       http:
