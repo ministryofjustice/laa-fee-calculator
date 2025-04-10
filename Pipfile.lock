@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2b07f1a189799a721d745232e695f948192797a569f2a6d86c3e0be9c00fd2c8"
+            "sha256": "9ad7ead3ab83561375aef107ea552412634974bec259589eb829c6f51f9633a9"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -136,7 +136,6 @@
                 "sha256:fd4ec41f914fa74ad1b8304bbc634b3de73d2a0889bd32076342a573e0779e00",
                 "sha256:ffc9202a29ab3920fa812879e95a9e78b2465fd10be7fcbd042899695d75e616"
             ],
-            "index": "pypi",
             "markers": "python_version >= '3.7'",
             "version": "==3.4.1"
         },
@@ -178,12 +177,12 @@
         },
         "django-moj-irat": {
             "hashes": [
-                "sha256:6b08489615f953785b13394b69b278d89af5e786acf6a595590c0c86a8df00e2",
-                "sha256:a8086ad42d1c30cb62e281409b01091016c7247f4f9642f1127436f190e65d58"
+                "sha256:88fe8d481f289fd95c184b5286774b6a194c4e74d07ff4a101fc5e148b5987d4",
+                "sha256:bc3f9304879e6a11cbfe8855da729a97d6f25fea6d4c3894a495e79d43f30db3"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.6'",
-            "version": "==0.10"
+            "version": "==0.11"
         },
         "djangorestframework": {
             "hashes": [
@@ -217,7 +216,6 @@
                 "sha256:12f65c9b470abda6dc35cf8e63cc574b1c52b11df2c86030af0ac09b01b13ea9",
                 "sha256:946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3"
             ],
-            "index": "pypi",
             "markers": "python_version >= '3.6'",
             "version": "==3.10"
         },
@@ -471,11 +469,11 @@
         },
         "typing-extensions": {
             "hashes": [
-                "sha256:0a4ac55a5820789d87e297727d229866c9650f6521b64206413c4fbada24d95b",
-                "sha256:c8dd92cc0d6425a97c18fbb9d1954e5ff92c1ca881a309c45f06ebc0b79058e5"
+                "sha256:4b6cf02909eb5495cfbc3f6e8fd49217e6cc7944e145cdda8caa3734777f9e69",
+                "sha256:98795af00fb9640edec5b8e31fc647597b4691f099ad75f469a2616be1a76dff"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==4.13.0"
+            "version": "==4.13.1"
         },
         "uritemplate": {
             "hashes": [
