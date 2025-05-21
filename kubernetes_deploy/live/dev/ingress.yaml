@@ -8,6 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
       SecRuleEngine On
       SecRule REQUEST_HEADERS:User-Agent "@contains GPTBot" "id:1001, phase:1, deny, status:403, log"
+    nginx.ingress.kubernetes.io/whitelist-source-range: <allowlist-populated-by-deploy-script>
   name: laa-fee-calculator-v1
   namespace: laa-fee-calculator-dev
 spec:

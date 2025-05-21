@@ -62,6 +62,14 @@ function _deploy() {
   # apply image specific config
   kubectl set image -f kubernetes_deploy/${context}/${environment}/deployment.yaml app=${docker_image_tag} --local --output yaml | kubectl apply -f -
 
+  # get ip addresses for allowlists
+  LAA_IPS=$(curl -s https://raw.githubusercontent.com/ministryofjustice/laa-ip-allowlist/main/cidrs.txt | tr -d ' ' | tr '\n' ',')
+  PINGDOM_IPS=$(curl -s https://my.pingdom.com/probes/ipv4 | tr -d ' ' | tr '\n' ',')
+  COMBINED_IPS="${PINGDOM_IPS}${LAA_IPS}"
+
+  # populate ingress file with ip addresses
+  sed -i -e "s#<allowlist-populated-by-deploy-script>#${COMBINED_IPS}#" kubernetes_deploy/${context}/${environment}/ingress.yaml;
+
   # apply non-image specific config
   kubectl apply \
     -f kubernetes_deploy/${context}/${environment}/service.yaml \
