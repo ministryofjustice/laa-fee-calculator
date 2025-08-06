@@ -179,6 +179,7 @@ class Price(models.Model):
         'OffenceClass', related_name='prices', null=True, on_delete=models.CASCADE)
     fee_type = models.ForeignKey('FeeType', related_name='prices', on_delete=models.CASCADE)
     unit = models.ForeignKey('Unit', related_name='prices', on_delete=models.CASCADE)
+    london_rates_apply = models.BooleanField(null=True)
     fixed_fee = models.DecimalField(
         max_digits=12, decimal_places=5, help_text=(
             'Adds this value to the fee if this price is applicable.'
@@ -273,7 +274,7 @@ class Price(models.Model):
 
 def calculate_total(
     scheme, scenario, fee_type, offence_class, advocate_type, unit_counts,
-    modifier_counts
+    modifier_counts, london_rates_apply=None
 ):
     amounts = []
     for unit, unit_count in unit_counts:
@@ -281,7 +282,7 @@ def calculate_total(
             Q(advocate_type=advocate_type) | Q(advocate_type__isnull=True),
             Q(offence_class=offence_class) | Q(offence_class__isnull=True),
             scheme=scheme, fee_type=fee_type, unit=unit,
-            scenario=scenario
+            scenario=scenario, london_rates_apply=london_rates_apply
         ).prefetch_related('modifiers')
 
         if len(prices) > 0:
