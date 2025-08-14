@@ -18,7 +18,7 @@ uwsgi = "==2.0.30"
 sentry-sdk = "==2.34.1"
 
 [dev-packages]
-coverage = "==7.10.2"
+coverage = "==7.10.3"
 flake8 = "==7.3.0"
 unittest-xml-reporting = "==3.2.0"
 
