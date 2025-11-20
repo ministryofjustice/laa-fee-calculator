@@ -13,7 +13,6 @@ setup: #: Install virtual environment and requirements
 	pipenv shell
 	pipenv install
 setup-local: #: Install virtual environment and requirements for local development environment
-	pip3 install pipenv
 	pipenv shell
 	pipenv install --dev
 server: # run app server
