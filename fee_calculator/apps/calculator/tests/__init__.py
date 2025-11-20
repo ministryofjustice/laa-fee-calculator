@@ -10,7 +10,7 @@ class PreloadDataDiscoverRunner(XMLTestRunner):
         call_command('loadalldata', verbosity=0)
         return config
 
-    def run_tests(self, test_labels, extra_tests=None, **kwargs):
+    def run_tests(self, test_labels, **kwargs):
         """
         Run the unit tests for all the test labels in the provided list.
 
@@ -24,7 +24,7 @@ class PreloadDataDiscoverRunner(XMLTestRunner):
         """
         self.setup_test_environment()
         old_config = self.setup_databases()
-        suite = self.build_suite(test_labels, extra_tests)
+        suite = self.build_suite(test_labels)
         self.run_checks(['default'])
         result = self.run_suite(suite)
         self.teardown_databases(old_config)
