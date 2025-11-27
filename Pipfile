@@ -15,7 +15,7 @@ drf-nested-routers = "==0.95.0"
 pyyaml = "==6.0.3"
 six = "==1.17.0"
 uwsgi = "==2.0.31"
-sentry-sdk = "==2.45.0"
+sentry-sdk = "==2.46.0"
 
 [dev-packages]
 coverage = "==7.12.0"
