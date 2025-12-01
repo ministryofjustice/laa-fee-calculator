@@ -9,12 +9,12 @@ help: #: Show help topics
 	@grep "#:" Makefile* | grep -v "@grep" | sort | sed "s/\([A-Za-z_ -]*\):.*#\(.*\)/$$(tput setaf 3)\1$$(tput sgr0)\2/g"
 
 setup: #: Install virtual environment and requirements
-	pip3 install pipenv
-	pipenv shell
+	brew install pipx
+	pipx install pipenv
 	pipenv install
 setup-local: #: Install virtual environment and requirements for local development environment
-	pip3 install pipenv
-	pipenv shell
+	brew install pipx
+	pipx install pipenv
 	pipenv install --dev
 server: # run app server
 	DEBUG="True" ${pr} ${pyman} runserver 8000
