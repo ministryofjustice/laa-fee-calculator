@@ -1,51 +1,56 @@
 # Development
 
-## Requirements
+### Requirements
 
 * Python 3.10.x
-* Django 4.2.x
 
-## OS Dependencies
+### Setup
 
-* libxml2
+Ensure that the correct version of Python is installed locally before running these commands.
+You can manage multiple Python versions on your system using `pyenv`
 
-```bash
-# For Mac users with brew:
-brew unlink libxml2
-brew uninstall libxml2 --ignore-dependencies --force
-brew install --with-python libxml2
-brew link libxml2 --force
-```
+Install using:
+- `brew install pyenv`
 
-## Setup
+Install any Python version 3.10.x:
+* `pyenv install 3.10.10`
 
-Ensure the correct version of Python is installed locally before running these commands. To manage Python versions locally on your device, you may want to use `pyenv`.
-
-Installation instructions for `pyenv` can be found [here](https://realpython.com/intro-to-pyenv/#installing-pyenv).
-
+Inside your project directory, set the Python version locally:
+* `pyenv local 3.10.10`
 ---
-**Quick start**
+### Start development server
 
 ```
 make setup-local
+pipenv shell
 make dbreload
 make server
 ```
+This will:
+
+* Install `pipenv` via `pipx` (if not already installed)
+* Create a virtual environment and install dependencies (including dev packages)
+* Activate the environment in an interactive shell
+* Reload your local database
 ---
 
 Alternatively, these commands can be run individually to set up the service step-by-step:
 
-* Install virtual environment
-
+* Install a virtual environment tool using `pipx` to avoid system-wide package conflicts:
 ```
-pip3 install pipenv
-pipenv shell
+brew install pipx
+pipx install pipenv
 ```
 
-* Install application dependencies
+* Create and install application dependencies
 
 ```
 pipenv install -d
+```
+
+* Activate the virtual environment:
+```
+pipenv shell
 ```
 
 * Create/Migrate database
@@ -60,7 +65,7 @@ pipenv run python3 manage.py migrate --no-input
 pipenv run python3 manage.py loadalldata
 ```
 
-* reseed database
+* Re-seed database
 ```
 pipenv run python3 manage.py migrate
 pipenv run python3 manage.py cleardata
