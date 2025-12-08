@@ -11,8 +11,7 @@ from viewer.presenters.scenario_presenters import scenario_presenter_factory
 def index(request):
     sections = [
         {'page': 'viewer:fee_schemes', 'title': 'Fee Schemes'},
-        # WIP
-        # {'page': 'viewer:scenarios', 'title': 'Scenarios'}
+        {'page': 'viewer:scenarios', 'title': 'Scenarios'}
     ]
 
     return render(request, 'viewer/index.html', {'sections': sections})
