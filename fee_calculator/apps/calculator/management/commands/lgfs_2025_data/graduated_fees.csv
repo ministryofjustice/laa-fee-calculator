@@ -1,0 +1,12 @@
+﻿scenario,scenario_name,offence,unit,limit_from,limit_to,fee
+4,Trial,E,PPE,0,39,547.18
+4,Trial,E,PPE,40,69,547.18
+4,Trial,E,PPE,70,129,832.66
+4,Trial,E,PPE,130,599,1347.04
+4,Trial,E,PPE,600,1349,5244.20
+4,Trial,E,PPE,1350,2999,9326.42
+4,Trial,E,PPE,3000,4749,13267.23
+4,Trial,E,PPE,4750,6499,17446.87
+4,Trial,E,PPE,6500,8249,21626.50
+4,Trial,E,PPE,8250,9999,25806.15
+4,Trial,E,PPE,10000,,29983.39
