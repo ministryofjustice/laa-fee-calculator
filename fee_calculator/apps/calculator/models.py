@@ -4,7 +4,7 @@ from decimal import Decimal
 from django.db import models
 from django.db.models import Q
 
-from .constants import SCHEME_TYPE, AGGREGATION_TYPE
+from .constants import SchemeType, AggregationType
 from .exceptions import RequiredModifierMissingException
 
 
@@ -12,11 +12,11 @@ class Scheme(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
     earliest_main_hearing_date = models.DateField(null=True, blank=True)
-    base_type = models.PositiveSmallIntegerField(choices=SCHEME_TYPE)
+    base_type = models.PositiveSmallIntegerField(choices=SchemeType.choices)
     description = models.CharField(max_length=255)
 
     def type(self) -> str:
-        return SCHEME_TYPE.for_value(self.base_type).constant
+        return SchemeType(self.base_type).name
 
     def __str__(self):
         return self.description
@@ -31,7 +31,7 @@ class Scenario(models.Model):
 
 class ScenarioCode(models.Model):
     scenario = models.ForeignKey('Scenario', related_name='codes', on_delete=models.CASCADE)
-    scheme_type = models.PositiveSmallIntegerField(choices=SCHEME_TYPE)
+    scheme_type = models.PositiveSmallIntegerField(choices=SchemeType.choices)
     code = models.CharField(max_length=64, db_index=True)
 
     class Meta:
@@ -46,7 +46,7 @@ class FeeType(models.Model):
     code = models.CharField(max_length=64, db_index=True)
     is_basic = models.BooleanField()
     aggregation = models.CharField(
-        max_length=20, choices=AGGREGATION_TYPE, default=AGGREGATION_TYPE.SUM,
+        max_length=20, choices=AggregationType.choices, default=AggregationType.SUM,
         help_text=(
             'Specifies how multiple prices for this fee type will be combined.'
         )
@@ -292,7 +292,7 @@ def calculate_total(
             )))
 
     if len(amounts) > 0:
-        if fee_type.aggregation == AGGREGATION_TYPE.MAX:
+        if fee_type.aggregation == AggregationType.MAX:
             return max(amounts)
         else:
             return sum(amounts)
