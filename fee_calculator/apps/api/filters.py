@@ -10,7 +10,7 @@ from django.conf import settings
 import six
 
 from calculator import models as calc_models
-from calculator.constants import SCHEME_TYPE
+from calculator.constants import SchemeType
 from calculator.models import AdvocateType
 
 logger = logging.getLogger('laa-calc')
@@ -92,14 +92,14 @@ class PriceFilter(django_filters.FilterSet):
 class SchemeFilter(django_filters.FilterSet):
     type = django_filters.ChoiceFilter(
         field_name='base_type',
-        choices=tuple(map(lambda st: (st[0], st[1].value), SCHEME_TYPE.constants.items())),
+        choices=[(m.name, m.label) for m in SchemeType],
         method='type_filter'
     )
     case_date = django_filters.DateFilter(method='case_date_filter')
     main_hearing_date = django_filters.DateFilter(method='main_hearing_date_filter')
 
     def type_filter(self, queryset, name, value):
-        type_code = SCHEME_TYPE.for_constant(value.upper()).value
+        type_code = SchemeType[value.upper()].value
 
         return queryset.filter(**{name: type_code})
 
