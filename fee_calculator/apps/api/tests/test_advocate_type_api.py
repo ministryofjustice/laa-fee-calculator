@@ -4,7 +4,7 @@ from django.conf import settings
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from calculator.constants import SCHEME_TYPE
+from calculator.constants import SchemeType
 from calculator.models import Scheme
 from calculator.tests.lib.utils import prevent_request_warnings
 
@@ -16,7 +16,7 @@ class AdvocateTypeApiTestCase(APITestCase):
 
     def test_get_list_available(self):
         for scheme_id in Scheme.objects.filter(
-            base_type=SCHEME_TYPE.AGFS
+            base_type=SchemeType.AGFS
         ).values_list('id', flat=True):
             response = self.client.get(self.endpoint.format(scheme=scheme_id))
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -24,7 +24,7 @@ class AdvocateTypeApiTestCase(APITestCase):
 
     def test_get_list_empty_for_lgfs(self):
         for scheme_id in Scheme.objects.filter(
-            base_type=SCHEME_TYPE.LGFS
+            base_type=SchemeType.LGFS
         ).values_list('id', flat=True):
             response = self.client.get(self.endpoint.format(scheme=scheme_id))
             self.assertEqual(response.status_code, status.HTTP_200_OK)
