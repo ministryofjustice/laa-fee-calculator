@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
-from extended_choices import Choices
+from django.db import models
 
 
-SCHEME_TYPE = Choices(
-    ('AGFS', 1, 'Advocate Graduated Fee Scheme'),
-    ('LGFS', 2, 'Litigator Graduated Fee Scheme'),
-)
+class SchemeType(models.IntegerChoices):
+    AGFS = 1, 'Advocate Graduated Fee Scheme'
+    LGFS = 2, 'Litigator Graduated Fee Scheme'
 
 
-AGGREGATION_TYPE = Choices(
-    ('SUM', 'sum', 'Sum'),
-    ('MAX', 'max', 'Max')
-)
+class AggregationType(models.TextChoices):
+    SUM = 'sum', 'Sum'
+    MAX = 'max', 'Max'
