@@ -2,7 +2,7 @@
 
 ### Requirements
 
-* Python 3.10.x
+* Python 3.14.x
 
 ### Setup
 
@@ -12,11 +12,11 @@ You can manage multiple Python versions on your system using `pyenv`
 Install using:
 - `brew install pyenv`
 
-Install any Python version 3.10.x:
-* `pyenv install 3.10.10`
+Install any Python version 3.14.x:
+* `pyenv install 3.14.2`
 
 Inside your project directory, set the Python version locally:
-* `pyenv local 3.10.10`
+* `pyenv local 3.14.2`
 ---
 ### Start development server
 

@@ -17,7 +17,7 @@ executors:
   python-executor:
     resource_class: small
     docker:
-      - image: cimg/python:3.10
+      - image: cimg/python:3.14
 
   cloud-platform-executor:
     docker:
@@ -325,8 +325,8 @@ workflows:
             - staging_deploy
           filters:
             branches:
-                only:
-                  - main
+              only:
+                - main
       - production_deploy:
           requires:
             - production_deploy_approval
