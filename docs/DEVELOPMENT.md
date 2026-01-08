@@ -2,22 +2,65 @@
 
 ### Requirements
 
-* Python 3.14.x
+- Python 3.14.x
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) must be installed and running
 
 ### Setup
 
 Ensure that the correct version of Python is installed locally before running these commands.
 You can manage multiple Python versions on your system using `pyenv`
 
-Install using:
-- `brew install pyenv`
+1. Install using:
 
-Install any Python version 3.14.x:
-* `pyenv install 3.14.2`
+```bash
+brew install pyenv
+```
 
-Inside your project directory, set the Python version locally:
-* `pyenv local 3.14.2`
+2. Install any Python version 3.14.x:
+
+```bash
+pyenv install 3.14.2
+```
+
+3. Inside your project directory, set the Python version locally:
+
+```bash
+pyenv local 3.14.2
+```
+
+#### Pre-commit hooks
+
+This repo uses pre-commit hooks from [ministryofjustice/devsecops-hooks](https://github.com/ministryofjustice/devsecops-hooks) to prevent secrets being committed.
+
+1. Install [prek](https://github.com/j178/prek):
+
+```bash
+curl --proto '=https' --tlsv1.2 -LsSf https://raw.githubusercontent.com/ministryofjustice/devsecops-hooks/e85ca6127808ef407bc1e8ff21efed0bbd32bb1a/prek/prek-installer.sh | sh
+```
+
+2. Authenticate with GitHub Container Registry:
+
+   - Create a [Personal Access Token](https://github.com/settings/tokens) with `read:packages` permission
+   - After creating the token, click "Configure SSO" → "Authorize" next to the Ministry of Justice organization
+   - Run the following command and paste your PAT when prompted for password:
+     ```bash
+     docker login ghcr.io -u YOUR_GITHUB_USERNAME
+     ```
+
+3. Install the pre-commit hooks:
+
+```bash
+prek install
+```
+
+4. Test the hook runs:
+
+```bash
+prek run
+```
+
 ---
+
 ### Start development server
 
 ```
@@ -26,53 +69,58 @@ pipenv shell
 make dbreload
 make server
 ```
+
 This will:
 
-* Install `pipenv` via `pipx` (if not already installed)
-* Create a virtual environment and install dependencies (including dev packages)
-* Activate the environment in an interactive shell
-* Reload your local database
+- Install `pipenv` via `pipx` (if not already installed)
+- Create a virtual environment and install dependencies (including dev packages)
+- Activate the environment in an interactive shell
+- Reload your local database
+
 ---
 
 Alternatively, these commands can be run individually to set up the service step-by-step:
 
-* Install a virtual environment tool using `pipx` to avoid system-wide package conflicts:
+- Install a virtual environment tool using `pipx` to avoid system-wide package conflicts:
+
 ```
 brew install pipx
 pipx install pipenv
 ```
 
-* Create and install application dependencies
+- Create and install application dependencies
 
 ```
 pipenv install -d
 ```
 
-* Activate the virtual environment:
+- Activate the virtual environment:
+
 ```
 pipenv shell
 ```
 
-* Create/Migrate database
+- Create/Migrate database
 
 ```
 pipenv run python3 manage.py migrate --no-input
 ```
 
-* Seed database
+- Seed database
 
 ```
 pipenv run python3 manage.py loadalldata
 ```
 
-* Re-seed database
+- Re-seed database
+
 ```
 pipenv run python3 manage.py migrate
 pipenv run python3 manage.py cleardata
 pipenv run python3 manage.py loadalldata
 ```
 
-* Run the server
+- Run the server
 
 By default bounds to port 8080
 
@@ -80,20 +128,20 @@ By default bounds to port 8080
 DEBUG="True" pipenv run python3 manage.py runserver 8000
 ```
 
-* Run the test suite
+- Run the test suite
 
 ```
 pipenv run python3 manage.py test
 ```
 
-* Run the test suite and report on code coverage metrics
+- Run the test suite and report on code coverage metrics
 
 ```
 pipenv run python3 -m coverage run manage.py test
 pipenv run python3 -m coverage report
 ```
 
-* Run an individual test
+- Run an individual test
 
 ```
 pipenv run python3 manage.py test calculator.tests.test_calculation_05_agfs_12
@@ -102,24 +150,26 @@ pipenv run python3 manage.py test calculator.tests.test_calculation_05_agfs_12
 ## Running locally using docker
 
 Tested using:
-* Docker Desktop version 4.4.2
-* Docker version 20.10.12
-* docker-compose version 1.29.2
 
+- Docker Desktop version 4.4.2
+- Docker version 20.10.12
+- docker-compose version 1.29.2
 
 ### build
+
 ```shell
 docker-compose build
 ```
 
 ### run locally
+
 ```shell
 docker-compose up
 ```
 
 ### Open interactive API (swagger) documentation
-[localhost:8000/api/v1/docs](http://localhost:8000/api/v1/docs)
 
+[localhost:8000/api/v1/docs](http://localhost:8000/api/v1/docs)
 
 ### Secret management
 
