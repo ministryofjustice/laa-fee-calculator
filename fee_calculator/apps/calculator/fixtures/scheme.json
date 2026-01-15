@@ -130,5 +130,16 @@
       "base_type": 1,
       "description": "AGFS Fee Scheme 16 (2023-11 - Increase section 28)"
     }
+  },
+  {
+    "model": "calculator.scheme",
+    "pk": 13,
+    "fields": {
+      "start_date": "2026-09-30",
+      "end_date": null,
+      "earliest_main_hearing_date": null,
+      "base_type": 2,
+      "description": "TEST LGFS Fee Scheme 11"
+    }
   }
 ]
