@@ -2,6 +2,7 @@ from django.core.management import BaseCommand
 from calculator.models import (Scheme, Price)
 import csv
 
+
 def csv_to_json(csv_file_path):
     json_array = []
 
@@ -11,22 +12,27 @@ def csv_to_json(csv_file_path):
             json_array.append(row)
     return json_array
 
+
 base_path = 'fee_calculator/apps/calculator/management/commands/lgfs_2026_data'
 fixed_fees = csv_to_json(f'{base_path}/fixed_fees.csv')
 graduated_fees = csv_to_json(f'{base_path}/graduated_fees.csv')
+
 
 def fixed_fee_for(scenario):
     for fee in fixed_fees:
         if scenario == int(fee['scenario']):
             return float(fee['fee'])
 
+
 def graduated_fee_for(scenario, offence, limit_from):
     for fee in graduated_fees:
         if scenario == int(fee['scenario']) and offence == fee['offence'] and limit_from == int(fee['limit_from']):
             return float(fee['fee'])
 
+
 GRADUATED_FEE_SCENARIOS = [2, 3, 4]  # Guilty Plea, Cracked Trial, Trial
 FIXED_FEE_SCENARIOS = [5, 6]  # Appeal against conviction, Appeal against sentence
+
 
 class Command(BaseCommand):
     help = 'Uplift fees in the 2026 LGFS Fee Scheme'
@@ -92,7 +98,7 @@ class Command(BaseCommand):
             # print(f'Skipping scenario: {price.scenario.name} (ID: {price.scenario.id})')
             skipped_fee_count += 1
 
-        print(f'\n=== Summary ===')
+        print('\n=== Summary ===')
         print(f'{fixed_fee_count} fixed fees were updated')
         print(f'{grad_fee_count} graduated fees were updated')
         print(f'{skipped_fee_count} fees were left unchanged')
