@@ -11,6 +11,7 @@ LGFS_SCHEME_NINE_ID = 2
 AGFS_SCHEME_TWELVE_ID = 5
 AGFS_CLAIR_CONTINGENCY_SCHEME_ID = 9
 AGFS_SCHEME_FOURTEEN_ID = 10
+LGFS_SCHEME_ELEVEN_ID = 13
 
 
 class SchemeApiTestCase(APITestCase):
@@ -87,3 +88,15 @@ class SchemeApiTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
         self.assertEqual(response.data['results'][0]['id'], AGFS_SCHEME_NINE_ID)
+
+    def test_get_lgfs_fee_scheme_11(self):
+        response = self.client.get('%s13/' % self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['results']), 1)
+        self.assertEqual(response.data['results'][0]['id'], LGFS_SCHEME_ELEVEN_ID)
+
+    def test_get_by_date_available_lgfs_11(self):
+        response = self.client.get('%s?type=LGFS&case_date=2026-02-28' % self.endpoint)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['results']), 1)
+        self.assertEqual(response.data['results'][0]['id'], LGFS_SCHEME_ELEVEN_ID)
