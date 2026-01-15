@@ -49,6 +49,9 @@ class PriceFilter(django_filters.FilterSet):
     fee_type_code = django_filters.CharFilter(
         field_name='fee_type__code',
     )
+    london_rates_apply = django_filters.BooleanFilter(
+        field_name='london_rates_apply',
+    )
     offence_class = ModelOrNoneChoiceFilter(
         field_name='offence_class',
         queryset=calc_models.OffenceClass.objects.all(),

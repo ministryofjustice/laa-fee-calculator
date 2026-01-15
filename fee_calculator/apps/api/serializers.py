@@ -74,6 +74,10 @@ class CalculatorQuerySerializer(serializers.Serializer):
         help_text='Note the query will return prices with `advocate_type_id` either matching the value or null.',
         required=False,
     )
+    london_rates_apply = serializers.BooleanField(
+        help_text='Is the firm based in a London borough?',
+        required=False
+    )
     offence_class = serializers.CharField(
         help_text='Note the query will return prices with `offence_class_id` either matching the value or null.',
         required=False,
@@ -222,6 +226,7 @@ class PriceSerializer(serializers.ModelSerializer):
             'offence_class',
             'scheme',
             'unit',
+            'london_rates_apply',
             'fee_per_unit',
             'fixed_fee',
             'limit_from',
