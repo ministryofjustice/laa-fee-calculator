@@ -137,9 +137,9 @@
     "fields": {
       "start_date": "2026-02-27",
       "end_date": null,
-      "earliest_main_hearing_date": "2022-10-31",
+      "earliest_main_hearing_date": null,
       "base_type": 2,
-      "description": "LGFS Scheme 11 Feb 2026"
+      "description": "LGFS Scheme 11 (2026-02)"
     }
   }
 ]
