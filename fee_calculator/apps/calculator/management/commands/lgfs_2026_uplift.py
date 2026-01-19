@@ -64,32 +64,26 @@ class Command(BaseCommand):
                 if new_fee:
                     print(f'Scenario: {price.scenario.name}')
                     print('  Current fixed fee: £{:.2f}'.format(price.fixed_fee))
-                    price.fixed_fee = new_fee
-                    print('  New fixed fee: £{:.2f}'.format(price.fixed_fee))
+                    print('  New fixed fee: £{:.2f}'.format(new_fee))
                     print('')
+                    price.fixed_fee = new_fee
                     price.save()
                     fixed_fee_count += 1
                     continue
 
             # Graduated fees - update
             if price.scenario.id in GRADUATED_FEE_SCENARIOS:
-                # Skip if not PPE unit
-                if price.unit.name != 'Pages of Prosecuting Evidence':
-                    print(f'Skipping {price.scenario.name} - Unit is {price.unit.name} (not PPE)')
-                    skipped_fee_count += 1
-                    continue
-
                 new_fee = graduated_fee_for(price.scenario.id, price.offence_class.id, price.limit_from)
-
                 if new_fee:
                     print(f'Scenario: {price.scenario.name}')
                     print(f'Offence: {price.offence_class.id}')
+                    print(f' Unit: {price.unit.id}')
                     print('  Limit from: {}'.format(price.limit_from))
                     print('  Limit to: {}'.format(price.limit_to))
                     print('  Current fee: £{:.2f}'.format(price.fixed_fee))
-                    price.fixed_fee = new_fee
-                    print('  New fee: £{:.2f}'.format(price.fixed_fee))
+                    print('  New fee: £{:.2f}'.format(new_fee))
                     print('')
+                    price.fixed_fee = new_fee
                     price.save()
                     grad_fee_count += 1
                     continue
