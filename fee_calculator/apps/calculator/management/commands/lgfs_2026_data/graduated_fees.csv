@@ -109,7 +109,7 @@ scenario,scenario_name,offence,unit,limit_from,limit_to,fee
 3,Cracked trial,K,PPE,6400,8199,28070.37
 3,Cracked trial,K,PPE,8200,9999,34815.54
 3,Cracked trial,K,PPE,10000,,41556.97
-4,Trial,E,DAY,0,2,547.18
+4,Trial,E,DAY,1,2,547.18
 4,Trial,E,PPE,0,39,547.18
 4,Trial,E,PPE,40,69,547.18
 4,Trial,E,PPE,70,129,832.66
@@ -121,7 +121,7 @@ scenario,scenario_name,offence,unit,limit_from,limit_to,fee
 4,Trial,E,PPE,6500,8249,21626.5
 4,Trial,E,PPE,8250,9999,25806.15
 4,Trial,E,PPE,10000,,29983.39
-4,Trial,F,DAY,0,2,547.18
+4,Trial,F,DAY,1,2,547.18
 4,Trial,F,PPE,0,49,547.18
 4,Trial,F,PPE,50,229,547.18
 4,Trial,F,PPE,230,699,1862.79
@@ -133,7 +133,7 @@ scenario,scenario_name,offence,unit,limit_from,limit_to,fee
 4,Trial,F,PPE,6750,8349,21779.07
 4,Trial,F,PPE,8350,9999,25228.11
 4,Trial,F,PPE,10000,,28782.79
-4,Trial,G,DAY,0,2,547.18
+4,Trial,G,DAY,1,2,547.18
 4,Trial,G,PPE,0,49,547.18
 4,Trial,G,PPE,50,229,547.18
 4,Trial,G,PPE,230,699,1862.79
@@ -145,7 +145,7 @@ scenario,scenario_name,offence,unit,limit_from,limit_to,fee
 4,Trial,G,PPE,6750,8349,21779.07
 4,Trial,G,PPE,8350,9999,25228.11
 4,Trial,G,PPE,10000,,28782.79
-4,Trial,H,DAY,0,2,547.18
+4,Trial,H,DAY,1,2,547.18
 4,Trial,H,PPE,0,39,547.18
 4,Trial,H,PPE,40,249,547.18
 4,Trial,H,PPE,250,619,2352.35
@@ -158,7 +158,7 @@ scenario,scenario_name,offence,unit,limit_from,limit_to,fee
 4,Trial,H,PPE,8000,8999,27138.58
 4,Trial,H,PPE,9000,9999,29411.71
 4,Trial,H,PPE,10000,,31682.56
-4,Trial,I,DAY,0,2,547.18
+4,Trial,I,DAY,1,2,547.18
 4,Trial,I,PPE,0,39,547.18
 4,Trial,I,PPE,40,369,547.18
 4,Trial,I,PPE,370,799,3563.4
