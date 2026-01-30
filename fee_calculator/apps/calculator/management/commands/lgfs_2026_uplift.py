@@ -16,6 +16,7 @@ def csv_to_json(csv_file_path):
 base_path = 'fee_calculator/apps/calculator/management/commands/lgfs_2026_data'
 fixed_fees = csv_to_json(f'{base_path}/fixed_fees.csv')
 graduated_fees = csv_to_json(f'{base_path}/graduated_fees.csv')
+scenario_mappings = csv_to_json(f'{base_path}/scenario_mappings.csv')
 
 
 def fixed_fee_for(scenario):
@@ -30,7 +31,16 @@ def graduated_fee_for(scenario, offence, limit_from):
             return float(fee['fee'])
 
 
-GRADUATED_FEE_SCENARIOS = [2, 3, 4]  # Guilty Plea, Cracked Trial, Trial
+# all graduated fees are a percentage of the fee for the trial, cracked trial or guilty plea scenarios.
+# this function maps the scenario being updated to the correct base scenario and percentage modifier
+def map_scenario(scenario):
+    for mapped_scenario in scenario_mappings:
+        if scenario == int(mapped_scenario['scenario']):
+            return int(mapped_scenario['mapped_scenario']), float(mapped_scenario['price_modifier'])
+
+
+GRADUATED_FEE_SCENARIOS = [1, 2, 3, 4, 10, 11, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+                           29, 30, 31, 33, 34, 35, 36, 43, 44, 45, 46, 48, 49, 50, 55, 56]  # All graduated fees
 FIXED_FEE_SCENARIOS = [5, 6]  # Appeal against conviction, Appeal against sentence
 
 
@@ -73,7 +83,8 @@ class Command(BaseCommand):
 
             # Graduated fees - update
             if price.scenario.id in GRADUATED_FEE_SCENARIOS:
-                new_fee = graduated_fee_for(price.scenario.id, price.offence_class.id, price.limit_from)
+                scenario, price_modifier = map_scenario(price.scenario.id)
+                new_fee = graduated_fee_for(scenario, price.offence_class.id, price.limit_from) * price_modifier
                 if new_fee:
                     print(f'Scenario: {price.scenario.name}')
                     print(f'Offence: {price.offence_class.id}')
@@ -88,7 +99,7 @@ class Command(BaseCommand):
                     grad_fee_count += 1
                     continue
 
-            # Skip all other scenarios (Retrial, Transfers, etc.)
+            # Skip all other scenarios
             # print(f'Skipping scenario: {price.scenario.name} (ID: {price.scenario.id})')
             skipped_fee_count += 1
 
