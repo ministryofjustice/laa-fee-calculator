@@ -59,7 +59,7 @@
     "pk": 6,
     "fields": {
       "start_date": "2022-09-30",
-      "end_date": null,
+      "end_date": "2026-01-26",
       "earliest_main_hearing_date": null,
       "base_type": 2,
       "description": "LGFS Fee Scheme 10 (2022-09 - CLAIR)"
@@ -129,6 +129,17 @@
       "earliest_main_hearing_date": null,
       "base_type": 1,
       "description": "AGFS Fee Scheme 16 (2023-11 - Increase section 28)"
+    }
+  },
+  {
+    "model": "calculator.scheme",
+    "pk": 13,
+    "fields": {
+      "start_date": "2026-01-27",
+      "end_date": null,
+      "earliest_main_hearing_date": null,
+      "base_type": 2,
+      "description": "LGFS Scheme 11 (2026-02)"
     }
   }
 ]
