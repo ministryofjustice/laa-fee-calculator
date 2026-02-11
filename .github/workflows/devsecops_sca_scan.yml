@@ -1,5 +1,5 @@
-name: SCA
-run-name: SCA ⚡️
+name: DevSecOps SCA
+run-name: Software Composition Analysis
 
 on:
   schedule:
