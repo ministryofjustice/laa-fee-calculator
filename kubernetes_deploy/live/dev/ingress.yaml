@@ -11,8 +11,18 @@ metadata:
   name: laa-fee-calculator-v1
   namespace: laa-fee-calculator-dev
 spec:
-  ingressClassName: modsec-non-prod
+  ingressClassName: beta
   rules:
+    - host: dev-laa-fee-calculator.beta.cloud-platform.service.justice.gov.uk
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: laa-fee-calculator
+              port:
+                number: 8080
     - host: dev.laa-fee-calculator.service.justice.gov.uk
       http:
         paths:
