@@ -7,6 +7,8 @@ updates:
     day: thursday
     time: "03:00"
     timezone: Europe/London
+  cooldown:
+    default-days: 7
   open-pull-requests-limit: 10
   allow:
     - dependency-type: "all"
@@ -18,5 +20,7 @@ updates:
     day: thursday
     time: "03:00"
     timezone: Europe/London
+  cooldown:
+    default-days: 7
   open-pull-requests-limit: 10
   rebase-strategy: "disabled"
