@@ -55,6 +55,9 @@ jobs:
           mkdir -p tmp/coverage
           pipenv run coverage run --parallel-mode manage.py test fee_calculator.apps.calculator
 
+      - name: Check coverage files
+        run: ls -la tmp/coverage/ || echo "No coverage files found"
+
       - uses: actions/upload-artifact@v4
         with:
           name: coverage-${{ matrix.shard }}
@@ -104,7 +107,7 @@ jobs:
       
       - name: List downloaded artifacts
         run: find tmp -type f | head -20
-        
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.14"
