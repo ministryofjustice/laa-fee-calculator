@@ -94,6 +94,7 @@ jobs:
         run: |
           mkdir -p tmp/coverage
           pipenv run coverage run --parallel-mode manage.py test fee_calculator.apps.viewer fee_calculator.apps.api
+          mv .coverage* tmp/coverage/ || true
 
       - uses: actions/upload-artifact@v4
         with:
