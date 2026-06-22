@@ -50,10 +50,20 @@ jobs:
       - run: pip install pipenv
       - run: pipenv install --dev
 
+      # - name: Run calculator tests (sharded)
+      #   run: |
+      #     mkdir -p tmp/coverage
+      #     pipenv run coverage run --parallel-mode manage.py test fee_calculator.apps.calculator
+
+          
       - name: Run calculator tests (sharded)
         run: |
           mkdir -p tmp/coverage
           pipenv run coverage run --parallel-mode manage.py test fee_calculator.apps.calculator
+
+          # Move coverage data into artifact directory
+          mv .coverage* tmp/coverage/ || true
+
 
       - name: Check coverage files
         run: ls -la tmp/coverage/ || echo "No coverage files found"
