@@ -1,0 +1,201 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: ["*"]
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: app
+
+jobs:
+# ----------------------------
+# LINT + TESTS
+# ----------------------------
+  lint:
+    runs-on: ubuntu-latest
+    if: github.ref_name != 'main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: fee-calculator-${{ hashFiles('Pipfile.lock') }}
+
+      - run: pip install pipenv
+      - run: pipenv install --dev
+      - run: pipenv run flake8
+
+  test-calculator:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shard: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: fee-calculator-${{ hashFiles('Pipfile.lock') }}
+
+      - run: pip install pipenv
+      - run: pipenv install --dev
+
+      - name: Run calculator tests (sharded)
+        run: |
+          mkdir -p tmp/coverage
+          pipenv run coverage run --parallel-mode manage.py test fee_calculator.apps.calculator
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ matrix.shard }}
+          path: tmp/coverage
+
+  test-viewer-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: fee-calculator-${{ hashFiles('Pipfile.lock') }}
+
+      - run: pip install pipenv
+      - run: pipenv install --dev
+
+      - name: Run viewer/api tests
+        run: |
+          mkdir -p tmp/coverage
+          pipenv run coverage run --parallel-mode manage.py test fee_calculator.apps.viewer fee_calculator.apps.api
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage-viewer
+          path: tmp/coverage
+
+# ----------------------------
+# COMBINE COVERAGE
+# ----------------------------
+  combine-coverage:
+    runs-on: ubuntu-latest
+    needs: [test-calculator, test-viewer-api]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: tmp
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: pip install pipenv
+      - run: pipenv install --dev
+
+      - name: Combine coverage
+        run: |
+          pipenv run coverage combine tmp
+          pipenv run coverage report
+
+# ----------------------------
+# BUILD & PUSH DOCKER IMAGE
+# ----------------------------
+  # build-and-push:
+  #   runs-on: ubuntu-latest
+  #   needs: [lint, combine-coverage]
+  #   if: always()
+  #   permissions:
+  #     id-token: write   # required for AWS OIDC
+  #     contents: read
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v4
+  #       with:
+  #         role-to-assume: ${{ secrets.ECR_ROLE }}
+  #         aws-region: ${{ secrets.AWS_REGION }}
+
+  #     - name: Login to ECR
+  #       uses: aws-actions/amazon-ecr-login@v2
+
+  #     - name: Build image
+  #       run: |
+  #         docker build \
+  #           --build-arg VERSION_NUMBER=${{ github.run_number }} \
+  #           --build-arg COMMIT_ID=${{ github.sha }} \
+  #           -t $IMAGE_NAME .
+
+  #     - name: Tag + Push
+  #       run: |
+  #         IMAGE_URI=${{ secrets.ECR_ENDPOINT }}/${{ github.repository }}
+  #         docker tag $IMAGE_NAME $IMAGE_URI:app-${{ github.sha }}
+  #         docker push $IMAGE_URI:app-${{ github.sha }}
+
+  #         if [ "${{ github.ref_name }}" = "main" ]; then
+  #           docker tag $IMAGE_NAME $IMAGE_URI:app-latest
+  #           docker push $IMAGE_URI:app-latest
+  #         fi
+
+# ----------------------------
+# DEPLOY JOB TEMPLATE
+# ----------------------------
+  # deploy-dev:
+  #   runs-on: ubuntu-latest
+  #   needs: build-and-push
+  #   environment: dev
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - name: Configure kubectl
+  #       run: |
+  #         echo "${{ secrets.K8S_CLUSTER_CERT }}" | base64 -d > ca.crt
+  #         kubectl config set-cluster cluster --certificate-authority=ca.crt --server=${{ secrets.K8S_SERVER }}
+  #         kubectl config set-credentials gha --token=$(echo "${{ secrets.K8S_TOKEN }}" | base64 -d)
+  #         kubectl config set-context ctx --cluster=cluster --user=gha --namespace=${{ secrets.K8S_NAMESPACE }}
+  #         kubectl config use-context ctx
+
+  #     - name: Deploy
+  #       run: |
+  #         IMAGE=${{ secrets.ECR_ENDPOINT }}/${{ github.repository }}:app-${{ github.sha }}
+
+  #         kubectl set image -f kubernetes_deploy/live/dev/deployment.yaml app=$IMAGE --local -o yaml | kubectl apply -f -
+  #         kubectl rollout status deployment/laa-fee-calculator
+
+  # deploy-staging:
+  #   runs-on: ubuntu-latest
+  #   needs: deploy-dev
+  #   environment: staging
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     # same kubectl steps...
+  #     - run: echo "Deploy staging"
+
+  # deploy-production:
+  #   runs-on: ubuntu-latest
+  #   needs: deploy-staging
+  #   if: github.ref_name == 'main'
+  #   environment: production
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - run: echo "Deploy production"
