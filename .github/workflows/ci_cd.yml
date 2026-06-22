@@ -109,8 +109,9 @@ jobs:
 
       - name: Combine coverage
         run: |
-          mkdir -p tmp
-          pipenv run coverage combine tmp
+          mkdir -p .coverage-combined
+          find tmp -name ".coverage*" -exec cp {} .coverage-combined/ \;
+          pipenv run coverage combine .coverage-combined
           pipenv run coverage report
 
 # ----------------------------
