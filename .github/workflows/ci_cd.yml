@@ -86,6 +86,9 @@ jobs:
         with:
           name: coverage-viewer
           path: tmp/coverage
+      
+      - name: List downloaded artifacts
+        run: find tmp -type f | head -20
 
 # ----------------------------
 # COMBINE COVERAGE
