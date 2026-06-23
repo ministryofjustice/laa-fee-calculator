@@ -49,28 +49,42 @@ jobs:
 
       - run: pip install pipenv
       - run: pipenv install --dev
+        run: |
+          mkdir -p tmp/coverage
+          SHARD=${{ matrix.shard }}
+          TOTAL_SHARDS=3
+
+          # Discover test files deterministically and select this shard's subset
+          TEST_FILES=$(find fee_calculator/apps/calculator/tests -name "test_*.py" | sort)
+          SHARD_FILES=$(echo "$TEST_FILES" | awk "NR % $TOTAL_SHARDS == $SHARD % $TOTAL_SHARDS")
+
+          # Convert file paths to dotted module paths for Django test runner
+          TEST_MODULES=$(echo "$SHARD_FILES" | sed -e 's|\.py$||' -e 's|/|.|g')
+
+          pipenv run coverage run --parallel-mode manage.py test $TEST_MODULES --verbosity=1 --noinput
+          mv .coverage* tmp/coverage/ || true
 
       # - name: Run calculator tests (sharded)
       #   run: |
       #     mkdir -p tmp/coverage
       #     pipenv run coverage run --parallel-mode manage.py test fee_calculator.apps.calculator
 
-      - name: Run calculator tests (sharded)
-        run: |
-          mkdir -p tmp/coverage
-          SHARD=${{ matrix.shard }}
+      # - name: Run calculator tests (sharded)
+      #   run: |
+      #     mkdir -p tmp/coverage
+      #     SHARD=${{ matrix.shard }}
           
-          # Get all test module names, split alphabetically
-          if [ "$SHARD" = "1" ]; then
-            TESTS="fee_calculator.apps.calculator.tests.test_advocate_type_api fee_calculator.apps.calculator.tests.test_fee_type_api fee_calculator.apps.calculator.tests.test_filters"
-          elif [ "$SHARD" = "2" ]; then
-            TESTS="fee_calculator.apps.calculator.tests.test_modifier_type_api fee_calculator.apps.calculator.tests.test_offence_class_api fee_calculator.apps.calculator.tests.test_price_api"
-          else
-            TESTS="fee_calculator.apps.calculator.tests.test_scenario_api fee_calculator.apps.calculator.tests.test_scheme_api fee_calculator.apps.calculator.tests.test_unit_api fee_calculator.apps.calculator.tests.test_utils"
-          fi
+      #     # Get all test module names, split alphabetically
+      #     if [ "$SHARD" = "1" ]; then
+      #       TESTS="fee_calculator.apps.calculator.tests.test_advocate_type_api fee_calculator.apps.calculator.tests.test_fee_type_api fee_calculator.apps.calculator.tests.test_filters"
+      #     elif [ "$SHARD" = "2" ]; then
+      #       TESTS="fee_calculator.apps.calculator.tests.test_modifier_type_api fee_calculator.apps.calculator.tests.test_offence_class_api fee_calculator.apps.calculator.tests.test_price_api"
+      #     else
+      #       TESTS="fee_calculator.apps.calculator.tests.test_scenario_api fee_calculator.apps.calculator.tests.test_scheme_api fee_calculator.apps.calculator.tests.test_unit_api fee_calculator.apps.calculator.tests.test_utils"
+      #     fi
           
-          pipenv run coverage run --data-file=tmp/coverage/.coverage --parallel-mode manage.py test $TESTS
-          mv .coverage* tmp/coverage/ || true
+      #     pipenv run coverage run --data-file=tmp/coverage/.coverage --parallel-mode manage.py test $TESTS
+      #     mv .coverage* tmp/coverage/ || true
           
       # - name: Run calculator tests (sharded)
       #   run: |
@@ -78,7 +92,7 @@ jobs:
       #     pipenv run coverage run --parallel-mode manage.py test fee_calculator.apps.calculator
 
       #     # Move coverage data into artifact directory
-      #     mv .coverage* tmp/coverage/ || true
+        
 
 
       - name: Check coverage files
