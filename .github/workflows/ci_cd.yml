@@ -59,7 +59,7 @@ jobs:
       - name: Run calculator tests (sharded)
         run: |
           mkdir -p tmp/coverage
-          pipenv run coverage run --data-file=tmp/coverage/.coverage --parallel-mode manage.py test fee_calculator.apps.calculator
+          pipenv run coverage run --parallel-mode manage.py test fee_calculator.apps.calculator
 
           # Move coverage data into artifact directory
           mv .coverage* tmp/coverage/ || true
@@ -93,16 +93,16 @@ jobs:
       - name: Run viewer/api tests
         run: |
           mkdir -p tmp/coverage
-          pipenv run coverage run --data-file=tmp/coverage/.coverage --parallel-mode manage.py test fee_calculator.apps.viewer fee_calculator.apps.api
+          pipenv run coverage run --parallel-mode manage.py test fee_calculator.apps.viewer fee_calculator.apps.api
           mv .coverage* tmp/coverage/ || true
 
       - name: Check coverage files
         run: ls -la tmp/coverage/ || echo "No coverage files found"
-
+        
       - uses: actions/upload-artifact@v4
         with:
           name: coverage-viewer
-          path: tmp/coverage
+          path: tmp/coverage/
       
  
 
@@ -117,10 +117,10 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          path: tmp/coverage
+          path: tmp
       
       - name: List downloaded artifacts
-        run: find tmp/coverage -type f | head -20
+        run: find tmp -type f | head -20
 
       - uses: actions/setup-python@v5
         with:
@@ -132,7 +132,7 @@ jobs:
       - name: Combine coverage
         run: |
           mkdir -p .coverage-combined
-          find tmp/coverage -name ".coverage*" -exec cp {} .coverage-combined/ \;
+          find tmp -name ".coverage*" -exec cp {} .coverage-combined/ \;
           pipenv run coverage combine .coverage-combined
           pipenv run coverage report
 
