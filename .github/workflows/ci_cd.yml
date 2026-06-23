@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        shard: [1, 2, 3]
+        shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v4
 
@@ -52,7 +52,7 @@ jobs:
       - run: |
           mkdir -p tmp/coverage
           SHARD=${{ matrix.shard }}
-          TOTAL_SHARDS=3
+          TOTAL_SHARDS=4
 
           # Discover test files deterministically and select this shard's subset
           TEST_FILES=$(find fee_calculator/apps/calculator/tests -name "test_*.py" | sort)
