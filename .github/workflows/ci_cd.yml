@@ -103,6 +103,7 @@ jobs:
         with:
           name: coverage-viewer
           path: tmp/coverage/
+          include-hidden-files: true
       
  
 
