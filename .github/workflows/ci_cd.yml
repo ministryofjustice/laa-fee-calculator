@@ -99,7 +99,7 @@ jobs:
       - name: Check coverage files
         run: ls -la tmp/coverage/ || echo "No coverage files found"
         
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: coverage-viewer
           path: tmp/coverage/
