@@ -93,7 +93,7 @@ jobs:
       - name: Run viewer/api tests
         run: |
           mkdir -p tmp/coverage
-          pipenv run coverage run --parallel-mode manage.py test fee_calculator.apps.viewer fee_calculator.apps.api
+          pipenv run coverage run --data-file=tmp/coverage/.coverage --parallel-mode manage.py test fee_calculator.apps.viewer fee_calculator.apps.api
           mv .coverage* tmp/coverage/ || true
 
       - name: Check coverage files
