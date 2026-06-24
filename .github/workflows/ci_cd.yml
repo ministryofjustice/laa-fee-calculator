@@ -1,5 +1,6 @@
 name: CI/CD Pipeline
-
+permissions:
+      contents: read  # This is required for actions/checkout
 on:
   push:
   workflow_dispatch:
@@ -13,8 +14,6 @@ jobs:
 # ----------------------------
   lint:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read  # This is required for actions/checkout
     if: github.ref_name != 'main'
     steps:
       - uses: actions/checkout@v4
@@ -34,8 +33,6 @@ jobs:
 
   test-calculator:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read  # This is required for actions/checkout
     strategy:
       matrix:
         shard: [1, 2, 3]
@@ -80,8 +77,6 @@ jobs:
 
   test-viewer-api:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read  # This is required for actions/checkout
     steps:
       - uses: actions/checkout@v4
 
@@ -119,8 +114,6 @@ jobs:
 # ----------------------------
   combine-coverage:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read  # This is required for actions/checkout
     needs: [test-calculator, test-viewer-api]
     steps:
       - uses: actions/checkout@v4
