@@ -157,7 +157,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: ${{ secrets.ECR_ROLE }}
-          aws-region: ${{ vars.ECR_REGION }}
+          aws-region: eu-west-2
 
       - name: Login to ECR
         uses: aws-actions/amazon-ecr-login@v2
