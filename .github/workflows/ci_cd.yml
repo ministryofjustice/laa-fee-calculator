@@ -13,6 +13,8 @@ jobs:
 # ----------------------------
   lint:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read  # This is required for actions/checkout
     if: github.ref_name != 'main'
     steps:
       - uses: actions/checkout@v4
@@ -32,9 +34,11 @@ jobs:
 
   test-calculator:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read  # This is required for actions/checkout
     strategy:
       matrix:
-        shard: [1, 2, 3, 4]
+        shard: [1, 2, 3]
     steps:
       - uses: actions/checkout@v4
 
@@ -52,7 +56,8 @@ jobs:
       - run: |
           mkdir -p tmp/coverage
           SHARD=${{ matrix.shard }}
-          TOTAL_SHARDS=4
+          # upping the shards has no benefit unless we break the test datasets down more - do not amend
+          TOTAL_SHARDS=3
 
           # Discover test files deterministically and select this shard's subset
           TEST_FILES=$(find fee_calculator/apps/calculator/tests -name "test_*.py" | sort)
@@ -63,37 +68,6 @@ jobs:
 
           pipenv run coverage run --parallel-mode manage.py test $TEST_MODULES --verbosity=1 --noinput
           mv .coverage* tmp/coverage/ || true
-
-      # - name: Run calculator tests (sharded)
-      #   run: |
-      #     mkdir -p tmp/coverage
-      #     pipenv run coverage run --parallel-mode manage.py test fee_calculator.apps.calculator
-
-      # - name: Run calculator tests (sharded)
-      #   run: |
-      #     mkdir -p tmp/coverage
-      #     SHARD=${{ matrix.shard }}
-          
-      #     # Get all test module names, split alphabetically
-      #     if [ "$SHARD" = "1" ]; then
-      #       TESTS="fee_calculator.apps.calculator.tests.test_advocate_type_api fee_calculator.apps.calculator.tests.test_fee_type_api fee_calculator.apps.calculator.tests.test_filters"
-      #     elif [ "$SHARD" = "2" ]; then
-      #       TESTS="fee_calculator.apps.calculator.tests.test_modifier_type_api fee_calculator.apps.calculator.tests.test_offence_class_api fee_calculator.apps.calculator.tests.test_price_api"
-      #     else
-      #       TESTS="fee_calculator.apps.calculator.tests.test_scenario_api fee_calculator.apps.calculator.tests.test_scheme_api fee_calculator.apps.calculator.tests.test_unit_api fee_calculator.apps.calculator.tests.test_utils"
-      #     fi
-          
-      #     pipenv run coverage run --data-file=tmp/coverage/.coverage --parallel-mode manage.py test $TESTS
-      #     mv .coverage* tmp/coverage/ || true
-          
-      # - name: Run calculator tests (sharded)
-      #   run: |
-      #     mkdir -p tmp/coverage
-      #     pipenv run coverage run --parallel-mode manage.py test fee_calculator.apps.calculator
-
-      #     # Move coverage data into artifact directory
-        
-
 
       - name: Check coverage files
         run: ls -la tmp/coverage/ || echo "No coverage files found"
@@ -106,6 +80,8 @@ jobs:
 
   test-viewer-api:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read  # This is required for actions/checkout
     steps:
       - uses: actions/checkout@v4
 
@@ -143,6 +119,8 @@ jobs:
 # ----------------------------
   combine-coverage:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read  # This is required for actions/checkout
     needs: [test-calculator, test-viewer-api]
     steps:
       - uses: actions/checkout@v4
