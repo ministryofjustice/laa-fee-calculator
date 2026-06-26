@@ -1,0 +1,227 @@
+name: CI/CD Pipeline
+permissions:
+      contents: read  # This is required for actions/checkout
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: app
+
+jobs:
+# ----------------------------
+# LINT + TESTS
+# ----------------------------
+  lint:
+    runs-on: ubuntu-latest
+    if: github.ref_name != 'main'
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - uses: actions/cache@v5
+        with:
+          path: ~/.cache/pip
+          key: fee-calculator-${{ hashFiles('Pipfile.lock') }}
+
+      - run: pip install pipenv
+      - run: pipenv install --dev
+      - run: pipenv run flake8
+
+  test-calculator:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shard: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - uses: actions/cache@v5
+        with:
+          path: ~/.cache/pip
+          key: fee-calculator-${{ hashFiles('Pipfile.lock') }}
+
+      - run: pip install pipenv
+      - run: pipenv install --dev
+      - run: |
+          mkdir -p tmp/coverage
+          SHARD=${{ matrix.shard }}
+          # upping the shards has no benefit unless we break the test datasets down more - do not amend
+          TOTAL_SHARDS=3
+
+          # Discover test files deterministically and select this shard's subset
+          TEST_FILES=$(find fee_calculator/apps/calculator/tests -name "test_*.py" | sort)
+          SHARD_FILES=$(echo "$TEST_FILES" | awk "NR % $TOTAL_SHARDS == $SHARD % $TOTAL_SHARDS")
+
+          # Convert file paths to dotted module paths for Django test runner
+          TEST_MODULES=$(echo "$SHARD_FILES" | sed -e 's|\.py$||' -e 's|/|.|g')
+
+          pipenv run coverage run --parallel-mode manage.py test $TEST_MODULES --verbosity=1 --noinput
+          mv .coverage* tmp/coverage/ || true
+
+      - name: Check coverage files
+        run: ls -la tmp/coverage/ || echo "No coverage files found"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: coverage-${{ matrix.shard }}
+          path: tmp/coverage
+          include-hidden-files: true
+
+  test-viewer-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - uses: actions/cache@v5
+        with:
+          path: ~/.cache/pip
+          key: fee-calculator-${{ hashFiles('Pipfile.lock') }}
+
+      - run: pip install pipenv
+      - run: pipenv install --dev
+
+      - name: Run viewer/api tests
+        run: |
+          mkdir -p tmp/coverage
+          pipenv run coverage run --data-file=tmp/coverage/.coverage --parallel-mode manage.py test fee_calculator.apps.viewer fee_calculator.apps.api
+          mv .coverage* tmp/coverage/ || true
+
+      - name: Check coverage files
+        run: ls -la tmp/coverage/ || echo "No coverage files found"
+        
+      - uses: actions/upload-artifact@v7
+        with:
+          name: coverage-viewer
+          path: tmp/coverage/
+          include-hidden-files: true
+      
+ 
+
+# ----------------------------
+# COMBINE COVERAGE
+# ----------------------------
+  combine-coverage:
+    runs-on: ubuntu-latest
+    needs: [test-calculator, test-viewer-api]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        with:
+          path: tmp
+      
+      - name: List downloaded artifacts
+        run: find tmp -type f | head -20
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - run: pip install pipenv
+      - run: pipenv install --dev
+
+      - name: Combine coverage
+        run: |
+          mkdir -p .coverage-combined
+          find tmp -name ".coverage*" -exec cp {} .coverage-combined/ \;
+          pipenv run coverage combine .coverage-combined
+          pipenv run coverage report
+
+# ----------------------------
+# BUILD & PUSH DOCKER IMAGE
+# ----------------------------
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs: [lint, combine-coverage]
+    if: always()
+    permissions:
+      id-token: write   # required for AWS OIDC
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ secrets.ECR_ROLE }}
+          aws-region: ${{ vars.ECR_REGION }}
+
+      - name: Login to ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build image
+        run: |
+          docker build \
+            --build-arg VERSION_NUMBER=${{ github.run_number }} \
+            --build-arg COMMIT_ID=${{ github.sha }} \
+            -t $IMAGE_NAME .
+
+      - name: Tag + Push
+        run: |
+          IMAGE_URI=${{ secrets.ECR_ENDPOINT }}/${{ github.repository }}
+          docker tag $IMAGE_NAME $IMAGE_URI:app-${{ github.sha }}
+          docker push $IMAGE_URI:app-${{ github.sha }}
+
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            docker tag $IMAGE_NAME $IMAGE_URI:app-latest
+            docker push $IMAGE_URI:app-latest
+          fi
+
+# ----------------------------
+# DEPLOY JOB TEMPLATE
+# ----------------------------
+  # deploy-dev:
+  #   runs-on: ubuntu-latest
+  #   needs: build-and-push
+  #   environment: dev
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - name: Configure kubectl
+  #       run: |
+  #         echo "${{ secrets.K8S_CLUSTER_CERT }}" | base64 -d > ca.crt
+  #         kubectl config set-cluster cluster --certificate-authority=ca.crt --server=${{ secrets.K8S_SERVER }}
+  #         kubectl config set-credentials gha --token=$(echo "${{ secrets.K8S_TOKEN }}" | base64 -d)
+  #         kubectl config set-context ctx --cluster=cluster --user=gha --namespace=${{ secrets.K8S_NAMESPACE }}
+  #         kubectl config use-context ctx
+
+  #     - name: Deploy
+  #       run: |
+  #         IMAGE=${{ secrets.ECR_ENDPOINT }}/${{ github.repository }}:app-${{ github.sha }}
+
+  #         kubectl set image -f kubernetes_deploy/live/dev/deployment.yaml app=$IMAGE --local -o yaml | kubectl apply -f -
+  #         kubectl rollout status deployment/laa-fee-calculator
+
+  # deploy-staging:
+  #   runs-on: ubuntu-latest
+  #   needs: deploy-dev
+  #   environment: staging
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     # same kubectl steps...
+  #     - run: echo "Deploy staging"
+
+  # deploy-production:
+  #   runs-on: ubuntu-latest
+  #   needs: deploy-staging
+  #   if: github.ref_name == 'main'
+  #   environment: production
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - run: echo "Deploy production"
