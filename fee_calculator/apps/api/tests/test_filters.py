@@ -3,7 +3,7 @@ from calculator.models import Scheme
 from calculator.constants import SchemeType
 from api.filters import SchemeFilter
 
-NUMBER_OF_AGFS_SCHEMES = 9
+NUMBER_OF_AGFS_SCHEMES = 10
 NUMBER_OF_LGFS_SCHEMES = 4
 
 LGFS_SCHEME_NINE_ID = 2
@@ -12,6 +12,7 @@ AGFS_SCHEME_TWELVE_ID = 5
 LGFS_CLAIR_CONTINGENCY_SCHEME_ID = 8
 AGFS_CLAIR_CONTINGENCY_SCHEME_ID = 9
 LGFS_SCHEME_ELEVEN_ID = 13
+AGFS_SCHEME_SEVENTEEN_ID = 14
 
 
 class SchemeFilterTestCase(TestCase):
