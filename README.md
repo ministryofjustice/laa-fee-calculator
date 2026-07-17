@@ -103,79 +103,89 @@ To generate a new fee scheme:
 
 * add fee scheme fixture to `fee_calculator/apps/calculator/fixtures/scheme.json`.
 
-  Set `end_date` of the previous fee scheme of the same `base_type` and the `start_date` of the new scheme, so that they are contiguous. increment the `pk` and set the other attributes of the new scheme.
+  Set `end_date` of the previous fee scheme of the same `base_type` and the `start_date` of the new scheme, so that they are contiguous. Increment the `pk` and set the other attributes of the new scheme.
 
   ```json
   {
     "model": "calculator.scheme",
-    "pk": 5,
+    "pk": 15,
     "fields": {
-      "start_date": "2020-07-02",
+      "start_date": "2027-01-01",
       "end_date": null,
       "base_type": 1,
-      "description": "AGFS Fee Scheme 12"
+      "description": "AGFS Fee Scheme 18"
+    }
   }
   ```
 
-* apply the new fee scheme
+* apply the new fee scheme:
 
   ```bash
   ./manage.py cleardata
   ./manage.py loadalldata
   ```
 
-* use management tools to copy previous scheme prices
+* use management tools to copy a previous scheme's prices:
 
   ```bash
-  ./manage.py copyscheme 4 5
+  ./manage.py copyscheme 14 15
   ```
 
-* use standard django `dumpdata` to collect the all the prices as a fixture.
-
-  You should pretty format the json output afterwards. You might want to dump to a separate file to do a diff first, to check changes made.
+- dump the updated prices back to the new scheme's fixture file. Price fixtures are stored per scheme in `fee_calculator/apps/calculator/fixtures/` with the naming convention `price_<nn>_<type>_<version>.json`.
 
   ```bash
-  ./manage.py dumpdata calculator.price --indent 2 > fee_calculator/apps/calculator/fixtures/price.json
+  ./manage.py dumpprices 15 fee_calculator/apps/calculator/fixtures/price_15_agfs_18.json
+  ```
+
+* add the new price fixture filename to `fee_calculator/apps/calculator/management/commands/loadalldata.py`.
+
+* edit the new price fixture file to adjust prices as needed for the new scheme.
+
+* apply the new price data:
+
+  ```bash
+  ./manage.py cleardata
+  ./manage.py loadalldata
   ```
 
 ## New fee types
 
 To add a new fee type to a scheme:
 
-- amend `fee_calculator/apps/calculator/fixtures/feetype.json`
+- amend `fee_calculator/apps/calculator/fixtures/feetype.json` to add the new fee type:
 
   ```json
     ...
     },
     {
       "model": "calculator.feetype",
-      "pk": 229,
+      "pk": 234,
       "fields": {
-        "name": "Paper heavy case",
-        "code": "AGFS_PAP_HEAVY",
+        "name": "New fee type",
+        "code": "NEW_FEE_CODE",
         "is_basic": false,
         "aggregation": "sum"
       }
     }
   ```
 
-- clear and load data
+- clear and load data:
 
   ```bash
   ./manage.py cleardata
   ./manage.py loadalldata
   ```
 
-- create prices for the new fee type by copying another another fee type's, if appropriate
+- create prices in the database for the new fee type by copying another fee type's, if appropriate:
 
   ```bash
-  ./manage.py copyfeetype 29 229 5
+  ./manage.py copyfeetype 233 14 234 15
   ```
 
-  call `./manage.py copyfeetype -h` for details on the command
+  This will copy the values of fee_type id 233 in scheme id 14 to fee_type id 234 in scheme id 15 in the database. Run `./manage.py copyfeetype -h` for details of the command.
 
-- recreate fixtures for the new prices
+- dump the updated prices back to the relevant scheme's fixture file:
 
   ```bash
-  ./manage.py dumpdata calculator.price --indent 2 > fee_calculator/apps/calculator/fixtures/price.json
+  ./manage.py dumpprices 15 fee_calculator/apps/calculator/fixtures/price_15_agfs_18.json
   ```
