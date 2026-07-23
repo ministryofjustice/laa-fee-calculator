@@ -107,7 +107,7 @@ class SchemeApiTestCase(APITestCase):
         self.assertEqual(response.data['id'], AGFS_SCHEME_SEVENTEEN_ID)
 
     def test_get_by_date_available_agfs_17(self):
-        response = self.client.get('%s?type=AGFS&case_date=2026-06-24' % self.endpoint)
+        response = self.client.get('%s?type=AGFS&case_date=2026-07-28' % self.endpoint)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
         self.assertEqual(response.data['results'][0]['id'], AGFS_SCHEME_SEVENTEEN_ID)
