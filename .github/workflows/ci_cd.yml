@@ -141,6 +141,7 @@ jobs:
 
 # ----------------------------
 # BUILD & PUSH DOCKER IMAGE
+# add line for test remove afterwards
 # ----------------------------
   build-and-push:
     runs-on: ubuntu-latest
