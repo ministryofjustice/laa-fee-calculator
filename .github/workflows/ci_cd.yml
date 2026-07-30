@@ -172,14 +172,21 @@ jobs:
 
       - name: Tag + Push
         run: |
-          IMAGE_URI=${{ secrets.ECR_ENDPOINT }}/${{ github.repository }}
-          docker tag $IMAGE_NAME $IMAGE_URI:app-${{ github.sha }}
-          docker push $IMAGE_URI:app-${{ github.sha }}
+          docker tag ministryofjustice/laa-fee-calculator $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
+        # run: |
+        #   IMAGE_URI=${{ secrets.ECR_ENDPOINT }}/${{ github.repository }}
+        #   docker tag $IMAGE_NAME $IMAGE_URI:app-${{ github.sha }}
+        #   docker push $IMAGE_URI:app-${{ github.sha }}
 
-          if [ "${{ github.ref_name }}" = "main" ]; then
-            docker tag $IMAGE_NAME $IMAGE_URI:app-latest
-            docker push $IMAGE_URI:app-latest
-          fi
+        #   if [ "${{ github.ref_name }}" = "main" ]; then
+        #     docker tag $IMAGE_NAME $IMAGE_URI:app-latest
+        #     docker push $IMAGE_URI:app-latest
+        #   fi
 
 # ----------------------------
 # DEPLOY JOB TEMPLATE
