@@ -191,28 +191,28 @@ jobs:
 # ----------------------------
 # DEPLOY JOB TEMPLATE
 # ----------------------------
-  # deploy-dev:
-  #   runs-on: ubuntu-latest
-  #   needs: build-and-push
-  #   environment: dev
+  deploy-dev:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    environment: dev
 
-  #   steps:
-  #     - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v7
 
-  #     - name: Configure kubectl
-  #       run: |
-  #         echo "${{ secrets.K8S_CLUSTER_CERT }}" | base64 -d > ca.crt
-  #         kubectl config set-cluster cluster --certificate-authority=ca.crt --server=${{ secrets.K8S_SERVER }}
-  #         kubectl config set-credentials gha --token=$(echo "${{ secrets.K8S_TOKEN }}" | base64 -d)
-  #         kubectl config set-context ctx --cluster=cluster --user=gha --namespace=${{ secrets.K8S_NAMESPACE }}
-  #         kubectl config use-context ctx
+      - name: Configure kubectl
+        run: |
+          echo "${{ secrets.KUBE_CERT_DEV }}" | base64 -d > ca.crt
+          kubectl config set-cluster cluster --certificate-authority=ca.crt --server=${{ secrets.KUBE_CLUSTER_DEV }}
+          kubectl config set-credentials gha --token=$(echo "${{ secrets.KUBE_TOKEN_DEV }}" | base64 -d)
+          kubectl config set-context ctx --cluster=cluster --user=gha --namespace=${{ secrets.KUBE_NAMESPACE_DEV }}
+          kubectl config use-context ctx
 
-  #     - name: Deploy
-  #       run: |
-  #         IMAGE=${{ secrets.ECR_ENDPOINT }}/${{ github.repository }}:app-${{ github.sha }}
+      - name: Deploy
+        run: |
+          IMAGE = $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
-  #         kubectl set image -f kubernetes_deploy/live/dev/deployment.yaml app=$IMAGE --local -o yaml | kubectl apply -f -
-  #         kubectl rollout status deployment/laa-fee-calculator
+          kubectl set image -f kubernetes_deploy/live/dev/deployment.yaml app=$IMAGE --local -o yaml | kubectl apply -f -
+          kubectl rollout status deployment/laa-fee-calculator
 
   # deploy-staging:
   #   runs-on: ubuntu-latest
