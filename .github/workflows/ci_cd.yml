@@ -172,7 +172,7 @@ jobs:
 
       - name: Tag + Push
         run: |
-          docker tag ministryofjustice/laa-fee-calculator $REPOSITORY:$IMAGE_TAG
+          docker tag app:latest $REPOSITORY:$IMAGE_TAG
           docker push $REPOSITORY:$IMAGE_TAG
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
