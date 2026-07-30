@@ -141,7 +141,7 @@ jobs:
 
 # ----------------------------
 # BUILD & PUSH DOCKER IMAGE
-# add line for test remove afterwards
+# add line for test remove afterwards please Roni
 # ----------------------------
   build-and-push:
     runs-on: ubuntu-latest
