@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "7afccbb1c16c9f59f1ef446ca00a7893ac8af9258e0cea56ab65d802ddbbb754"
+            "sha256": "09d4ca3d1a2bfc635b682b097d711f7bea6dc898a94cdebd40b302b7e85a4197"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -457,12 +457,12 @@
         },
         "sentry-sdk": {
             "hashes": [
-                "sha256:3595169677a808e4d0e1ea6ffb89443459549c7a98392ed71c77c847182ab6bf",
-                "sha256:c94dc945d54bad49d4f20448b1e6b217ca2f92f46d05c3e83d41764af685c3d1"
+                "sha256:86002793161d9a95ef04bdd8d442e9bfece5d989b755f05d6360215094a7aff6",
+                "sha256:f882fb08710c5f8bfc603aafa3e901b384009a19cc3f76a572b863392ee81cdc"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.6'",
-            "version": "==2.65.0"
+            "version": "==2.66.1"
         },
         "six": {
             "hashes": [
