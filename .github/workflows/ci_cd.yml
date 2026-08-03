@@ -209,8 +209,9 @@ jobs:
       - name: Deploy
         run: |
           IMAGE=$REGISTRY/$REPOSITORY:$IMAGE_TAG
+          kubectl set image -f kubernetes_deploy/live/dev/deployment.yaml app=$IMAGE --local -o yaml | kubectl apply --validate=false -f -
 
-          kubectl set image -f kubernetes_deploy/live/dev/deployment.yaml app=$IMAGE --local -o yaml | kubectl apply -f -
+          # kubectl set image -f kubernetes_deploy/live/dev/deployment.yaml app=$IMAGE --local -o yaml | kubectl apply -f -
           kubectl rollout status deployment/laa-fee-calculator
 
   # deploy-staging:
