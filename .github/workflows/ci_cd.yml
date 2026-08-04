@@ -141,7 +141,6 @@ jobs:
 
 # ----------------------------
 # BUILD & PUSH DOCKER IMAGE
-# add line for test remove afterwards please Roni
 # ----------------------------
   build-and-push:
     runs-on: ubuntu-latest
@@ -187,15 +186,7 @@ jobs:
           REGISTRY: ${{ secrets.ECR_REGISTRY_URL }}
           REPOSITORY: ${{ vars.ECR_REPOSITORY }}
           IMAGE_TAG: app-${{ github.sha }}
-        # run: |
-        #   IMAGE_URI=${{ secrets.ECR_ENDPOINT }}/${{ github.repository }}
-        #   docker tag $IMAGE_NAME $IMAGE_URI:app-${{ github.sha }}
-        #   docker push $IMAGE_URI:app-${{ github.sha }}
-
-        #   if [ "${{ github.ref_name }}" = "main" ]; then
-        #     docker tag $IMAGE_NAME $IMAGE_URI:app-latest
-        #     docker push $IMAGE_URI:app-latest
-        #   fi
+       
 
 # ----------------------------
 # DEPLOY JOB TEMPLATE
