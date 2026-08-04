@@ -146,7 +146,6 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     needs: [lint, combine-coverage]
-    if: always()
     permissions:
       id-token: write   # required for AWS OIDC
       contents: read
@@ -165,20 +164,29 @@ jobs:
 
       - name: Build image
         run: |
+          BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           docker build \
+            --build-arg DJANGO_SECRET_KEY=docker-build-secret \
             --build-arg VERSION_NUMBER=${{ github.run_number }} \
             --build-arg COMMIT_ID=${{ github.sha }} \
+            --build-arg BUILD_DATE=${BUILD_DATE} \
+            --build-arg BUILD_TAG=${{ github.ref_name }} \
             -t $IMAGE_NAME .
 
       - name: Tag + Push
         run: |
-          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker tag $IMAGE_NAME $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
           echo "Image pushed: $REGISTRY/$REPOSITORY:$IMAGE_TAG"
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            docker tag $IMAGE_NAME $REGISTRY/$REPOSITORY:app-latest
+            docker push $REGISTRY/$REPOSITORY:app-latest
+            echo "Image pushed: $REGISTRY/$REPOSITORY:app-latest"
+          fi
         env:
           REGISTRY: ${{ secrets.ECR_REGISTRY_URL }}
           REPOSITORY: ${{ vars.ECR_REPOSITORY }}
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: app-${{ github.sha }}
         # run: |
         #   IMAGE_URI=${{ secrets.ECR_ENDPOINT }}/${{ github.repository }}
         #   docker tag $IMAGE_NAME $IMAGE_URI:app-${{ github.sha }}
@@ -198,7 +206,7 @@ jobs:
     env:
       REGISTRY: ${{ secrets.ECR_REGISTRY_URL }}
       REPOSITORY: ${{ vars.ECR_REPOSITORY }}
-      IMAGE_TAG: ${{ github.sha }}
+      IMAGE_TAG: app-${{ github.sha }}
 
     steps:
       - uses: actions/checkout@v7
@@ -218,6 +226,10 @@ jobs:
           IMAGE=$REGISTRY/$REPOSITORY:$IMAGE_TAG
 
           kubectl set image -f kubernetes_deploy/live/dev/deployment.yaml app=$IMAGE --local -o yaml | kubectl apply -f -
+          kubectl apply \
+            -f kubernetes_deploy/live/dev/service.yaml \
+            -f kubernetes_deploy/live/dev/ingress.yaml
+          kubectl annotate deployment/laa-fee-calculator kubernetes.io/change-cause="$(date +%Y-%m-%dT%H:%M:%S%z) - deploying: $IMAGE via GitHub Actions" --overwrite
           kubectl rollout status deployment/laa-fee-calculator
 
   # deploy-staging:
