@@ -144,7 +144,7 @@ jobs:
 # ----------------------------
   build-and-push:
     runs-on: ubuntu-latest
-    needs: [lint, combine-coverage]
+    needs: [combine-coverage]
     permissions:
       id-token: write   # required for AWS OIDC
       contents: read
@@ -153,13 +153,13 @@ jobs:
       - uses: actions/checkout@v7
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v6
+        uses: aws-actions/configure-aws-credentials@e6de0548b9bcef6fca5d376d8a0f2c901424d0b2
         with:
           role-to-assume: ${{ secrets.ECR_ROLE_TO_ASSUME }}
           aws-region: ${{ vars.ECR_REGION }}
 
       - name: Login to ECR
-        uses: aws-actions/amazon-ecr-login@v2
+        uses: aws-actions/amazon-ecr-login@d539f09e3f71931f8150fb5b5d18434c7f1213fd
 
       - name: Build image
         run: |
@@ -194,6 +194,7 @@ jobs:
   deploy-dev:
     runs-on: ubuntu-latest
     needs: build-and-push
+    environment: dev
     env:
       REGISTRY: ${{ secrets.ECR_REGISTRY_URL }}
       REPOSITORY: ${{ vars.ECR_REPOSITORY }}
@@ -223,22 +224,52 @@ jobs:
           kubectl annotate deployment/laa-fee-calculator kubernetes.io/change-cause="$(date +%Y-%m-%dT%H:%M:%S%z) - deploying: $IMAGE via GitHub Actions" --overwrite
           kubectl rollout status deployment/laa-fee-calculator
 
-  # deploy-staging:
-  #   runs-on: ubuntu-latest
-  #   needs: deploy-dev
-  #   environment: staging
+  deploy-staging:
+    runs-on: ubuntu-latest
+    needs: deploy-dev
+    environment: staging
+    env:
+      REGISTRY: ${{ secrets.ECR_REGISTRY_URL }}
+      REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+      IMAGE_TAG: app-${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Configure kubectl
+        run: |
+          echo "${{ secrets.KUBE_CERT_STAGING }}" > ca.crt
+          kubectl config set-cluster cluster --certificate-authority=ca.crt --server=https://${{ secrets.KUBE_CLUSTER_STAGING }}
+          kubectl config set-credentials gha --token=${{ secrets.KUBE_TOKEN_STAGING }}
+          kubectl config set-context ctx --cluster=cluster --user=gha --namespace=${{ secrets.KUBE_NAMESPACE_STAGING }}
+          kubectl config use-context ctx
+      - name: Deploy
+        run: |
+          IMAGE=$REGISTRY/$REPOSITORY:$IMAGE_TAG
+          kubectl set image -f kubernetes_deploy/live/staging/deployment.yaml app=$IMAGE --local -o yaml | kubectl apply -f -
+          kubectl apply -f kubernetes_deploy/live/staging/service.yaml -f kubernetes_deploy/live/staging/ingress.yaml
+          kubectl rollout status deployment/laa-fee-calculator
 
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     # same kubectl steps...
-  #     - run: echo "Deploy staging"
-
-  # deploy-production:
-  #   runs-on: ubuntu-latest
-  #   needs: deploy-staging
-  #   if: github.ref_name == 'main'
-  #   environment: production
-
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - run: echo "Deploy production"
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    if: github.ref_name == 'main'
+    environment: production
+    env:
+      REGISTRY: ${{ secrets.ECR_REGISTRY_URL }}
+      REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+      IMAGE_TAG: app-${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Configure kubectl
+        run: |
+          echo "${{ secrets.KUBE_CERT_PRODUCTION }}" > ca.crt
+          kubectl config set-cluster cluster --certificate-authority=ca.crt --server=https://${{ secrets.KUBE_CLUSTER_PRODUCTION }}
+          kubectl config set-credentials gha --token=${{ secrets.KUBE_TOKEN_PRODUCTION }}
+          kubectl config set-context ctx --cluster=cluster --user=gha --namespace=${{ secrets.KUBE_NAMESPACE_PRODUCTION }}
+          kubectl config use-context ctx
+      - name: Deploy
+        run: |
+          IMAGE=$REGISTRY/$REPOSITORY:$IMAGE_TAG
+          kubectl set image -f kubernetes_deploy/live/production/deployment.yaml app=$IMAGE --local -o yaml | kubectl apply -f -
+          kubectl apply -f kubernetes_deploy/live/production/service.yaml -f kubernetes_deploy/live/production/ingress.yaml
+          kubectl rollout status deployment/laa-fee-calculator
+  
