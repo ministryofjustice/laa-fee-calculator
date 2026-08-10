@@ -27,208 +27,208 @@ executors:
           APPLICATION_DEPLOY_NAME: laa-fee-calculator
           DJANGO_SECRET_KEY: real-secret-not-needed-here
 
-# ------------------
-# COMMANDS
-# ------------------
-commands:
-  setup_python_env:
-    description: >
-      Install, or restore from cache, python dependencies
-    steps:
-      - restore_cache:
-          keys:
-            - laa-fee-calculator-v1-{{ checksum "Pipfile.lock" }}
-      - run:
-          name: Set up python dependencies
-          command: |
-            pipenv install --dev
-      - save_cache:
-          key: laa-fee-calculator-v1-{{ checksum "Pipfile.lock" }}
-          paths:
-            - "~/.cache/pip"
+# # ------------------
+# # COMMANDS
+# # ------------------
+# commands:
+#   setup_python_env:
+#     description: >
+#       Install, or restore from cache, python dependencies
+#     steps:
+#       - restore_cache:
+#           keys:
+#             - laa-fee-calculator-v1-{{ checksum "Pipfile.lock" }}
+#       - run:
+#           name: Set up python dependencies
+#           command: |
+#             pipenv install --dev
+#       - save_cache:
+#           key: laa-fee-calculator-v1-{{ checksum "Pipfile.lock" }}
+#           paths:
+#             - "~/.cache/pip"
 
-  build-image:
-    description: >
-      Build laa-fee-calculator docker image
-    steps:
-      - run:
-          name: Build laa-fee-calculator docker image
-          command: |
-            export BUILD_DATE=$(date -Is) >> $BASH_ENV
-            source $BASH_ENV
-            docker build \
-              --build-arg DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY} \
-              --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
-              --build-arg COMMIT_ID=${CIRCLE_SHA1} \
-              --build-arg BUILD_DATE=${BUILD_DATE} \
-              --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
-              -t app .
+#   build-image:
+#     description: >
+#       Build laa-fee-calculator docker image
+#     steps:
+#       - run:
+#           name: Build laa-fee-calculator docker image
+#           command: |
+#             export BUILD_DATE=$(date -Is) >> $BASH_ENV
+#             source $BASH_ENV
+#             docker build \
+#               --build-arg DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY} \
+#               --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
+#               --build-arg COMMIT_ID=${CIRCLE_SHA1} \
+#               --build-arg BUILD_DATE=${BUILD_DATE} \
+#               --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
+#               -t app .
 
-  push-image:
-    description: >
-      Push laa-fee-calculator docker image
-    steps:
-      - aws-cli/setup:
-          role_arn: $ECR_ROLE_TO_ASSUME
-          region: $ECR_REGION
-      - run:
-          name: Push laa-fee-calculator docker image
-          command: |
-            aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${ECR_ENDPOINT}
+#   push-image:
+#     description: >
+#       Push laa-fee-calculator docker image
+#     steps:
+#       - aws-cli/setup:
+#           role_arn: $ECR_ROLE_TO_ASSUME
+#           region: $ECR_REGION
+#       - run:
+#           name: Push laa-fee-calculator docker image
+#           command: |
+#             aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${ECR_ENDPOINT}
 
-            component=app
-            docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-${CIRCLE_SHA1}"
-            docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-${CIRCLE_SHA1}"
+#             component=app
+#             docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-${CIRCLE_SHA1}"
+#             docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-${CIRCLE_SHA1}"
 
-            if [ "${CIRCLE_BRANCH}" == "main" ]; then
-              docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-latest"
-              docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-latest"
-            fi
+#             if [ "${CIRCLE_BRANCH}" == "main" ]; then
+#               docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-latest"
+#               docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${component}-latest"
+#             fi
 
-  deploy-to:
-    description: >
-      Deploy laa-fee-calculator to the specified environment
-    parameters:
-      cluster:
-        description: destination clusters (live or live-1 only)
-        type: string
-      environment:
-        description: destination environment
-        type: string
-    steps:
-      - checkout
-      - run:
-          name: Authenticate with cluster
-          command: |
-            echo -n ${K8S_CLUSTER_CERT} | base64 -d > ./ca.crt
-            kubectl config set-cluster ${K8S_CLUSTER_NAME} --certificate-authority=./ca.crt --server=https://${K8S_CLUSTER_NAME}
-            kubectl config set-credentials circleci --token=$(echo -n ${K8S_TOKEN} | base64 -d)
-            kubectl config set-context ${K8S_CLUSTER_NAME} --cluster=${K8S_CLUSTER_NAME} --user=circleci --namespace=${K8S_NAMESPACE}
-            kubectl config use-context ${K8S_CLUSTER_NAME}
-            kubectl --namespace=${K8S_NAMESPACE} get pods
-      - run:
-          name: deploying to << parameters.cluster >> cluster, << parameters.environment >> namespace
-          command: |
-            docker_image_tag=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:app-${CIRCLE_SHA1}
-            kubectl set image -f kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/deployment.yaml app=${docker_image_tag} --local -o yaml \
-            | kubectl apply -f -
-            kubectl apply \
-                -f kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/service.yaml \
-                -f kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/ingress.yaml
+#   deploy-to:
+#     description: >
+#       Deploy laa-fee-calculator to the specified environment
+#     parameters:
+#       cluster:
+#         description: destination clusters (live or live-1 only)
+#         type: string
+#       environment:
+#         description: destination environment
+#         type: string
+#     steps:
+#       - checkout
+#       - run:
+#           name: Authenticate with cluster
+#           command: |
+#             echo -n ${K8S_CLUSTER_CERT} | base64 -d > ./ca.crt
+#             kubectl config set-cluster ${K8S_CLUSTER_NAME} --certificate-authority=./ca.crt --server=https://${K8S_CLUSTER_NAME}
+#             kubectl config set-credentials circleci --token=$(echo -n ${K8S_TOKEN} | base64 -d)
+#             kubectl config set-context ${K8S_CLUSTER_NAME} --cluster=${K8S_CLUSTER_NAME} --user=circleci --namespace=${K8S_NAMESPACE}
+#             kubectl config use-context ${K8S_CLUSTER_NAME}
+#             kubectl --namespace=${K8S_NAMESPACE} get pods
+#       - run:
+#           name: deploying to << parameters.cluster >> cluster, << parameters.environment >> namespace
+#           command: |
+#             docker_image_tag=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:app-${CIRCLE_SHA1}
+#             kubectl set image -f kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/deployment.yaml app=${docker_image_tag} --local -o yaml \
+#             | kubectl apply -f -
+#             kubectl apply \
+#                 -f kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/service.yaml \
+#                 -f kubernetes_deploy/<< parameters.cluster >>/<< parameters.environment >>/ingress.yaml
 
-            # annotate to provide rollback info
-            kubectl annotate deployments/laa-fee-calculator kubernetes.io/change-cause="$(date +%Y-%m-%dT%H:%M:%S%z) - deploying: $docker_image_tag via CircleCI"
+#             # annotate to provide rollback info
+#             kubectl annotate deployments/laa-fee-calculator kubernetes.io/change-cause="$(date +%Y-%m-%dT%H:%M:%S%z) - deploying: $docker_image_tag via CircleCI"
 
-            # wait for rollout to succeed or fail/timeout
-            kubectl rollout status deployments/laa-fee-calculator
+#             # wait for rollout to succeed or fail/timeout
+#             kubectl rollout status deployments/laa-fee-calculator
 
-# ------------------
-# JOBS
-# ------------------
-jobs:
-  build_and_push_image:
-    executor: cloud-platform-executor
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - build-image
-      - push-image
+# # ------------------
+# # JOBS
+# # ------------------
+# jobs:
+#   build_and_push_image:
+#     executor: cloud-platform-executor
+#     steps:
+#       - checkout
+#       - setup_remote_docker:
+#           docker_layer_caching: true
+#       - build-image
+#       - push-image
 
-  dev_deploy:
-    executor: cloud-platform-executor
-    steps:
-      - deploy-to:
-          cluster: live
-          environment: dev
+#   dev_deploy:
+#     executor: cloud-platform-executor
+#     steps:
+#       - deploy-to:
+#           cluster: live
+#           environment: dev
 
-  staging_deploy:
-    executor: cloud-platform-executor
-    steps:
-      - deploy-to:
-          cluster: live
-          environment: staging
+#   staging_deploy:
+#     executor: cloud-platform-executor
+#     steps:
+#       - deploy-to:
+#           cluster: live
+#           environment: staging
 
-  production_deploy:
-    executor: cloud-platform-executor
-    steps:
-      - deploy-to:
-          cluster: live
-          environment: production
+#   production_deploy:
+#     executor: cloud-platform-executor
+#     steps:
+#       - deploy-to:
+#           cluster: live
+#           environment: production
 
-# ------------------
-# WORKFLOWS
-# ------------------
-workflows:
-  version: 2
-  build-and-test:
-    jobs:
-      - build_and_push_approval:
-          type: approval
-      - build_and_push_image:
-          context:
-            - laa-fee-calculator-base
-          requires:
-            - build_and_push_approval
-      - dev_deploy_approval:
-          type: approval
-          requires:
-            - build_and_push_image
-      - dev_deploy:
-          requires:
-            - dev_deploy_approval
-          context:
-            - laa-fee-calculator-base
-            - laa-fee-calculator-live-dev
-      - staging_deploy_approval:
-          type: approval
-          requires:
-            - build_and_push_image
-      - staging_deploy:
-          requires:
-            - staging_deploy_approval
-          context:
-            - laa-fee-calculator-base
-            - laa-fee-calculator-live-staging
-  build-test-and-approval-deploy:
-    jobs:
-      - build_and_push_image:
-          requires:
-            - linting
-            - combine_test_coverage
-          context:
-            - laa-fee-calculator-base
-      - dev_deploy_approval:
-          type: approval
-          requires:
-            - build_and_push_image
-      - dev_deploy:
-          requires:
-            - dev_deploy_approval
-          context:
-            - laa-fee-calculator-base
-            - laa-fee-calculator-live-dev
-      - staging_deploy_approval:
-          type: approval
-          requires:
-            - dev_deploy
-      - staging_deploy:
-          requires:
-            - staging_deploy_approval
-          context:
-            - laa-fee-calculator-base
-            - laa-fee-calculator-live-staging
-      - production_deploy_approval:
-          type: approval
-          requires:
-            - staging_deploy
-          filters:
-            branches:
-              only:
-                - main
-      - production_deploy:
-          requires:
-            - production_deploy_approval
-          context:
-            - laa-fee-calculator-base
-            - laa-fee-calculator-live-production
+# # ------------------
+# # WORKFLOWS
+# # ------------------
+# workflows:
+#   version: 2
+#   build-and-test:
+#     jobs:
+#       - build_and_push_approval:
+#           type: approval
+#       - build_and_push_image:
+#           context:
+#             - laa-fee-calculator-base
+#           requires:
+#             - build_and_push_approval
+#       - dev_deploy_approval:
+#           type: approval
+#           requires:
+#             - build_and_push_image
+#       - dev_deploy:
+#           requires:
+#             - dev_deploy_approval
+#           context:
+#             - laa-fee-calculator-base
+#             - laa-fee-calculator-live-dev
+#       - staging_deploy_approval:
+#           type: approval
+#           requires:
+#             - build_and_push_image
+#       - staging_deploy:
+#           requires:
+#             - staging_deploy_approval
+#           context:
+#             - laa-fee-calculator-base
+#             - laa-fee-calculator-live-staging
+#   build-test-and-approval-deploy:
+#     jobs:
+#       - build_and_push_image:
+#           requires:
+#             - linting
+#             - combine_test_coverage
+#           context:
+#             - laa-fee-calculator-base
+#       - dev_deploy_approval:
+#           type: approval
+#           requires:
+#             - build_and_push_image
+#       - dev_deploy:
+#           requires:
+#             - dev_deploy_approval
+#           context:
+#             - laa-fee-calculator-base
+#             - laa-fee-calculator-live-dev
+#       - staging_deploy_approval:
+#           type: approval
+#           requires:
+#             - dev_deploy
+#       - staging_deploy:
+#           requires:
+#             - staging_deploy_approval
+#           context:
+#             - laa-fee-calculator-base
+#             - laa-fee-calculator-live-staging
+#       - production_deploy_approval:
+#           type: approval
+#           requires:
+#             - staging_deploy
+#           filters:
+#             branches:
+#               only:
+#                 - main
+#       - production_deploy:
+#           requires:
+#             - production_deploy_approval
+#           context:
+#             - laa-fee-calculator-base
+#             - laa-fee-calculator-live-production
