@@ -151,15 +151,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v7
-
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@e6de0548b9bcef6fca5d376d8a0f2c901424d0b2
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c
         with:
           role-to-assume: ${{ secrets.ECR_ROLE_TO_ASSUME }}
           aws-region: ${{ vars.ECR_REGION }}
 
       - name: Login to ECR
-        uses: aws-actions/amazon-ecr-login@d539f09e3f71931f8150fb5b5d18434c7f1213fd
+        uses: aws-actions/amazon-ecr-login@d539f0932e70871a027e9d5a9d8fc38589180a64
 
       - name: Build image
         run: |
