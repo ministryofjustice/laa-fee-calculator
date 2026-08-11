@@ -203,12 +203,16 @@ jobs:
       - uses: actions/checkout@v7
 
       - name: Configure kubectl
-        
+        env:
+          KUBE_CERT_DEV: ${{ secrets.KUBE_CERT_DEV }}
+          KUBE_CLUSTER_DEV: ${{ secrets.KUBE_CLUSTER_DEV }}
+          KUBE_TOKEN_DEV: ${{ secrets.KUBE_TOKEN_DEV }}
+          KUBE_NAMESPACE_DEV: ${{ secrets.KUBE_NAMESPACE_DEV }}
         run: |
-          echo "${{ secrets.KUBE_CERT_DEV }}" > ca.crt
-          kubectl config set-cluster cluster --certificate-authority=ca.crt --server=https://${{ secrets.KUBE_CLUSTER_DEV }}
-          kubectl config set-credentials gha --token=${{ secrets.KUBE_TOKEN_DEV }}
-          kubectl config set-context ctx --cluster=cluster --user=gha --namespace=${{ secrets.KUBE_NAMESPACE_DEV }}
+          echo "$KUBE_CERT_DEV" > ca.crt
+          kubectl config set-cluster cluster --certificate-authority=ca.crt --server=https://$KUBE_CLUSTER_DEV
+          kubectl config set-credentials gha --token=$KUBE_TOKEN_DEV
+          kubectl config set-context ctx --cluster=cluster --user=gha --namespace=$KUBE_NAMESPACE_DEV
           kubectl config use-context ctx
 
       - name: Deploy
@@ -234,11 +238,16 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Configure kubectl
+        env:
+          KUBE_CERT_STAGING: ${{ secrets.KUBE_CERT_STAGING }}
+          KUBE_CLUSTER_STAGING: ${{ secrets.KUBE_CLUSTER_STAGING }}
+          KUBE_TOKEN_STAGING: ${{ secrets.KUBE_TOKEN_STAGING }}
+          KUBE_NAMESPACE_STAGING: ${{ secrets.KUBE_NAMESPACE_STAGING }}
         run: |
-          echo "${{ secrets.KUBE_CERT_STAGING }}" > ca.crt
-          kubectl config set-cluster cluster --certificate-authority=ca.crt --server=https://${{ secrets.KUBE_CLUSTER_STAGING }}
-          kubectl config set-credentials gha --token=${{ secrets.KUBE_TOKEN_STAGING }}
-          kubectl config set-context ctx --cluster=cluster --user=gha --namespace=${{ secrets.KUBE_NAMESPACE_STAGING }}
+          echo "$KUBE_CERT_STAGING" > ca.crt
+          kubectl config set-cluster cluster --certificate-authority=ca.crt --server=https://$KUBE_CLUSTER_STAGING
+          kubectl config set-credentials gha --token=$KUBE_TOKEN_STAGING
+          kubectl config set-context ctx --cluster=cluster --user=gha --namespace=$KUBE_NAMESPACE_STAGING
           kubectl config use-context ctx
       - name: Deploy
         run: |
@@ -259,11 +268,16 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Configure kubectl
+        env:
+          KUBE_CERT_PRODUCTION: ${{ secrets.KUBE_CERT_PRODUCTION }}
+          KUBE_CLUSTER_PRODUCTION: ${{ secrets.KUBE_CLUSTER_PRODUCTION }}
+          KUBE_TOKEN_PRODUCTION: ${{ secrets.KUBE_TOKEN_PRODUCTION }}
+          KUBE_NAMESPACE_PRODUCTION: ${{ secrets.KUBE_NAMESPACE_PRODUCTION }}
         run: |
-          echo "${{ secrets.KUBE_CERT_PRODUCTION }}" > ca.crt
-          kubectl config set-cluster cluster --certificate-authority=ca.crt --server=https://${{ secrets.KUBE_CLUSTER_PRODUCTION }}
-          kubectl config set-credentials gha --token=${{ secrets.KUBE_TOKEN_PRODUCTION }}
-          kubectl config set-context ctx --cluster=cluster --user=gha --namespace=${{ secrets.KUBE_NAMESPACE_PRODUCTION }}
+          echo "$KUBE_CERT_PRODUCTION" > ca.crt
+          kubectl config set-cluster cluster --certificate-authority=ca.crt --server=https://$KUBE_CLUSTER_PRODUCTION
+          kubectl config set-credentials gha --token=$KUBE_TOKEN_PRODUCTION
+          kubectl config set-context ctx --cluster=cluster --user=gha --namespace=$KUBE_NAMESPACE_PRODUCTION
           kubectl config use-context ctx
       - name: Deploy
         run: |
