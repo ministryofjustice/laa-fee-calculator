@@ -27,10 +27,8 @@ jobs:
           path: ~/.cache/pip
           key: fee-calculator-${{ hashFiles('Pipfile.lock') }}
 
-      - run: "pip install --only-binary :all: pipenv"
-      - run: |
-          export PIP_ONLY_BINARY=:all:
-          pipenv install --dev
+      - run: pip install pipenv
+      - run: pipenv sync --dev
       - run: pipenv run flake8
 
   test-calculator:
@@ -50,10 +48,8 @@ jobs:
           path: ~/.cache/pip
           key: fee-calculator-${{ hashFiles('Pipfile.lock') }}
 
-      - run: "pip install --only-binary :all: pipenv"
-      - run: |
-          export PIP_ONLY_BINARY=:all:
-          pipenv install --dev
+      - run: pip install pipenv
+      - run: pipenv sync --dev
       - run: |
           mkdir -p tmp/coverage
           SHARD=${{ matrix.shard }}
@@ -93,10 +89,8 @@ jobs:
           path: ~/.cache/pip
           key: fee-calculator-${{ hashFiles('Pipfile.lock') }}
 
-      - run: "pip install --only-binary :all: pipenv"
-      - run: |
-          export PIP_ONLY_BINARY=:all:
-          pipenv install --dev
+      - run: pip install pipenv
+      - run: pipenv sync --dev
 
       - name: Run viewer/api tests
         run: |
@@ -135,10 +129,8 @@ jobs:
         with:
           python-version: "3.14"
 
-      - run: "pip install --only-binary :all: pipenv"
-      - run: |
-          export PIP_ONLY_BINARY=:all:
-          pipenv install --dev
+      - run: pip install pipenv
+      - run: pipenv sync --dev
 
       - name: Combine coverage
         run: |
