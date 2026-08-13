@@ -53,7 +53,8 @@ ENV LC_ALL=en_GB.UTF-8
 ENV TZ=Europe/London
 
 # clearing data to prevent UNIQUE constraint violations when rebuilding locally, at least
-RUN python3 manage.py migrate --no-input \
+RUN  SPECTACULAR_SETTINGS_VALIDATE_SCHEMA=False \
+    python3 manage.py migrate --no-input \
     && python3 manage.py cleardata \
     && python3 manage.py loadalldata \
     && python3 manage.py collectstatic --no-input

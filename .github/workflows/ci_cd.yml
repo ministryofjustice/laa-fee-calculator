@@ -1,0 +1,288 @@
+name: CI/CD Pipeline
+permissions:
+      contents: read  # This is required for actions/checkout
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: app
+
+jobs:
+# ----------------------------
+# LINT + TESTS
+# ----------------------------
+  lint:
+    runs-on: ubuntu-latest
+    if: github.ref_name != 'main'
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - uses: actions/cache@v5
+        with:
+          path: ~/.cache/pip
+          key: fee-calculator-${{ hashFiles('Pipfile.lock') }}
+
+      - run: "pip install --only-binary :all: pipenv==2026.7.1"
+      - run: pipenv sync --dev
+      - run: pipenv run flake8
+
+  test-calculator:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shard: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - uses: actions/cache@v5
+        with:
+          path: ~/.cache/pip
+          key: fee-calculator-${{ hashFiles('Pipfile.lock') }}
+
+      - run: "pip install --only-binary :all: pipenv==2026.7.1"
+      - run: pipenv sync --dev
+      - run: |
+          mkdir -p tmp/coverage
+          SHARD=${{ matrix.shard }}
+          # upping the shards has no benefit unless we break the test datasets down more - do not amend
+          TOTAL_SHARDS=3
+
+          # Discover test files deterministically and select this shard's subset
+          TEST_FILES=$(find fee_calculator/apps/calculator/tests -name "test_*.py" | sort)
+          SHARD_FILES=$(echo "$TEST_FILES" | awk "NR % $TOTAL_SHARDS == $SHARD % $TOTAL_SHARDS")
+
+          # Convert file paths to dotted module paths for Django test runner
+          TEST_MODULES=$(echo "$SHARD_FILES" | sed -e 's|\.py$||' -e 's|/|.|g')
+
+          pipenv run coverage run --parallel-mode manage.py test $TEST_MODULES --verbosity=1 --noinput
+          mv .coverage* tmp/coverage/ || true
+
+      - name: Check coverage files
+        run: ls -la tmp/coverage/ || echo "No coverage files found"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: coverage-${{ matrix.shard }}
+          path: tmp/coverage
+          include-hidden-files: true
+
+  test-viewer-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - uses: actions/cache@v5
+        with:
+          path: ~/.cache/pip
+          key: fee-calculator-${{ hashFiles('Pipfile.lock') }}
+
+      - run: "pip install --only-binary :all: pipenv==2026.7.1"
+      - run: pipenv sync --dev
+
+      - name: Run viewer/api tests
+        run: |
+          mkdir -p tmp/coverage
+          pipenv run coverage run --data-file=tmp/coverage/.coverage --parallel-mode manage.py test fee_calculator.apps.viewer fee_calculator.apps.api
+          mv .coverage* tmp/coverage/ || true
+
+      - name: Check coverage files
+        run: ls -la tmp/coverage/ || echo "No coverage files found"
+        
+      - uses: actions/upload-artifact@v7
+        with:
+          name: coverage-viewer
+          path: tmp/coverage/
+          include-hidden-files: true
+      
+ 
+
+# ----------------------------
+# COMBINE COVERAGE
+# ----------------------------
+  combine-coverage:
+    runs-on: ubuntu-latest
+    needs: [test-calculator, test-viewer-api]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        with:
+          path: tmp
+      
+      - name: List downloaded artifacts
+        run: find tmp -type f | head -20
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - run: "pip install --only-binary :all: pipenv==2026.7.1"
+      - run: pipenv sync --dev
+
+      - name: Combine coverage
+        run: |
+          mkdir -p .coverage-combined
+          find tmp -name ".coverage*" -exec cp {} .coverage-combined/ \;
+          pipenv run coverage combine .coverage-combined
+          pipenv run coverage report
+
+# ----------------------------
+# BUILD & PUSH DOCKER IMAGE
+# ----------------------------
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs: [combine-coverage]
+    permissions:
+      id-token: write   # required for AWS OIDC
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v7
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c
+        with:
+          role-to-assume: ${{ secrets.ECR_ROLE_TO_ASSUME }}
+          aws-region: ${{ vars.ECR_REGION }}
+
+      - name: Login to ECR
+        uses: aws-actions/amazon-ecr-login@d539f0932e70871a027e9d5a9d8fc38589180a64
+
+      - name: Build image
+        run: |
+          BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          docker build \
+            --build-arg DJANGO_SECRET_KEY=docker-build-secret \
+            --build-arg VERSION_NUMBER=${{ github.run_number }} \
+            --build-arg COMMIT_ID=${{ github.sha }} \
+            --build-arg BUILD_DATE=${BUILD_DATE} \
+            --build-arg BUILD_TAG=${{ github.ref_name }} \
+            -t $IMAGE_NAME .
+
+      - name: Tag + Push
+        run: |
+          docker tag $IMAGE_NAME $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          echo "Image pushed: $REGISTRY/$REPOSITORY:$IMAGE_TAG"
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            docker tag $IMAGE_NAME $REGISTRY/$REPOSITORY:app-latest
+            docker push $REGISTRY/$REPOSITORY:app-latest
+            echo "Image pushed: $REGISTRY/$REPOSITORY:app-latest"
+          fi
+        env:
+          REGISTRY: ${{ secrets.ECR_REGISTRY_URL }}
+          REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+          IMAGE_TAG: app-${{ github.sha }}
+       
+
+# ----------------------------
+# DEPLOY JOB TEMPLATE
+# ----------------------------
+  deploy-dev:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    environment: dev
+    env:
+      REGISTRY: ${{ secrets.ECR_REGISTRY_URL }}
+      REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+      IMAGE_TAG: app-${{ github.sha }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Configure kubectl
+        env:
+          KUBE_CERT_DEV: ${{ secrets.KUBE_CERT_DEV }}
+          KUBE_CLUSTER_DEV: ${{ secrets.KUBE_CLUSTER_DEV }}
+          KUBE_TOKEN_DEV: ${{ secrets.KUBE_TOKEN_DEV }}
+          KUBE_NAMESPACE_DEV: ${{ secrets.KUBE_NAMESPACE_DEV }}
+        run: |
+          echo "$KUBE_CERT_DEV" > ca.crt
+          kubectl config set-cluster cluster --certificate-authority=ca.crt --server=https://$KUBE_CLUSTER_DEV
+          kubectl config set-credentials gha --token=$KUBE_TOKEN_DEV
+          kubectl config set-context ctx --cluster=cluster --user=gha --namespace=$KUBE_NAMESPACE_DEV
+          kubectl config use-context ctx
+
+      - name: Deploy
+        # deploy given image
+        run: |
+          IMAGE=$REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+          kubectl set image -f kubernetes_deploy/live/dev/deployment.yaml app=$IMAGE --local -o yaml | kubectl apply -f -
+          kubectl apply \
+            -f kubernetes_deploy/live/dev/service.yaml \
+            -f kubernetes_deploy/live/dev/ingress.yaml
+          kubectl annotate deployment/laa-fee-calculator kubernetes.io/change-cause="$(date +%Y-%m-%dT%H:%M:%S%z) - deploying: $IMAGE via GitHub Actions" --overwrite
+          kubectl rollout status deployment/laa-fee-calculator
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    needs: deploy-dev
+    environment: staging
+    env:
+      REGISTRY: ${{ secrets.ECR_REGISTRY_URL }}
+      REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+      IMAGE_TAG: app-${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Configure kubectl
+        env:
+          KUBE_CERT_STAGING: ${{ secrets.KUBE_CERT_STAGING }}
+          KUBE_CLUSTER_STAGING: ${{ secrets.KUBE_CLUSTER_STAGING }}
+          KUBE_TOKEN_STAGING: ${{ secrets.KUBE_TOKEN_STAGING }}
+          KUBE_NAMESPACE_STAGING: ${{ secrets.KUBE_NAMESPACE_STAGING }}
+        run: |
+          echo "$KUBE_CERT_STAGING" > ca.crt
+          kubectl config set-cluster cluster --certificate-authority=ca.crt --server=https://$KUBE_CLUSTER_STAGING
+          kubectl config set-credentials gha --token=$KUBE_TOKEN_STAGING
+          kubectl config set-context ctx --cluster=cluster --user=gha --namespace=$KUBE_NAMESPACE_STAGING
+          kubectl config use-context ctx
+      - name: Deploy
+        run: |
+          IMAGE=$REGISTRY/$REPOSITORY:$IMAGE_TAG
+          kubectl set image -f kubernetes_deploy/live/staging/deployment.yaml app=$IMAGE --local -o yaml | kubectl apply -f -
+          kubectl apply -f kubernetes_deploy/live/staging/service.yaml -f kubernetes_deploy/live/staging/ingress.yaml
+          kubectl rollout status deployment/laa-fee-calculator
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    if: github.ref_name == 'main'
+    environment: production
+    env:
+      REGISTRY: ${{ secrets.ECR_REGISTRY_URL }}
+      REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+      IMAGE_TAG: app-${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Configure kubectl
+        env:
+          KUBE_CERT_PRODUCTION: ${{ secrets.KUBE_CERT_PRODUCTION }}
+          KUBE_CLUSTER_PRODUCTION: ${{ secrets.KUBE_CLUSTER_PRODUCTION }}
+          KUBE_TOKEN_PRODUCTION: ${{ secrets.KUBE_TOKEN_PRODUCTION }}
+          KUBE_NAMESPACE_PRODUCTION: ${{ secrets.KUBE_NAMESPACE_PRODUCTION }}
+        run: |
+          echo "$KUBE_CERT_PRODUCTION" > ca.crt
+          kubectl config set-cluster cluster --certificate-authority=ca.crt --server=https://$KUBE_CLUSTER_PRODUCTION
+          kubectl config set-credentials gha --token=$KUBE_TOKEN_PRODUCTION
+          kubectl config set-context ctx --cluster=cluster --user=gha --namespace=$KUBE_NAMESPACE_PRODUCTION
+          kubectl config use-context ctx
+      - name: Deploy
+        run: |
+          IMAGE=$REGISTRY/$REPOSITORY:$IMAGE_TAG
+          kubectl set image -f kubernetes_deploy/live/production/deployment.yaml app=$IMAGE --local -o yaml | kubectl apply -f -
+          kubectl apply -f kubernetes_deploy/live/production/service.yaml -f kubernetes_deploy/live/production/ingress.yaml
+          kubectl rollout status deployment/laa-fee-calculator
+  
