@@ -1,0 +1,33 @@
+name: Retry failed lint/test jobs
+#  Runs only after the stages have completed and acts to automate re-running flaky tests
+#  Long-term goal should always be to fix the tests
+on:
+  workflow_run:
+    workflows: ["CI/CD Pipeline"]
+    types: [completed]
+
+jobs:
+  retry-lint-tests:
+    if: github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.run_attempt < 3
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      # only lint/test-* jobs are retried; build/deploy jobs are never rerun by this workflow
+      - name: Re-run failed lint/test jobs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          FAILED_JOB_IDS=$(gh api "repos/${{ github.repository }}/actions/runs/$RUN_ID/jobs" --paginate \
+            --jq '.jobs[] | select(.conclusion == "failure") | select(.name == "lint" or (.name | startswith("test-calculator")) or .name == "test-viewer-api") | .id')
+
+          if [ -z "$FAILED_JOB_IDS" ]; then
+            echo "No failed lint/test jobs to retry"
+            exit 0
+          fi
+
+          for JOB_ID in $FAILED_JOB_IDS; do
+            echo "Re-running job $JOB_ID"
+            gh api "repos/${{ github.repository }}/actions/jobs/$JOB_ID/rerun" -X POST
+          done
