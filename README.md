@@ -1,5 +1,5 @@
 # laa-fee-calculator
-Fee calculator for LAA
+Fee calculator for LAA use
 
 [![CircleCI](https://circleci.com/gh/ministryofjustice/laa-fee-calculator/tree/main.svg?style=svg)](https://circleci.com/gh/ministryofjustice/laa-fee-calculator/tree/main)
 [![Known Vulnerabilities](https://snyk.io/test/github/ministryofjustice/laa-fee-calculator/badge.svg)](https://snyk.io/test/github/ministryofjustice/laa-fee-calculator)
