@@ -1,5 +1,10 @@
 # Development
 
+### Diagrams
+
+A high level design diagram is located [here](https://github.com/ministryofjustice/laa-architectural-diagrams/tree/main/docs/artefacts/hld/fee-calculator)
+and a data flow diagram  diagram is located [here](https://github.com/ministryofjustice/laa-architectural-diagrams/tree/main/docs/artefacts/dataflow/fee-calculator)
+
 ### Requirements
 
 - Python 3.14.x
