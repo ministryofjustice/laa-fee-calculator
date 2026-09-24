@@ -1,7 +1,6 @@
 # laa-fee-calculator
 Fee calculator for LAA use
 
-[![CircleCI](https://circleci.com/gh/ministryofjustice/laa-fee-calculator/tree/main.svg?style=svg)](https://circleci.com/gh/ministryofjustice/laa-fee-calculator/tree/main)
 [![Known Vulnerabilities](https://snyk.io/test/github/ministryofjustice/laa-fee-calculator/badge.svg)](https://snyk.io/test/github/ministryofjustice/laa-fee-calculator)
 [![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/laa-fee-calculator/badge)](https://github-community.service.justice.gov.uk/repository-standards/laa-fee-calculator)
 
@@ -85,9 +84,11 @@ As well as the calculator endpoint, one can also get a list of prices directly f
 
 ## Deployment
 
-Currently a commit to main will kickoff circle CI pipeline for deployment to available enviroments
+* Opening a pull request in GitHub triggers a GitHub Actions workflow that will allow changes to be deployed to development and staging environments for testing.
 
-* To check what is the status of the application pods:
+* Merging a pull request to `main` in GitHub triggers a GitHub Actions workflow that will allow changes to be deployed to all available enviroments.
+
+* To check the status of the application pods:
 
 ```bash
 kubectl get pods -n laa-fee-calculator-production
