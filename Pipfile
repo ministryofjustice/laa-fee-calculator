@@ -18,7 +18,7 @@ sentry-sdk = "==2.69.2"
 
 [dev-packages]
 coverage = "==7.16.1"
-flake8 = "==7.3.0"
+flake8 = "==7.4.1"
 unittest-xml-reporting = "==4.0.0"
 
 [requires]
