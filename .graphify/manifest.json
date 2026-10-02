@@ -1,0 +1,746 @@
+{
+  "fee_calculator/__init__.py": {
+    "mtime": 1788864893337.887,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "fee_calculator/apps/__init__.py": {
+    "mtime": 1788864893338.2102,
+    "hash": "df4697b9472e60508b091c83df7f595e"
+  },
+  "fee_calculator/apps/api/__init__.py": {
+    "mtime": 1788864893338.98,
+    "hash": "df4697b9472e60508b091c83df7f595e"
+  },
+  "fee_calculator/apps/api/filters.py": {
+    "mtime": 1788864893339.1792,
+    "hash": "11b0179da5ff4d5f19938af78bb21a62"
+  },
+  "fee_calculator/apps/api/serializers.py": {
+    "mtime": 1788864893339.4417,
+    "hash": "978877aa71784305e0c2bfa3b7040ed6"
+  },
+  "fee_calculator/apps/api/tests/__init__.py": {
+    "mtime": 1788864893340.03,
+    "hash": "df4697b9472e60508b091c83df7f595e"
+  },
+  "fee_calculator/apps/api/tests/test_advocate_type_api.py": {
+    "mtime": 1788864893340.6912,
+    "hash": "107ba79c67f1743facbc646b682f4e7e"
+  },
+  "fee_calculator/apps/api/tests/test_fee_type_api.py": {
+    "mtime": 1788864893341.1396,
+    "hash": "7553d25cd51fd8256718b584a4df25f6"
+  },
+  "fee_calculator/apps/api/tests/test_filters.py": {
+    "mtime": 1788864893341.4229,
+    "hash": "a7550ed71c8996dd48c8923d7d26fc9c"
+  },
+  "fee_calculator/apps/api/tests/test_modifier_type_api.py": {
+    "mtime": 1788864893341.5872,
+    "hash": "edbc7bd5297cacac996086c3305b042c"
+  },
+  "fee_calculator/apps/api/tests/test_offence_class_api.py": {
+    "mtime": 1788864893341.874,
+    "hash": "4b24f4ccfcd3dbfd92d04c7e59749969"
+  },
+  "fee_calculator/apps/api/tests/test_price_api.py": {
+    "mtime": 1788864893342.1213,
+    "hash": "358363dbfe1569386afaf812d65f9d06"
+  },
+  "fee_calculator/apps/api/tests/test_scenario_api.py": {
+    "mtime": 1788864893342.3262,
+    "hash": "0263f9423cc12d11796929977351568f"
+  },
+  "fee_calculator/apps/api/tests/test_scheme_api.py": {
+    "mtime": 1788864893342.5054,
+    "hash": "892b90e0f3a4b76b4072b003ab3a168b"
+  },
+  "fee_calculator/apps/api/tests/test_unit_api.py": {
+    "mtime": 1788864893342.6663,
+    "hash": "2b88b32e0dd1a2c4864af2788e506752"
+  },
+  "fee_calculator/apps/api/tests/test_utils.py": {
+    "mtime": 1788864893342.8208,
+    "hash": "51563556d31f821d13ea4958e82aa668"
+  },
+  "fee_calculator/apps/api/urls.py": {
+    "mtime": 1788864893343.0295,
+    "hash": "68df120756b8bd7f38cc45c490ee6ce7"
+  },
+  "fee_calculator/apps/api/utils.py": {
+    "mtime": 1788864893343.2378,
+    "hash": "3be42ecb5377212d2d37cc1be7957b2f"
+  },
+  "fee_calculator/apps/api/views.py": {
+    "mtime": 1788864893343.5056,
+    "hash": "676a18af400fee891ca952cb8adedf0c"
+  },
+  "fee_calculator/apps/calculator/__init__.py": {
+    "mtime": 1788864893343.8406,
+    "hash": "df4697b9472e60508b091c83df7f595e"
+  },
+  "fee_calculator/apps/calculator/admin.py": {
+    "mtime": 1788864893344.1528,
+    "hash": "00c4ded4530d67b4f48493fed0e85573"
+  },
+  "fee_calculator/apps/calculator/constants.py": {
+    "mtime": 1788864893344.4163,
+    "hash": "92b21c92820cbd888832f5fabed34e8f"
+  },
+  "fee_calculator/apps/calculator/exceptions.py": {
+    "mtime": 1788864893344.6204,
+    "hash": "d08e90d0216152173862b885306a8996"
+  },
+  "fee_calculator/apps/calculator/management/__init__.py": {
+    "mtime": 1788864893410.3547,
+    "hash": "df4697b9472e60508b091c83df7f595e"
+  },
+  "fee_calculator/apps/calculator/management/commands/__init__.py": {
+    "mtime": 1788864893410.7737,
+    "hash": "df4697b9472e60508b091c83df7f595e"
+  },
+  "fee_calculator/apps/calculator/management/commands/agfs_2022_uplift.py": {
+    "mtime": 1788864893411.8381,
+    "hash": "2ec0984939681c8d1ce4aaf5cfa4b8e9"
+  },
+  "fee_calculator/apps/calculator/management/commands/cleardata.py": {
+    "mtime": 1788864893412.0544,
+    "hash": "bc4a6ed616d468f0222e006425a81346"
+  },
+  "fee_calculator/apps/calculator/management/commands/copyfeetype.py": {
+    "mtime": 1788864893412.2834,
+    "hash": "2f385da3f1157b5c27ddfa933f9b563b"
+  },
+  "fee_calculator/apps/calculator/management/commands/copyscheme.py": {
+    "mtime": 1788864893412.4539,
+    "hash": "8064ea84b6b7fdb37514f32d23085ff5"
+  },
+  "fee_calculator/apps/calculator/management/commands/dumpprices.py": {
+    "mtime": 1788864893412.6355,
+    "hash": "e83d87c5ccd796327d67c75aa1187bb0"
+  },
+  "fee_calculator/apps/calculator/management/commands/generatefees.py": {
+    "mtime": 1788864893412.8447,
+    "hash": "54c82c1f53d1281d7c91c47e5f67d3a5"
+  },
+  "fee_calculator/apps/calculator/management/commands/lgfs_2022_uplift.py": {
+    "mtime": 1788864893414.2883,
+    "hash": "8d19e55f45d267ac37d15fac214858ad"
+  },
+  "fee_calculator/apps/calculator/management/commands/lgfs_2026_uplift.py": {
+    "mtime": 1788864893417.8564,
+    "hash": "c6a0c4b6d065111bc72cbf205dd19b3b"
+  },
+  "fee_calculator/apps/calculator/management/commands/loadalldata.py": {
+    "mtime": 1788864893419.5344,
+    "hash": "eb9195327990452cb2aaff3adf82199a"
+  },
+  "fee_calculator/apps/calculator/management/commands/loadbulkdata.py": {
+    "mtime": 1788864893421.3923,
+    "hash": "86336f3b4140dbd30de822533f97b2a5"
+  },
+  "fee_calculator/apps/calculator/management/commands/updatecrackedtrial.py": {
+    "mtime": 1788864893422.0798,
+    "hash": "39f58cbc13d9cdf4f4ba96a0de74ee7f"
+  },
+  "fee_calculator/apps/calculator/management/commands/updatecrackedtrialtests.py": {
+    "mtime": 1788864893422.5496,
+    "hash": "c292b4afb7bd99395d8fe0304a95e4d2"
+  },
+  "fee_calculator/apps/calculator/migrations/0001_initial.py": {
+    "mtime": 1788864893423.3372,
+    "hash": "c2c0be622713b7c55d3e4eac09ffdbd6"
+  },
+  "fee_calculator/apps/calculator/migrations/0002_auto_20161121_1804.py": {
+    "mtime": 1788864893424.0212,
+    "hash": "d064f838b5162bedcca68a4e7e2d7dee"
+  },
+  "fee_calculator/apps/calculator/migrations/0003_remove_scenario_force_third.py": {
+    "mtime": 1788864893424.5918,
+    "hash": "a137ca82e7271092723fe9e0cc6d47e0"
+  },
+  "fee_calculator/apps/calculator/migrations/0004_remove_price_third.py": {
+    "mtime": 1788864893424.8904,
+    "hash": "e34a03fa136626105169b8f71ac9d5b0"
+  },
+  "fee_calculator/apps/calculator/migrations/0005_price_fixed_fee.py": {
+    "mtime": 1788864893425.1492,
+    "hash": "3567f8adce6d5f76dc4fd7aec7611d55"
+  },
+  "fee_calculator/apps/calculator/migrations/0006_auto_20171005_1148.py": {
+    "mtime": 1788864893425.484,
+    "hash": "5ac1b510deb8b15c3bb3382613255714"
+  },
+  "fee_calculator/apps/calculator/migrations/0007_auto_20171010_1603.py": {
+    "mtime": 1788864893425.848,
+    "hash": "0071815a9c86d30265088d10e7adfae2"
+  },
+  "fee_calculator/apps/calculator/migrations/0008_auto_20171010_1606.py": {
+    "mtime": 1788864893426.279,
+    "hash": "a814680465cb38065d9bf47409c4d8dc"
+  },
+  "fee_calculator/apps/calculator/migrations/0009_auto_20171010_1623.py": {
+    "mtime": 1788864893426.6895,
+    "hash": "b87d62ea2949132193676066ed6307ac"
+  },
+  "fee_calculator/apps/calculator/migrations/0010_auto_20171011_1603.py": {
+    "mtime": 1788864893426.9824,
+    "hash": "fa922ba6f06e19da7cffa2a8b7eaa248"
+  },
+  "fee_calculator/apps/calculator/migrations/0011_remove_scheme_effective_date.py": {
+    "mtime": 1788864893427.28,
+    "hash": "0e7127d42a575d73267915905983b2ba"
+  },
+  "fee_calculator/apps/calculator/migrations/0012_auto_20171016_0905.py": {
+    "mtime": 1788864893427.6165,
+    "hash": "65e5d6d88457a1d1f581c055fda1da15"
+  },
+  "fee_calculator/apps/calculator/migrations/0013_auto_20171016_0913.py": {
+    "mtime": 1788864893427.8591,
+    "hash": "9508bc6c30085fd588391a57802f1eba"
+  },
+  "fee_calculator/apps/calculator/migrations/0014_auto_20171016_1009.py": {
+    "mtime": 1788864893428.1062,
+    "hash": "69acd504afa095ad7ec7cd957aaaef2b"
+  },
+  "fee_calculator/apps/calculator/migrations/0015_modifier_required.py": {
+    "mtime": 1788864893428.3027,
+    "hash": "8ef32b4a567ae7f137e8c7c0dad4577b"
+  },
+  "fee_calculator/apps/calculator/migrations/0016_auto_20171016_1518.py": {
+    "mtime": 1788864893428.627,
+    "hash": "6ebbf095325da819593752f8891c3aaa"
+  },
+  "fee_calculator/apps/calculator/migrations/0017_auto_20171017_0959.py": {
+    "mtime": 1788864893428.9204,
+    "hash": "3b26de90bb23a505229956b7618d1ed3"
+  },
+  "fee_calculator/apps/calculator/migrations/0018_modifier_strict_range.py": {
+    "mtime": 1788864893429.1611,
+    "hash": "6fd5ed6d0e4f055de29f3fb08b7d46d8"
+  },
+  "fee_calculator/apps/calculator/migrations/0019_auto_20171031_1003.py": {
+    "mtime": 1788864893429.472,
+    "hash": "91835dfe2405c737f59de07ca29da284"
+  },
+  "fee_calculator/apps/calculator/migrations/0020_feetype_aggregation.py": {
+    "mtime": 1788864893429.8547,
+    "hash": "e6504f152027f9330965eb59d4d90dc9"
+  },
+  "fee_calculator/apps/calculator/migrations/0021_auto_20171103_1129.py": {
+    "mtime": 1788864893430.4014,
+    "hash": "0fd12b0b8cacd14b26ce4fe201e33697"
+  },
+  "fee_calculator/apps/calculator/migrations/0022_auto_20180524_1547.py": {
+    "mtime": 1788864893430.6582,
+    "hash": "9109a62d11461a95dede1498151b7679"
+  },
+  "fee_calculator/apps/calculator/migrations/0023_auto_20180612_1407.py": {
+    "mtime": 1788864893430.9087,
+    "hash": "6a2b97061a6fa367939a42c3b7d8edbe"
+  },
+  "fee_calculator/apps/calculator/migrations/0024_auto_20180618_1102.py": {
+    "mtime": 1788864893431.1267,
+    "hash": "d982997e0f04d5d1f8afe45768065083"
+  },
+  "fee_calculator/apps/calculator/migrations/0025_auto_20180618_1103.py": {
+    "mtime": 1788864893431.3674,
+    "hash": "8762c19324d9dfee2fc2efb775a4f5a2"
+  },
+  "fee_calculator/apps/calculator/migrations/0026_price_strict_range.py": {
+    "mtime": 1788864893431.8218,
+    "hash": "d9f234760ee391c13ac0de6836fb7aab"
+  },
+  "fee_calculator/apps/calculator/migrations/0027_auto_20181122_1057.py": {
+    "mtime": 1788864893432.143,
+    "hash": "f9a9e65df2586d8470d1e80a5283824d"
+  },
+  "fee_calculator/apps/calculator/migrations/0028_scheme_earliest_main_hearing_date.py": {
+    "mtime": 1788864893432.3965,
+    "hash": "32d1e7e1f973f8a50e31074806f6b50a"
+  },
+  "fee_calculator/apps/calculator/migrations/__init__.py": {
+    "mtime": 1788864893432.561,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "fee_calculator/apps/calculator/models.py": {
+    "mtime": 1788864893432.8564,
+    "hash": "6b9c8b27b291d8f22358cbb270e49d8c"
+  },
+  "fee_calculator/apps/calculator/tests/__init__.py": {
+    "mtime": 1788864893433.3533,
+    "hash": "742f025a2dccb2528b30a2f1ca682423"
+  },
+  "fee_calculator/apps/calculator/tests/base.py": {
+    "mtime": 1788864893433.6475,
+    "hash": "ce21a763db2265808bd1e8271fb910d8"
+  },
+  "fee_calculator/apps/calculator/tests/lib/__init__.py": {
+    "mtime": 1788864893442.8691,
+    "hash": "df4697b9472e60508b091c83df7f595e"
+  },
+  "fee_calculator/apps/calculator/tests/lib/utils.py": {
+    "mtime": 1788864893443.2588,
+    "hash": "9bd1e8bd60210caeb2e9bf77c4d94b20"
+  },
+  "fee_calculator/apps/calculator/tests/test_calculation_01_agfs_9.py": {
+    "mtime": 1788864893443.537,
+    "hash": "563ab644065bc9f012a0b4828d26e8ec"
+  },
+  "fee_calculator/apps/calculator/tests/test_calculation_02_lgfs_2016.py": {
+    "mtime": 1788864893443.8418,
+    "hash": "78d631620afa9184ee4451bc1718ab68"
+  },
+  "fee_calculator/apps/calculator/tests/test_calculation_03_agfs_10.py": {
+    "mtime": 1788864893444.0754,
+    "hash": "86b4133f0976121cdb24e25512e8924d"
+  },
+  "fee_calculator/apps/calculator/tests/test_calculation_04_agfs_11.py": {
+    "mtime": 1788864893444.263,
+    "hash": "b513afb4423f3c18098027a8eb7953b1"
+  },
+  "fee_calculator/apps/calculator/tests/test_calculation_05_agfs_12.py": {
+    "mtime": 1788864893444.5037,
+    "hash": "cd28b5fee53e087c3c3b55f97ab6dfe7"
+  },
+  "fee_calculator/apps/calculator/tests/test_calculation_06_lgfs_2022.py": {
+    "mtime": 1788864893444.8274,
+    "hash": "773ce090ab130e8bc98243db99eb8c40"
+  },
+  "fee_calculator/apps/calculator/tests/test_calculation_07_agfs_13.py": {
+    "mtime": 1788864893445.0356,
+    "hash": "0bfc6e961a295e4bc38b2ff154f504b7"
+  },
+  "fee_calculator/apps/calculator/tests/test_calculation_08_lgfs_clair_contingency.py": {
+    "mtime": 1788864893445.5178,
+    "hash": "5643a82e1f6a75258753c406e9d101ae"
+  },
+  "fee_calculator/apps/calculator/tests/test_calculation_09_agfs_clair_contingency.py": {
+    "mtime": 1788864893445.7446,
+    "hash": "dc1f15fc1e9ddd9d90bbb225d59f9ee9"
+  },
+  "fee_calculator/apps/calculator/tests/test_calculation_10_agfs_14.py": {
+    "mtime": 1788864893445.935,
+    "hash": "9e2220ba78c619d392608bbf4a6cd182"
+  },
+  "fee_calculator/apps/calculator/tests/test_calculation_11_agfs_15.py": {
+    "mtime": 1788864893446.1404,
+    "hash": "7c04665dfa4c8e5abb3b70b54946df96"
+  },
+  "fee_calculator/apps/calculator/tests/test_calculation_12_agfs_16.py": {
+    "mtime": 1788864893448.6545,
+    "hash": "b8030b09e2ad86e430b3aa4a179f8334"
+  },
+  "fee_calculator/apps/calculator/tests/test_calculation_13_lgfs_2026.py": {
+    "mtime": 1788864893449.0557,
+    "hash": "3d73b4b71670a85515fd9abe9bb8ac4d"
+  },
+  "fee_calculator/apps/calculator/tests/test_calculation_14_agfs_17.py": {
+    "mtime": 1788864893449.73,
+    "hash": "72ac889c7288da7bb63e1f5ad04d1521"
+  },
+  "fee_calculator/apps/calculator/tests/test_models.py": {
+    "mtime": 1788864893450.0059,
+    "hash": "f62f503e2abe391502dc4dd0938689b7"
+  },
+  "fee_calculator/apps/viewer/__init__.py": {
+    "mtime": 1788864893450.2974,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "fee_calculator/apps/viewer/apps.py": {
+    "mtime": 1788864893450.4941,
+    "hash": "aceecb9ac366a560a3a44a43c2bdffb0"
+  },
+  "fee_calculator/apps/viewer/presenters/helpers.py": {
+    "mtime": 1788864893450.7883,
+    "hash": "8e38fa629e2b61773f242ca7055825a6"
+  },
+  "fee_calculator/apps/viewer/presenters/offence_class_presenters.py": {
+    "mtime": 1788864893450.96,
+    "hash": "52d11988674964cb816cd2a584a1391f"
+  },
+  "fee_calculator/apps/viewer/presenters/price_presenters.py": {
+    "mtime": 1788864893451.1694,
+    "hash": "a7882c60a566fe5409de25914fcdc0ba"
+  },
+  "fee_calculator/apps/viewer/presenters/scenario_presenters.py": {
+    "mtime": 1788864893451.3435,
+    "hash": "d3fb16e4ec693fdd8b31b26362027e2d"
+  },
+  "fee_calculator/apps/viewer/presenters/scheme_presenters.py": {
+    "mtime": 1788864893451.5322,
+    "hash": "f3f5081b70161a51038a7e76883acc88"
+  },
+  "fee_calculator/apps/viewer/static/govuk-frontend-5.11.0.min.js": {
+    "mtime": 1788864893462.9521,
+    "hash": "63d2f546b7d03f9a2562398b51017ae0"
+  },
+  "fee_calculator/apps/viewer/static/moj/moj-frontend-5.1.4.min.js": {
+    "mtime": 1788864893473.8862,
+    "hash": "576fff07d7bdca5bf0a0addb28d27233"
+  },
+  "fee_calculator/apps/viewer/tests/__init__.py": {
+    "mtime": 1788864893477.2427,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "fee_calculator/apps/viewer/tests/presenters/__init__.py": {
+    "mtime": 1788864893477.5703,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "fee_calculator/apps/viewer/tests/presenters/test_offence_class_presenters.py": {
+    "mtime": 1788864893477.8528,
+    "hash": "a29093a08cb73cb5f895f778fa033e2c"
+  },
+  "fee_calculator/apps/viewer/tests/presenters/test_price_presenters.py": {
+    "mtime": 1788864893478.0894,
+    "hash": "c8aa9caf42342f777b8275512d9de97f"
+  },
+  "fee_calculator/apps/viewer/tests/presenters/test_scenario_presenters.py": {
+    "mtime": 1788864893478.347,
+    "hash": "ddc17b4a35944113a7b30ac62204e9a7"
+  },
+  "fee_calculator/apps/viewer/tests/presenters/test_scheme_presenters.py": {
+    "mtime": 1788864893478.567,
+    "hash": "eb770fcc04861e7bef0aa3b5c58acc69"
+  },
+  "fee_calculator/apps/viewer/tests/test_views.py": {
+    "mtime": 1788864893478.7852,
+    "hash": "f303ed899969c1ea93f1c913ddeb2a4f"
+  },
+  "fee_calculator/apps/viewer/urls.py": {
+    "mtime": 1788864893479.1802,
+    "hash": "9c3b23b11a1fdfa3bc4dd78ead258be6"
+  },
+  "fee_calculator/apps/viewer/views.py": {
+    "mtime": 1788864893479.5786,
+    "hash": "b10f27720a83b3ab79f948b2a3d67d09"
+  },
+  "fee_calculator/settings/__init__.py": {
+    "mtime": 1788864893480.137,
+    "hash": "7cf2301b06d7ef66797932dc34c4caf6"
+  },
+  "fee_calculator/settings/base.py": {
+    "mtime": 1788864893480.3726,
+    "hash": "7552e426d9d3cfa3f6cdbe51a783a581"
+  },
+  "fee_calculator/settings/docker.py": {
+    "mtime": 1788864893480.5854,
+    "hash": "62afe961d9b60ca855cffbaf57ca4a7d"
+  },
+  "fee_calculator/urls.py": {
+    "mtime": 1788864893481.8218,
+    "hash": "7b2229a728903c0b9203e7c1c17bad26"
+  },
+  "fee_calculator/wsgi.py": {
+    "mtime": 1788864893482.0203,
+    "hash": "194732a58090743ec7a2766ddd803910"
+  },
+  "manage.py": {
+    "mtime": 1788864893485.5671,
+    "hash": "c0bfa92a48ad085de55725b3eced5707"
+  },
+  ".github/copilot-instructions.md": {
+    "mtime": 1788864893332.9763,
+    "hash": "2b485f30370d13db4db7e06bd0c50469"
+  },
+  ".github/dependabot.yml": {
+    "mtime": 1788864893333.531,
+    "hash": "c72800a0253c37a74c349baf300c91c6"
+  },
+  ".github/pull_request_template.md": {
+    "mtime": 1788864893333.9348,
+    "hash": "d776814665cc943d260a4ac0df591fc3"
+  },
+  ".github/workflows/ci_cd.yml": {
+    "mtime": 1788864893334.47,
+    "hash": "386fa0a357912eb6e40c2cbebd9f44e4"
+  },
+  ".github/workflows/devsecops_sca_scan.yml": {
+    "mtime": 1788864893334.8298,
+    "hash": "cdf943eb4715a19b58bbd467f5d199fe"
+  },
+  ".github/workflows/docker_image_scan.yml": {
+    "mtime": 1788864893335.0588,
+    "hash": "34bc644472651828d43eb4cac194d0da"
+  },
+  "README.md": {
+    "mtime": 1788864893337.1277,
+    "hash": "8a46c8dde6bbeda030d1bb6fa748ee50"
+  },
+  "docker-compose.yaml": {
+    "mtime": 1788864893337.3682,
+    "hash": "cfb2b8f711b12d0dcd8c0de9ae372cae"
+  },
+  "docs/DEVELOPMENT.md": {
+    "mtime": 1788864893337.6702,
+    "hash": "67ced0bc0f86877b55ec29738b36b6b3"
+  },
+  "fee_calculator/apps/viewer/static/VERSION.txt": {
+    "mtime": 1788864893451.8457,
+    "hash": "95a46c3552ef53abe034250a6ab3dfd6"
+  },
+  "fee_calculator/apps/viewer/templates/viewer/fee_scheme.html": {
+    "mtime": 1788864893475.0215,
+    "hash": "352bbbe4c9fdf2914f855fa4092df31f"
+  },
+  "fee_calculator/apps/viewer/templates/viewer/fee_scheme/_form.html": {
+    "mtime": 1788864893475.3562,
+    "hash": "97290598cedf3d1e17f445f77f1cace9"
+  },
+  "fee_calculator/apps/viewer/templates/viewer/fee_scheme/_offence_classes_table.html": {
+    "mtime": 1788864893475.553,
+    "hash": "15552c34aa0253b640546bee9de00d52"
+  },
+  "fee_calculator/apps/viewer/templates/viewer/fee_scheme/_prices_cards.html": {
+    "mtime": 1788864893475.7324,
+    "hash": "fda851b9b6cbe758acb8398c7b1e1f3f"
+  },
+  "fee_calculator/apps/viewer/templates/viewer/fee_scheme/_prices_table.html": {
+    "mtime": 1788864893475.892,
+    "hash": "a6175028bcca65d60d0e47d9fdf32f0f"
+  },
+  "fee_calculator/apps/viewer/templates/viewer/fee_scheme/_scenarios_table.html": {
+    "mtime": 1788864893476.0635,
+    "hash": "23d42e8c4cef605534faf8a6a230c983"
+  },
+  "fee_calculator/apps/viewer/templates/viewer/fee_scheme/_summary.html": {
+    "mtime": 1788864893476.3171,
+    "hash": "4a3f1bbd084aec18480013d6fd537253"
+  },
+  "fee_calculator/apps/viewer/templates/viewer/fee_schemes.html": {
+    "mtime": 1788864893476.5283,
+    "hash": "185cce8118c707ce6c4baae8655cfbf4"
+  },
+  "fee_calculator/apps/viewer/templates/viewer/index.html": {
+    "mtime": 1788864893476.6975,
+    "hash": "62e5aae72ef3e4737c145737b593e3a9"
+  },
+  "fee_calculator/apps/viewer/templates/viewer/scenarios.html": {
+    "mtime": 1788864893476.9321,
+    "hash": "866e54331188778cfce300ebb89bb7d1"
+  },
+  "fee_calculator/templates/_breadcrumbs.html": {
+    "mtime": 1788864893481.3037,
+    "hash": "761ed07932b7606bf3e0eef247adcf45"
+  },
+  "fee_calculator/templates/layout.html": {
+    "mtime": 1788864893481.6245,
+    "hash": "6444ce59815068ccd7ff131dfb1fef07"
+  },
+  "kubernetes_deploy/live/dev/deployment.yaml": {
+    "mtime": 1788864893482.5942,
+    "hash": "dae69dfeda577497a8ab18b915d11460"
+  },
+  "kubernetes_deploy/live/dev/ingress.yaml": {
+    "mtime": 1788864893482.8003,
+    "hash": "5018724f2243a1cf6bcd68503d80859a"
+  },
+  "kubernetes_deploy/live/dev/service.yaml": {
+    "mtime": 1788864893482.9753,
+    "hash": "30bb3fe9a29ea6c5947654c95e286b64"
+  },
+  "kubernetes_deploy/live/production/deployment.yaml": {
+    "mtime": 1788864893483.2693,
+    "hash": "0871774f803fde1b03a8c919aab57169"
+  },
+  "kubernetes_deploy/live/production/ingress.yaml": {
+    "mtime": 1788864893483.452,
+    "hash": "03c0e56e64c8b0ff986025ecfff30ebc"
+  },
+  "kubernetes_deploy/live/production/service.yaml": {
+    "mtime": 1788864893483.7356,
+    "hash": "e86b977e9c205c317719bb5ea32638bc"
+  },
+  "kubernetes_deploy/live/staging/deployment.yaml": {
+    "mtime": 1788864893485.0027,
+    "hash": "d1adc3a9d6a0918d5947cff110bcedb0"
+  },
+  "kubernetes_deploy/live/staging/ingress.yaml": {
+    "mtime": 1788864893485.2058,
+    "hash": "fa753ea8e343d048db045009432108bf"
+  },
+  "kubernetes_deploy/live/staging/service.yaml": {
+    "mtime": 1788864893485.404,
+    "hash": "d4c1b9422b43d4ab203b8a61c64d3a8f"
+  },
+  "fee_calculator/apps/viewer/static/assets/images/favicon.svg": {
+    "mtime": 1788864893454.8408,
+    "hash": "e1321ba525137ed156ed48e69369531c"
+  },
+  "fee_calculator/apps/viewer/static/assets/images/govuk-crest.svg": {
+    "mtime": 1788864893455.1963,
+    "hash": "e7152685a73edbd8d758c5a4536ce3f9"
+  },
+  "fee_calculator/apps/viewer/static/assets/images/govuk-icon-180.png": {
+    "mtime": 1788864893455.4397,
+    "hash": "ae577696a9d0466ee2019f46ec4c684f"
+  },
+  "fee_calculator/apps/viewer/static/assets/images/govuk-icon-192.png": {
+    "mtime": 1788864893455.6357,
+    "hash": "2c48a90c9944fc69e87574d06646f3ec"
+  },
+  "fee_calculator/apps/viewer/static/assets/images/govuk-icon-512.png": {
+    "mtime": 1788864893455.8381,
+    "hash": "eef7f360c29c4ef113b058b4d7677550"
+  },
+  "fee_calculator/apps/viewer/static/assets/images/govuk-icon-mask.svg": {
+    "mtime": 1788864893456.0283,
+    "hash": "ff75b23964656ce28eece43f266d9f1d"
+  },
+  "fee_calculator/apps/viewer/static/assets/images/govuk-opengraph-image.png": {
+    "mtime": 1788864893456.2769,
+    "hash": "08c923d1fcc2fe3e69e73bfbf539fa6f"
+  },
+  "fee_calculator/apps/viewer/static/assets/rebrand/images/favicon.svg": {
+    "mtime": 1788864893457.895,
+    "hash": "f31acb66529c8375960be353901c0467"
+  },
+  "fee_calculator/apps/viewer/static/assets/rebrand/images/govuk-crest.svg": {
+    "mtime": 1788864893458.1416,
+    "hash": "e7152685a73edbd8d758c5a4536ce3f9"
+  },
+  "fee_calculator/apps/viewer/static/assets/rebrand/images/govuk-icon-180.png": {
+    "mtime": 1788864893458.4067,
+    "hash": "82febdccc51214caa0834dd0feb4fe76"
+  },
+  "fee_calculator/apps/viewer/static/assets/rebrand/images/govuk-icon-192.png": {
+    "mtime": 1788864893458.61,
+    "hash": "7ef11e2f98ef00fadc1b31f0a97857e4"
+  },
+  "fee_calculator/apps/viewer/static/assets/rebrand/images/govuk-icon-512.png": {
+    "mtime": 1788864893458.8735,
+    "hash": "4b8a6b4cf7a965dfb71ffc27c649a629"
+  },
+  "fee_calculator/apps/viewer/static/assets/rebrand/images/govuk-icon-mask.svg": {
+    "mtime": 1788864893459.1477,
+    "hash": "ff75b23964656ce28eece43f266d9f1d"
+  },
+  "fee_calculator/apps/viewer/static/assets/rebrand/images/govuk-opengraph-image.png": {
+    "mtime": 1788864893459.6494,
+    "hash": "3382676777b23f8fed4ca453b3bc70a5"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/govuk-logotype-crown.png": {
+    "mtime": 1788864893464.5378,
+    "hash": "156882dc9d7b948390284a65e83f2a97"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-alert-information.svg": {
+    "mtime": 1788864893464.82,
+    "hash": "194bd9385adb6b5ac98debe9e747d815"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-alert-success.svg": {
+    "mtime": 1788864893465.1182,
+    "hash": "e66f916767eb3b491c3726df72ed9770"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-alert-warning.svg": {
+    "mtime": 1788864893465.3127,
+    "hash": "b887f70f6e33b0fa8641c33f4c110801"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-arrow-black-down.svg": {
+    "mtime": 1788864893465.569,
+    "hash": "fe3fc26e30b61ba3d17db2059dc3f8f9"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-arrow-black-up.svg": {
+    "mtime": 1788864893465.8171,
+    "hash": "ccb551b08176daea59ef7d49e143d922"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-arrow-white-down.svg": {
+    "mtime": 1788864893466.069,
+    "hash": "c9d6129d81c58312e556184a935e7f49"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-arrow-white-up.svg": {
+    "mtime": 1788864893466.316,
+    "hash": "bfa02c2b13f9606a3f3c604f473d1879"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-close-cross-black.svg": {
+    "mtime": 1788864893466.6172,
+    "hash": "dddf92bb4bc09343e9ad27f8634a9d37"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-document.png": {
+    "mtime": 1788864893467.0422,
+    "hash": "436b5b8060bc6def08b8493a31094e2b"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-document.svg": {
+    "mtime": 1788864893467.3682,
+    "hash": "9f6daeb14c676a808957bf61c915606b"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-progress-tick.png": {
+    "mtime": 1788864893467.5598,
+    "hash": "032e99d9b05cc1cce0e88e538f0c08b8"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-progress-tick.svg": {
+    "mtime": 1788864893467.7307,
+    "hash": "a49288b4543c743e3af572bec0dc2eae"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-search-black.svg": {
+    "mtime": 1788864893467.9324,
+    "hash": "c320b3b217588d7a6e97bc7dff9ac1bf"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-search-blue.svg": {
+    "mtime": 1788864893468.127,
+    "hash": "f4feb232657f0aa6869880ac66c145ee"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-search-white.svg": {
+    "mtime": 1788864893468.436,
+    "hash": "3746dea98599398645a53aea86d1fb26"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-tag-remove-cross-white.svg": {
+    "mtime": 1788864893468.884,
+    "hash": "875e9b466f599f34072f2790cdad9410"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-tag-remove-cross.svg": {
+    "mtime": 1788864893469.1606,
+    "hash": "315ad094163c6298de3677b7fa71f9ca"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-toggle-plus-minus.svg": {
+    "mtime": 1788864893469.696,
+    "hash": "1da25e191736c6193e00f3e29de25f4c"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-wysiwyg-bold.svg": {
+    "mtime": 1788864893470.0552,
+    "hash": "43eb14ea9469e38eb593c4905279096f"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-wysiwyg-italic.svg": {
+    "mtime": 1788864893470.2568,
+    "hash": "1d4cb06fdeb275bb8142e5cc32532b62"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-wysiwyg-ordered-list.svg": {
+    "mtime": 1788864893470.5444,
+    "hash": "eb23536ddbca79ba54b21943a40be4c4"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-wysiwyg-underline.svg": {
+    "mtime": 1788864893470.765,
+    "hash": "e8bea849d7650b092c962080dcd83b21"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/icon-wysiwyg-unordered-list.svg": {
+    "mtime": 1788864893470.9434,
+    "hash": "9ac9b2bbbfafebe0b3f897f9d0a62d0c"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/moj-apple-touch-icon-152x152-2024.png": {
+    "mtime": 1788864893471.1873,
+    "hash": "a2da16dfcf78d3a3863cd32258393164"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/moj-apple-touch-icon-167x167-2024.png": {
+    "mtime": 1788864893471.388,
+    "hash": "1cd918549d9d666a2996e4c83125d775"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/moj-apple-touch-icon-180x180-2024.png": {
+    "mtime": 1788864893471.5735,
+    "hash": "4fd9a3447afcd0e61a501d35a94ad034"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/moj-apple-touch-icon-2024.png": {
+    "mtime": 1788864893471.7556,
+    "hash": "bc988ba167f3165dcec49f2e44fe39c4"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/moj-logotype-crest-2024.png": {
+    "mtime": 1788864893471.9436,
+    "hash": "b603681abe435f70bd8d9673fa6135e9"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/moj-logotype-crest-2024.svg": {
+    "mtime": 1788864893472.1826,
+    "hash": "795e3a9e042331623a4ee03d6e92b709"
+  },
+  "fee_calculator/apps/viewer/static/moj/assets/images/moj-opengraph-image-2024.png": {
+    "mtime": 1788864893472.4346,
+    "hash": "fa9908216ca10583aca662c49a1d20ea"
+  }
+}
