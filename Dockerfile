@@ -32,6 +32,10 @@ RUN \
     linux-headers \
   && pip3 install -U setuptools pipenv wheel
 
+RUN apk add --no-cache --upgrade \
+    ca-certificates \
+    ca-certificates-bundle
+
 COPY ./Pipfile /app/Pipfile
 COPY ./Pipfile.lock /app/Pipfile.lock
 
