@@ -18,25 +18,31 @@ jobs:
           --build-arg DJANGO_SECRET_KEY=real-secret-not-needed-here \
           --file Dockerfile .
 
+    - name: Set up Snyk CLI
+      uses: snyk/actions/setup@9adf32b1121593767fc3c057af55b55db032dc04
+
+    - name: Authenticate Snyk
+      env:
+        SNYK_CLIENT_ID: ${{ secrets.SNYK_CLIENT_ID }}
+        SNYK_CLIENT_SECRET: ${{ secrets.SNYK_CLIENT_SECRET }}
+      run: |
+        snyk auth --auth-type=oauth \
+          --client-id="$SNYK_CLIENT_ID" \
+          --client-secret="$SNYK_CLIENT_SECRET"
+
     - name: Scan docker image using snyk
       id: image-scan
-      uses: snyk/actions/docker@9adf32b1121593767fc3c057af55b55db032dc04
       continue-on-error: true
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        image: laa-fee-calculator:scan
-        args: --file=Dockerfile
+      run: |
+        snyk container test laa-fee-calculator:scan \
+          --file=Dockerfile \
+          --sarif-file-output=snyk.sarif
 
     - name: Monitor docker image using snyk
       id: image-monitor
-      uses: snyk/actions/docker@9adf32b1121593767fc3c057af55b55db032dc04
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        command: monitor
-        image: laa-fee-calculator:scan
-        args: --file=Dockerfile
+      run: |
+        snyk container monitor laa-fee-calculator:scan \
+          --file=Dockerfile
 
     - name: Upload result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2
