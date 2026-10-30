@@ -924,11 +924,12 @@
         },
         "pyflakes": {
             "hashes": [
-                "sha256:1559b701962c803eadeb9c215dbac279585367b73ac12e1f0c42868785e6caad",
-                "sha256:cb4e721195b96e1792f3dfaefa02fb36a4f6253e899bbe0793f8aef6ed0065ef"
+                "sha256:330ba92b8c1db2eb0b8f4068f6c58674e2649a99e334769aa50e3e9c5b11c23a",
+                "sha256:94762a3a5a343a79b28754f96c554bce057a592a4896907d73f0369fe824e053"
             ],
+            "index": "pypi",
             "markers": "python_version >= '3.10'",
-            "version": "==4.0.1"
+            "version": "==4.0.3"
         },
         "unittest-xml-reporting": {
             "hashes": [
