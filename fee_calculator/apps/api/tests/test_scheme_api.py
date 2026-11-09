@@ -111,3 +111,14 @@ class SchemeApiTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
         self.assertEqual(response.data['results'][0]['id'], AGFS_SCHEME_SEVENTEEN_ID)
+
+    def test_agfs_18_boundary_uses_only_representation_order_date(self):
+        for case_date, scheme_id in [('2026-10-31', 14), ('2026-11-01', 15), ('2026-12-01', 15)]:
+            for hearing_date in [None, '2026-10-01', '2026-12-01']:
+                with self.subTest(case_date=case_date, hearing_date=hearing_date):
+                    data = {'type': 'AGFS', 'case_date': case_date}
+                    if hearing_date:
+                        data['main_hearing_date'] = hearing_date
+                    response = self.client.get(self.endpoint, data)
+                    self.assertEqual(response.status_code, status.HTTP_200_OK)
+                    self.assertEqual([scheme['id'] for scheme in response.data['results']], [scheme_id])

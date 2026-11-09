@@ -147,10 +147,21 @@
     "pk": 14,
     "fields": {
       "start_date": "2026-07-28",
-      "end_date": null,
+      "end_date": "2026-10-31",
       "earliest_main_hearing_date": null,
       "base_type": 1,
       "description": "AGFS Fee Scheme 17"
+    }
+  },
+  {
+    "model": "calculator.scheme",
+    "pk": 15,
+    "fields": {
+      "start_date": "2026-11-01",
+      "end_date": null,
+      "earliest_main_hearing_date": null,
+      "base_type": 1,
+      "description": "AGFS Fee Scheme 18"
     }
   }
 ]

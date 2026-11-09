@@ -1058,5 +1058,45 @@
       "is_basic": false,
       "aggregation": "sum"
     }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 234,
+    "fields": {
+      "name": "Sentencing Hearing Additional Claim (Hourly Rates)",
+      "code": "AGFS_SENT_ADD",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 235,
+    "fields": {
+      "name": "Hearing for Mitigation of Sentence",
+      "code": "AGFS_MITIG",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 236,
+    "fields": {
+      "name": "Hearing for Mitigation of Sentence Additional Claim (Hourly Rates)",
+      "code": "AGFS_MIT_ADD",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
+  },
+  {
+    "model": "calculator.feetype",
+    "pk": 237,
+    "fields": {
+      "name": "Bail applications, mentions and other applications in appeal, committals for sentence and breach hearings",
+      "code": "AGFS_BAIL_APP",
+      "is_basic": false,
+      "aggregation": "sum"
+    }
   }
 ]
