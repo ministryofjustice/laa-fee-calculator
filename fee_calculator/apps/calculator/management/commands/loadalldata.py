@@ -31,5 +31,6 @@ class Command(BaseCommand):
             'price_12_agfs_16',
             'price_13_lgfs_11',
             'price_14_agfs_17',
+            'price_15_agfs_18',
         ]
         call_command('loadbulkdata', *fixtures, verbosity=verbosity)
