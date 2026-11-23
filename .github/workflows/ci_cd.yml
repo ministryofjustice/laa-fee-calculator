@@ -4,6 +4,7 @@ permissions:
 on:
   push:
   workflow_dispatch:
+  pull_request:
 
 env:
   IMAGE_NAME: app
@@ -186,6 +187,27 @@ jobs:
           REPOSITORY: ${{ vars.ECR_REPOSITORY }}
           IMAGE_TAG: app-${{ github.sha }}
        
+# ----------------------------
+# SAST-SCAN
+# ----------------------------
+  sast-scan:
+      if: github.event.pull_request.head.repo.full_name == github.repository
+      needs: build-and-push
+      name: SAST image scan
+      permissions:
+        id-token: write
+        contents: read
+        security-events: write
+        actions: read
+      uses: ministryofjustice/laa-reusable-github-actions/.github/workflows/sast.yml@7152e5b52e016ee20bca10b13d716c4f087599b4 # main as of 18/11/2026
+      with:
+        image_uri: ${{ format('{0}/{1}:app-{2}', vars.ECR_REGISTRY_HOST, vars.ECR_REPOSITORY, github.sha) }}
+        dockerfile_path: Dockerfile
+        iac_path: kubernetes_deploy/live
+      secrets:
+        SNYK_CLIENT_ID: ${{ secrets.SNYK_CLIENT_ID }}
+        SNYK_CLIENT_SECRET: ${{ secrets.SNYK_CLIENT_SECRET }}
+        ECR_ROLE_TO_ASSUME: ${{ secrets.ECR_ROLE_TO_ASSUME }}
 
 # ----------------------------
 # DEPLOY JOB TEMPLATE
