@@ -16,8 +16,8 @@ jobs:
       actions: read
     with:
       image_uri: ${{ format('{0}/{1}:app-latest', vars.ECR_REGISTRY_HOST, vars.ECR_REPOSITORY) }}
-      dockerfile_path: docker/Dockerfile
-      iac_path: .k8s/live
+      dockerfile_path: Dockerfile
+      iac_path: kubernetes_deploy/live
 
     secrets:
       SNYK_CLIENT_ID: ${{ secrets.SNYK_CLIENT_ID }}
