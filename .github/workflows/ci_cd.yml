@@ -214,7 +214,8 @@ jobs:
     if: >-
       github.event_name == 'pull_request' &&
       github.base_ref == 'main' &&
-      github.event.pull_request.head.repo.full_name == github.repository
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]'
     name: SAST code and IaC scan
     permissions:
       id-token: write
@@ -233,12 +234,13 @@ jobs:
     if: >-
       github.event_name == 'pull_request' &&
       github.base_ref == 'main' &&
-      github.event.pull_request.head.repo.full_name != github.repository
+      (github.event.pull_request.head.repo.full_name != github.repository ||
+       github.actor == 'dependabot[bot]')
     name: SAST code and IaC scan
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "::warning title=SAST not run::Fork PRs cannot access Snyk credentials. A maintainer must push this branch to ministryofjustice/laa-fee-calculator to scan it before merge."
+          echo "::warning title=SAST not run::For and Dependabot PRs cannot access Snyk credentials. A maintainer must push this branch to ministryofjustice/laa-fee-calculator to scan it before merge."
           exit 1
 
 # ----------------------------
