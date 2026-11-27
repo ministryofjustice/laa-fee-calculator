@@ -4,6 +4,7 @@ permissions:
 on:
   push:
   workflow_dispatch:
+  pull_request:
 
 env:
   IMAGE_NAME: app
@@ -143,6 +144,7 @@ jobs:
 # BUILD & PUSH DOCKER IMAGE
 # ----------------------------
   build-and-push:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     needs: [combine-coverage]
     permissions:
@@ -186,6 +188,60 @@ jobs:
           REPOSITORY: ${{ vars.ECR_REPOSITORY }}
           IMAGE_TAG: app-${{ github.sha }}
        
+# ----------------------------
+# SAST-SCAN
+# ----------------------------
+  sast-scan:
+      if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+      needs: build-and-push
+      name: SAST image scan
+      permissions:
+        id-token: write
+        contents: read
+        security-events: write
+        actions: read
+      uses: ministryofjustice/laa-reusable-github-actions/.github/workflows/sast.yml@7152e5b52e016ee20bca10b13d716c4f087599b4
+      with:
+        image_uri: ${{ format('{0}/{1}:app-{2}', vars.ECR_REGISTRY_HOST, vars.ECR_REPOSITORY, github.sha) }}
+        dockerfile_path: Dockerfile
+        iac_path: kubernetes_deploy/live
+      secrets:
+        SNYK_CLIENT_ID: ${{ secrets.SNYK_CLIENT_ID }}
+        SNYK_CLIENT_SECRET: ${{ secrets.SNYK_CLIENT_SECRET }}
+        ECR_ROLE_TO_ASSUME: ${{ secrets.ECR_ROLE_TO_ASSUME }}
+
+  sast-code-scan:
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.base_ref == 'main' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]'
+    name: SAST code and IaC scan
+    permissions:
+      id-token: write
+      contents: read
+      security-events: write
+      actions: read
+    uses: ministryofjustice/laa-reusable-github-actions/.github/workflows/sast.yml@7152e5b52e016ee20bca10b13d716c4f087599b4
+    with:
+      iac_path: kubernetes_deploy/live
+    secrets:
+      SNYK_CLIENT_ID: ${{ secrets.SNYK_CLIENT_ID }}
+      SNYK_CLIENT_SECRET: ${{ secrets.SNYK_CLIENT_SECRET }}
+
+  # Fork PRs get no secrets; pull_request_target would expose them to untrusted code.
+  sast-fork-notice:
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.base_ref == 'main' &&
+      (github.event.pull_request.head.repo.full_name != github.repository ||
+       github.actor == 'dependabot[bot]')
+    name: SAST code and IaC scan
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "::warning title=SAST not run::For and Dependabot PRs cannot access Snyk credentials. A maintainer must push this branch to ministryofjustice/laa-fee-calculator to scan it before merge."
+          exit 1
 
 # ----------------------------
 # DEPLOY JOB TEMPLATE
